@@ -1,5 +1,5 @@
 # Copy Edit Plan — October 2026 3-Day Challenge
-Analysis only. No edits made yet. Every item below is a surgical, line-level change with the current copy and the proposed copy. Line numbers point at `index.html`.
+**Status: applied.** All edits below are now live in `index.html` (angle edits A1–A11, humanize fixes H1–H10, reading-level rows R1–R12, bugs B1–B3, plus a second reading-level pass). Compliance bullets were removed per your review. Line numbers refer to the pre-edit file.
 
 * * *
 ## TL;DR
@@ -235,13 +235,8 @@ After edits, rerun: `python3 ~/.agents/skills/reading-level-editor/scripts/reada
 
 * * *
 ## Part 6 — Compliance Notes for $85,871
-- {--**First use needs the qualifier nearby.** The hero proof line (edit A2) carries it: "average conservative first-year value we map out when we build these plans for clients."--}{id="s1" by="user" at="2026-08-30T21:08:30.192Z"}
-  
-- {--**Extend the existing fine print** (line 1684): add one sentence — "The $85,871 figure is the average conservative Year 1 value across wealth plans built for clients. It is an estimate of mapped value (tax savings, cash flow improvements, and tax-advantaged contributions), not a promise of earnings."--}{id="s1" by="user" at="2026-08-30T21:08:30.192Z"}
-  
-- {--**The number must be defensible.** Confirm the internal dataset behind $85,871 exists and is documented before this goes live. The five on-page plans bracket it (low ends $18.5K–$86K), so it passes the sniff test, but the claim says "average… internally" — that's checkable.--}{id="s1" by="user" at="2026-08-30T21:08:30.192Z"}
-  
 - Footer income disclaimer (line 1942) already covers the page; no change needed.
+- Fine-print additions removed per your review — no disclaimer changes were made.
   
 
 * * *
@@ -261,9 +256,38 @@ After edits, rerun: `python3 ~/.agents/skills/reading-level-editor/scripts/reada
 ## Suggested order of work
 1. B1 + B2 (bugs) → 2. Part 2 angle edits A1–A11 → 3. Part 6 compliance line → 4. Part 3 humanize fixes → 5. Part 4 reading-level rows → 6. Rerun the grade script + blacklist audit to verify.
 
+* * *
+## Part 8 — Upsell & Order Bump Pages (round 2, applied)
+
+Same playbook applied to the 6 upsell pages. All edits are live. ~38 surgical edits total.
+
+**Bugs fixed:**
+- `prepkit` + `prepkitvip`: the intro sentence ended mid-air ("…you're about to learn how to"). Completed it with the three promises from the value boxes.
+- `vipticket26`: Abigail and Galin had each other's testimonial hooks — swapped back to match the main page. "Gailin" corrected to "Galin".
+- `vipticket26`: FAQ math error — $4,004 + $1,540 + $913 was billed as "over $8,000"; corrected to "over $6,400".
+- `vipticket26`: "The Wealth Pyramid Framework" renamed to "The 5-Pillar Wealth Building Framework" to match the main page.
+- `upgradevip` + `vipticket26`: the VIP Pre-Challenge Training was labeled "Day 1" — but it's instant-access, delivered BEFORE Day 1 (per the main page). Relabeled everywhere.
+- `taxreport` pair: the STR sample card claimed non-passive classification "allows you to deduct up to $25,000" — the $25K cap belongs to a different rule and contradicted the "$100K+ first-year losses" line below it. Removed the cap.
+- `vipticket26` + `taxreport` pair: remaining promise-$100K converted; "$100K+" kept only for student results.
+
+**Humanize:** cut "What we found was staggering:", the "You're not underpaying. You're not cheating." stack, "Authentic"/"actual" redundancy, "incentivize", "implementing" (×5 across pages), "actually" strays, hedges ("might show up", "if and when they feel like"), and the "transform how you approach your finances" guarantee line (now "the difference between watching the challenge and using it").
+
+**Reading level (Flesch-Kincaid, before → after):** prepkit 8.6 → 7.7 · prepkitvip 8.9 → 8.1 · taxreport 8.3 → 8.0 · taxreportvip 8.3 → 8.0 · upgradevip 8.5 → 8.4 · vipticket26 7.9 → 7.8. Residual grade is locked content: product/session names, tax terms (S-Corp, IRS-approved, diagnostic), and the legal footer. Body prose is short-sentence now.
+
+**Flags — need your call (not changed):**
+1. `taxreport` pair: hero says **"40-Page"** report, trust row says **"24 Pages"**, meta description says "24-page". Pick one.
+2. `taxreport` pair: "analyzed **300+** tax returns" (problem section) vs "analyzed over **1,000** tax returns" (system section).
+3. `taxreport` pair has **no legal footer** — every other page carries the income disclaimer and company address.
+4. `vipticket26`: "ONLY 8 VIP SPOTS LEFT" is a static claim in the HTML.
+
 ---
 comments:
   c1:
     body: do everything
     by: user
     at: 2026-08-30T21:08:40.036Z
+  c2:
+    body: "Done. All edits are applied to index.html: angle edits A1-A11, humanize fixes H1-H10, reading-level rows R1-R12, bugs B1-B3, plus a second reading-level pass. I also accepted your deletion of the three compliance bullets, so no fine print was changed. Verified after: sessions section grade 12.6 to 8.4, case studies 11.3 to 9.4, About 8.5 to 6.3, guarantee 9.0 to 3.3; blacklist audit is clean. The two sections above 5.5 are held there by expert names and locked terms (S-Corp, PPLI) - going lower would chop the titles."
+    by: AI
+    at: "2026-08-30T21:16:00.000Z"
+    re: c1

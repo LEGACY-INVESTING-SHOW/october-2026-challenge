@@ -91,7 +91,7 @@
 
     /* ---------- Type ---------- */
     .display { font-family: var(--sans); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); }
-    h1.display { font-size: clamp(1.75rem, 4.2vw, 3rem); line-height: 1.14; text-wrap: balance; }
+    h1.display { font-size: clamp(2.15rem, 5.6vw, 3.75rem); line-height: 1.08; letter-spacing: -0.038em; color: var(--forest); text-wrap: balance; }
     h2.display { font-size: clamp(1.6rem, 3.4vw, 2.4rem); text-wrap: balance; }
     h3 { font-weight: 600; color: var(--ink); }
 
@@ -181,14 +181,22 @@
     .topstrip span { color: var(--gold); }
 
     /* ---------- Hero ---------- */
-    .hero { padding-block: clamp(2.5rem, 6vw, 5.5rem); position: relative; }
+    .hero { padding-block: clamp(2.5rem, 5vw, 4rem); position: relative; }
     .hero-grid { display: grid; gap: 2.5rem; align-items: center; }
-    @media (min-width: 1024px) { .hero-grid { grid-template-columns: 1.05fr .95fr; gap: 4rem; } }
+    .only-desktop { display: none; }
+    @media (min-width: 1024px) {
+      .hero-grid { grid-template-columns: 1.08fr .92fr; gap: 4.5rem; }
+      h1.display { font-size: clamp(2.05rem, 2.6vw, 2.5rem); line-height: 1.14; }
+      .hero-copy h1.display { font-size: clamp(2.2rem, 2.9vw, 2.85rem); line-height: 1.13; }
+      .only-desktop { display: block; }
+      .only-mobile { display: none; }
+      .hero-cta { margin-top: 2.25rem; }
+      .hero-cta .date { font-size: .85rem; color: var(--ink-faint); margin-top: .8rem; }
+    }
     .hero-copy > * + * { margin-top: 1.25rem; }
-    .hero-pre { font-size: clamp(.95rem, 1.6vw, 1.1rem); color: var(--ink-soft); }
-    .hero-accent { color: var(--gold-ink); font-style: italic; font-family: var(--serif); font-weight: 500; }
-    .hero-sub { font-size: clamp(1rem, 1.8vw, 1.25rem); color: var(--ink-soft); }
-    .hero-proof { font-size: .95rem; color: var(--ink-faint); }
+    .hero-copy h1.display { margin-top: 1.05rem; }
+    .hero-accent { color: var(--gold-ink); font-style: italic; font-family: var(--serif); font-weight: 600; font-size: 1.04em; }
+    .hero-proof { font-size: .9rem; color: var(--ink-faint); }
 
     .video-frame {
       position: relative; aspect-ratio: 16/9; border-radius: 1rem; overflow: hidden;
@@ -221,7 +229,7 @@
     .featured-inner { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
     .featured-label { font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); }
     .featured-logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 2rem; }
-    .featured-logos img { object-contain: contain; }
+    .featured-logos img { object-fit: contain; mix-blend-mode: multiply; }
 
     /* ---------- Testimonials ---------- */
     .tri-grid { display: grid; gap: 1.25rem; }
@@ -250,8 +258,7 @@
     /* floating advice cards */
     .advice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .advice-col { display: flex; flex-direction: column; gap: 1rem; }
-    .advice-col.offset { margin-top: 2rem; }
-    .advice-card { padding: 1rem 1.1rem; transform: rotate(var(--rotate, 0deg)); }
+    .advice-card { padding: 1rem 1.1rem; }
     .advice-card .emoji { font-size: 1.4rem; display: block; margin-bottom: .4rem; }
     .advice-card span:last-child { font-size: .86rem; color: var(--ink-faint); }
 
@@ -290,7 +297,6 @@
       font-family: var(--serif); font-weight: 700; color: var(--gold);
       font-size: clamp(2.6rem, 6vw, 4rem); line-height: 1.05; margin-block: .5rem;
     }
-    .result-band .fine { font-size: .8rem; color: #8FA78F; margin-top: .6rem; }
 
     /* ---------- Agenda ---------- */
     .vip-banner { border: 1px solid #E5D3A0; background: var(--gold-tint); border-radius: 1.1rem; padding: 1.5rem; margin-bottom: 1.75rem; }
@@ -579,7 +585,7 @@
       .hide-mobile { display: none; }
       .count-cell { min-width: 3rem; }
       .btn-lg { width: 100%; }
-      h1.display { font-size: 1.6rem; }
+      h1.display { font-size: clamp(1.95rem, 7.4vw, 2.45rem); line-height: 1.12; }
       table.compare { font-size: .85rem; }
       .topstrip { font-size: .64rem; letter-spacing: .12em; }
       .cost-card { padding: 1.1rem .7rem; }
@@ -619,7 +625,7 @@
     <div class="modal-head">
       <span class="pill pill-gold" style="margin-bottom:1rem;"><span class="dot"></span>Almost There!</span>
       <h3>Reserve Your Spot</h3>
-      <p>Enter your details to secure your seat at the Tax-Free Income Challenge</p>
+      <p>Enter your details to save your seat.</p>
     </div>
 
     <form id="optInForm" onsubmit="handleOptInSubmit(event)">
@@ -671,7 +677,7 @@
 </header>
 
 <!-- Top strip -->
-<div class="topstrip">A Live 3-Day Challenge With Preston Seo <span>&bull;</span> October 16&ndash;18, 2026</div>
+<div class="topstrip">A Live 3-Day Tax-Free Income Challenge With Preston Seo <span>&bull;</span> October 16&ndash;18, 2026</div>
 
 <!-- ═══════════════════════════════════════════════════
      HERO SECTION
@@ -683,21 +689,21 @@
       <div class="hero-copy">
         <span class="pill pill-gold"><span class="dot"></span>Live Event - Oct 16 - Oct 18, 2026</span>
 
-        <p class="hero-pre">
-          Your 2025 Tax Bill Is About To Hit. But Your 2026 Strategy Starts Now. Join The 3-Day Challenge Where...
-        </p>
-
         <h1 class="display">
-          You'll Build Your Month-By-Month 2026 Roadmap To Cut Taxes By 50%, Wipe Out Debt, And Create <span class="hero-accent">$5K-$15K Monthly Cash Flow</span>
+          You'll Find The Leaks In Your Current Financial Setup, See Where Your Money Should Actually Go, And Build A Wealth Plan To Add <span class="hero-accent">$85,871</span> Over The Next 12 Months
         </h1>
 
-        <p class="hero-sub">
-          Not Learn About It, <strong>Actually Build It.</strong>
+        <p class="hero-proof">
+          ($85,871 is the average conservative first-year value we map out when we build these plans for clients. 4,400+ people have been through this system.)
         </p>
 
-        <p class="hero-proof">
-          (4,400+ high-income earners used this system to stop losing money to taxes and start building real wealth.)
-        </p>
+        <div class="hero-cta only-desktop">
+          <a href="#pricing" class="btn btn-gold btn-lg">
+            Claim Your Ticket Now
+            <svg class="arrow"><use href="#arrow-icon"/></svg>
+          </a>
+          <p class="date">Oct 16th - Oct 18th | 10 AM - 4 PM EST</p>
+        </div>
       </div>
 
       <!-- Right: Video + CTA -->
@@ -706,7 +712,7 @@
           <iframe src="https://player.vimeo.com/video/1169555561?autoplay=0&title=0&byline=0&wmode=transparent&autopause=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="eager"></iframe>
         </div>
 
-        <div style="text-align:center;">
+        <div class="only-mobile" style="text-align:center;">
           <a href="#pricing" class="btn btn-gold btn-lg">
             Claim Your Ticket Now
             <svg class="arrow"><use href="#arrow-icon"/></svg>
@@ -751,7 +757,7 @@
   <div class="wrap">
     <div class="section-head" style="margin-bottom:clamp(1.75rem,4vw,3.5rem);">
       <p class="kicker center">Success Stories</p>
-      <h2 class="display">4,400+ People Have Transformed Their Financial Future</h2>
+      <h2 class="display">4,400+ People Have Been Through This Challenge</h2>
     </div>
 
     <div class="tri-grid">
@@ -821,7 +827,7 @@
           You Already Know What You're <em style="color:var(--gold-ink);">Supposed</em> to Do
         </h2>
         <p class="muted" style="font-size:1.1rem;margin-bottom:1.4rem;">
-          Every guru online says the same thing. You've heard it all. And it's not that you don't get it... <strong>It's just not practical when you're actually trying to do it.</strong>
+          Every guru online says the same thing. You've heard it all. And it's not that you don't get it... <strong>It's just not practical when you're trying to do it.</strong>
         </p>
 
         <ul class="x-list" style="margin-bottom:1.75rem;">
@@ -839,14 +845,14 @@
       <!-- Right: Visual -->
       <div class="advice-grid">
         <div class="advice-col">
-          <div class="card advice-card" style="--rotate:2deg"><span class="emoji">💭</span><span>"Think like a millionaire"</span></div>
-          <div class="card advice-card" style="--rotate:-1deg"><span class="emoji">📊</span><span>"Assets vs. Liabilities"</span></div>
-          <div class="card advice-card" style="--rotate:1deg"><span class="emoji">💰</span><span>"Make your money work"</span></div>
+          <div class="card advice-card"><span class="emoji">💭</span><span>"Think like a millionaire"</span></div>
+          <div class="card advice-card"><span class="emoji">📊</span><span>"Assets vs. Liabilities"</span></div>
+          <div class="card advice-card"><span class="emoji">💰</span><span>"Make your money work"</span></div>
         </div>
-        <div class="advice-col offset">
-          <div class="card advice-card" style="--rotate:-2deg"><span class="emoji">📚</span><span>"Read Rich Dad Poor Dad"</span></div>
-          <div class="card advice-card" style="--rotate:2deg"><span class="emoji">☕</span><span>"Cut your daily coffee"</span></div>
-          <div class="card advice-card" style="--rotate:-1deg"><span class="emoji">🏃</span><span>"Quit your job"</span></div>
+        <div class="advice-col">
+          <div class="card advice-card"><span class="emoji">📚</span><span>"Read Rich Dad Poor Dad"</span></div>
+          <div class="card advice-card"><span class="emoji">☕</span><span>"Cut your daily coffee"</span></div>
+          <div class="card advice-card"><span class="emoji">🏃</span><span>"Quit your job"</span></div>
         </div>
       </div>
     </div>
@@ -886,7 +892,7 @@
           <li><span class="icon-x">✗</span>Every money decision was a coin flip. Should we pay off the car loan or max out the 401k?</li>
         </ul>
 
-        <p><strong>None of this means you lack discipline or intelligence.</strong> It just means... You're Doing What Everyone Else Does With Money. So, you also struggle like everyone else.</p>
+        <p><strong>None of this means you lack discipline or intelligence.</strong> It just means you're doing what everyone else does with money. So you get what everyone else gets.</p>
 
         <p>Until... we started learning everything we could about how money really worked. We changed the plan and...</p>
 
@@ -942,7 +948,7 @@
             <span class="pillar-num">02</span>
             <div>
               <h4><span class="pillar-emoji">💳</span>Eliminate High-Interest Debt</h4>
-              <p>After that, you eliminate high-interest debt so your money stops bleeding out every month.</p>
+              <p>After that, you wipe out high-interest debt. Your money stops bleeding out every month.</p>
             </div>
           </div>
           <div class="pillar">
@@ -963,16 +969,15 @@
             <span class="pillar-num">05</span>
             <div>
               <h4><span class="pillar-emoji">🛡️</span>Protect &amp; Pass It On</h4>
-              <p>And finally, you protect it all through the right entity structures so you can pass it across generations!</p>
+              <p>And finally, you protect it all with the right entity structures. Then you pass it across generations!</p>
             </div>
           </div>
         </div>
 
         <div class="result-band" style="margin-top:1.75rem;">
-          <p style="font-size:.92rem;">This Way, It's Realistic For Anyone To Add</p>
-          <div class="big">+$100,000</div>
-          <p>to your net worth in 12 months</p>
-          <p class="fine">(Most students end up adding much more... but $100K is the baseline we aim for)</p>
+          <p style="font-size:.92rem;">When We Build These Plans For Clients, The Average Conservative Plan Maps Out</p>
+          <div class="big">+$85,871</div>
+          <p>in first-year value</p>
         </div>
       </div>
     </div>
@@ -986,7 +991,7 @@
   <div class="wrap">
     <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3.5rem);">
       <p class="kicker center">The Challenge</p>
-      <h2 class="display">3 Days to Add $100K to Your Net Worth</h2>
+      <h2 class="display">3 Days To Find Your Leaks And Build Your $85,871 Wealth Plan</h2>
     </div>
 
     <!-- VIP Pre-Challenge Training (Instant Access) -->
@@ -1066,197 +1071,8 @@
       <div class="card info-card">
         <span class="emoji">🎯</span>
         <div class="k">Why</div>
-        <div class="v">$100K+ Net Worth</div>
-        <p>Cut taxes, eliminate debt, build $5K-$15K monthly income.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════
-     DETAILED SESSIONS BREAKDOWN
-     ═══════════════════════════════════════════════════ -->
-<section class="band-paper">
-  <div class="wrap wrap-md">
-    <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3rem);">
-      <h2 class="display">Here's Everything You Get When You Join The "$100K Net Worth" Challenge Today</h2>
-    </div>
-
-    <!-- VIP Pre-Challenge Training -->
-    <div style="margin-bottom:3rem;">
-      <div style="text-align:center;margin-bottom:1.5rem;">
-        <span class="vip-tag" style="font-size:.95rem;padding:.5rem 1.3rem;">VIP Only - Instant Access Training</span>
-      </div>
-      <div class="card sess-detail vip">
-        <h3>VIP Pre-Challenge Training: How We Legally Make $15M in Assets Disappear on Paper 👀</h3>
-        <p>My personal LLC, S-Corp, and holding company structure broken down step by step. The exact sequence from sole prop to fully protected. Why Wyoming. How dynasty trusts protect wealth for 1,000 years. How PPLI lets investments grow and pass to heirs tax-free. How equity stripping deters creditors before they even file. Plus the 6 S-Corp mistakes that quietly cost high earners thousands every year. You get access before the challenge starts so you already have context for everything we cover over the 3 days.</p>
-      </div>
-    </div>
-
-    <!-- Day 1 -->
-    <div style="margin-bottom:4rem;">
-      <div style="text-align:center;margin-bottom:2rem;">
-        <span class="day-label">Day 1</span>
-        <p class="muted" style="font-size:1.05rem;">Day 1 is about finding out where your money is really going, plugging the holes, and setting your path.</p>
-      </div>
-
-      <!-- Session 1 -->
-      <div class="card sess-detail">
-        <span class="sess-pill">Session 1</span>
-        <h3>The Middle-Class Money Trap: Why Working Harder Isn't Making You Richer</h3>
-        <p>Most people think working harder and earning more equals building wealth, but they're stuck in a system designed to keep them middle-class forever.</p>
-        <p class="lead-in">The Trap:</p>
-        <ul>
-          <li>Hidden fees bleed 1-2% annually, costing hundreds of thousands over decades</li>
-          <li>Most retirees pay 30%+ taxes on withdrawals</li>
-          <li>High-income earners today think they'll be in a lower tax bracket later, but they won't be</li>
-        </ul>
-        <p class="takeaway">You'll understand exactly why you feel broke despite good income and the mindset shifts that separate wealth builders from paycheck earners.</p>
-      </div>
-
-      <!-- Session 2 -->
-      <div class="card sess-detail">
-        <span class="sess-pill">Session 2</span>
-        <h3>Retirement Revolution: Why Your 401k Is Bleeding Money &amp; What To Do Instead</h3>
-        <p>People think maxing out a 401(k) is the best move, but they don't realize it's designed to make Wall Street rich while you work for 40 years.</p>
-        <p class="lead-in">What's broken in their current approach:</p>
-        <ul>
-          <li>They save what's left instead of keeping what they earn</li>
-          <li>Every raise gets eaten by taxes, inflation, and lifestyle creep</li>
-          <li>High earners making $100K-$200K feel broke because they're following broke people's money rules</li>
-        </ul>
-        <p class="takeaway">We'll show you how to take control of when your money gets taxed and stop letting fund managers split your life savings with the IRS.</p>
-      </div>
-
-      <!-- Session 3 -->
-      <div class="card sess-detail">
-        <span class="sess-pill">Session 3</span>
-        <h3>Debt Elimination &amp; Credit Mastery: From High-Interest Trap to Smart Funding</h3>
-        <p>Most people think debt is something to avoid completely, but the wealthy use strategic leverage to buy assets that pay them.</p>
-        <ul>
-          <li>How to eliminate wealth-killing debt without just "paying more"</li>
-          <li>Access $50K-$100K in business funding without affecting personal credit</li>
-          <li>The difference between consumer debt that kills wealth and strategic debt that builds it</li>
-        </ul>
-      </div>
-
-      <!-- Session 4 -->
-      <div class="card sess-detail">
-        <span class="sess-pill">Session 4</span>
-        <h3>Expert Deep Dive - Entity Structure &amp; Business Credit with Tommy Thornburgh (Prime Corporate Services)</h3>
-        <p>Deepdive into strategies from industry experts who've helped tens of thousands of W-2 income earners &amp; business owners optimize their financial structure and accelerate their wealth building timeline.</p>
-        <ul>
-          <li>Structuring entities for protection and scalability</li>
-          <li>Utilizing business credit for long-term growth</li>
-          <li>Common mistakes that lead to double taxation</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Day 2 -->
-    <div style="margin-bottom:4rem;">
-      <div style="text-align:center;margin-bottom:2rem;">
-        <span class="day-label">Day 2</span>
-        <p class="muted" style="font-size:1.05rem;">Once the leaks are fixed, it's time to speed it up. Day 2 is about adding advanced strategies to boost your income and cut taxes to reach your goals faster.</p>
-      </div>
-
-      <!-- Session 5 -->
-      <div class="card sess-detail">
-        <span class="sess-pill">Session 5</span>
-        <h3>The W-2 Taxes Playbook: How High-Earners Keep Losing Half Their Income</h3>
-        <p>How people making $1M+ pay less in taxes than someone making $80K. And how W-2 employees get punished for not knowing what business owners actually do.</p>
-        <p class="lead-in">What's broken:</p>
-        <ul>
-          <li>Most people think they're stuck with their W-2 tax rate... they're not</li>
-          <li>You're paying for expenses the IRS would let you deduct if you knew how to structure them</li>
-          <li>W-2 employees have zero write-offs while business owners write off everything</li>
-        </ul>
-        <p class="takeaway">Taxes are the #1 expense in life. High earners lose $1M+ over their lifetime due to poor structuring. You'll know exactly which strategies apply to your situation and how to implement them immediately.</p>
-      </div>
-
-      <!-- Session 6 -->
-      <div class="card sess-detail">
-        <span class="sess-pill">Session 6</span>
-        <h3>The Investor Playbook: How to Build Wealth Without Paying Taxes</h3>
-        <p>Previous session is about defense: Keeping more of what you earn. This session is about offense: Building wealth that never gets taxed.</p>
-        <p class="lead-in">What's broken:</p>
-        <ul>
-          <li>Most people save money in accounts that get taxed twice (going in and coming out)</li>
-          <li>They pay full price on investment gains when there are legal ways to offset them</li>
-          <li>They're not using tax-free growth accounts for long-term wealth building</li>
-        </ul>
-        <p class="takeaway">You'll learn how to write off major purchases, automatically reduce your tax bill on business income, turn investment losses into savings, and build wealth that compounds tax-free for decades.</p>
-      </div>
-
-      <!-- Session 7 -->
-      <div class="card sess-detail">
-        <span class="sess-pill">Session 7</span>
-        <h3>How To Start A 100% Tax-Free Airbnb Business (Without Buying Property Or Quitting Your Job)</h3>
-        <p>I'll show you how to build income streams that net $5K-$15K monthly alongside your job and make it all tax-advantaged legally. Now that you've seen all the individual strategies, we'll show you how they work together as a complete system to add $100K+ to your net worth within 12 months.</p>
-      </div>
-
-      <!-- Session 8 -->
-      <div class="card sess-detail">
-        <span class="sess-pill">Session 8</span>
-        <h3>The Complete Wealth Acceleration System: How Everything Works Together To Add $100K</h3>
-        <p>Get your specific questions answered about implementing everything you've learned so far.</p>
-      </div>
-
-      <!-- VIP Session 1 -->
-      <div class="card sess-detail vip">
-        <span class="vip-tag">VIP Session 1</span>
-        <h3>VIP Day 2 Session: Live Roundtable Q&amp;A With Preston</h3>
-        <p>Live roundtable call where you can unmute and get your specific questions answered directly.</p>
-      </div>
-    </div>
-
-    <!-- Day 3 -->
-    <div>
-      <div style="text-align:center;margin-bottom:2rem;">
-        <span class="day-label">Day 3</span>
-        <p class="muted" style="font-size:1.05rem;">The final step is making sure it lasts. Day 3 is about protecting what you've built, passing it on, and leaving a legacy that actually grows over time.</p>
-      </div>
-
-      <!-- Session 9 -->
-      <div class="card sess-detail">
-        <span class="sess-pill">Session 9</span>
-        <h3>Beyond the Basics: Advanced Tax Optimization with Garrett Maughan (Prime Corporate Services)</h3>
-        <p>True wealth isn't just about making money. It's about keeping it and passing it on without getting taxed to death.</p>
-        <p class="lead-in">What's broken in their current approach:</p>
-        <ul>
-          <li>They have no exit strategy, so their wealth disappears in poorly executed inheritance plans</li>
-          <li>The wealthy use trust structures to pass down wealth tax-free - normal people lose 40%+ to estate taxes</li>
-          <li>Most people only think about retirement, but what happens after that?</li>
-        </ul>
-        <p class="takeaway">We'll show you how to structure multi-generational wealth transfer the right way using the same legal structures the wealthy use.</p>
-      </div>
-
-      <!-- Session 10 -->
-      <div class="card sess-detail">
-        <span class="sess-pill">Session 10</span>
-        <h3>Your 12-Month Wealth Implementation Roadmap</h3>
-        <p>The exact order to tackle each piece so you see results fast without getting overwhelmed. What to do first, second, and third to start building serious wealth immediately.</p>
-      </div>
-
-      <!-- Session 11 -->
-      <div class="card sess-detail">
-        <span class="sess-pill">Session 11</span>
-        <h3>How Students Hit $100K+ Net Worth (Real Numbers, Real Strategies)</h3>
-        <p>Real case studies from working professionals who implemented these exact strategies. See the specific numbers, timelines, and results so you know exactly what's possible.</p>
-      </div>
-
-      <!-- Session 12 -->
-      <div class="card sess-detail">
-        <span class="sess-pill">Session 12</span>
-        <h3>Your Next Steps And Beyond</h3>
-        <p>Get your specific questions answered and walk away knowing exactly what to do to add $100K to your net worth in the next 12 months.</p>
-      </div>
-
-      <!-- VIP Session 2 -->
-      <div class="card sess-detail vip">
-        <span class="vip-tag">VIP Session 2</span>
-        <h3>VIP Day 3 Session: Live Roundtable Q&amp;A With Preston</h3>
-        <p>Live roundtable call where you can unmute and get your specific questions answered directly.</p>
+        <div class="v">Your $85,871 Wealth Plan</div>
+        <p>Find the leaks. Cut taxes. Build $5K-$15K monthly income.</p>
       </div>
     </div>
   </div>
@@ -1301,7 +1117,7 @@
           <li>You're losing $20K-$50K every year to taxes without knowing why</li>
           <li>Stuck making minimum payments while your money sits idle</li>
           <li>Every financial decision feels like a coin toss</li>
-          <li>Watching friends buy homes while you feel left behind</li>
+          <li>A six-figure income and nothing to show for it</li>
           <li>Constant second-guessing because every "expert" says something different</li>
         </ul>
       </div>
@@ -1312,11 +1128,200 @@
         <ul>
           <li>Keeping more of every paycheck and seeing your savings grow</li>
           <li>High-interest debts gone and cash flow freed up</li>
-          <li>Every decision feels clear because you know exactly WHAT to do and WHEN</li>
+          <li>Every decision feels clear because you know WHAT to do and WHEN</li>
           <li>EXACT steps to create $5K-$15K monthly income streams</li>
           <li>Wealth protection strategies to pass money tax-free across generations</li>
-          <li>A predictable plan to add $100K to your net worth within 12 months</li>
+          <li>Your wealth plan built: $85,871 in mapped year-one value</li>
         </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     DETAILED SESSIONS BREAKDOWN
+     ═══════════════════════════════════════════════════ -->
+<section class="band-paper">
+  <div class="wrap wrap-md">
+    <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3rem);">
+      <h2 class="display">Here's Everything You Get When You Join The Challenge Today</h2>
+    </div>
+
+    <!-- VIP Pre-Challenge Training -->
+    <div style="margin-bottom:3rem;">
+      <div style="text-align:center;margin-bottom:1.5rem;">
+        <span class="vip-tag" style="font-size:.95rem;padding:.5rem 1.3rem;">VIP Only - Instant Access Training</span>
+      </div>
+      <div class="card sess-detail vip">
+        <h3>VIP Pre-Challenge Training: How We Legally Make $15M in Assets Disappear on Paper 👀</h3>
+        <p>My personal LLC, S-Corp, and holding company structure broken down step by step. The exact sequence from sole prop to fully protected. Why Wyoming. How dynasty trusts protect wealth for 1,000 years. How PPLI lets investments grow and pass to heirs tax-free. How equity stripping deters creditors before they even file. Plus the 6 S-Corp mistakes that quietly cost high earners thousands every year. You get access before the challenge starts, so you walk into Day 1 ahead.</p>
+      </div>
+    </div>
+
+    <!-- Day 1 -->
+    <div style="margin-bottom:4rem;">
+      <div style="text-align:center;margin-bottom:2rem;">
+        <span class="day-label">Day 1</span>
+        <p class="muted" style="font-size:1.05rem;">Day 1 is about finding out where your money is really going, plugging the holes, and setting your path.</p>
+      </div>
+
+      <!-- Session 1 -->
+      <div class="card sess-detail">
+        <span class="sess-pill">Session 1</span>
+        <h3>The Middle-Class Money Trap: Why Working Harder Isn't Making You Richer</h3>
+        <p>Most people think more work and more pay build wealth. They don't. The system is built to keep you middle-class.</p>
+        <p class="lead-in">The Trap:</p>
+        <ul>
+          <li>Hidden fees take 1-2% a year. Over decades, that's hundreds of thousands.</li>
+          <li>Most retirees pay 30%+ taxes on withdrawals</li>
+          <li>High-income earners today think they'll be in a lower tax bracket later, but they won't be</li>
+        </ul>
+        <p class="takeaway">You'll understand exactly why you feel broke despite good income and the mindset shifts that separate wealth builders from paycheck earners.</p>
+      </div>
+
+      <!-- Session 2 -->
+      <div class="card sess-detail">
+        <span class="sess-pill">Session 2</span>
+        <h3>Retirement Revolution: Why Your 401k Is Bleeding Money &amp; What To Do Instead</h3>
+        <p>Most people think maxing out a 401(k) is the smart move. But it's built to make Wall Street rich while you work 40 years.</p>
+        <p class="lead-in">What's broken in their current approach:</p>
+        <ul>
+          <li>They save what's left instead of keeping what they earn</li>
+          <li>Every raise gets eaten by taxes, inflation, and lifestyle creep</li>
+          <li>High earners making $100K-$200K feel broke because they're following broke people's money rules</li>
+        </ul>
+        <p class="takeaway">We'll show you how to control WHEN your money gets taxed. Stop letting fund managers split your life savings with the IRS.</p>
+      </div>
+
+      <!-- Session 3 -->
+      <div class="card sess-detail">
+        <span class="sess-pill">Session 3</span>
+        <h3>Debt Elimination &amp; Credit Mastery: From High-Interest Trap to Smart Funding</h3>
+        <p>Most people think all debt is bad. The wealthy use it to buy assets that pay them.</p>
+        <ul>
+          <li>How to eliminate wealth-killing debt without just "paying more"</li>
+          <li>Access $50K-$100K in business funding without affecting personal credit</li>
+          <li>The difference between consumer debt that kills wealth and strategic debt that builds it</li>
+        </ul>
+      </div>
+
+      <!-- Session 4 -->
+      <div class="card sess-detail">
+        <span class="sess-pill">Session 4</span>
+        <h3>Expert Deep Dive - Entity Structure &amp; Business Credit with Tommy Thornburgh (Prime Corporate Services)</h3>
+        <p>Tommy Thornburgh's team at Prime Corporate Services has set up entities for tens of thousands of W-2 earners and business owners. He'll show you what they do differently.</p>
+        <ul>
+          <li>Structuring entities for protection and growth</li>
+          <li>How to use business credit to grow</li>
+          <li>Common mistakes that lead to double taxation</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div style="margin-bottom:4rem;">
+      <div style="text-align:center;margin-bottom:2rem;">
+        <span class="day-label">Day 2</span>
+        <p class="muted" style="font-size:1.05rem;">Once the leaks are fixed, it's time to speed it up. Day 2 is about advanced strategies to boost your income and cut taxes. So you reach your goals faster.</p>
+      </div>
+
+      <!-- Session 5 -->
+      <div class="card sess-detail">
+        <span class="sess-pill">Session 5</span>
+        <h3>The W-2 Taxes Playbook: How High-Earners Keep Losing Half Their Income</h3>
+        <p>How people making $1M+ pay less in taxes than someone making $80K. And how W-2 employees get punished for not knowing what business owners do.</p>
+        <p class="lead-in">What's broken:</p>
+        <ul>
+          <li>Most people think they're stuck with their W-2 tax rate... they're not</li>
+          <li>You're paying for expenses the IRS would let you deduct. You just don't know how to structure them.</li>
+          <li>W-2 employees have zero write-offs while business owners write off everything</li>
+        </ul>
+        <p class="takeaway">Taxes are the #1 expense in your life. Poor structure costs high earners $1M+ over a lifetime. You'll leave knowing which strategies fit you, and in what order.</p>
+      </div>
+
+      <!-- Session 6 -->
+      <div class="card sess-detail">
+        <span class="sess-pill">Session 6</span>
+        <h3>The Investor Playbook: How to Build Wealth Without Paying Taxes</h3>
+        <p>Previous session is about defense: Keeping more of what you earn. This session is about offense: Building wealth that never gets taxed.</p>
+        <p class="lead-in">What's broken:</p>
+        <ul>
+          <li>Most people save money in accounts that get taxed twice (going in and coming out)</li>
+          <li>They pay full price on investment gains when there are legal ways to offset them</li>
+          <li>They're not using tax-free growth accounts for long-term wealth building</li>
+        </ul>
+        <p class="takeaway">You'll learn how to write off big purchases. Cut the tax bill on business income. Turn investment losses into savings. And build wealth that compounds tax-free for decades.</p>
+      </div>
+
+      <!-- Session 7 -->
+      <div class="card sess-detail">
+        <span class="sess-pill">Session 7</span>
+        <h3>How To Start A 100% Tax-Free Airbnb Business (Without Buying Property Or Quitting Your Job)</h3>
+        <p>I'll show you how to build income streams that net $5K-$15K monthly alongside your job and make it all tax-advantaged legally.</p>
+      </div>
+
+      <!-- Session 8 -->
+      <div class="card sess-detail">
+        <span class="sess-pill">Session 8</span>
+        <h3>The Complete Wealth Acceleration System: How Everything Works Together To Build Your Wealth Plan</h3>
+        <p>Now that you've seen every strategy, we'll show you how they stack into one system. That's where your wealth plan comes together. The average conservative plan we build maps out $85,871 in first-year value.</p>
+      </div>
+
+      <!-- VIP Session 1 -->
+      <div class="card sess-detail vip">
+        <span class="vip-tag">VIP Session 1</span>
+        <h3>VIP Day 2 Session: Live Roundtable Q&amp;A With Preston</h3>
+        <p>Live roundtable call where you can unmute and ask Preston directly.</p>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div>
+      <div style="text-align:center;margin-bottom:2rem;">
+        <span class="day-label">Day 3</span>
+        <p class="muted" style="font-size:1.05rem;">The final step is making sure it lasts. Day 3 is about protecting what you've built, passing it on, and leaving a legacy that grows.</p>
+      </div>
+
+      <!-- Session 9 -->
+      <div class="card sess-detail">
+        <span class="sess-pill">Session 9</span>
+        <h3>Beyond the Basics: Advanced Tax Optimization with Garrett Maughan (Prime Corporate Services)</h3>
+        <p>True wealth isn't just about making money. It's about keeping it and passing it on without the IRS taking 40% on the way down.</p>
+        <p class="lead-in">What's broken in their current approach:</p>
+        <ul>
+          <li>They have no exit plan, so their wealth gets lost in messy inheritance plans</li>
+          <li>The wealthy use trust structures to pass down wealth tax-free - normal people lose 40%+ to estate taxes</li>
+          <li>Most people only think about retirement, but what happens after that?</li>
+        </ul>
+        <p class="takeaway">We'll show you how to pass wealth down the right way, using the same legal structures the wealthy use.</p>
+      </div>
+
+      <!-- Session 10 -->
+      <div class="card sess-detail">
+        <span class="sess-pill">Session 10</span>
+        <h3>Your 12-Month Wealth Implementation Roadmap</h3>
+        <p>The order to tackle each piece so you see results fast without getting overwhelmed. What to do first, second, and third to start building serious wealth now.</p>
+      </div>
+
+      <!-- Session 11 -->
+      <div class="card sess-detail">
+        <span class="sess-pill">Session 11</span>
+        <h3>How Students Hit $100K+ Net Worth (Real Numbers, Real Strategies)</h3>
+        <p>Real case studies from working professionals who used these strategies. See the numbers, timelines, and results so you know what's possible.</p>
+      </div>
+
+      <!-- Session 12 -->
+      <div class="card sess-detail">
+        <span class="sess-pill">Session 12</span>
+        <h3>Your Next Steps And Beyond</h3>
+        <p>Get your last questions answered and walk away with your own 12-month wealth plan in hand.</p>
+      </div>
+
+      <!-- VIP Session 2 -->
+      <div class="card sess-detail vip">
+        <span class="vip-tag">VIP Session 2</span>
+        <h3>VIP Day 3 Session: Live Roundtable Q&amp;A With Preston</h3>
+        <p>Live roundtable call. Bring your plan and get it checked live.</p>
       </div>
     </div>
   </div>
@@ -1343,8 +1348,8 @@
       <div class="card info-card">
         <span class="emoji">🎯</span>
         <div class="k">Why</div>
-        <div class="v">$100K+ Net Worth</div>
-        <p>Cut taxes, eliminate debt, build $5K-$15K monthly income.</p>
+        <div class="v">Your $85,871 Wealth Plan</div>
+        <p>Find the leaks. Cut taxes. Build $5K-$15K monthly income.</p>
       </div>
     </div>
   </div>
@@ -1373,7 +1378,7 @@
 
         <ul class="price-list">
           <li><svg class="check-svg"><use href="#check-icon"/></svg>The middle-class money trap breakdown + your escape plan</li>
-          <li><svg class="check-svg"><use href="#check-icon"/></svg>401k alternatives that actually build wealth faster</li>
+          <li><svg class="check-svg"><use href="#check-icon"/></svg>401k alternatives that build wealth faster</li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg>Tax strategies that save high earners $20K-$50K annually</li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg>Debt elimination + access to $50K-$100K in funding</li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg>Your first $5K-$15K/month income stream blueprint</li>
@@ -1394,7 +1399,7 @@
         <p class="price-intro">Everything in General Admission plus...</p>
 
         <ul class="price-list">
-          <li><svg class="check-svg gold" style="color:var(--gold);"><use href="#check-icon"/></svg>Pre-challenge access to Preston's $15M Asset Protection Masterclass covering the exact LLC, S-Corp, trust, and holding company structure Preston uses across his own $20M+ portfolio. Dynasty trusts, PPLI, equity stripping, and the S-Corp mistakes that cost people thousands. Sent to you BEFORE the challenge starts.</li>
+          <li><svg class="check-svg gold" style="color:var(--gold);"><use href="#check-icon"/></svg>Preston's $15M Asset Protection Masterclass, sent BEFORE the challenge starts. The same LLC, S-Corp, trust, and holding company structure he uses on his own $20M+ portfolio — plus the S-Corp mistakes that cost people thousands.</li>
           <li><svg class="check-svg gold" style="color:var(--gold);"><use href="#check-icon"/></svg>Live roundtable calls with Preston (Days 2 &amp; 3) where you can unmute and get your specific questions answered</li>
           <li><svg class="check-svg gold" style="color:var(--gold);"><use href="#check-icon"/></svg>Lifetime access to 15+ hours of session replays, slides, notes, and materials</li>
         </ul>
@@ -1445,7 +1450,7 @@
         <h3 class="m-center">Dustin Cotten</h3>
         <p class="hook m-center">"I didn't want to work my whole life just to be told I couldn't use my own money."</p>
         <p class="body">
-          Dustin was in corporate sales, looking for a way out. The turning point came when his girlfriend's mom passed away at 62 with savings locked up. He decided to take his finances in his own hands.
+          Dustin was in corporate sales, looking for a way out. The turning point came when his girlfriend's mom passed away at 62 with savings locked up. He decided to take his finances into his own hands.
         </p>
         <div class="stat-grid">
           <div class="card stat-chip"><span class="emoji">🏠</span><p>First property in 30 days, $3K/month</p></div>
@@ -1469,7 +1474,7 @@
         </p>
         <div>
           <div class="card stat-row"><span class="emoji">🏦</span><p>$100K+ in tax savings and paper losses</p></div>
-          <div class="card stat-row"><span class="emoji">📈</span><p>Six figures redirected into long-term investments</p></div>
+          <div class="card stat-row"><span class="emoji">📈</span><p>Six figures moved into long-term investments</p></div>
         </div>
         <div class="roi-box">
           <p class="k">Estimated 12-Month ROI</p>
@@ -1483,7 +1488,7 @@
       <h3 style="font-family:var(--serif);font-size:1.6rem;margin-bottom:.4rem;">Abigail</h3>
       <p class="hook" style="color:var(--gold-ink);font-family:var(--serif);font-style:italic;margin-bottom:.9rem;">Eliminating Taxes and Building Early Freedom</p>
       <p class="muted" style="margin-bottom:1.4rem;">
-        Before, their household was stuck watching too much of a W-2 paycheck disappear to the IRS. Retirement felt locked away until age 59½, and every move seemed tied up with penalties or restrictions. After putting the right pieces in place, they now have a plan to legally cut taxes to zero, create penalty-free income years earlier, and move money into assets that actually grow.
+        Before, too much of their W-2 paycheck went straight to the IRS. Retirement felt locked until 59½. Every move came with a penalty. Now they have a plan to legally cut taxes to zero, unlock penalty-free income years earlier, and move money into assets that grow.
       </p>
       <div class="stat-grid">
         <div class="card stat-row"><span class="emoji">🏦</span><p>~$52,500 cash refund from tax savings</p></div>
@@ -1593,7 +1598,6 @@
       </div>
       <div class="plan-body">
         <p>They didn't want vague promises. They wanted the exact math.</p>
-        <p>Not "you could save money." Not "this works for most people."</p>
         <p>They wanted to see where every dollar comes from. Line by line. Strategy by strategy.</p>
         <p>At $300K combined income in San Francisco, they're in the <strong>46% combined bracket</strong>. Every dollar of deductions saves 46 cents. That math changes everything.</p>
         <p>Their wealth plan identified <strong>8 strategies</strong> totaling $86,220-$192,050 in year-one value:</p>
@@ -1686,7 +1690,7 @@
     <!-- Bottom CTA -->
     <div style="text-align:center;margin-top:3rem;">
       <p class="muted" style="font-size:1.1rem;margin-bottom:.6rem;">Different situations. Different numbers. <strong>Same process.</strong></p>
-      <p class="muted" style="margin-bottom:2rem;">One of these will click for you. Then you'll know exactly where to focus.</p>
+      <p class="muted" style="margin-bottom:2rem;">Average the conservative end of every plan we build, and it comes out to <strong>$85,871 in year-one value</strong>. Inside the challenge, you build yours.</p>
       <a href="#pricing" class="btn btn-gold btn-lg">
         See The Process Inside The Challenge
         <svg class="arrow"><use href="#arrow-icon"/></svg>
@@ -1752,11 +1756,11 @@
         <h3 class="display m-center">From Broke to $20M+ Portfolio</h3>
 
         <div class="about-text">
-          <p>I'm a 33-year-old who used to follow the same money rules as everyone else - save what's left, avoid debt, hope the 401k works out.</p>
+          <p>I'm 33. I used to follow the same money rules as everyone else: save what's left, avoid debt, hope the 401k works out.</p>
 
-          <p>I was stuck in that cycle until I started learning everything I could about personal finance, investing, and real estate. My wife and I both applied what we learned. <strong>By 28, I became financially free</strong> and we built a $20M+ real estate portfolio.</p>
+          <p>I was stuck in that cycle. Then I started learning everything I could about money, investing, and real estate. My wife and I applied all of it. <strong>By 28, I became financially free</strong> and we built a $20M+ real estate portfolio.</p>
 
-          <p>I share what I've learned with over <strong>6 million people</strong> about how money actually works and the real strategies wealthy people use.</p>
+          <p>I share what I've learned with over <strong>6 million people</strong> about how money works and the real strategies wealthy people use.</p>
 
           <p>Over the years, this work has put me in rooms with people like <strong>Pace Morby and Dean Graziosi</strong>. I've been featured alongside Ray Dalio, Robert Kiyosaki, and Daymond John.</p>
         </div>
@@ -1779,10 +1783,10 @@
       <h3>100% Risk-Free Guarantee</h3>
       <p class="sub">No Questions Asked</p>
       <p style="font-size:1.1rem;">
-        We're confident that in just 3 days you'll walk away with a real plan to finally take control of your money.
+        In 3 days, you'll walk away with your wealth plan built.
       </p>
       <p>
-        <strong>If you don't leave with total clarity on what to do next, just email us within 7 days and we'll refund you.</strong>
+        <strong>If you don't leave with total clarity on what to do next, email us within 7 days. We'll refund you.</strong>
       </p>
     </div>
   </div>
@@ -1891,12 +1895,12 @@
 
     <div class="cost-total">
       <p class="k">Total Cost of Waiting One Year</p>
-      <div class="v">$250,000+</div>
+      <div class="v">$85,871</div>
       <p>
-        <strong>Here's the math:</strong> $4K/month in avoidable taxes ($48K/year) + $1K/month in unnecessary interest ($12K/year) + $10K/month in missed income opportunities ($120K/year) + $70K+ in lost compound growth = <strong>$250K+ every year you wait</strong>
+        That's the average conservative first-year value of the plan you'd build this weekend. No plan, no leaks found, no strategies mapped. Every year you wait, you hand that number back.
       </p>
       <p>
-        Or you can invest <span class="gold">$47 today</span> and start keeping that money instead.
+        Or you can invest <span class="gold">$47 today</span> and go get it.
       </p>
     </div>
   </div>
@@ -1907,7 +1911,7 @@
      ═══════════════════════════════════════════════════ -->
 <section class="band-forest final-cta">
   <div class="wrap wrap-sm">
-    <h2 class="display" style="margin-bottom:2rem;">So, What Are You Waiting For?</h2>
+    <h2 class="display" style="margin-bottom:2rem;">The Plan Is Worth $85,871. The Ticket Is $47.</h2>
 
     <a href="#pricing" class="btn btn-gold btn-lg">
       Get Started Now
