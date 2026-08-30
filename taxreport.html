@@ -136,7 +136,7 @@
       .btn-ghost-light:hover { background: rgba(255,253,246,.07); color: #F5F1E3; }
       .btn-xl { padding: 1.15rem 2rem; font-size: clamp(.98rem, 2.2vw, 1.15rem); line-height: 1.35; }
       .btn-md { padding: .8rem 1.5rem; font-size: .95rem; }
-      .btn-block { display: flex; width: 100%; }
+      .btn-block { display: flex; width: 100%; border-radius: .85rem; }
       .arrow { width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
 
       /* ---------- Cards & panels ---------- */
@@ -343,29 +343,34 @@
       }
       .shield svg { width: 2.2rem; height: 2.2rem; color: var(--emerald); }
       .guarantee-card h2 { font-family: var(--serif); font-size: clamp(1.35rem, 2.8vw, 1.9rem); margin-bottom: 1rem; }
-      .guarantee-card .lead { color: var(--ink-soft); font-size: 1.05rem; margin-bottom: 1rem; }
+      .guarantee-card .lead { color: var(--ink-soft); font-size: 1.05rem; }
       .guarantee-card .lead .win { color: var(--emerald); font-weight: 700; }
-      .guarantee-card .fine { font-size: .85rem; color: var(--ink-faint); }
 
       /* ---------- Final CTA ---------- */
       .final { text-align: center; }
       .final-warn {
-        display: inline-flex; align-items: center; justify-content: center;
-        font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-        color: #E9AF9F; border: 1px solid rgba(233,175,159,.35); background: rgba(233,175,159,.08);
-        border-radius: 999px; padding: .45rem 1.1rem; margin-bottom: 1.5rem; line-height: 1.5;
-        max-width: 100%; text-align: center;
+        display: flex; align-items: center; justify-content: center; gap: .85rem;
+        font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+        color: var(--gold); margin-bottom: 1.5rem; line-height: 1.6;
+      }
+      .final-warn::before, .final-warn::after {
+        content: ""; width: 1.75rem; height: 1px; background: rgba(217,169,61,.45); flex-shrink: 0;
       }
       .final h2 { margin-bottom: 1.25rem; font-size: clamp(1.9rem, 5vw, 3rem); }
       .final .gold-word { color: var(--gold); }
       .final-sub { color: #A9BCA9; font-size: 1.05rem; max-width: 36rem; margin: 0 auto 2.25rem; }
-      .final-actions { max-width: 42rem; margin-inline: auto; }
-      .decline-box {
-        margin-top: 1rem; border: 1px solid var(--forest-edge); background: rgba(255,253,246,.04);
-        border-radius: 1.1rem; padding: 1.1rem 1.25rem; text-align: center;
+      .final-actions {
+        max-width: 42rem; margin-inline: auto;
+        display: grid; gap: 1.75rem; justify-items: stretch;
       }
-      .decline-box .k { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: #A9BCA9; margin-bottom: .8rem; }
-      .final-trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 1.75rem; margin-top: 2.25rem; }
+      .decline-link {
+        justify-self: center;
+        color: #8FA58F; font-size: .92rem; text-decoration: underline;
+        text-underline-offset: 4px; text-decoration-color: rgba(169,188,169,.4);
+        transition: color .18s, text-decoration-color .18s;
+      }
+      .decline-link:hover { color: #F5F1E3; text-decoration-color: #F5F1E3; }
+      .final-trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 1.75rem; margin-top: 2.5rem; }
       .final-trust div { display: flex; align-items: center; gap: .5rem; font-size: .88rem; color: #A9BCA9; }
       .final-trust svg { color: #6FBF92; }
 
@@ -376,6 +381,7 @@
         .kicker.m-center::after { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
       }
       @media (max-width: 640px) {
+        .final-warn::before, .final-warn::after { display: none; }
         .btn-xl { width: 100%; }
         .alert-note { font-size: .64rem; letter-spacing: .08em; }
         .compare { font-size: .88rem; }
@@ -450,7 +456,7 @@
             <div class="hero-copy">
                 <h1 class="display">
                     Get Your Own<br>
-                    <span class="gold-word">40-Page Tax Analysis Report</span>
+                    <span class="gold-word">24-Page Tax Analysis Report</span>
                 </h1>
 
                 <p class="hero-sub">
@@ -470,7 +476,6 @@
     <section class="band-paper">
         <div class="wrap">
             <div class="section-head">
-                <p class="kicker center">The Hidden Cost</p>
                 <h2 class="display">
                     The Tax You're Paying<br>That Nobody Talks About
                 </h2>
@@ -479,16 +484,16 @@
             <div class="split start">
                 <div>
                     <div class="pullquote" style="margin-bottom:1.75rem;">
-                        "Every year, the IRS collects $4.9 trillion. A significant portion comes from people who simply don't know the legal strategies available to them."
+                        Every year, the IRS collects $4.9 trillion. A lot of it comes from people who don't know the legal strategies available to them.
                     </div>
 
                     <div class="body-copy">
                         <p>
-                            You're not cheating. You're overpaying because no one taught you the rules. The tax code has over 70,000 pages of incentives, deductions, and strategies—but your CPA only uses the same dozen every year.
+                            You're not cheating. You're overpaying because no one taught you the rules. The tax code has over 70,000 pages of incentives, deductions, and strategies. But your CPA only uses the same dozen every year.
                         </p>
 
                         <p>
-                            We analyzed 300+ tax returns and found the same pattern: <strong>94% of high earners were overpaying by $22,000-$57,000</strong> because they didn't know what they didn't know.
+                            We analyzed 300+ tax returns and found the same pattern: <strong>94% of high earners were overpaying by $22,000-$57,000</strong>.
                         </p>
                     </div>
                 </div>
@@ -532,20 +537,19 @@
         <div class="wrap">
             <div class="split start">
                 <div>
-                    <p class="kicker m-center">The Proprietary System</p>
                     <h2 class="display m-center" style="margin-bottom:1.5rem;">
                         How We Discovered the 37 Strategies Most Taxpayers Miss
                     </h2>
 
                     <div class="body-copy">
                         <p>
-                            Over the past 5 years, our team analyzed over <strong>1,000 tax returns</strong> from high earners, business owners, and real estate investors. We weren't looking for errors. We were looking for patterns.
+                            Over the past 5 years, our team analyzed <strong>300+ tax returns</strong> from high earners, business owners, and real estate investors. We were looking for patterns.
                         </p>
                         <p>
                             We found the same opportunities missed again and again. S-Corp elections never filed. Retirement accounts underfunded. Real estate strategies completely unknown. Business deductions left on the table.
                         </p>
                         <p>
-                            We distilled everything into a <span class="gold-word" style="font-weight:700;">12-question diagnostic</span>. It shows which of the 37 IRS-approved strategies apply to YOUR situation—and calculates your savings potential.
+                            We distilled everything into a <span class="gold-word" style="font-weight:700;">12-question diagnostic</span>. It shows which of the 37 IRS-approved strategies apply to YOUR situation, and calculates your savings potential.
                         </p>
                     </div>
                 </div>
@@ -586,7 +590,6 @@
     <section class="band-paper">
         <div class="wrap">
             <div class="section-head">
-                <p class="kicker center">The Process</p>
                 <h2 class="display">
                     Your Personalized Report in 3 Steps
                 </h2>
@@ -607,7 +610,7 @@
 
                 <div class="card step-card">
                     <div class="step-num">3</div>
-                    <h3>Get A Custom 40+ Page Report</h3>
+                    <h3>Get A Custom 24-Page Report</h3>
                     <p>See your marginal tax rate breakdown, missed strategies with projected savings, and your action plan.</p>
                 </div>
             </div>
@@ -620,7 +623,6 @@
     <section>
         <div class="wrap">
             <div class="section-head">
-                <p class="kicker center">The Deliverable</p>
                 <h2 class="display">
                     What's Inside Your Report
                 </h2>
@@ -684,7 +686,6 @@
     <section class="band-paper">
         <div class="wrap wrap-sm">
             <div class="section-head">
-                <p class="kicker center">Sample From Real Report</p>
                 <h2 class="display">Here's What One Strategy Looks Like</h2>
             </div>
 
@@ -701,13 +702,13 @@
                 </div>
 
                 <div class="sample-body">
-                    <p><strong>What it is:</strong> Rent a property for an average of 7 days or less per tenant, materially participate in management, and the IRS classifies it as "non-passive"—letting you deduct the losses against your W-2 income.</p>
+                    <p><strong>What it is:</strong> Rent a property for an average of 7 days or less per tenant, materially participate in management, and the IRS classifies it as "non-passive," letting you deduct the losses against your W-2 income.</p>
 
                     <p><strong>Your situation:</strong> You mentioned interest in real estate and have $150K+ W-2 income. With bonus depreciation now permanent (2025), a $400K property could generate $100K+ in first-year losses.</p>
 
                     <div class="mistake-box">
                         <p class="hd">Common Mistake</p>
-                        <p>Most people try to average 7+ days to avoid "hotel" classification. You want the OPPOSITE—keep it under 7 days to qualify as non-passive.</p>
+                        <p>Most people try to average 7+ days to avoid "hotel" classification. You want the OPPOSITE: keep it under 7 days to qualify as non-passive.</p>
                     </div>
 
                     <div class="meta-row">
@@ -730,7 +731,6 @@
     <section>
         <div class="wrap">
             <div class="section-head">
-                <p class="kicker center">Real Report Samples</p>
                 <h2 class="display">
                     Sneak Peek Inside Your Report
                 </h2>
@@ -827,7 +827,6 @@
     <section class="band-paper">
         <div class="wrap wrap-md">
             <div class="section-head">
-                <p class="kicker center">$47 vs. The Alternatives</p>
                 <h2 class="display">How We Compare</h2>
             </div>
 
@@ -884,7 +883,6 @@
     <section>
         <div class="wrap wrap-lg">
             <div class="section-head">
-                <p class="kicker center">Results</p>
                 <h2 class="display">What People Are Saying</h2>
             </div>
 
@@ -946,7 +944,6 @@
     <section class="band-paper">
         <div class="wrap wrap-sm">
             <div class="section-head">
-                <p class="kicker center">Questions</p>
                 <h2 class="display">Answers</h2>
             </div>
 
@@ -959,7 +956,7 @@
                         </span>
                     </button>
                     <div class="faq-answer">
-                        <p class="faq-answer-text">You can find generic tax tips. What you WON'T find is a personalized analysis of YOUR situation—which strategies apply to YOUR income, state, and business structure, with dollar amounts. This report does in 2 minutes what takes 40+ hours of research.</p>
+                        <p class="faq-answer-text">You can find generic tax tips. What you WON'T find is a personalized analysis of YOUR situation: which strategies apply to YOUR income, state, and business structure, with dollar amounts. This report does in 2 minutes what takes 40+ hours of research.</p>
                     </div>
                 </div>
 
@@ -971,7 +968,7 @@
                         </span>
                     </button>
                     <div class="faq-answer">
-                        <p class="faq-answer-text">100% legal. These are IRS-approved tax code provisions—created by Congress to reward business ownership, real estate investing, and retirement savings. We're not helping you evade taxes; we're helping you use the tax code as designed.</p>
+                        <p class="faq-answer-text">100% legal. These are IRS-approved tax code provisions, created by Congress to reward business ownership, real estate investing, and retirement savings. We're not helping you evade taxes; we're helping you use the tax code as designed.</p>
                     </div>
                 </div>
 
@@ -983,7 +980,7 @@
                         </span>
                     </button>
                     <div class="faq-answer">
-                        <p class="faq-answer-text">Most CPAs are reactive—they file based on what happened. This report is PROACTIVE—it shows strategies to implement NOW to reduce next year's tax bill. Many customers share their report with their CPA to execute.</p>
+                        <p class="faq-answer-text">Most CPAs are reactive. They file based on what happened. This report is PROACTIVE: it shows strategies to implement NOW to reduce next year's tax bill. Many customers share their report with their CPA to execute.</p>
                     </div>
                 </div>
 
@@ -1013,9 +1010,8 @@
                 </div>
                 <h2>30-Day "Show Me the Savings" Guarantee</h2>
                 <p class="lead">
-                    If your report doesn't find at least <span class="win">$5,000 in potential tax savings</span> for your situation—or you're unsatisfied for any reason—email us within 30 days for a full refund. No questions asked.
+                    If your report doesn't find at least <span class="win">$5,000 in potential tax savings</span> for your situation, or you're unsatisfied for any reason, email us within 30 days for a full refund. No questions asked.
                 </p>
-                <p class="fine">We're taking all the risk because we know the value is real.</p>
             </div>
         </div>
     </section>
@@ -1025,9 +1021,7 @@
          ═══════════════════════════════════════════════════ -->
     <section id="report" class="band-forest final">
         <div class="wrap wrap-sm">
-            <p class="final-warn">
-                ⚠️ Every Month You Wait Costs $1,600-$8,000
-            </p>
+            <p class="final-warn">Every month you wait costs $1,600–$8,000</p>
             <h2 class="display">
                 Stop Overpaying.<br>
                 <span class="gold-word">Start Saving.</span>
@@ -1041,13 +1035,9 @@
                     Yes, Add The Personalized Tax Analysis Report For $47
                     <svg class="arrow"><use href="#i-arrow-right"/></svg>
                 </a>
-
-                <div class="decline-box">
-                    <p class="k">Prefer to skip this add-on?</p>
-                    <a href="https://legacyinvestingshow.spiffy.co/offer/WG5NNU8uW" id="tax-decline-btn" class="btn btn-ghost-light btn-md">
-                        Continue Without The Tax Analysis Report
-                    </a>
-                </div>
+                <a href="https://legacyinvestingshow.spiffy.co/offer/WG5NNU8uW" id="tax-decline-btn" class="decline-link">
+                    Continue without the Tax Analysis Report
+                </a>
             </div>
 
             <div class="final-trust">

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tax-Free Income 3-Day Challenge VIP Ticket | Preston Seo</title>
-  <meta name="description" content="Join the 3-Day Tax-Free Income Challenge VIP ticket. Get VIP Pre-Challenge Training (Day 1), live roundtable Q&A access (Days 2 & 3), replays, slides, notes, and materials.">
+  <title>Tax-Free Income 3-Day Challenge Regular Ticket | Preston Seo</title>
+  <meta name="description" content="Join the 3-Day Tax-Free Income Challenge. Learn how to cut taxes, eliminate debt, and build $5K-$15K monthly income.">
 
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -110,6 +110,21 @@
     .section-head .muted { margin-top: .7rem; }
     .muted { color: var(--ink-soft); }
 
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+      font-weight: 700; border-radius: 999px; text-decoration: none;
+      transition: transform .18s cubic-bezier(.22,1,.36,1), box-shadow .18s, background-color .18s;
+      border: none;
+    }
+    .btn-gold {
+      background: var(--gold); color: #221903;
+      box-shadow: 0 1px 0 rgba(122,88,10,.35), 0 8px 22px -10px rgba(185,138,31,.55);
+    }
+    .btn-gold:hover { background: #C99A2E; transform: translateY(-1px); }
+    .btn-lg { padding: 1rem 2rem; font-size: 1.05rem; }
+    .arrow { width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
+
     /* ---------- Cards & panels ---------- */
     .card {
       background: var(--paper);
@@ -119,9 +134,10 @@
     .pill {
       display: inline-flex; align-items: center; gap: .5rem;
       border-radius: 999px; font-weight: 600; font-size: .8rem;
+      padding: .35rem .85rem;
     }
-    .pill-gold { background: var(--gold-tint); color: var(--gold-ink); border: 1px solid #E5D3A0; padding: .35rem .85rem; }
-    .pill-green { background: var(--emerald-tint); color: var(--green-mid); border: 1px solid #CBDEC6; padding: .35rem .85rem; }
+    .pill-gold { background: var(--gold-tint); color: var(--gold-ink); border: 1px solid #E5D3A0; }
+    .pill-green { background: var(--emerald-tint); color: var(--green-mid); border: 1px solid #CBDEC6; }
     .pill svg { width: 1rem; height: 1rem; flex-shrink: 0; }
 
     .check-svg { width: 1.2rem; height: 1.2rem; color: var(--emerald); flex-shrink: 0; margin-top: .2rem; }
@@ -137,8 +153,7 @@
     /* ---------- Progress strip ---------- */
     .progress-section {
       position: sticky; top: 0; z-index: 40;
-      background: rgba(255,253,246,.92);
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      background: var(--paper);
       border-bottom: 1px solid var(--line);
       padding-block: .6rem;
     }
@@ -151,7 +166,7 @@
     }
     .progress-bar {
       height: 100%;
-      width: 75%;
+      width: 60%;
       background: var(--gold);
       display: flex; align-items: center; justify-content: center;
       border-radius: 999px;
@@ -203,13 +218,6 @@
     }
 
     .whats-included h2 { font-size: clamp(1.3rem, 2.4vw, 1.65rem); margin-bottom: 1.4rem; }
-    .benefit-box {
-      background: var(--gold-tint); border: 1px solid #E5D3A0;
-      border-radius: 1.1rem; padding: 1.25rem 1.4rem; margin-bottom: 1.1rem;
-    }
-    .benefit-box h4 { display: flex; align-items: flex-start; gap: .6rem; font-size: 1.02rem; font-weight: 700; color: var(--gold-ink); margin-bottom: .4rem; }
-    .benefit-box h4 svg { width: 1.15rem; height: 1.15rem; flex-shrink: 0; margin-top: .18rem; }
-    .benefit-box p { font-size: .95rem; color: var(--ink-soft); }
 
     .session-list { margin-top: 1.5rem; }
     .session-list li {
@@ -218,15 +226,6 @@
       padding-block: .8rem; border-bottom: 1px solid var(--line);
     }
     .session-list li:last-child { border-bottom: none; }
-    .session-list li.vip-session {
-      background: var(--gold-tint); border: 1px solid #E5D3A0; border-radius: 1.1rem;
-      padding: 1.25rem 1.4rem; margin-block: .8rem; display: block;
-    }
-    .vip-highlight {
-      display: inline-block; padding: .24rem .75rem; border-radius: 999px;
-      background: var(--gold); color: #221903; font-size: .68rem; font-weight: 700;
-      letter-spacing: .08em; text-transform: uppercase; margin-bottom: .55rem;
-    }
 
     /* ---------- Testimonials ---------- */
     .tri-grid { display: grid; gap: 1.25rem; }
@@ -260,10 +259,19 @@
     .guarantee-card p + p { margin-top: 1.25rem; }
     .guarantee-card .email { color: var(--gold-ink); font-weight: 700; overflow-wrap: anywhere; }
 
-    /* ---------- Urgency ---------- */
-    .urgency { text-align: center; }
-    .urgency .display { margin-bottom: .7rem; }
-    .urgency-note { color: #A9BCA9; font-size: 1.05rem; max-width: 28rem; margin-inline: auto; }
+    /* ---------- Final CTA ---------- */
+    .final-cta { text-align: center; }
+    .final-cta .display { margin-bottom: 1.75rem; }
+    .final-count {
+      display: inline-flex; align-items: flex-start; justify-content: center;
+      gap: .9rem; padding: 1.1rem 1.75rem; border-radius: 1.1rem;
+      border: 1px solid var(--forest-edge); margin-bottom: 2rem;
+    }
+    .final-count .num { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--gold); font-variant-numeric: tabular-nums; line-height: 1.1; }
+    .final-count .u { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: #8FA78F; margin-top: .25rem; }
+    .final-cta .price-note { color: #A9BCA9; font-size: .95rem; margin-top: 1.25rem; }
+    .final-cta .price-note .strike { text-decoration: line-through; }
+    .final-cta .price-note .save { color: var(--gold); font-weight: 700; }
 
     /* ---------- FAQ ---------- */
     .faq-item { overflow: hidden; }
@@ -293,6 +301,7 @@
       h1.display { font-size: 1.6rem; }
       .count-cell { min-width: 3.6rem; }
       .progress-label { font-size: .72rem; letter-spacing: .04em; }
+      .btn-lg { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; }
@@ -313,18 +322,15 @@
   <symbol id="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
   </symbol>
-  <symbol id="crown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M3 7l4.5 3.5L12 4l4.5 6.5L21 7l-1.8 11H4.8L3 7z"/>
-  </symbol>
-  <symbol id="play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <circle cx="12" cy="12" r="9"/>
-    <path stroke-linecap="round" stroke-linejoin="round" d="M10 8.5l6 3.5-6 3.5v-7z"/>
-  </symbol>
-  <symbol id="chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 01-2 2H8l-4 4V5a2 2 0 012-2h13a2 2 0 012 2v10z"/>
+  <symbol id="ticket-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M3 9V7a2 2 0 012-2h14a2 2 0 012 2v2a3 3 0 000 6v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a3 3 0 000-6z"/>
+    <path stroke-linecap="round" d="M13 5v2m0 4v2m0 4v2"/>
   </symbol>
   <symbol id="shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+  </symbol>
+  <symbol id="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/>
   </symbol>
   <symbol id="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
@@ -338,7 +344,7 @@
   <div class="wrap">
     <div class="progress-bar-container">
       <div class="progress-bar">
-        <span class="progress-label">Order Processing</span>
+        <span class="progress-label">Order Processing - 60% Complete</span>
       </div>
     </div>
   </div>
@@ -350,13 +356,13 @@
 <section class="hero">
   <div class="wrap">
     <span class="pill pill-gold">
-      <svg><use href="#crown-icon"/></svg>
-      VIP Ticket
+      <svg><use href="#ticket-icon"/></svg>
+      Limited Seats Available
     </span>
 
-    <h1 class="display">Join The <span class="hero-accent">Tax-Free Income Challenge</span></h1>
+    <h1 class="display">Secure Your Seat For The <span class="hero-accent">Tax-Free Income Challenge</span></h1>
 
-    <p class="hero-sub">Get instant access to the VIP Pre-Challenge Training, plus live roundtable Q&amp;A on Days 2 &amp; 3</p>
+    <p class="hero-sub">Join 4,400+ high-income earners who've used this system to stop losing money to taxes and start building real wealth.</p>
   </div>
 </section>
 
@@ -377,14 +383,14 @@
       <div class="card info-card">
         <div class="k">Where</div>
         <p>
-          <strong>Streaming online on Zoom</strong> so you can join from anywhere. Once you grab your ticket, we'll send you a private link with all the details.
+          <strong>Attend on Zoom</strong> and join from anywhere. Once you grab your ticket, we'll send you a private link with all the details.
         </p>
       </div>
 
       <div class="card info-card">
-        <div class="k">Why</div>
+        <div class="k">What You'll Build</div>
         <p>
-          Because in just 3 days, you'll see <strong>how to cut your tax bill in half, wipe out high-interest debt, and start building $5K&ndash;$15K</strong> in monthly income (without leaving your job or risking your family's stability)
+          <strong>Your Wealth Plan.</strong> Cut taxes, eliminate debt, and create cash flow in one clear plan you can follow.
         </p>
       </div>
     </div>
@@ -396,7 +402,7 @@
      ═══════════════════════════════════════════════════ -->
 <section class="scarcity">
   <div class="wrap">
-    <div class="scarcity-text">ONLY 8 VIP SPOTS LEFT...</div>
+    <div class="scarcity-text">ONLY 16 SPOTS LEFT...</div>
 
     <div class="count-row" id="countdown">
       <div class="count-cell">
@@ -422,15 +428,15 @@
 <!-- ═══════════════════════════════════════════════════
      CHECKOUT
      ═══════════════════════════════════════════════════ -->
-<section style="padding-top:0;">
+<section id="checkout" style="padding-top:0;">
   <div class="wrap">
     <div class="checkout-grid">
       <!-- Left: Checkout Form -->
       <div class="checkout-shell">
         <iframe
           id="spiffy-inline-checkout"
-          title="Secure VIP Checkout"
-          data-checkout-url="https://legacyinvestingshow.spiffy.co/checkout/tax-free-income-challenge-early-bird-vip1234"
+          title="Secure Checkout"
+          data-checkout-url="https://legacyinvestingshow.spiffy.co/checkout/tax-free-income-challenge-early-bird"
           style="width: 100%; height: 1050px; border: 0; min-height: 760px; display: block; background: #ffffff; opacity: 0; transition: opacity 0.25s ease;"
           loading="eager"
           allow="payment"
@@ -449,17 +455,7 @@
 
       <!-- Right: What's Included -->
       <div class="whats-included">
-        <h2 class="display">When you join today, here's what you're getting inside VIP:</h2>
-
-        <div class="benefit-box">
-          <h4><svg><use href="#play-icon"/></svg>Recordings + Replays of Every Session</h4>
-          <p>Get access to recordings and replays of each challenge session, plus detailed notes and key materials.</p>
-        </div>
-
-        <div class="benefit-box">
-          <h4><svg><use href="#chat-icon"/></svg>VIP Pre-Challenge Training + Live Roundtable Q&amp;A</h4>
-          <p>Before Day 1, you get the VIP Pre-Challenge Training: <strong>How We Legally Make $15M in Assets Disappear on Paper</strong>. Days 2 and 3 add live roundtable Q&amp;A with Preston.</p>
-        </div>
+        <h2 class="display">When you join today, here's what you're getting inside the Tax-Free Income Challenge:</h2>
 
         <ul class="session-list">
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span><strong>The 5-Pillar Wealth Building Framework</strong>. See how taxes, debt, income, investing, and protection all connect into one clear plan you can follow.</span></li>
@@ -468,15 +464,9 @@
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Why Your 401(k) Is Bleeding Money &amp; What To Do Instead</span></li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Debt Elimination &amp; Credit Mastery: From High-Interest Trap to Smart Funding</span></li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Expert Deep Dive - Entity Structure &amp; Business Credit with Tommy Thornburgh</span></li>
-          <li class="vip-session"><span class="vip-highlight">VIP Exclusive</span><span style="display:block;"><strong>VIP Pre-Challenge Training + Day 2 &amp; Day 3 Roundtable Q&amp;A</strong>. Start with Preston's asset protection training before Day 1, then bring your questions to the live roundtables on Days 2 and 3.</span></li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>The W-2 Taxes Playbook: How High-Earners Keep Losing Half Their Income</span></li>
-          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>The Investor Playbook: How to Build Wealth Without Paying Taxes</span></li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>How To Start A 100% Tax-Free Airbnb Business (Without Buying Property)</span></li>
-          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>The Complete Wealth Acceleration System: How Everything Works Together To Build Your Wealth Plan</span></li>
-          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Beyond the Basics: Advanced Tax Optimization with Garrett Maughan</span></li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Your 12-Month Wealth Implementation Roadmap</span></li>
-          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>How Students Hit $100K+ Net Worth (Real Numbers, Real Strategies)</span></li>
-          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Your Next Steps and Beyond</span></li>
         </ul>
       </div>
     </div>
@@ -547,7 +537,7 @@
   <div class="wrap">
     <div class="section-head">
       <p class="kicker center">Social Proof</p>
-      <h2 class="display">Why Attend This Challenge?</h2>
+      <h2 class="display">What People Are Saying</h2>
       <p class="muted">See what people are saying after attending our 3-Day Tax-Free Income Challenge</p>
     </div>
 
@@ -587,16 +577,15 @@
         100% Risk-Free Guarantee
       </div>
 
-      <h2 class="display">100% Risk-Free Guarantee</h2>
+      <h2 class="display">Love It Or Get Your Money Back</h2>
       <p>
-        In <strong>3 days</strong>, you'll walk away with your wealth plan built.
-        That means knowing where it's going, how to stop the leaks, and how to put it to work building wealth.
+        We're confident that in just <strong>3 days</strong> you'll walk away with a real plan to finally take control of your money. That means knowing where it's going, how to stop the leaks, and how to put it to work building wealth.
       </p>
       <p>
         Join the full challenge. Go through every session. Take the notes, do the exercises, see what your plan looks like.
       </p>
       <p>
-        If you don't leave with total clarity on what to do next and the confidence to move forward...
+        If you don't leave with total clarity on what to do next and the confidence to actually move forward...
         just email us at <strong class="email">preston@legacyinvestingshow.com</strong> within 7 days of the challenge ending and we'll refund you.
       </p>
     </div>
@@ -604,12 +593,27 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════
-     URGENCY
+     FINAL CTA
      ═══════════════════════════════════════════════════ -->
-<section class="band-forest urgency">
+<section class="band-forest final-cta">
   <div class="wrap">
-    <h2 class="display">This Offer Expires When You Close This Page</h2>
-    <p class="urgency-note">Once you leave, this VIP ticket is gone.</p>
+    <h2 class="display">Offer Expires In...</h2>
+
+    <div class="final-count">
+      <div style="text-align:center;"><div class="num" id="days2">00</div><div class="u">Days</div></div>
+      <div style="text-align:center;"><div class="num" id="hours2">00</div><div class="u">Hours</div></div>
+      <div style="text-align:center;"><div class="num" id="minutes2">00</div><div class="u">Min</div></div>
+      <div style="text-align:center;"><div class="num" id="seconds2">00</div><div class="u">Sec</div></div>
+    </div>
+
+    <div>
+      <a href="#checkout" class="btn btn-gold btn-lg">
+        Claim Your Ticket Now - $47
+        <svg class="arrow"><use href="#arrow-icon"/></svg>
+      </a>
+    </div>
+
+    <p class="price-note">Regular Price: <span class="strike">$97</span> <span class="save">Save $50 Today</span></p>
   </div>
 </section>
 
@@ -630,7 +634,7 @@
           <svg class="faq-icon"><use href="#chevron-icon"/></svg>
         </button>
         <div class="faq-answer hidden">
-          This is an online event held on Zoom that you can join from anywhere. All you need is internet and the commitment to do the work.
+          This is an online event held on Zoom that you can join from anywhere. All you need is internet and the commitment to implement. You'll work through real examples and apply strategies as each session unfolds.
         </div>
       </div>
 
@@ -640,7 +644,7 @@
           <svg class="faq-icon"><use href="#chevron-icon"/></svg>
         </button>
         <div class="faq-answer hidden">
-          Each day includes guided training, hands-on exercises where you run your own numbers, and implementation steps you can apply immediately.
+          This is not passive content. Each day includes guided training, hands-on exercises where you run your own numbers, and clear implementation steps you can apply immediately.
         </div>
       </div>
 
@@ -650,7 +654,7 @@
           <svg class="faq-icon"><use href="#chevron-icon"/></svg>
         </button>
         <div class="faq-answer hidden">
-          Each day runs from 10 AM to 4 PM EST. We include breaks throughout the training so you can stay focused and keep applying what you learn.
+          Each day runs from 10 AM to 4 PM EST. We include breaks throughout the training so you can stay focused and keep implementing.
         </div>
       </div>
 
@@ -660,7 +664,7 @@
           <svg class="faq-icon"><use href="#chevron-icon"/></svg>
         </button>
         <div class="faq-answer hidden">
-          Life happens. VIP includes recordings and replays of each session, plus notes and materials, so you can review key training points and implement on your timeline.
+          Life happens. If your schedule is uncertain, VIP gives you extended session access plus materials so you can review key training points after the event.
         </div>
       </div>
 
@@ -670,7 +674,7 @@
           <svg class="faq-icon"><use href="#chevron-icon"/></svg>
         </button>
         <div class="faq-answer hidden">
-          Yes! If you don't leave with total clarity on what to do next and the confidence to move forward, just email us at preston@legacyinvestingshow.com within 7 days of the challenge ending and we'll refund you.
+          Yes! If you don't leave with total clarity on what to do next and the confidence to actually move forward, just email us at preston@legacyinvestingshow.com within 7 days of the challenge ending and we'll refund you.
         </div>
       </div>
 
@@ -690,7 +694,8 @@
           <svg class="faq-icon"><use href="#chevron-icon"/></svg>
         </button>
         <div class="faq-answer hidden">
-          You don't need a business to start building wealth like the wealthy do. In fact, many of the biggest wins come before someone ever launches a business. Just by maxing out your 401(k) or Solo 401(k), you could save $4,004 a year in taxes. IRA contributions can save another $1,540. Using an HSA properly adds $913 in triple-tax savings. That's over $6,400 in annual tax savings using strategies available to non-business owners.        </div>
+          You don't need a business to start building wealth like the wealthy do. In fact, many of the biggest wins come before someone ever launches a business. Just by maxing out your 401(k) or Solo 401(k), you could save $4,004 a year in taxes. Whether you're W-2, freelancing, or just starting to think about entrepreneurship&mdash;this program meets you where you are.
+        </div>
       </div>
 
       <div class="card faq-item">
@@ -699,7 +704,7 @@
           <svg class="faq-icon"><use href="#chevron-icon"/></svg>
         </button>
         <div class="faq-answer hidden">
-          You get confident by starting, not before. Once you see how it all fits together, it stops feeling out of reach. No one was born knowing how to manage wealth. It's a learned skill. You just need the right teacher and the right roadmap. If you've ever thought, "I'm not built for this"&mdash;you're exactly who this challenge was built for.
+          You don't become financially confident before you start. You become confident because you start&mdash;and you finally see how it all fits together. No one was born knowing how to manage wealth. It's a learned skill. You just need the right teacher and the right roadmap.
         </div>
       </div>
     </div>
@@ -887,15 +892,19 @@
       const minutes = distance > 0 ? Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) : 0;
       const seconds = distance > 0 ? Math.floor((distance % (1000 * 60)) / 1000) : 0;
 
-      const daysEl = document.getElementById('days');
-      const hoursEl = document.getElementById('hours');
-      const minutesEl = document.getElementById('minutes');
-      const secondsEl = document.getElementById('seconds');
+      const set = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = String(value).padStart(2, '0');
+      };
 
-      if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-      if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-      if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
-      if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+      set('days', days);
+      set('hours', hours);
+      set('minutes', minutes);
+      set('seconds', seconds);
+      set('days2', days);
+      set('hours2', hours);
+      set('minutes2', minutes);
+      set('seconds2', seconds);
     }
 
     updateCountdown();

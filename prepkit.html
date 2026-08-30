@@ -135,8 +135,6 @@
       font-size: .72rem; font-weight: 700; margin-top: .1rem;
       background: var(--emerald-tint); color: var(--emerald);
     }
-    .check-svg { width: 1.2rem; height: 1.2rem; color: var(--emerald); flex-shrink: 0; }
-
     /* ---------- Sections & bands ---------- */
     section { padding-block: clamp(2.75rem, 7vw, 6rem); }
     .band-paper { background: var(--paper); border-block: 1px solid var(--line); }
@@ -180,16 +178,6 @@
       max-width: 56rem; margin-inline: auto;
     }
     .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-
-    /* ---------- Value trio ---------- */
-    .value-section { padding-block: clamp(1.75rem, 4vw, 2.5rem); }
-    .value-grid { display: grid; gap: 1rem; max-width: 56rem; margin-inline: auto; }
-    @media (min-width: 768px) { .value-grid { grid-template-columns: repeat(3, 1fr); } }
-    .value-box { padding: 1.1rem; text-align: center; }
-    .value-text {
-      display: flex; align-items: center; justify-content: center; gap: .55rem;
-      font-weight: 600; font-size: .98rem; color: var(--ink);
-    }
 
     /* ---------- Intro ---------- */
     .intro-section { text-align: center; }
@@ -295,9 +283,6 @@
 
   <!-- SVG Sprite Definitions (hidden) -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-    <symbol id="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-    </symbol>
     <symbol id="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
       <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/>
     </symbol>
@@ -332,32 +317,6 @@
     <div class="wrap">
       <div class="video-frame">
         <iframe src="https://player.vimeo.com/video/1151502346?autoplay=1&title=0&byline=0&wmode=transparent&autopause=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-      </div>
-    </div>
-  </section>
-
-  <!-- Value Section -->
-  <section class="value-section band-paper">
-    <div class="wrap">
-      <div class="value-grid">
-        <div class="card value-box">
-          <div class="value-text">
-            <svg class="check-svg"><use href="#check-icon"/></svg>
-            Cut taxes
-          </div>
-        </div>
-        <div class="card value-box">
-          <div class="value-text">
-            <svg class="check-svg"><use href="#check-icon"/></svg>
-            Pay off debt
-          </div>
-        </div>
-        <div class="card value-box">
-          <div class="value-text">
-            <svg class="check-svg"><use href="#check-icon"/></svg>
-            Build real income streams
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -419,7 +378,7 @@
             <img src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/20021100/file/da213154dc0e713d09f759eceeec96e6.png" alt="Financial Diagnostic Calculator" class="product-image" loading="lazy" decoding="async">
           </div>
           <h3 class="product-title">Financial Diagnostic Calculator</h3>
-          <p class="product-desc">Run your numbers in 5 minutes and see... what's really happening with your money.</p>
+          <p class="product-desc">Run your numbers in 5 minutes and see what's really happening with your money.</p>
 
           <ul class="product-list">
             <li><svg><use href="#arrow-icon"/></svg><span>Where you're losing money through taxes, debt, and fees</span></li>
@@ -434,10 +393,10 @@
   <!-- Urgency Section -->
   <section class="urgency-section band-cream">
     <div class="wrap wrap-md">
-      <h2 class="display urgency-title">When we start October 16th, I'm not slowing down for people who didn't prepare.</h2>
+      <h2 class="display urgency-title">We start October 16th. You'll get more out of Day 1 if you already know your numbers.</h2>
 
       <p class="urgency-text">
-        You don't want to just hear information.
+        You want the next three days applied to your money.
       </p>
 
       <ul class="urgency-list">

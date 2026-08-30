@@ -127,8 +127,6 @@
     .dot { width: .5rem; height: .5rem; border-radius: 999px; background: var(--gold-deep); animation: pulse 2s infinite; flex-shrink: 0; }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
 
-    .check-svg { width: 1.2rem; height: 1.2rem; color: var(--emerald); flex-shrink: 0; }
-
     /* ---------- Sections ---------- */
     section { padding-block: clamp(2.5rem, 6vw, 5rem); }
     .band-paper { background: var(--paper); border-block: 1px solid var(--line); }
@@ -164,14 +162,6 @@
       max-width: 56rem; margin-inline: auto;
     }
     .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-
-    /* ---------- Value trio ---------- */
-    .value-grid { display: grid; gap: 1rem; max-width: 56rem; margin-inline: auto; }
-    @media (min-width: 768px) { .value-grid { grid-template-columns: repeat(3, 1fr); } }
-    .value-card {
-      padding: 1.1rem 1.25rem; display: flex; align-items: center; justify-content: center;
-      gap: .6rem; text-align: center; font-weight: 600; color: var(--ink); font-size: 1rem;
-    }
 
     /* ---------- Intro ---------- */
     .intro { text-align: center; }
@@ -314,28 +304,6 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════
-       VALUE TRIO
-       ═══════════════════════════════════════════════════ -->
-  <section class="band-paper" style="padding-block:clamp(1.75rem,4vw,2.5rem);">
-    <div class="wrap">
-      <div class="value-grid">
-        <div class="card value-card">
-          <svg class="check-svg"><use href="#check-icon"/></svg>
-          Cut taxes
-        </div>
-        <div class="card value-card">
-          <svg class="check-svg"><use href="#check-icon"/></svg>
-          Pay off debt
-        </div>
-        <div class="card value-card">
-          <svg class="check-svg"><use href="#check-icon"/></svg>
-          Build real income streams
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════
        INTRO / THE SOLUTION
        ═══════════════════════════════════════════════════ -->
   <section class="intro">
@@ -392,7 +360,7 @@
             <img src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/20021100/file/da213154dc0e713d09f759eceeec96e6.png" alt="Financial Diagnostic Calculator" loading="lazy" decoding="async">
           </div>
           <h3>Financial Diagnostic Calculator</h3>
-          <p>Run your numbers in 5 minutes and see... what's really happening with your money.</p>
+          <p>Run your numbers in 5 minutes and see what's really happening with your money.</p>
 
           <ul class="p-list">
             <li><svg><use href="#arrow-icon"/></svg><span>Where you're losing money through taxes, debt, and fees</span></li>
@@ -409,10 +377,10 @@
        ═══════════════════════════════════════════════════ -->
   <section class="band-forest urgency">
     <div class="wrap">
-      <h2 class="display">When we start October 16th, I'm not slowing down for people who didn't prepare.</h2>
+      <h2 class="display">We start October 16th. You'll get more out of Day 1 if you already know your numbers.</h2>
 
       <p class="urgency-lead">
-        You don't want to just hear information.
+        You want the next three days applied to your money.
       </p>
 
       <ul class="u-list">

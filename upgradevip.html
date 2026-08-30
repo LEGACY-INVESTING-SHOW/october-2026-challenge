@@ -96,17 +96,7 @@
     h2.display { font-size: clamp(1.6rem, 3.4vw, 2.4rem); text-wrap: balance; }
     h3 { font-weight: 600; color: var(--ink); }
 
-    .kicker {
-      display: flex; align-items: center; gap: .7rem;
-      text-transform: uppercase; letter-spacing: .16em;
-      font-size: .72rem; font-weight: 700; color: var(--green-mid);
-    }
-    .kicker::before { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
-    .kicker.center { justify-content: center; }
-    .kicker.center::after { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
-
     .section-head { max-width: 46rem; margin-inline: auto; text-align: center; }
-    .section-head .kicker { margin-bottom: .9rem; }
     .muted { color: var(--ink-soft); }
     .gold-ink { color: var(--gold-ink); }
 
@@ -135,9 +125,6 @@
     }
     .pill-gold { background: var(--gold-tint); color: var(--gold-ink); border: 1px solid #E5D3A0; }
     .pill-green { background: var(--emerald-tint); color: var(--green-mid); border: 1px solid #CBDEC6; }
-    .dot { width: .5rem; height: .5rem; border-radius: 999px; background: var(--gold-deep); animation: pulse 2s infinite; flex-shrink: 0; }
-    .dot.rose { background: var(--rose); }
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
     .check-svg { width: 1.2rem; height: 1.2rem; color: var(--emerald); flex-shrink: 0; margin-top: .15rem; }
 
     /* ---------- Sticky header ---------- */
@@ -149,18 +136,8 @@
       border-bottom: 1px solid var(--line);
     }
     #sticky-header.show { transform: translateY(0); opacity: 1; }
-    .sticky-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .7rem; }
-    .sticky-brand { display: flex; align-items: center; gap: .6rem; min-width: 0; }
-    .mark {
-      width: 2rem; height: 2rem; flex-shrink: 0; border: 1px solid var(--gold-deep); border-radius: .5rem;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--gold-ink); font-weight: 700; font-size: 1rem; background: var(--gold-tint);
-    }
-    .sticky-name { font-size: .9rem; font-weight: 600; color: var(--ink-soft); }
-    .sticky-name span { color: var(--gold-ink); font-weight: 700; }
-    .sticky-count { display: flex; align-items: center; gap: .5rem; font-size: .85rem; color: var(--ink-soft); }
-    #sticky-countdown { font-weight: 700; color: var(--rose); font-variant-numeric: tabular-nums; }
-    .sticky-right { display: flex; align-items: center; gap: .75rem; margin-left: auto; }
+    .sticky-inner { display: flex; align-items: center; justify-content: flex-end; gap: 1rem; padding-block: .7rem; }
+    .sticky-right { display: flex; align-items: center; gap: .75rem; }
 
     /* ---------- Top strip ---------- */
     .topstrip {
@@ -181,10 +158,13 @@
     .hero-accent { color: var(--gold-ink); }
     .hero-sub { font-size: clamp(1.05rem, 1.9vw, 1.3rem); color: var(--ink-soft); }
     .hero-alert {
-      display: inline-flex; align-items: center; gap: .55rem; flex-wrap: wrap; justify-content: center;
-      background: var(--rose-tint); border: 1px solid #E8C9BE; border-radius: 999px;
-      padding: .5rem 1.15rem; color: var(--rose); font-weight: 700; font-size: .9rem;
-      text-align: center;
+      display: flex; align-items: center; justify-content: center; gap: .85rem;
+      color: var(--rose); font-size: .78rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase; text-align: center; line-height: 1.5;
+    }
+    .hero-alert::before,
+    .hero-alert::after {
+      content: ""; width: 2.25rem; height: 1px; background: currentColor; opacity: .4; flex-shrink: 0;
     }
 
     /* ---------- Video ---------- */
@@ -283,12 +263,12 @@
 
     /* ---------- Mobile ---------- */
     @media (max-width: 640px) {
-      .hide-mobile { display: none; }
       .btn-lg { width: 100%; }
       .topstrip { font-size: .74rem; }
+      .hero-alert::before,
+      .hero-alert::after { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .dot { animation: none; }
       * { transition: none !important; }
     }
   </style>
@@ -342,18 +322,7 @@
 <!-- Sticky Header -->
 <header id="sticky-header">
   <div class="wrap sticky-inner">
-    <div class="sticky-brand">
-      <div class="mark">L</div>
-      <span class="sticky-name hide-mobile">
-        Legacy Investing Show <span>Limited Time</span>
-      </span>
-    </div>
     <div class="sticky-right">
-      <div class="sticky-count">
-        <span class="dot rose"></span>
-        <span class="hide-mobile">Offer Ends:</span>
-        <span id="sticky-countdown">--</span>
-      </div>
       <a href="https://legacyinvestingshow.spiffy.co/offer/Bv0afxuk" class="btn btn-gold btn-sm">
         Upgrade Now
       </a>
@@ -363,28 +332,18 @@
 
 <!-- Urgency Banner -->
 <div class="topstrip">
-  <strong>WAIT!</strong> Don't close this page — Your VIP upgrade expires when the timer hits zero
+  <strong>WAIT!</strong> Don't close this page. Your VIP upgrade expires when the timer hits zero
 </div>
 
 <!-- Hero Section -->
 <section class="hero">
   <div class="wrap wrap-sm">
     <div class="hero-copy">
-      <!-- Badge -->
-      <span class="pill pill-gold"><span class="dot"></span>VIP Upgrade</span>
-
       <h1 class="display">
         Get The <span class="hero-accent">VIP Ticket</span>
       </h1>
 
-      <p class="hero-sub">
-        Watch This Video Before You Go Further...
-      </p>
-
-      <span class="hero-alert">
-        <span class="dot rose"></span>
-        ATTENTION: Once You Leave This Page, This Offer Disappears
-      </span>
+      <p class="hero-alert">Once you leave this page, this offer disappears</p>
     </div>
   </div>
 </section>
@@ -415,10 +374,10 @@
 
     <!-- Highlight Box -->
     <div class="callout">
-      <h2 class="display">But... Here's What I Know</h2>
+      <h2 class="display">15 Sessions In 3 Days Is INTENSE</h2>
 
       <p>
-        15 sessions in 3 days is <strong>INTENSE</strong>. I'm going to walk you through everything I've learned in the last 10 years...
+        I'm going to walk you through everything I've learned in the last 10 years...
       </p>
 
       <p>
@@ -427,13 +386,13 @@
     </div>
 
     <div class="prose" style="margin-top:clamp(2rem,5vw,3rem);">
-      <p>Some people join to "see what it's about"... take some notes, and plan to circle back someday when they have time.</p>
+      <p>Some people join to "see what it's about"... take some notes, and plan to get to it someday when they have time.</p>
 
-      <p>And then there are others who know they're not here to passively watch. They're here because they want to <strong>make a change immediately</strong>.</p>
+      <p>And then there are others who aren't here to watch. They're here to <strong>make a change now</strong>.</p>
 
-      <p>They want deeper context, clarity on their own numbers, and confidence they're doing it right.</p>
+      <p>They want clarity on their own numbers and confidence they're doing it right.</p>
 
-      <p class="emphasis">If you're in that second group — and the fact you're already in tells me you're serious — I want to make it even easier for you to take the next step.</p>
+      <p class="emphasis">If you're in that second group, and the fact you're already in tells me you're serious, I want to make it even easier for you to take the next step.</p>
     </div>
   </div>
 </section>
@@ -442,7 +401,6 @@
 <section class="band-cream">
   <div class="wrap">
     <div class="section-head" style="margin-bottom:clamp(2rem,5vw,3rem);">
-      <p class="kicker center">Exclusive Access</p>
       <h2 class="display">
         That's Why I Created <span class="gold-ink">The VIP Option!</span>
       </h2>
@@ -595,10 +553,6 @@
       if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
       if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
 
-      const stickyCountdown = document.getElementById('sticky-countdown');
-      if (stickyCountdown) {
-        stickyCountdown.textContent = `${days}d ${hours}h ${minutes}m`;
-      }
     }
 
     updateCountdown();
