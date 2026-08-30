@@ -6,6 +6,20 @@
     <title>Stop Overpaying: Your Personalized Tax Strategy Report | Legacy Investing Show</title>
     <meta name="description" content="Discover exactly how much you're losing to taxes. Get a personalized 24-page tax strategy report based on 300+ reports generated. Just $47.">
 
+    <!-- Resource hints: warm up third-party origins this page actually uses.
+         Kept first in <head> so DNS/TLS starts before the tracking snippets run. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- No crossorigin below: these are iframe/classic-script fetches (credentialed),
+         so an anonymous preconnect would open a second, unused connection. -->
+    <link rel="preconnect" href="https://player.vimeo.com">
+    <link rel="preconnect" href="https://tracking.joinlwb.com">
+    <link rel="preconnect" href="https://js.static.spiffy.co">
+    <link rel="dns-prefetch" href="https://212809.t.hyros.com">
+    <link rel="dns-prefetch" href="https://35063397.aevent.online">
+    <link rel="dns-prefetch" href="https://f.vimeocdn.com">
+    <link rel="dns-prefetch" href="https://i.vimeocdn.com">
+
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -39,12 +53,10 @@
     spiffy.load("legacyinvestingshow");
     </script>
 
-    <!-- Preconnect to Vimeo for video -->
-    <link rel="preconnect" href="https://player.vimeo.com" crossorigin>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonts (preconnects are declared at the top of <head>).
+         The preload raises the font CSS to highest priority; the stylesheet link
+         below still applies it normally, so rendering is unchanged. -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
     <style>
@@ -465,7 +477,9 @@
             </div>
 
             <div id="vsl" class="video-frame">
-                <iframe src="https://player.vimeo.com/video/1151644607?autoplay=0&title=0&byline=0" title="Upsell Video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="eager"></iframe>
+                <!-- Above the fold: must stay loading="eager". width/height give the
+                     intrinsic 16:9 ratio; the CSS above still sizes it to the frame. -->
+                <iframe src="https://player.vimeo.com/video/1151644607?autoplay=0&title=0&byline=0" title="Upsell Video" width="1600" height="900" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="eager"></iframe>
             </div>
         </div>
     </section>
@@ -744,9 +758,9 @@
                 <!-- Card 1: Cover -->
                 <div class="card shot-card">
                     <div class="shot-img">
-                        <img src="screenshots/report-sneakpeek/report-page-1.png"
+                        <img src="screenshots/report-sneakpeek/report-page-1.webp"
                              alt="Executive summary with total tax optimization potential"
-                             loading="lazy" decoding="async">
+                             width="1200" height="1600" loading="lazy" decoding="async">
                     </div>
                     <div class="shot-meta">
                         <span class="k">EXECUTIVE SUMMARY</span>
@@ -757,9 +771,9 @@
                 <!-- Card 2: Savings Amount -->
                 <div class="card shot-card">
                     <div class="shot-img">
-                        <img src="screenshots/report-sneakpeek/report-page-2.png"
+                        <img src="screenshots/report-sneakpeek/report-page-2.webp"
                              alt="Comparison benchmark against similar earners"
-                             loading="lazy" decoding="async">
+                             width="1200" height="1600" loading="lazy" decoding="async">
                     </div>
                     <div class="shot-meta">
                         <span class="k">PEER BENCHMARK</span>
@@ -770,9 +784,9 @@
                 <!-- Card 3: Strategy Detail 1 -->
                 <div class="card shot-card">
                     <div class="shot-img">
-                        <img src="screenshots/report-sneakpeek/report-page-3.png"
+                        <img src="screenshots/report-sneakpeek/report-page-3.webp"
                              alt="Gap analysis of missing tax strategies"
-                             loading="lazy" decoding="async">
+                             width="1200" height="1600" loading="lazy" decoding="async">
                     </div>
                     <div class="shot-meta">
                         <span class="k">GAP ANALYSIS</span>
@@ -783,9 +797,9 @@
                 <!-- Card 4: Strategy Detail 2 -->
                 <div class="card shot-card">
                     <div class="shot-img">
-                        <img src="screenshots/report-sneakpeek/report-page-4.png"
+                        <img src="screenshots/report-sneakpeek/report-page-4.webp"
                              alt="14-day quick wins implementation checklist"
-                             loading="lazy" decoding="async">
+                             width="1200" height="1600" loading="lazy" decoding="async">
                     </div>
                     <div class="shot-meta">
                         <span class="k">QUICK WINS</span>

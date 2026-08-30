@@ -6,6 +6,21 @@
     <title>VIP Exclusive: Your Personalized Tax Strategy Report | Legacy Investing Show</title>
     <meta name="description" content="As a VIP member, discover exactly how much you're losing to taxes. Get a personalized 24-page tax strategy report based on 300+ reports generated for just $47.">
 
+    <!-- Resource hints: third-party origins this page actually uses.
+         Declared first so the connections open while the head scripts parse. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://player.vimeo.com" crossorigin>
+    <link rel="preconnect" href="https://tracking.joinlwb.com">
+    <link rel="preconnect" href="https://js.static.spiffy.co">
+    <link rel="dns-prefetch" href="https://212809.t.hyros.com">
+    <link rel="dns-prefetch" href="https://35063397.aevent.online">
+    <link rel="dns-prefetch" href="https://i.vimeocdn.com">
+    <link rel="dns-prefetch" href="https://f.vimeocdn.com">
+
+    <!-- Fonts (unchanged URL + display=swap; only moved earlier so the fetch starts sooner) -->
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -38,14 +53,6 @@
     })
     spiffy.load("legacyinvestingshow");
     </script>
-
-    <!-- Preconnect to Vimeo for video -->
-    <link rel="preconnect" href="https://player.vimeo.com" crossorigin>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
     <style>
     :root {
@@ -124,13 +131,7 @@
       box-shadow: 0 1px 0 rgba(122,88,10,.35), 0 8px 22px -10px rgba(185,138,31,.55);
     }
     .btn-gold:hover { background: #C99A2E; transform: translateY(-1px); }
-    .btn-ghost-light {
-      background: transparent; color: #DCE4D6;
-      box-shadow: inset 0 0 0 1px var(--forest-edge);
-    }
-    .btn-ghost-light:hover { background: rgba(255,253,246,.07); color: #F5F1E3; box-shadow: inset 0 0 0 1px #4A7862; }
     .btn-lg { padding: 1rem 2rem; font-size: 1.05rem; }
-    .btn-md { padding: .8rem 1.5rem; font-size: .95rem; }
     .btn-block { display: flex; width: 100%; border-radius: .85rem; }
     .arrow { width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
 
@@ -449,7 +450,8 @@
 
             <div style="max-width:64rem;margin-inline:auto;">
                 <div id="vsl" class="video-frame">
-                    <iframe src="https://player.vimeo.com/video/1151644607?autoplay=0&title=0&byline=0" title="Upsell Video" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                    <!-- Above the fold: stays eager. Wrapper carries aspect-ratio 16/9 so there is no shift. -->
+                    <iframe src="https://player.vimeo.com/video/1151644607?autoplay=0&title=0&byline=0" title="Upsell Video" width="1280" height="720" loading="eager" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
@@ -727,8 +729,9 @@
             <div class="gallery">
                 <div class="card shot">
                     <div class="shot-img">
-                        <img src="screenshots/report-sneakpeek/report-page-1.png"
+                        <img src="screenshots/report-sneakpeek/report-page-1.webp"
                              alt="Executive summary with total tax optimization potential"
+                             width="1200" height="1600"
                              loading="lazy" decoding="async">
                     </div>
                     <div class="k">EXECUTIVE SUMMARY</div>
@@ -737,8 +740,9 @@
 
                 <div class="card shot">
                     <div class="shot-img">
-                        <img src="screenshots/report-sneakpeek/report-page-2.png"
+                        <img src="screenshots/report-sneakpeek/report-page-2.webp"
                              alt="Comparison benchmark against similar earners"
+                             width="1200" height="1600"
                              loading="lazy" decoding="async">
                     </div>
                     <div class="k">PEER BENCHMARK</div>
@@ -747,8 +751,9 @@
 
                 <div class="card shot">
                     <div class="shot-img">
-                        <img src="screenshots/report-sneakpeek/report-page-3.png"
+                        <img src="screenshots/report-sneakpeek/report-page-3.webp"
                              alt="Gap analysis of missing tax strategies"
+                             width="1200" height="1600"
                              loading="lazy" decoding="async">
                     </div>
                     <div class="k">GAP ANALYSIS</div>
@@ -757,8 +762,9 @@
 
                 <div class="card shot">
                     <div class="shot-img">
-                        <img src="screenshots/report-sneakpeek/report-page-4.png"
+                        <img src="screenshots/report-sneakpeek/report-page-4.webp"
                              alt="14-day quick wins implementation checklist"
+                             width="1200" height="1600"
                              loading="lazy" decoding="async">
                     </div>
                     <div class="k">QUICK WINS</div>

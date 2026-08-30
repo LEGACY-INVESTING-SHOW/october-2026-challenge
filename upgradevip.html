@@ -6,6 +6,22 @@
   <title>Get The VIP Ticket - Legacy Investing Show</title>
   <meta name="description" content="Upgrade to VIP for the Tax-Free Income Challenge. Get Day 1 VIP Pre-Challenge Training, live roundtable Q&A access on Days 2 and 3, plus replays, slides, notes, and materials.">
 
+  <!-- Resource hints: third-party origins this page actually requests.
+       Placed first so DNS/TLS setup overlaps the tracking + font fetches below. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://player.vimeo.com" crossorigin>
+  <link rel="preconnect" href="https://tracking.joinlwb.com">
+  <link rel="dns-prefetch" href="https://f.vimeocdn.com">
+  <link rel="dns-prefetch" href="https://i.vimeocdn.com">
+  <link rel="dns-prefetch" href="https://212809.t.hyros.com">
+  <link rel="dns-prefetch" href="https://js.static.spiffy.co">
+  <link rel="dns-prefetch" href="https://35063397.aevent.online">
+
+  <!-- Fonts (preload the stylesheet so it starts before the tracking scripts run) -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -38,14 +54,6 @@
   })
   spiffy.load("legacyinvestingshow");
   </script>
-
-  <!-- Preconnect to Vimeo for video -->
-  <link rel="preconnect" href="https://player.vimeo.com" crossorigin>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -352,7 +360,7 @@
 <section class="band-paper" style="padding-block:clamp(2rem,5vw,3.5rem);">
   <div class="wrap wrap-md">
     <div class="video-frame">
-      <iframe src="https://player.vimeo.com/video/1124965962?autoplay=1&title=0&byline=0&wmode=transparent&autopause=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      <iframe src="https://player.vimeo.com/video/1124965962?autoplay=1&title=0&byline=0&wmode=transparent&autopause=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen width="1280" height="720" loading="eager" fetchpriority="high"></iframe>
     </div>
   </div>
 </section>

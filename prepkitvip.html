@@ -6,6 +6,19 @@
   <title>VIP Exclusive: The Challenge Prep Kit | Preston Seo</title>
   <meta name="description" content="As a VIP member, get ready before Day 1 with the Challenge Prep Kit. Includes 27 Tax Strategy Cheatsheet, Anti-Inflation Pack, and Financial Diagnostic Calculator.">
 
+  <!-- Resource hints: third-party origins this page actually uses -->
+  <link rel="preconnect" href="https://player.vimeo.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.clickfunnels.com" crossorigin>
+  <link rel="dns-prefetch" href="https://images.clickfunnels.com">
+  <link rel="dns-prefetch" href="https://i.vimeocdn.com">
+  <link rel="dns-prefetch" href="https://f.vimeocdn.com">
+  <link rel="dns-prefetch" href="https://tracking.joinlwb.com">
+  <link rel="dns-prefetch" href="https://212809.t.hyros.com">
+  <link rel="dns-prefetch" href="https://js.static.spiffy.co">
+  <link rel="dns-prefetch" href="https://35063397.aevent.online">
+
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -39,13 +52,12 @@
   spiffy.load("legacyinvestingshow");
   </script>
 
-  <!-- Preconnect to Vimeo for video -->
-  <link rel="preconnect" href="https://player.vimeo.com" crossorigin>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <!-- Fonts: same stylesheet, loaded without blocking first paint (display=swap keeps rendering identical) -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" media="print" onload="this.media='all';this.onload=null;">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
+  </noscript>
 
   <style>
     :root {
@@ -298,7 +310,7 @@
   <section style="padding-block:0 clamp(2.5rem,6vw,4rem);">
     <div class="wrap">
       <div class="video-frame">
-        <iframe src="https://player.vimeo.com/video/1151502346?autoplay=1&title=0&byline=0&wmode=transparent&autopause=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        <iframe src="https://player.vimeo.com/video/1151502346?autoplay=1&title=0&byline=0&wmode=transparent&autopause=0" width="1600" height="900" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="eager" fetchpriority="high"></iframe>
       </div>
     </div>
   </section>
@@ -339,7 +351,7 @@
         <!-- Product 1 -->
         <div class="card p-card">
           <div class="p-shot">
-            <img src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/20037538/file/b37a5c2f62f2c32afc98d01b8731cf67.png" alt="27 Tax Strategy Cheatsheet" loading="lazy" decoding="async">
+            <img src="https://images.clickfunnels.com/cdn-cgi/image/width=800px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/20037538/file/b37a5c2f62f2c32afc98d01b8731cf67.png" alt="27 Tax Strategy Cheatsheet" width="947" height="1085" loading="lazy" decoding="async">
           </div>
           <h3>27 Tax Strategy Cheatsheet</h3>
           <p>27 Tax Strategies You've Never Heard From Your CPA (Works for W-2 earners and business owners)</p>
@@ -348,7 +360,7 @@
         <!-- Product 2 -->
         <div class="card p-card">
           <div class="p-shot">
-            <img src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/20037542/file/e96cffdaa177da6068ff1c31eb745ac2.png" alt="Anti-Inflation Pack" loading="lazy" decoding="async">
+            <img src="https://images.clickfunnels.com/cdn-cgi/image/width=800px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/20037542/file/e96cffdaa177da6068ff1c31eb745ac2.png" alt="Anti-Inflation Pack" width="866" height="1111" loading="lazy" decoding="async">
           </div>
           <h3>Anti-Inflation Pack</h3>
           <p>A guide that shows you how to stop inflation from eating your savings year after year.</p>
@@ -357,7 +369,7 @@
         <!-- Product 3 -->
         <div class="card p-card">
           <div class="p-shot">
-            <img src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/20021100/file/da213154dc0e713d09f759eceeec96e6.png" alt="Financial Diagnostic Calculator" loading="lazy" decoding="async">
+            <img src="https://images.clickfunnels.com/cdn-cgi/image/width=800px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/20021100/file/da213154dc0e713d09f759eceeec96e6.png" alt="Financial Diagnostic Calculator" width="1536" height="1024" loading="lazy" decoding="async">
           </div>
           <h3>Financial Diagnostic Calculator</h3>
           <p>Run your numbers in 5 minutes and see what's really happening with your money.</p>
