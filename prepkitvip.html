@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,7 +69,6 @@
       --rose: #B0503C;           /* negative */
       --rose-tint: #F5E3DC;
       --sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-      --serif: var(--sans);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -89,28 +88,14 @@
     strong { color: var(--ink); }
 
     .wrap { max-width: 72rem; margin-inline: auto; padding-inline: clamp(1rem, 4vw, 1.5rem); }
-    .wrap-md { max-width: 60rem; }
-    .wrap-sm { max-width: 48rem; }
 
     /* ---------- Type ---------- */
-    .display { font-family: var(--sans); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); }
+    .display { font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); }
     h1.display { font-size: clamp(1.75rem, 4.2vw, 3rem); line-height: 1.14; text-wrap: balance; }
     h2.display { font-size: clamp(1.6rem, 3.4vw, 2.4rem); text-wrap: balance; }
     h3 { font-weight: 600; color: var(--ink); }
 
-    .kicker {
-      display: flex; align-items: center; gap: .7rem;
-      text-transform: uppercase; letter-spacing: .16em;
-      font-size: .72rem; font-weight: 700; color: var(--green-mid);
-    }
-    .kicker::before { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
-    .kicker.center { justify-content: center; }
-    .kicker.center::after { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
-
     .section-head { max-width: 46rem; margin-inline: auto; text-align: center; }
-    .section-head .kicker { margin-bottom: .9rem; }
-    .muted { color: var(--ink-soft); }
-    .faint { color: var(--ink-faint); }
 
     /* ---------- Buttons ---------- */
     .btn {
@@ -124,17 +109,14 @@
       box-shadow: 0 1px 0 rgba(122,88,10,.35), 0 8px 22px -10px rgba(185,138,31,.55);
     }
     .btn-gold:hover { background: #C99A2E; transform: translateY(-1px); }
-    .btn-lg { padding: 1rem 2rem; font-size: 1.05rem; }
     .btn-xl { padding: 1.15rem 2.35rem; font-size: clamp(.98rem, 2.4vw, 1.2rem); line-height: 1.3; text-align: center; }
-    .btn-md { padding: .8rem 1.5rem; font-size: .95rem; }
-    .arrow { width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
     .btn-icon { width: 1.15rem; height: 1.15rem; flex-shrink: 0; }
 
     /* ---------- Cards & panels ---------- */
     .card {
       background: var(--paper);
       border: 1px solid var(--line);
-      border-radius: 1.1rem;
+      border-radius: 1rem;
     }
     .pill {
       display: inline-flex; align-items: center; gap: .5rem;
@@ -145,32 +127,23 @@
     .dot { width: .5rem; height: .5rem; border-radius: 999px; background: var(--gold-deep); animation: pulse 2s infinite; flex-shrink: 0; }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
 
-    .icon-check {
-      flex-shrink: 0; width: 1.4rem; height: 1.4rem; border-radius: 999px;
-      display: inline-flex; align-items: center; justify-content: center;
-      font-size: .72rem; font-weight: 700; margin-top: .1rem;
-      background: var(--emerald-tint); color: var(--emerald);
-    }
     .check-svg { width: 1.2rem; height: 1.2rem; color: var(--emerald); flex-shrink: 0; }
-    .check-svg.gold { color: var(--gold-deep); }
 
     /* ---------- Sections ---------- */
     section { padding-block: clamp(2.5rem, 6vw, 5rem); }
     .band-paper { background: var(--paper); border-block: 1px solid var(--line); }
-    .band-cream { background: var(--cream); }
     .band-forest { background: var(--forest); color: #DCE4D6; }
     .band-forest .display, .band-forest h3, .band-forest strong { color: #F5F1E3; }
-    .band-forest .muted { color: #A9BCA9; }
 
     /* ---------- Hero ---------- */
     .hero { padding-block: clamp(2.25rem, 5vw, 4rem) clamp(1.75rem, 4vw, 2.75rem); text-align: center; }
-    .hero h1.display { display: block; max-width: 44rem; margin-inline: auto; }
+    .hero h1.display { max-width: 44rem; margin-inline: auto; }
     .alert-svg { width: clamp(1.5rem, 3vw, 2.1rem); height: clamp(1.5rem, 3vw, 2.1rem); color: var(--gold-deep); vertical-align: -0.14em; margin-right: .5rem; }
 
     /* ---------- Progress bar ---------- */
     .progress-card { max-width: 34rem; margin: clamp(1.5rem, 3vw, 2.25rem) auto 0; padding: .45rem; }
     .progress-track {
-      position: relative; height: 2.6rem; border-radius: .75rem; overflow: hidden;
+      position: relative; height: 2.6rem; border-radius: .55rem; overflow: hidden;
       background: var(--ivory); border: 1px solid var(--line);
     }
     .progress-fill {
@@ -197,7 +170,7 @@
     @media (min-width: 768px) { .value-grid { grid-template-columns: repeat(3, 1fr); } }
     .value-card {
       padding: 1.1rem 1.25rem; display: flex; align-items: center; justify-content: center;
-      gap: .6rem; text-align: center; font-weight: 600; color: var(--ink); font-size: .98rem;
+      gap: .6rem; text-align: center; font-weight: 600; color: var(--ink); font-size: 1rem;
     }
 
     /* ---------- Intro ---------- */
@@ -221,7 +194,7 @@
       padding: 1rem; margin-bottom: 1.35rem;
     }
     .p-shot img { max-width: 11rem; margin-inline: auto; border-radius: .5rem; }
-    .p-card h3 { font-size: 1.2rem; line-height: 1.3; color: var(--gold-ink); margin-bottom: .8rem; text-align: center; }
+    .p-card h3 { font-size: 1.2rem; line-height: 1.3; color: var(--gold-ink); margin-bottom: .8rem; }
     .p-card > p { color: var(--ink-soft); font-size: .95rem; line-height: 1.65; }
     .p-list { margin-top: 1.1rem; display: flex; flex-direction: column; gap: .7rem; }
     .p-list li { display: flex; gap: .65rem; align-items: flex-start; font-size: .9rem; color: var(--ink-soft); line-height: 1.5; }
@@ -235,7 +208,7 @@
       max-width: 28rem; margin: clamp(1.5rem, 3vw, 2.25rem) auto; text-align: left;
       display: flex; flex-direction: column; gap: .85rem;
     }
-    .u-list li { display: flex; gap: .8rem; align-items: flex-start; font-size: 1.02rem; color: #DCE4D6; }
+    .u-list li { display: flex; gap: .8rem; align-items: flex-start; font-size: 1rem; color: #DCE4D6; }
     .u-list svg { width: 1.2rem; height: 1.2rem; color: var(--gold); flex-shrink: 0; margin-top: .3rem; }
     .u-note {
       max-width: 36rem; margin-inline: auto; border-radius: 1rem;
@@ -332,7 +305,7 @@
   <!-- ═══════════════════════════════════════════════════
        VIDEO
        ═══════════════════════════════════════════════════ -->
-  <section class="video-section" style="padding-block:0 clamp(2.5rem,6vw,4rem);">
+  <section style="padding-block:0 clamp(2.5rem,6vw,4rem);">
     <div class="wrap">
       <div class="video-frame">
         <iframe src="https://player.vimeo.com/video/1151502346?autoplay=1&title=0&byline=0&wmode=transparent&autopause=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>

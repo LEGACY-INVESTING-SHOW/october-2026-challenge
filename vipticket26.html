@@ -54,7 +54,6 @@
       --ink-soft: #45544A;       /* secondary text */
       --ink-faint: #74816F;      /* tertiary text */
       --forest: #16352A;         /* dark green bands */
-      --forest-2: #1D4234;
       --forest-edge: #2C5443;
       --green-mid: #2A6B4F;      /* accents on light */
       --emerald: #2F7D5B;        /* positive */
@@ -66,7 +65,6 @@
       --rose: #B0503C;           /* negative */
       --rose-tint: #F5E3DC;
       --sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-      --serif: var(--sans);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -87,11 +85,10 @@
     strong { color: var(--ink); }
 
     .wrap { max-width: 72rem; margin-inline: auto; padding-inline: clamp(1rem, 4vw, 1.5rem); }
-    .wrap-md { max-width: 60rem; }
     .wrap-sm { max-width: 48rem; }
 
     /* ---------- Type ---------- */
-    .display { font-family: var(--sans); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); }
+    .display { font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); }
     h1.display { font-size: clamp(1.75rem, 4.2vw, 3rem); line-height: 1.14; text-wrap: balance; }
     h2.display { font-size: clamp(1.6rem, 3.4vw, 2.4rem); text-wrap: balance; }
     h3 { font-weight: 600; color: var(--ink); }
@@ -105,26 +102,13 @@
     .kicker.center { justify-content: center; }
     .kicker.center::after { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
 
-    .section-head { max-width: 46rem; margin-inline: auto; text-align: center; }
+    .section-head {
+      max-width: 46rem; margin-inline: auto; text-align: center;
+      margin-bottom: clamp(1.75rem, 4vw, 3rem);
+    }
     .section-head .kicker { margin-bottom: .9rem; }
+    .section-head .muted { margin-top: .7rem; }
     .muted { color: var(--ink-soft); }
-    .faint { color: var(--ink-faint); }
-
-    /* ---------- Buttons ---------- */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
-      font-weight: 700; border-radius: 999px; text-decoration: none;
-      transition: transform .18s cubic-bezier(.22,1,.36,1), box-shadow .18s, background-color .18s;
-      border: none;
-    }
-    .btn-gold {
-      background: var(--gold); color: #221903;
-      box-shadow: 0 1px 0 rgba(122,88,10,.35), 0 8px 22px -10px rgba(185,138,31,.55);
-    }
-    .btn-gold:hover { background: #C99A2E; transform: translateY(-1px); }
-    .btn-lg { padding: 1rem 2rem; font-size: 1.05rem; }
-    .btn-md { padding: .8rem 1.5rem; font-size: .95rem; }
-    .arrow { width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
 
     /* ---------- Cards & panels ---------- */
     .card {
@@ -138,11 +122,9 @@
     }
     .pill-gold { background: var(--gold-tint); color: var(--gold-ink); border: 1px solid #E5D3A0; padding: .35rem .85rem; }
     .pill-green { background: var(--emerald-tint); color: var(--green-mid); border: 1px solid #CBDEC6; padding: .35rem .85rem; }
-    .dot { width: .5rem; height: .5rem; border-radius: 999px; background: var(--gold-deep); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+    .pill svg { width: 1rem; height: 1rem; flex-shrink: 0; }
 
     .check-svg { width: 1.2rem; height: 1.2rem; color: var(--emerald); flex-shrink: 0; margin-top: .2rem; }
-    .check-svg.gold { color: var(--gold-deep); }
 
     /* ---------- Sections / bands ---------- */
     section { padding-block: clamp(2.5rem, 6vw, 4.75rem); }
@@ -170,7 +152,7 @@
     .progress-bar {
       height: 100%;
       width: 75%;
-      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-deep) 100%);
+      background: var(--gold);
       display: flex; align-items: center; justify-content: center;
       border-radius: 999px;
     }
@@ -185,12 +167,11 @@
     .hero > .wrap > * + * { margin-top: 1.15rem; }
     .hero-accent { color: var(--gold-ink); }
     .hero-sub { font-size: clamp(1rem, 1.8vw, 1.2rem); color: var(--ink-soft); max-width: 44rem; margin-inline: auto; }
-    .crown { width: .95rem; height: .95rem; flex-shrink: 0; }
 
     /* ---------- Event details trio ---------- */
     .info-grid { display: grid; gap: 1.25rem; }
     @media (min-width: 768px) { .info-grid { grid-template-columns: repeat(3, 1fr); } }
-    .info-card { padding: 1.75rem 1.5rem; }
+    .info-card { padding: 1.5rem; }
     .info-card .k {
       font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
       color: var(--green-mid); margin-bottom: .6rem;
@@ -209,7 +190,7 @@
     }
     .count-row { display: flex; justify-content: center; gap: .4rem; flex-wrap: wrap; }
     .count-cell { min-width: 4.4rem; padding: .7rem .5rem; background: var(--paper); border: 1px solid var(--line); border-radius: .8rem; }
-    .count-num { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.1; }
+    .count-num { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.1; }
     .count-lbl { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); margin-top: .25rem; }
 
     /* ---------- Checkout split ---------- */
@@ -224,22 +205,22 @@
     .whats-included h2 { font-size: clamp(1.3rem, 2.4vw, 1.65rem); margin-bottom: 1.4rem; }
     .benefit-box {
       background: var(--gold-tint); border: 1px solid #E5D3A0;
-      border-radius: 1rem; padding: 1.25rem 1.4rem; margin-bottom: 1.1rem;
+      border-radius: 1.1rem; padding: 1.25rem 1.4rem; margin-bottom: 1.1rem;
     }
     .benefit-box h4 { display: flex; align-items: flex-start; gap: .6rem; font-size: 1.02rem; font-weight: 700; color: var(--gold-ink); margin-bottom: .4rem; }
     .benefit-box h4 svg { width: 1.15rem; height: 1.15rem; flex-shrink: 0; margin-top: .18rem; }
-    .benefit-box p { font-size: .92rem; color: var(--ink-soft); }
+    .benefit-box p { font-size: .95rem; color: var(--ink-soft); }
 
     .session-list { margin-top: 1.5rem; }
     .session-list li {
       display: flex; align-items: flex-start; gap: .8rem;
-      font-size: .93rem; color: var(--ink-soft);
+      font-size: .95rem; color: var(--ink-soft);
       padding-block: .8rem; border-bottom: 1px solid var(--line);
     }
     .session-list li:last-child { border-bottom: none; }
     .session-list li.vip-session {
-      background: var(--gold-tint); border: 1px solid #E5D3A0; border-radius: .9rem;
-      padding: 1rem 1.15rem; margin-block: .8rem; display: block;
+      background: var(--gold-tint); border: 1px solid #E5D3A0; border-radius: 1.1rem;
+      padding: 1.25rem 1.4rem; margin-block: .8rem; display: block;
     }
     .vip-highlight {
       display: inline-block; padding: .24rem .75rem; border-radius: 999px;
@@ -255,7 +236,7 @@
     .t-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
     .stars { display: flex; gap: .2rem; color: var(--gold-deep); margin-bottom: 1rem; }
     .stars svg { width: 1.05rem; height: 1.05rem; }
-    .t-quote { font-family: var(--serif); font-size: 1rem; line-height: 1.55; color: var(--ink); flex: 1; margin-bottom: 1.25rem; }
+    .t-quote { font-size: 1rem; line-height: 1.55; color: var(--ink); flex: 1; margin-bottom: 1.25rem; }
     .t-meta { border-top: 1px solid var(--line); padding-top: 1rem; }
     .t-name { font-weight: 700; color: var(--gold-ink); font-size: .95rem; }
     .t-role { font-size: .84rem; color: var(--ink-faint); margin-top: .15rem; }
@@ -264,7 +245,7 @@
     .shot-grid { display: grid; gap: 1.25rem; }
     @media (min-width: 640px) { .shot-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 900px) { .shot-grid { grid-template-columns: repeat(3, 1fr); } }
-    .shot { border-radius: 1rem; overflow: hidden; border: 1px solid var(--line); background: var(--paper); }
+    .shot { border-radius: 1.1rem; overflow: hidden; border: 1px solid var(--line); background: var(--paper); }
     .shot img { width: 100%; }
 
     /* ---------- Guarantee ---------- */
@@ -273,13 +254,7 @@
       padding: clamp(2rem, 4vw, 3rem);
     }
     .guarantee-card > img { max-width: 7.5rem; margin: 0 auto 1.4rem; }
-    .guarantee-badge {
-      display: inline-flex; align-items: center; gap: .5rem;
-      background: var(--emerald-tint); border: 1px solid #CBDEC6; color: var(--emerald);
-      padding: .45rem 1rem; border-radius: 999px; font-weight: 700; font-size: .82rem;
-      margin-bottom: 1.4rem;
-    }
-    .guarantee-badge svg { width: 1.05rem; height: 1.05rem; }
+    .guarantee-badge { margin-bottom: 1.4rem; }
     .guarantee-card h2 { margin-bottom: 1rem; }
     .guarantee-card p { color: var(--ink-soft); max-width: 38rem; margin-inline: auto; }
     .guarantee-card p + p { margin-top: 1.25rem; }
@@ -289,11 +264,11 @@
     .urgency { text-align: center; }
     .final-count {
       margin-top: 1.75rem; display: inline-flex; flex-wrap: wrap; align-items: flex-start;
-      justify-content: center; gap: .9rem; padding: 1rem 1.5rem; border-radius: 1rem;
+      justify-content: center; gap: .9rem; padding: 1rem 1.5rem; border-radius: 1.1rem;
       background: rgba(255,253,246,.06); border: 1px solid var(--forest-edge);
     }
     .final-count .cell { text-align: center; min-width: 3.4rem; }
-    .final-count .num { font-family: var(--serif); font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; color: var(--gold); line-height: 1.1; font-variant-numeric: tabular-nums; }
+    .final-count .num { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; color: var(--gold); line-height: 1.1; font-variant-numeric: tabular-nums; }
     .final-count .u { font-size: .66rem; color: #7E967E; text-transform: uppercase; letter-spacing: .1em; margin-top: .2rem; }
     .final-count .sep { color: var(--forest-edge); font-size: 1.3rem; margin-top: .1rem; }
 
@@ -328,7 +303,6 @@
       .t-card img.t-photo { height: 11rem; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .dot { animation: none; }
       * { transition: none !important; }
     }
   </style>
@@ -384,7 +358,7 @@
 <section class="hero">
   <div class="wrap">
     <span class="pill pill-gold">
-      <svg class="crown"><use href="#crown-icon"/></svg>
+      <svg><use href="#crown-icon"/></svg>
       VIP Ticket
     </span>
 
@@ -397,7 +371,7 @@
 <!-- ═══════════════════════════════════════════════════
      EVENT DETAILS
      ═══════════════════════════════════════════════════ -->
-<section class="band-paper" style="padding-block:clamp(2rem,4vw,3.25rem);">
+<section class="band-paper" style="padding-block:clamp(2rem,4vw,3rem);">
   <div class="wrap">
     <div class="info-grid">
       <div class="card info-card">
@@ -460,26 +434,24 @@
   <div class="wrap">
     <div class="checkout-grid">
       <!-- Left: Checkout Form -->
-      <div>
-        <div class="checkout-shell">
-          <iframe
-            id="spiffy-inline-checkout"
-            title="Secure VIP Checkout"
-            data-checkout-url="https://legacyinvestingshow.spiffy.co/checkout/tax-free-income-challenge-early-bird-vip1234"
-            style="width: 100%; height: 1050px; border: 0; min-height: 760px; display: block; background: #ffffff; opacity: 0; transition: opacity 0.25s ease;"
-            loading="eager"
-            allow="payment"
-            referrerpolicy="strict-origin-when-cross-origin">
-          </iframe>
-          <div id="spiffy-checkout-status" class="checkout-overlay" style="background: var(--paper); color: var(--ink-faint);">
-            Loading secure checkout...
-          </div>
-          <div id="spiffy-checkout-error" class="checkout-overlay" style="display: none; background: var(--rose-tint); color: var(--rose);">
-            <span>
-              Having trouble loading checkout?
-              <a id="spiffy-checkout-open" href="#" target="_blank" rel="noopener noreferrer" style="color: var(--gold-ink); text-decoration: underline; font-weight: 700;">Open secure checkout in a new tab</a>.
-            </span>
-          </div>
+      <div class="checkout-shell">
+        <iframe
+          id="spiffy-inline-checkout"
+          title="Secure VIP Checkout"
+          data-checkout-url="https://legacyinvestingshow.spiffy.co/checkout/tax-free-income-challenge-early-bird-vip1234"
+          style="width: 100%; height: 1050px; border: 0; min-height: 760px; display: block; background: #ffffff; opacity: 0; transition: opacity 0.25s ease;"
+          loading="eager"
+          allow="payment"
+          referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
+        <div id="spiffy-checkout-status" class="checkout-overlay" style="background: var(--paper); color: var(--ink-faint);">
+          Loading secure checkout...
+        </div>
+        <div id="spiffy-checkout-error" class="checkout-overlay" style="display: none; background: var(--rose-tint); color: var(--rose);">
+          <span>
+            Having trouble loading checkout?
+            <a id="spiffy-checkout-open" href="#" target="_blank" rel="noopener noreferrer" style="color: var(--gold-ink); text-decoration: underline; font-weight: 700;">Open secure checkout in a new tab</a>.
+          </span>
         </div>
       </div>
 
@@ -504,7 +476,7 @@
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Why Your 401(k) Is Bleeding Money &amp; What To Do Instead</span></li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Debt Elimination &amp; Credit Mastery: From High-Interest Trap to Smart Funding</span></li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Expert Deep Dive - Entity Structure &amp; Business Credit with Tommy Thornburgh</span></li>
-          <li class="vip-session"><span class="vip-highlight">VIP Exclusive</span><span style="display:block;color:var(--ink-soft);font-size:.93rem;"><strong>VIP Pre-Challenge Training + Day 2 &amp; Day 3 Roundtable Q&amp;A</strong> &mdash; Start with Preston's asset protection training before Day 1, then bring your questions to the live roundtables on Days 2 and 3.</span></li>
+          <li class="vip-session"><span class="vip-highlight">VIP Exclusive</span><span style="display:block;"><strong>VIP Pre-Challenge Training + Day 2 &amp; Day 3 Roundtable Q&amp;A</strong> &mdash; Start with Preston's asset protection training before Day 1, then bring your questions to the live roundtables on Days 2 and 3.</span></li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>The W-2 Taxes Playbook: How High-Earners Keep Losing Half Their Income</span></li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>The Investor Playbook: How to Build Wealth Without Paying Taxes</span></li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>How To Start A 100% Tax-Free Airbnb Business (Without Buying Property)</span></li>
@@ -524,10 +496,10 @@
      ═══════════════════════════════════════════════════ -->
 <section class="band-paper">
   <div class="wrap">
-    <div class="section-head" style="margin-bottom:clamp(1.75rem,4vw,3rem);">
+    <div class="section-head">
       <p class="kicker center">Success Stories</p>
       <h2 class="display">Real People, Real Results</h2>
-      <p class="muted" style="margin-top:.7rem;">See what past challenge participants have achieved</p>
+      <p class="muted">See what past challenge participants have achieved</p>
     </div>
 
     <div class="tri-grid">
@@ -581,10 +553,10 @@
      ═══════════════════════════════════════════════════ -->
 <section>
   <div class="wrap">
-    <div class="section-head" style="margin-bottom:clamp(1.75rem,4vw,3rem);">
+    <div class="section-head">
       <p class="kicker center">Social Proof</p>
       <h2 class="display">Why Attend This Challenge?</h2>
-      <p class="muted" style="margin-top:.7rem;">See what people are saying after attending our 3-Day Tax-Free Income Challenge</p>
+      <p class="muted">See what people are saying after attending our 3-Day Tax-Free Income Challenge</p>
     </div>
 
     <div class="shot-grid">
@@ -618,7 +590,7 @@
     <div class="card guarantee-card">
       <img src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/18060688/file/25f4baf4d5fdfef60d8675af6efe8f8b.webp" alt="Money Back Guarantee" loading="lazy" decoding="async">
 
-      <div class="guarantee-badge">
+      <div class="pill pill-green guarantee-badge">
         <svg><use href="#shield-icon"/></svg>
         100% Risk-Free Guarantee
       </div>
@@ -675,7 +647,7 @@
      ═══════════════════════════════════════════════════ -->
 <section class="band-paper">
   <div class="wrap wrap-sm">
-    <div class="section-head" style="margin-bottom:clamp(1.75rem,4vw,3rem);">
+    <div class="section-head">
       <p class="kicker center">FAQ</p>
       <h2 class="display">Still Got Questions? We Got You!</h2>
     </div>

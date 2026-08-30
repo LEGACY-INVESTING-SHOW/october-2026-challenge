@@ -104,7 +104,7 @@
     .kicker.center { justify-content: center; }
     .kicker.center::after { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
 
-    .section-head { max-width: 46rem; margin-inline: auto; text-align: center; }
+    .section-head { max-width: 46rem; margin-inline: auto; text-align: center; margin-bottom: clamp(2rem, 4vw, 3.5rem); }
     .section-head .kicker { margin-bottom: .9rem; }
     .muted { color: var(--ink-soft); }
     .faint { color: var(--ink-faint); }
@@ -143,7 +143,6 @@
       border-radius: 999px; font-weight: 600; font-size: .8rem;
     }
     .pill-gold { background: var(--gold-tint); color: var(--gold-ink); border: 1px solid #E5D3A0; padding: .35rem .85rem; }
-    .pill-green { background: var(--emerald-tint); color: var(--green-mid); border: 1px solid #CBDEC6; padding: .35rem .85rem; }
     .dot { width: .5rem; height: .5rem; border-radius: 999px; background: var(--gold-deep); animation: pulse 2s infinite; }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
 
@@ -155,7 +154,7 @@
     .icon-x { background: var(--rose-tint); color: var(--rose); }
     .icon-check { background: var(--emerald-tint); color: var(--emerald); }
     .check-svg { width: 1.2rem; height: 1.2rem; color: var(--emerald); flex-shrink: 0; margin-top: .15rem; }
-    .check-svg.gold { color: var(--gold-deep); }
+    .check-svg.gold { color: var(--gold); }
 
     /* ---------- Sticky header ---------- */
     #sticky-header {
@@ -190,9 +189,8 @@
       .hero-copy h1.display { font-size: clamp(2.2rem, 2.9vw, 2.85rem); line-height: 1.13; }
       .only-desktop { display: block; }
       .only-mobile { display: none; }
-      .hero-cta { margin-top: 2.25rem; }
-      .hero-cta .date { font-size: .85rem; color: var(--ink-faint); margin-top: .8rem; }
     }
+    .hero .date { font-size: .85rem; color: var(--ink-faint); margin-top: .8rem; }
     .hero-copy > * + * { margin-top: 1.25rem; }
     .hero-copy h1.display { margin-top: 1.05rem; }
     .hero-accent { color: var(--gold-ink); font-style: italic; font-family: var(--serif); font-weight: 600; font-size: 1.04em; }
@@ -205,16 +203,19 @@
     }
     .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-    .countdown-card { padding: 1.25rem 1.5rem; text-align: center; }
-    .countdown-card .label {
-      font-size: .74rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-      color: var(--gold-ink); margin-bottom: .9rem;
+    .countdown-card {
+      padding: 1.5rem; text-align: center;
+      background: var(--forest); border-color: var(--forest-edge);
     }
-    .count-row { display: flex; justify-content: center; gap: .4rem; }
-    .count-cell { min-width: 3.6rem; padding: .55rem .35rem; background: var(--ivory); border: 1px solid var(--line); border-radius: .7rem; }
-    .count-num { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.1; }
-    .count-lbl { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); margin-top: .25rem; }
-    .count-sep { align-self: center; color: var(--gold-deep); font-size: 1.3rem; font-weight: 300; }
+    .countdown-card .label {
+      font-size: .74rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.1rem;
+    }
+    .count-row { display: flex; justify-content: center; align-items: flex-start; }
+    .count-cell { min-width: 4.2rem; padding: 0 .5rem; }
+    .count-num { font-size: clamp(1.9rem, 3.4vw, 2.5rem); font-weight: 700; color: #F7F2E7; font-variant-numeric: tabular-nums; line-height: 1.05; letter-spacing: -0.02em; }
+    .count-lbl { font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; color: #8FA78F; margin-top: .35rem; }
+    .count-sep { color: var(--gold-deep); font-size: 1.5rem; font-weight: 400; line-height: 1.4; }
 
     /* ---------- Sections ---------- */
     section { padding-block: clamp(2.75rem, 7vw, 6rem); }
@@ -288,7 +289,6 @@
       font-family: var(--serif); font-weight: 500; font-size: 1.9rem; line-height: 1;
       color: var(--gold-deep); min-width: 3.2rem;
     }
-    .pillar-emoji { font-size: 1.1rem; margin-right: .4rem; }
     .pillar h4 { font-size: 1.05rem; margin-bottom: .3rem; }
     .pillar p { font-size: .92rem; color: var(--ink-soft); }
 
@@ -311,7 +311,7 @@
     .day-grid { display: grid; gap: 1.5rem; }
     @media (min-width: 1024px) { .day-grid { grid-template-columns: repeat(3, 1fr); } }
     .day-card { overflow: hidden; display: flex; flex-direction: column; }
-    .day-head { background: var(--forest); color: #F5F1E3; padding: 1.25rem 1.5rem; }
+    .day-head { background: var(--forest); color: #F5F1E3; padding: 1.25rem; }
     .day-head .tag { font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
     .day-head h3 { color: #F5F1E3; font-family: var(--serif); font-size: 1.3rem; margin-top: .25rem; }
     .day-body { padding: 1.25rem; display: flex; flex-direction: column; gap: .7rem; }
@@ -325,8 +325,7 @@
     /* ---------- Info trio ---------- */
     .info-grid { display: grid; gap: 1.25rem; }
     @media (min-width: 768px) { .info-grid { grid-template-columns: repeat(3, 1fr); } }
-    .info-card { padding: 1.9rem 1.5rem; text-align: center; }
-    .info-card .emoji { font-size: 1.9rem; display: block; margin-bottom: .8rem; }
+    .info-card { padding: 1.75rem 1.5rem; text-align: center; }
     .info-card .k { font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--green-mid); margin-bottom: .45rem; }
     .info-card .v { font-family: var(--serif); font-weight: 600; font-size: 1.15rem; color: var(--ink); margin-bottom: .35rem; }
     .info-card p { font-size: .88rem; color: var(--ink-faint); }
@@ -412,8 +411,8 @@
     @media (min-width: 900px) { .case { grid-template-columns: 1fr 1fr; gap: 3.5rem; } }
     .case + .case { margin-top: clamp(3rem, 6vw, 5rem); }
     .case-img { border-radius: 1rem; overflow: hidden; border: 1px solid var(--line); }
-    .case h3 { font-family: var(--serif); font-size: 1.6rem; margin-bottom: .4rem; }
-    .case .hook { color: var(--gold-ink); font-family: var(--serif); font-style: italic; margin-bottom: .9rem; }
+    .case h3, .case-solo h3 { font-family: var(--serif); font-size: 1.6rem; margin-bottom: .4rem; }
+    .case .hook, .case-solo .hook { color: var(--gold-ink); font-family: var(--serif); font-style: italic; margin-bottom: .9rem; }
     .case > div > p.body { color: var(--ink-soft); margin-bottom: 1.4rem; }
     .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
     .stat-chip { padding: .95rem 1rem; }
@@ -428,8 +427,7 @@
     .roi-box .v { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; color: var(--emerald); }
 
     .case-solo { max-width: 48rem; margin: clamp(3rem, 6vw, 5rem) auto 0; padding: 2rem; }
-    .case-solo .stat-grid { margin-bottom: 1.4rem; }
-    @media (min-width: 640px) { .case-solo .stat-grid { grid-template-columns: 1fr 1fr; } }
+    .case-solo .stat-grid .stat-row + .stat-row { margin-top: 0; }
 
     /* ---------- Wealth plans ---------- */
     .plan-card { padding: clamp(1.25rem, 3vw, 2rem); }
@@ -501,11 +499,10 @@
     /* ---------- Cost of waiting ---------- */
     .cost-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin-bottom: 2.5rem; }
     @media (min-width: 1024px) { .cost-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-    .cost-card .v { overflow-wrap: anywhere; }
     .cost-card { padding: 1.5rem; text-align: center; }
     .cost-card .emoji { font-size: 1.7rem; display: block; margin-bottom: .6rem; }
     .cost-card .k { font-size: .82rem; font-weight: 600; color: var(--ink-faint); margin-bottom: .35rem; }
-    .cost-card .v { font-family: var(--serif); font-size: 1.4rem; font-weight: 600; color: var(--rose); margin-bottom: .4rem; }
+    .cost-card .v { font-family: var(--serif); font-size: 1.4rem; font-weight: 600; color: var(--rose); margin-bottom: .4rem; overflow-wrap: anywhere; }
     .cost-card p { font-size: .8rem; color: var(--ink-faint); }
     .cost-total {
       max-width: 40rem; margin-inline: auto; text-align: center;
@@ -717,7 +714,7 @@
             Claim Your Ticket Now
             <svg class="arrow"><use href="#arrow-icon"/></svg>
           </a>
-          <p class="faint" style="font-size:.85rem;margin-top:.8rem;">Oct 16th - Oct 18th | 10 AM - 4 PM EST</p>
+          <p class="date">Oct 16th - Oct 18th | 10 AM - 4 PM EST</p>
         </div>
 
         <div class="card countdown-card">
@@ -740,12 +737,12 @@
 <!-- ═══════════════════════════════════════════════════
      SOCIAL PROOF BAR
      ═══════════════════════════════════════════════════ -->
-<section class="featured band-paper" style="padding-block:1.75rem;">
+<section class="featured band-paper">
   <div class="wrap featured-inner">
     <span class="featured-label">As Featured In</span>
     <div class="featured-logos">
-      <img src="/assets/images/04-as-featured-in-logos.webp" alt="Featured publications" style="height:4.5rem;width:auto;object-fit:contain;" width="400" height="96" loading="lazy" decoding="async">
-      <img src="/assets/images/trustpilot.webp" alt="Trustpilot Rating" style="height:6.5rem;width:auto;object-fit:contain;" width="350" height="81" loading="lazy" decoding="async">
+      <img src="/assets/images/04-as-featured-in-logos.webp" alt="Featured publications" style="height:4.5rem;width:auto;" width="400" height="96" loading="lazy" decoding="async">
+      <img src="/assets/images/trustpilot.webp" alt="Trustpilot Rating" style="height:6.5rem;width:auto;" width="350" height="81" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -755,7 +752,7 @@
      ═══════════════════════════════════════════════════ -->
 <section>
   <div class="wrap">
-    <div class="section-head" style="margin-bottom:clamp(1.75rem,4vw,3.5rem);">
+    <div class="section-head">
       <p class="kicker center">Success Stories</p>
       <h2 class="display">4,400+ People Have Been Through This Challenge</h2>
     </div>
@@ -831,14 +828,14 @@
         </p>
 
         <ul class="x-list" style="margin-bottom:1.75rem;">
-          <li><span class="icon-x">✕</span><span>Every raise comes with a bigger tax bill. You work more, earn more, and end up with less.</span></li>
+          <li><span class="icon-x">✕</span><span>You earn more every year and somehow keep less of it.</span></li>
           <li><span class="icon-x">✕</span><span>Big financial goals keep getting pushed back because there's never "enough" to start.</span></li>
           <li><span class="icon-x">✕</span><span>Every money decision feels like a coin flip. Pay off debt or invest? Max out 401k or save for a rental?</span></li>
           <li><span class="icon-x">✕</span><span>You're hoping it'll work out instead of KNOWING it will.</span></li>
         </ul>
 
         <div class="callout">
-          <p><strong>We're not going to give you theory.</strong> We're going step by step. Detailed how-to. Not more Rich Dad Poor Dad advice. Actual implementation.</p>
+          <p><strong>We're not going to hand you theory.</strong> We'll walk you step by step through what to do and in what order. Not more Rich Dad Poor Dad advice.</p>
         </div>
       </div>
 
@@ -864,8 +861,8 @@
      ═══════════════════════════════════════════════════ -->
 <section>
   <div class="wrap">
-    <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3rem);">
-      <p class="kicker center">The Journey</p>
+    <div class="section-head">
+      <p class="kicker center">Preston's Story</p>
       <h2 class="display">You're Making More Money Than Ever... Why Does It Feel Like You're Falling Behind?</h2>
     </div>
 
@@ -881,15 +878,15 @@
       <div class="story-text">
         <p>Hi, my name's Preston. I was in my 20s doing everything "right" with money but getting nowhere.</p>
 
-        <p>I was living with my wife in my parents' basement as I was struggling with money at that time. My wife Bridget was working long shifts as a respiratory therapist. I was in sales.</p>
+        <p>My wife Bridget and I were living in my parents' basement. She was working long shifts as a respiratory therapist. I was in sales.</p>
 
-        <p>We were both doing what we thought we were "supposed to do" but somehow still feeling financially stuck.</p>
+        <p>We were both doing what we thought we were supposed to do. And we were still stuck.</p>
 
         <ul class="pain-box">
-          <li><span class="icon-x">✗</span>Every raise came with a bigger tax bill. We worked more, earned more, and ended up with less.</li>
-          <li><span class="icon-x">✗</span>We talked about "someday" having nice things. Someday became our favorite word.</li>
-          <li><span class="icon-x">✗</span>We tried investing. Roth IRA, index funds, even crypto. No clue if we were doing it right.</li>
-          <li><span class="icon-x">✗</span>Every money decision was a coin flip. Should we pay off the car loan or max out the 401k?</li>
+          <li><span class="icon-x">✕</span>Every raise came with a bigger tax bill. We worked more, earned more, and ended up with less.</li>
+          <li><span class="icon-x">✕</span>We talked about "someday" having nice things. Someday became our favorite word.</li>
+          <li><span class="icon-x">✕</span>We tried investing. Roth IRA, index funds, even crypto. No clue if we were doing it right.</li>
+          <li><span class="icon-x">✕</span>Every money decision was a coin flip. Should we pay off the car loan or max out the 401k?</li>
         </ul>
 
         <p><strong>None of this means you lack discipline or intelligence.</strong> It just means you're doing what everyone else does with money. So you get what everyone else gets.</p>
@@ -915,7 +912,7 @@
      ═══════════════════════════════════════════════════ -->
 <section class="band-paper">
   <div class="wrap">
-    <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3.5rem);">
+    <div class="section-head">
       <p class="kicker center">The System</p>
       <h2 class="display">The 5-Pillar Wealth Building Framework</h2>
     </div>
@@ -940,35 +937,35 @@
           <div class="pillar">
             <span class="pillar-num">01</span>
             <div>
-              <h4><span class="pillar-emoji">🏦</span>Cut Taxes Legally</h4>
+              <h4>Cut Taxes Legally</h4>
               <p>At the base, you cut taxes legally so you keep 50-70% more of what you already earn.</p>
             </div>
           </div>
           <div class="pillar">
             <span class="pillar-num">02</span>
             <div>
-              <h4><span class="pillar-emoji">💳</span>Eliminate High-Interest Debt</h4>
+              <h4>Eliminate High-Interest Debt</h4>
               <p>After that, you wipe out high-interest debt. Your money stops bleeding out every month.</p>
             </div>
           </div>
           <div class="pillar">
             <span class="pillar-num">03</span>
             <div>
-              <h4><span class="pillar-emoji">💵</span>Create $5K-$15K/Month Income</h4>
+              <h4>Create $5K-$15K/Month Income</h4>
               <p>Then, create income streams that grow without putting in more hours.</p>
             </div>
           </div>
           <div class="pillar">
             <span class="pillar-num">04</span>
             <div>
-              <h4><span class="pillar-emoji">🏗️</span>Tax-Free Investment Vehicles</h4>
+              <h4>Tax-Free Investment Vehicles</h4>
               <p>Use investment vehicles that grow tax-free and compound over time.</p>
             </div>
           </div>
           <div class="pillar">
             <span class="pillar-num">05</span>
             <div>
-              <h4><span class="pillar-emoji">🛡️</span>Protect &amp; Pass It On</h4>
+              <h4>Protect &amp; Pass It On</h4>
               <p>And finally, you protect it all with the right entity structures. Then you pass it across generations!</p>
             </div>
           </div>
@@ -989,7 +986,7 @@
      ═══════════════════════════════════════════════════ -->
 <section>
   <div class="wrap">
-    <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3.5rem);">
+    <div class="section-head">
       <p class="kicker center">The Challenge</p>
       <h2 class="display">3 Days To Find Your Leaks And Build Your $85,871 Wealth Plan</h2>
     </div>
@@ -998,7 +995,7 @@
     <div class="vip-banner">
       <span class="vip-tag">VIP Only - Instant Access Training</span>
       <h3>VIP Pre-Challenge Training: How We Legally Make $15M in Assets Disappear on Paper 👀 (The Complete LLC, S-Corp &amp; Asset Protection Playbook With Preston)</h3>
-      <p>I'll pull back the curtain on my actual asset protection structure and walk you through the same LLC, S-Corp, trust, and holding company strategies that the ultra-wealthy use to make millions in assets legally invisible on paper. From dynasty trusts to equity stripping to the 6 most expensive S-Corp mistakes I see people make over and over. VIP members get access to this training before the challenge starts so you walk into Day 1 already ahead.</p>
+      <p>I'll show you my actual asset protection structure and walk you through the same LLC, S-Corp, trust, and holding company strategies the ultra-wealthy use to make millions in assets legally invisible on paper. We'll cover dynasty trusts, equity stripping, and the 6 most expensive S-Corp mistakes I see over and over. VIP members get access to this training before the challenge starts so you walk into Day 1 already ahead.</p>
     </div>
 
     <!-- Days Grid -->
@@ -1057,19 +1054,16 @@
   <div class="wrap wrap-md">
     <div class="info-grid">
       <div class="card info-card">
-        <span class="emoji">📅</span>
         <div class="k">When</div>
         <div class="v">October 16 - October 18, 2026</div>
         <p>10 AM - 4 PM EST Daily</p>
       </div>
       <div class="card info-card">
-        <span class="emoji">💻</span>
         <div class="k">Where</div>
         <div class="v">Streaming Online on Zoom</div>
         <p>Join from anywhere. We'll send you a private link.</p>
       </div>
       <div class="card info-card">
-        <span class="emoji">🎯</span>
         <div class="k">Why</div>
         <div class="v">Your $85,871 Wealth Plan</div>
         <p>Find the leaks. Cut taxes. Build $5K-$15K monthly income.</p>
@@ -1083,7 +1077,7 @@
      ═══════════════════════════════════════════════════ -->
 <section>
   <div class="wrap">
-    <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3rem);">
+    <div class="section-head">
       <p class="kicker center">Why Attend This Challenge?</p>
       <h2 class="display">See What People Are Saying After Attending Our 3-Day Live Tax-Free Income Challenge</h2>
     </div>
@@ -1104,7 +1098,7 @@
      ═══════════════════════════════════════════════════ -->
 <section class="band-paper">
   <div class="wrap">
-    <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3.5rem);">
+    <div class="section-head">
       <p class="kicker center">The Transformation</p>
       <h2 class="display">Here's What You Can Expect From The Challenge</h2>
     </div>
@@ -1143,18 +1137,18 @@
      ═══════════════════════════════════════════════════ -->
 <section class="band-paper">
   <div class="wrap wrap-md">
-    <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3rem);">
+    <div class="section-head">
       <h2 class="display">Here's Everything You Get When You Join The Challenge Today</h2>
     </div>
 
     <!-- VIP Pre-Challenge Training -->
-    <div style="margin-bottom:3rem;">
-      <div style="text-align:center;margin-bottom:1.5rem;">
+    <div style="margin-bottom:4rem;">
+      <div style="text-align:center;margin-bottom:2rem;">
         <span class="vip-tag" style="font-size:.95rem;padding:.5rem 1.3rem;">VIP Only - Instant Access Training</span>
       </div>
       <div class="card sess-detail vip">
         <h3>VIP Pre-Challenge Training: How We Legally Make $15M in Assets Disappear on Paper 👀</h3>
-        <p>My personal LLC, S-Corp, and holding company structure broken down step by step. The exact sequence from sole prop to fully protected. Why Wyoming. How dynasty trusts protect wealth for 1,000 years. How PPLI lets investments grow and pass to heirs tax-free. How equity stripping deters creditors before they even file. Plus the 6 S-Corp mistakes that quietly cost high earners thousands every year. You get access before the challenge starts, so you walk into Day 1 ahead.</p>
+        <p>My personal LLC, S-Corp, and holding company structure broken down step by step. The exact sequence from sole prop to fully protected. Why Wyoming. How dynasty trusts protect wealth for 1,000 years. How PPLI lets investments grow and pass to heirs tax-free. How equity stripping deters creditors before they even file. Plus the 6 S-Corp mistakes that cost high earners thousands every year. You get access before the challenge starts, so you walk into Day 1 ahead.</p>
       </div>
     </div>
 
@@ -1162,7 +1156,7 @@
     <div style="margin-bottom:4rem;">
       <div style="text-align:center;margin-bottom:2rem;">
         <span class="day-label">Day 1</span>
-        <p class="muted" style="font-size:1.05rem;">Day 1 is about finding out where your money is really going, plugging the holes, and setting your path.</p>
+        <p class="muted" style="font-size:1.05rem;">Day 1 is about finding out where your money is really going, plugging the holes, and setting your baseline.</p>
       </div>
 
       <!-- Session 1 -->
@@ -1243,7 +1237,7 @@
       <div class="card sess-detail">
         <span class="sess-pill">Session 6</span>
         <h3>The Investor Playbook: How to Build Wealth Without Paying Taxes</h3>
-        <p>Previous session is about defense: Keeping more of what you earn. This session is about offense: Building wealth that never gets taxed.</p>
+        <p>Session 5 was defense — keeping more of what you earn. This one is offense: building wealth that never gets taxed.</p>
         <p class="lead-in">What's broken:</p>
         <ul>
           <li>Most people save money in accounts that get taxed twice (going in and coming out)</li>
@@ -1300,7 +1294,7 @@
       <div class="card sess-detail">
         <span class="sess-pill">Session 10</span>
         <h3>Your 12-Month Wealth Implementation Roadmap</h3>
-        <p>The order to tackle each piece so you see results fast without getting overwhelmed. What to do first, second, and third to start building serious wealth now.</p>
+        <p>The order to tackle each piece so you see results fast without getting overwhelmed. What to do first, second, and third.</p>
       </div>
 
       <!-- Session 11 -->
@@ -1330,23 +1324,20 @@
 <!-- ═══════════════════════════════════════════════════
      EVENT DETAILS SECTION
      ═══════════════════════════════════════════════════ -->
-<section style="padding-block:clamp(2rem,4vw,4rem);">
+<section style="padding-block:clamp(1.5rem,3vw,3rem);">
   <div class="wrap wrap-md">
     <div class="info-grid">
       <div class="card info-card">
-        <span class="emoji">📅</span>
         <div class="k">When</div>
         <div class="v">October 16 - October 18, 2026</div>
         <p>10 AM - 4 PM EST Daily</p>
       </div>
       <div class="card info-card">
-        <span class="emoji">💻</span>
         <div class="k">Where</div>
         <div class="v">Streaming Online on Zoom</div>
         <p>Join from anywhere. We'll send you a private link.</p>
       </div>
       <div class="card info-card">
-        <span class="emoji">🎯</span>
         <div class="k">Why</div>
         <div class="v">Your $85,871 Wealth Plan</div>
         <p>Find the leaks. Cut taxes. Build $5K-$15K monthly income.</p>
@@ -1360,7 +1351,7 @@
      ═══════════════════════════════════════════════════ -->
 <section id="pricing" class="band-cream">
   <div class="wrap">
-    <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3.5rem);">
+    <div class="section-head">
       <p class="kicker center">Choose Your Ticket</p>
       <h2 class="display">General Admission vs VIP</h2>
     </div>
@@ -1399,9 +1390,9 @@
         <p class="price-intro">Everything in General Admission plus...</p>
 
         <ul class="price-list">
-          <li><svg class="check-svg gold" style="color:var(--gold);"><use href="#check-icon"/></svg>Preston's $15M Asset Protection Masterclass, sent BEFORE the challenge starts. The same LLC, S-Corp, trust, and holding company structure he uses on his own $20M+ portfolio — plus the S-Corp mistakes that cost people thousands.</li>
-          <li><svg class="check-svg gold" style="color:var(--gold);"><use href="#check-icon"/></svg>Live roundtable calls with Preston (Days 2 &amp; 3) where you can unmute and get your specific questions answered</li>
-          <li><svg class="check-svg gold" style="color:var(--gold);"><use href="#check-icon"/></svg>Lifetime access to 15+ hours of session replays, slides, notes, and materials</li>
+          <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Preston's $15M Asset Protection Masterclass, sent BEFORE the challenge starts. The same LLC, S-Corp, trust, and holding company structure he uses on his own $20M+ portfolio — plus the S-Corp mistakes that cost people thousands.</li>
+          <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Live roundtable calls with Preston (Days 2 &amp; 3) where you can unmute and get your specific questions answered</li>
+          <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Lifetime access to 15+ hours of session replays, slides, notes, and materials</li>
         </ul>
 
         <a href="/vipticket26" class="btn btn-gold btn-md btn-block">Get VIP Access →</a>
@@ -1436,7 +1427,7 @@
      ═══════════════════════════════════════════════════ -->
 <section>
   <div class="wrap">
-    <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3.5rem);">
+    <div class="section-head">
       <p class="kicker center">Proof It Works</p>
       <h2 class="display">Real Results From Real People</h2>
     </div>
@@ -1485,16 +1476,16 @@
 
     <!-- Case Study 3: Abigail -->
     <div class="card case-solo">
-      <h3 style="font-family:var(--serif);font-size:1.6rem;margin-bottom:.4rem;">Abigail</h3>
-      <p class="hook" style="color:var(--gold-ink);font-family:var(--serif);font-style:italic;margin-bottom:.9rem;">Eliminating Taxes and Building Early Freedom</p>
+      <h3>Abigail</h3>
+      <p class="hook">Eliminating Taxes and Building Early Freedom</p>
       <p class="muted" style="margin-bottom:1.4rem;">
         Before, too much of their W-2 paycheck went straight to the IRS. Retirement felt locked until 59½. Every move came with a penalty. Now they have a plan to legally cut taxes to zero, unlock penalty-free income years earlier, and move money into assets that grow.
       </p>
       <div class="stat-grid">
         <div class="card stat-row"><span class="emoji">🏦</span><p>~$52,500 cash refund from tax savings</p></div>
-        <div class="card stat-row" style="margin-top:0;"><span class="emoji">🧾</span><p>$30K shifted into 0% tax brackets</p></div>
-        <div class="card stat-row" style="margin-top:0;"><span class="emoji">🏠</span><p>Six-figure savings sheltered through new structures</p></div>
-        <div class="card stat-row" style="margin-top:0;"><span class="emoji">📈</span><p>New cash flow and long-term growth layered on top</p></div>
+        <div class="card stat-row"><span class="emoji">🧾</span><p>$30K shifted into 0% tax brackets</p></div>
+        <div class="card stat-row"><span class="emoji">🏠</span><p>Six-figure savings sheltered through new structures</p></div>
+        <div class="card stat-row"><span class="emoji">📈</span><p>New cash flow and long-term growth layered on top</p></div>
       </div>
       <div class="roi-box">
         <p class="k">Estimated 12-Month ROI</p>
@@ -1509,7 +1500,7 @@
      ═══════════════════════════════════════════════════ -->
 <section class="band-paper">
   <div class="wrap wrap-md">
-    <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3rem);">
+    <div class="section-head">
       <p class="kicker center">Real People. Real Numbers.</p>
       <h2 class="display">5 Wealth Plans. 5 Different Situations. Here's What We Found.</h2>
     </div>
@@ -1704,7 +1695,7 @@
      ═══════════════════════════════════════════════════ -->
 <section>
   <div class="wrap wrap-sm">
-    <div class="section-head" style="margin-bottom:clamp(1.75rem,4vw,2.5rem);">
+    <div class="section-head">
       <p class="kicker center">Verify It Yourself</p>
       <h2 class="display">You Don't Have To Trust Us. You Can Check.</h2>
     </div>
@@ -1797,7 +1788,7 @@
      ═══════════════════════════════════════════════════ -->
 <section class="band-paper">
   <div class="wrap wrap-sm">
-    <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3rem);">
+    <div class="section-head">
       <p class="kicker center">Got Questions?</p>
       <h2 class="display">Frequently Asked Questions</h2>
     </div>
@@ -1861,7 +1852,7 @@
      ═══════════════════════════════════════════════════ -->
 <section>
   <div class="wrap">
-    <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3rem);">
+    <div class="section-head">
       <p class="kicker center">The Reality</p>
       <h2 class="display">The Real Cost of Waiting</h2>
     </div>

@@ -94,7 +94,6 @@
       .wrap-lg { max-width: 66rem; }
       .wrap-md { max-width: 60rem; }
       .wrap-sm { max-width: 48rem; }
-      .wrap-xs { max-width: 42rem; }
 
       /* ---------- Type ---------- */
       .display { font-family: var(--sans); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); }
@@ -107,13 +106,13 @@
         display: flex; align-items: center; gap: .7rem;
         text-transform: uppercase; letter-spacing: .16em;
         font-size: .72rem; font-weight: 700; color: var(--green-mid);
+        margin-bottom: .9rem;
       }
       .kicker::before { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
       .kicker.center { justify-content: center; }
       .kicker.center::after { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
 
-      .section-head { max-width: 46rem; margin-inline: auto; text-align: center; }
-      .section-head .kicker { margin-bottom: .9rem; }
+      .section-head { max-width: 46rem; margin-inline: auto; text-align: center; margin-bottom: clamp(2rem, 4vw, 3rem); }
       .muted { color: var(--ink-soft); }
       .faint { color: var(--ink-faint); }
       .mono-label { font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-faint); }
@@ -135,8 +134,7 @@
         box-shadow: inset 0 0 0 1px var(--forest-edge);
       }
       .btn-ghost-light:hover { background: rgba(255,253,246,.07); color: #F5F1E3; }
-      .btn-lg { padding: 1rem 2rem; font-size: 1.05rem; }
-      .btn-xl { padding: 1.15rem 2rem; font-size: clamp(.98rem, 2.2vw, 1.15rem); line-height: 1.35; text-align: center; }
+      .btn-xl { padding: 1.15rem 2rem; font-size: clamp(.98rem, 2.2vw, 1.15rem); line-height: 1.35; }
       .btn-md { padding: .8rem 1.5rem; font-size: .95rem; }
       .btn-block { display: flex; width: 100%; }
       .arrow { width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
@@ -144,7 +142,6 @@
       /* ---------- Cards & panels ---------- */
       .card { background: var(--paper); border: 1px solid var(--line); border-radius: 1.1rem; }
       .pill { display: inline-flex; align-items: center; gap: .5rem; border-radius: 999px; font-weight: 600; font-size: .8rem; }
-      .pill-gold { background: var(--gold-tint); color: var(--gold-ink); border: 1px solid #E5D3A0; padding: .35rem .85rem; }
       .pill-green { background: var(--emerald-tint); color: var(--green-mid); border: 1px solid #CBDEC6; padding: .35rem .85rem; }
 
       .icon { width: 1.25rem; height: 1.25rem; flex-shrink: 0; }
@@ -153,7 +150,6 @@
       /* ---------- Sections & bands ---------- */
       section { padding-block: clamp(2.75rem, 7vw, 5.5rem); }
       .band-paper { background: var(--paper); border-block: 1px solid var(--line); }
-      .band-cream { background: var(--cream); }
       .band-forest { background: var(--forest); color: #DCE4D6; }
       .band-forest .display, .band-forest h3, .band-forest strong { color: #F5F1E3; }
       .band-forest .muted { color: #A9BCA9; }
@@ -168,7 +164,7 @@
       .alert-progress { max-width: 34rem; margin: .9rem auto 0; }
       .alert-progress .mono-label { margin-bottom: .4rem; }
       .progress-track { width: 100%; height: .5rem; border-radius: 999px; background: #E8D6CD; overflow: hidden; }
-      .progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold-deep), var(--gold)); }
+      .progress-fill { height: 100%; background: var(--gold-deep); }
       .alert-note {
         margin-top: .9rem; font-size: .72rem; font-weight: 700;
         letter-spacing: .1em; text-transform: uppercase; color: var(--rose);
@@ -180,7 +176,7 @@
       .hero-copy > * + * { margin-top: 1.25rem; }
       .hero-sub { font-size: clamp(1.02rem, 1.9vw, 1.3rem); color: var(--ink-soft); }
       .video-frame {
-        position: relative; aspect-ratio: 16/9; border-radius: 1rem; overflow: hidden;
+        position: relative; aspect-ratio: 16/9; border-radius: 1.1rem; overflow: hidden;
         background: var(--forest); border: 1px solid var(--line);
         box-shadow: 0 24px 50px -24px rgba(29,42,34,.35);
         max-width: 60rem; margin: clamp(2rem, 4vw, 3rem) auto 0;
@@ -189,11 +185,11 @@
 
       /* ---------- Split layout ---------- */
       .split { display: grid; gap: 2.5rem; align-items: center; }
-      @media (min-width: 900px) { .split { grid-template-columns: 1.15fr .85fr; gap: 3.5rem; } .split.start { align-items: start; } .split.even { grid-template-columns: 1fr 1fr; } }
+      @media (min-width: 900px) { .split { grid-template-columns: 1.15fr .85fr; gap: 3.5rem; } .split.start { align-items: start; } }
 
       /* ---------- Pull quote ---------- */
       .pullquote {
-        background: var(--gold-tint); border: 1px solid #E5D3A0; border-left: 4px solid var(--gold-deep);
+        background: var(--gold-tint); border: 1px solid #E5D3A0;
         border-radius: .9rem; padding: 1.25rem 1.4rem;
         font-family: var(--serif); font-style: italic; font-size: clamp(1.02rem, 2vw, 1.2rem);
         line-height: 1.6; color: var(--ink-soft);
@@ -226,7 +222,7 @@
       /* ---------- Step cards ---------- */
       .trio { display: grid; gap: 1.25rem; }
       @media (min-width: 900px) { .trio { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; } }
-      .step-card { padding: 1.75rem 1.5rem; }
+      .step-card { padding: 1.75rem; }
       .step-num {
         width: 3rem; height: 3rem; border-radius: 999px;
         background: var(--gold-tint); border: 1px solid #E5D3A0;
@@ -262,7 +258,7 @@
       .sample-price .k { font-size: .82rem; color: var(--ink-faint); }
       .sample-body p { color: var(--ink-soft); }
       .sample-body p + p { margin-top: .9rem; }
-      .mistake-box { background: var(--rose-tint); border: 1px solid #E8C9BE; border-left: 4px solid var(--rose); border-radius: .9rem; padding: 1rem 1.2rem; margin-block: 1.35rem; }
+      .mistake-box { background: var(--rose-tint); border: 1px solid #E8C9BE; border-radius: .9rem; padding: 1.25rem 1.4rem; margin-block: 1.35rem; }
       .mistake-box .hd { color: var(--rose); font-weight: 700; font-size: .9rem; margin-bottom: .25rem; }
       .mistake-box p { font-size: .9rem; color: var(--ink-soft); }
       .meta-row { display: flex; flex-wrap: wrap; gap: .5rem .9rem; font-size: .82rem; color: var(--ink-faint); letter-spacing: .02em; }
@@ -272,15 +268,15 @@
       .gallery { display: flex; gap: 1.25rem; overflow-x: auto; padding-bottom: 1.25rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
       .gallery::-webkit-scrollbar { display: none; }
       .shot-card { flex: 0 0 auto; width: 19rem; max-width: 82vw; scroll-snap-align: center; padding: .75rem; }
-      .shot-img { border-radius: .75rem; overflow: hidden; border: 1px solid var(--line); height: 322px; background: var(--ivory); }
+      .shot-img { border-radius: .8rem; overflow: hidden; border: 1px solid var(--line); height: 322px; background: var(--ivory); }
       .shot-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
       .shot-meta { padding: .75rem .35rem 0; }
-      .shot-meta .k { font-size: .64rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-ink); }
+      .shot-meta .k { font-size: .68rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-ink); }
       .shot-meta p { font-size: .82rem; color: var(--ink-soft); margin-top: .2rem; }
       .scroll-hint { display: flex; justify-content: center; margin-top: .5rem; }
       .scroll-hint span { display: inline-flex; align-items: center; gap: .5rem; font-size: .8rem; color: var(--ink-faint); }
-      .trust-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 1.75rem; margin-top: 2.5rem; }
-      .trust-row div { display: flex; align-items: center; gap: .45rem; font-size: .82rem; color: var(--ink-faint); }
+      .trust-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 1.75rem; margin-top: 2.25rem; }
+      .trust-row div { display: flex; align-items: center; gap: .5rem; font-size: .82rem; color: var(--ink-faint); }
       .trust-row svg { color: var(--gold-deep); }
 
       /* ---------- Comparison table ---------- */
@@ -296,7 +292,7 @@
       .compare td.c { text-align: center; }
       .compare td.c svg { margin-inline: auto; }
       .compare .highlight-row td { background: var(--gold-tint); }
-      .compare .highlight-row td:first-child { color: var(--ink); font-weight: 700; box-shadow: inset 3px 0 0 var(--gold-deep); }
+      .compare .highlight-row td:first-child { color: var(--ink); font-weight: 700; }
       .compare .price-yes { color: var(--gold-ink); font-weight: 700; }
       .compare .good { color: var(--emerald); font-weight: 600; }
       .icon-yes { color: var(--emerald); }
@@ -336,7 +332,7 @@
       .faq-item.active .faq-icon { transform: rotate(45deg); }
       .faq-answer { display: none; }
       .faq-item.active .faq-answer { display: block; }
-      .faq-answer-text { padding: .25rem 1.4rem 1.35rem; color: var(--ink-soft); border-top: 1px solid var(--line); margin-top: .1rem; padding-top: 1rem; }
+      .faq-answer-text { padding: 1rem 1.4rem 1.2rem; color: var(--ink-soft); border-top: 1px solid var(--line); }
 
       /* ---------- Guarantee ---------- */
       .guarantee-card { max-width: 40rem; margin-inline: auto; text-align: center; padding: clamp(2rem, 4vw, 3rem); }
@@ -366,7 +362,7 @@
       .final-actions { max-width: 42rem; margin-inline: auto; }
       .decline-box {
         margin-top: 1rem; border: 1px solid var(--forest-edge); background: rgba(255,253,246,.04);
-        border-radius: 1rem; padding: 1.1rem 1.25rem; text-align: center;
+        border-radius: 1.1rem; padding: 1.1rem 1.25rem; text-align: center;
       }
       .decline-box .k { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: #A9BCA9; margin-bottom: .8rem; }
       .final-trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 1.75rem; margin-top: 2.25rem; }
@@ -380,7 +376,7 @@
         .kicker.m-center::after { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
       }
       @media (max-width: 640px) {
-        .btn-lg, .btn-xl { width: 100%; }
+        .btn-xl { width: 100%; }
         .alert-note { font-size: .64rem; letter-spacing: .08em; }
         .compare { font-size: .88rem; }
       }
@@ -473,7 +469,7 @@
          ═══════════════════════════════════════════════════ -->
     <section class="band-paper">
         <div class="wrap">
-            <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3.25rem);">
+            <div class="section-head">
                 <p class="kicker center">The Hidden Cost</p>
                 <h2 class="display">
                     The Tax You're Paying<br>That Nobody Talks About
@@ -498,7 +494,7 @@
                 </div>
 
                 <div class="data-stack">
-                    <div class="card data-card rose">
+                    <div class="card data-card">
                         <div class="top">
                             <span class="k">Lost Wealth</span>
                             <svg class="icon" style="color:var(--rose);"><use href="#i-trending-down"/></svg>
@@ -507,7 +503,7 @@
                         <p>20-year compound loss on $40K annual overpayment</p>
                     </div>
 
-                    <div class="card data-card gold">
+                    <div class="card data-card">
                         <div class="top">
                             <span class="k">Recovery Rate</span>
                             <svg class="icon" style="color:var(--emerald);"><use href="#i-trending-up"/></svg>
@@ -516,7 +512,7 @@
                         <p>Of clients found $20K+ in recoverable savings</p>
                     </div>
 
-                    <div class="card data-card neutral">
+                    <div class="card data-card">
                         <div class="top">
                             <span class="k">Monthly Loss</span>
                             <svg class="icon" style="color:var(--ink-faint);"><use href="#i-clock"/></svg>
@@ -536,7 +532,7 @@
         <div class="wrap">
             <div class="split start">
                 <div>
-                    <p class="kicker m-center" style="margin-bottom:.9rem;">The Proprietary System</p>
+                    <p class="kicker m-center">The Proprietary System</p>
                     <h2 class="display m-center" style="margin-bottom:1.5rem;">
                         How We Discovered the 37 Strategies Most Taxpayers Miss
                     </h2>
@@ -589,7 +585,7 @@
          ═══════════════════════════════════════════════════ -->
     <section class="band-paper">
         <div class="wrap">
-            <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3.25rem);">
+            <div class="section-head">
                 <p class="kicker center">The Process</p>
                 <h2 class="display">
                     Your Personalized Report in 3 Steps
@@ -623,7 +619,7 @@
          ═══════════════════════════════════════════════════ -->
     <section>
         <div class="wrap">
-            <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3.25rem);">
+            <div class="section-head">
                 <p class="kicker center">The Deliverable</p>
                 <h2 class="display">
                     What's Inside Your Report
@@ -687,7 +683,7 @@
          ═══════════════════════════════════════════════════ -->
     <section class="band-paper">
         <div class="wrap wrap-sm">
-            <div class="section-head" style="margin-bottom:clamp(1.75rem,3.5vw,2.5rem);">
+            <div class="section-head">
                 <p class="kicker center">Sample From Real Report</p>
                 <h2 class="display">Here's What One Strategy Looks Like</h2>
             </div>
@@ -710,7 +706,7 @@
                     <p><strong>Your situation:</strong> You mentioned interest in real estate and have $150K+ W-2 income. With bonus depreciation now permanent (2025), a $400K property could generate $100K+ in first-year losses.</p>
 
                     <div class="mistake-box">
-                        <p class="hd">⚠️ Common Mistake</p>
+                        <p class="hd">Common Mistake</p>
                         <p>Most people try to average 7+ days to avoid "hotel" classification. You want the OPPOSITE—keep it under 7 days to qualify as non-passive.</p>
                     </div>
 
@@ -733,7 +729,7 @@
          ═══════════════════════════════════════════════════ -->
     <section>
         <div class="wrap">
-            <div class="section-head" style="margin-bottom:clamp(1.75rem,3.5vw,2.5rem);">
+            <div class="section-head">
                 <p class="kicker center">Real Report Samples</p>
                 <h2 class="display">
                     Sneak Peek Inside Your Report
@@ -830,7 +826,7 @@
          ═══════════════════════════════════════════════════ -->
     <section class="band-paper">
         <div class="wrap wrap-md">
-            <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3rem);">
+            <div class="section-head">
                 <p class="kicker center">$47 vs. The Alternatives</p>
                 <h2 class="display">How We Compare</h2>
             </div>
@@ -887,7 +883,7 @@
          ═══════════════════════════════════════════════════ -->
     <section>
         <div class="wrap wrap-lg">
-            <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3rem);">
+            <div class="section-head">
                 <p class="kicker center">Results</p>
                 <h2 class="display">What People Are Saying</h2>
             </div>
@@ -949,7 +945,7 @@
          ═══════════════════════════════════════════════════ -->
     <section class="band-paper">
         <div class="wrap wrap-sm">
-            <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3rem);">
+            <div class="section-head">
                 <p class="kicker center">Questions</p>
                 <h2 class="display">Answers</h2>
             </div>

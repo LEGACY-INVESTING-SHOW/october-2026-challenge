@@ -69,7 +69,6 @@
       --rose: #B0503C;           /* negative */
       --rose-tint: #F5E3DC;
       --sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-      --serif: var(--sans);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -98,19 +97,10 @@
     h2.display { font-size: clamp(1.6rem, 3.4vw, 2.4rem); text-wrap: balance; }
     h3 { font-weight: 600; color: var(--ink); }
 
-    .kicker {
-      display: flex; align-items: center; gap: .7rem;
-      text-transform: uppercase; letter-spacing: .16em;
-      font-size: .72rem; font-weight: 700; color: var(--green-mid);
+    .section-head {
+      max-width: 46rem; margin-inline: auto; text-align: center;
+      margin-bottom: clamp(1.75rem, 4vw, 3rem);
     }
-    .kicker::before { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
-    .kicker.center { justify-content: center; }
-    .kicker.center::after { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
-
-    .section-head { max-width: 46rem; margin-inline: auto; text-align: center; }
-    .section-head .kicker { margin-bottom: .9rem; }
-    .muted { color: var(--ink-soft); }
-    .faint { color: var(--ink-faint); }
 
     /* ---------- Buttons ---------- */
     .btn {
@@ -125,36 +115,27 @@
     }
     .btn-gold:hover { background: #C99A2E; transform: translateY(-1px); }
     .btn-lg { padding: 1rem 2rem; font-size: 1.05rem; }
-    .btn-md { padding: .8rem 1.5rem; font-size: .95rem; }
-    .btn-sm { padding: .6rem 1.15rem; font-size: .82rem; }
-    .btn-block { display: flex; width: 100%; }
-    .arrow { width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
     .btn .ico { width: 1.15rem; height: 1.15rem; flex-shrink: 0; }
 
     /* ---------- Cards & panels ---------- */
     .card {
       background: var(--paper);
       border: 1px solid var(--line);
-      border-radius: 1.1rem;
+      border-radius: 1rem;
     }
     .pill {
       display: inline-flex; align-items: center; gap: .5rem;
       border-radius: 999px; font-weight: 600; font-size: .8rem;
     }
     .pill-gold { background: var(--gold-tint); color: var(--gold-ink); border: 1px solid #E5D3A0; padding: .35rem .85rem; }
-    .pill-green { background: var(--emerald-tint); color: var(--green-mid); border: 1px solid #CBDEC6; padding: .35rem .85rem; }
-    .dot { width: .5rem; height: .5rem; border-radius: 999px; background: var(--gold-deep); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
 
-    .icon-x, .icon-check {
+    .icon-check {
       flex-shrink: 0; width: 1.4rem; height: 1.4rem; border-radius: 999px;
       display: inline-flex; align-items: center; justify-content: center;
       font-size: .72rem; font-weight: 700; margin-top: .1rem;
+      background: var(--emerald-tint); color: var(--emerald);
     }
-    .icon-x { background: var(--rose-tint); color: var(--rose); }
-    .icon-check { background: var(--emerald-tint); color: var(--emerald); }
-    .check-svg { width: 1.2rem; height: 1.2rem; color: var(--emerald); flex-shrink: 0; margin-top: .15rem; }
-    .check-svg.gold { color: var(--gold-deep); }
+    .check-svg { width: 1.2rem; height: 1.2rem; color: var(--emerald); flex-shrink: 0; }
 
     /* ---------- Sections & bands ---------- */
     section { padding-block: clamp(2.75rem, 7vw, 6rem); }
@@ -162,8 +143,6 @@
     .band-cream { background: var(--cream); }
     .band-forest { background: var(--forest); color: #DCE4D6; }
     .band-forest .display, .band-forest h2, .band-forest h3, .band-forest strong { color: #F5F1E3; }
-    .band-forest .muted { color: #A9BCA9; }
-    .band-forest .kicker { color: var(--gold); }
 
     /* ---------- Hero ---------- */
     .hero { padding-block: clamp(2.25rem, 5vw, 4rem) clamp(1.5rem, 3vw, 2.25rem); text-align: center; }
@@ -206,7 +185,7 @@
     .value-section { padding-block: clamp(1.75rem, 4vw, 2.5rem); }
     .value-grid { display: grid; gap: 1rem; max-width: 56rem; margin-inline: auto; }
     @media (min-width: 768px) { .value-grid { grid-template-columns: repeat(3, 1fr); } }
-    .value-box { padding: 1.05rem 1.1rem; text-align: center; }
+    .value-box { padding: 1.1rem; text-align: center; }
     .value-text {
       display: flex; align-items: center; justify-content: center; gap: .55rem;
       font-weight: 600; font-size: .98rem; color: var(--ink);
@@ -234,10 +213,10 @@
     /* ---------- Products ---------- */
     .products-grid { display: grid; gap: 1.5rem; }
     @media (min-width: 900px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
-    .product-card { padding: 1.6rem; display: flex; flex-direction: column; }
+    .product-card { padding: 1.6rem; display: flex; flex-direction: column; background: var(--ivory); }
     .product-image-wrapper {
-      background: var(--ivory); border: 1px solid var(--line);
-      border-radius: .9rem; padding: 1rem; margin-bottom: 1.4rem;
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: .75rem; padding: 1rem; margin-bottom: 1.4rem;
     }
     .product-image { width: 100%; max-width: 11rem; margin-inline: auto; border-radius: .5rem; }
     .product-title { font-size: 1.2rem; line-height: 1.3; color: var(--gold-ink); text-align: center; margin-bottom: .9rem; }
@@ -252,7 +231,7 @@
     .urgency-title { max-width: 46rem; margin-inline: auto; margin-bottom: 1.35rem; }
     .urgency-text { font-size: 1.1rem; color: var(--ink-soft); max-width: 40rem; margin-inline: auto; }
     .urgency-list {
-      max-width: 30rem; margin: 2rem auto 0; text-align: left;
+      max-width: 30rem; margin: 1.75rem auto 0; text-align: left;
       background: var(--emerald-tint); border: 1px solid #CBDEC6;
       border-radius: 1rem; padding: 1.4rem 1.5rem;
     }
@@ -261,8 +240,7 @@
     .urgency-note {
       max-width: 36rem; margin: 1.75rem auto 0;
       background: var(--paper); border: 1px solid var(--line);
-      border-left: 3px solid var(--gold-deep);
-      border-radius: .25rem 1rem 1rem .25rem; padding: 1.1rem 1.4rem;
+      border-radius: 1rem; padding: 1.1rem 1.5rem;
     }
     .urgency-note p { font-style: italic; color: var(--gold-ink); font-size: 1rem; }
 
@@ -295,7 +273,6 @@
       .product-card { padding: 1.25rem; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .dot { animation: none; }
       * { transition: none !important; }
     }
   </style>
@@ -330,9 +307,6 @@
     <symbol id="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
       <path stroke-linecap="round" stroke-linejoin="round" d="M7 11V7a5 5 0 0 1 10 0v4"/>
-    </symbol>
-    <symbol id="flame-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
     </symbol>
   </svg>
 
@@ -400,8 +374,7 @@
       </div>
 
       <div class="intro-badge">
-        <span class="pill pill-gold" style="letter-spacing:.06em;text-transform:uppercase;font-weight:700;padding:.5rem 1.1rem;">
-          <svg style="width:.95rem;height:.95rem;flex-shrink:0;"><use href="#flame-icon"/></svg>
+        <span class="pill pill-gold" style="letter-spacing:.06em;text-transform:uppercase;">
           That's Why I Built...
         </span>
       </div>
@@ -417,14 +390,14 @@
   <!-- Products Section -->
   <section class="band-paper">
     <div class="wrap">
-      <div class="section-head" style="margin-bottom:clamp(1.75rem,4vw,3rem);">
+      <div class="section-head">
         <h2 class="display">Here's What You Get Inside The Kit</h2>
       </div>
 
       <div class="products-grid">
         <!-- Product 1 -->
-        <div class="card product-card" style="background:var(--ivory);">
-          <div class="product-image-wrapper" style="background:var(--paper);">
+        <div class="card product-card">
+          <div class="product-image-wrapper">
             <img src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/20037538/file/b37a5c2f62f2c32afc98d01b8731cf67.png" alt="27 Tax Strategy Cheatsheet" class="product-image" loading="lazy" decoding="async">
           </div>
           <h3 class="product-title">27 Tax Strategy Cheatsheet</h3>
@@ -432,8 +405,8 @@
         </div>
 
         <!-- Product 2 -->
-        <div class="card product-card" style="background:var(--ivory);">
-          <div class="product-image-wrapper" style="background:var(--paper);">
+        <div class="card product-card">
+          <div class="product-image-wrapper">
             <img src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/20037542/file/e96cffdaa177da6068ff1c31eb745ac2.png" alt="Anti-Inflation Pack" class="product-image" loading="lazy" decoding="async">
           </div>
           <h3 class="product-title">Anti-Inflation Pack</h3>
@@ -441,8 +414,8 @@
         </div>
 
         <!-- Product 3 -->
-        <div class="card product-card" style="background:var(--ivory);">
-          <div class="product-image-wrapper" style="background:var(--paper);">
+        <div class="card product-card">
+          <div class="product-image-wrapper">
             <img src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/20021100/file/da213154dc0e713d09f759eceeec96e6.png" alt="Financial Diagnostic Calculator" class="product-image" loading="lazy" decoding="async">
           </div>
           <h3 class="product-title">Financial Diagnostic Calculator</h3>

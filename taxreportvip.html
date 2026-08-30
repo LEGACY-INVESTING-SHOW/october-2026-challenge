@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,7 +57,6 @@
       --ink-soft: #45544A;       /* secondary text */
       --ink-faint: #74816F;      /* tertiary text */
       --forest: #16352A;         /* dark green bands */
-      --forest-2: #1D4234;
       --forest-edge: #2C5443;
       --green-mid: #2A6B4F;      /* accents on light */
       --emerald: #2F7D5B;        /* positive */
@@ -69,7 +68,6 @@
       --rose: #B0503C;           /* negative */
       --rose-tint: #F5E3DC;
       --sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-      --serif: var(--sans);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -92,7 +90,6 @@
     .wrap { max-width: 72rem; margin-inline: auto; padding-inline: clamp(1rem, 4vw, 1.5rem); }
     .wrap-md { max-width: 60rem; }
     .wrap-sm { max-width: 48rem; }
-    .wrap-xs { max-width: 42rem; }
 
     /* ---------- Type ---------- */
     .display { font-family: var(--sans); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); }
@@ -105,14 +102,13 @@
       display: flex; align-items: center; gap: .7rem;
       text-transform: uppercase; letter-spacing: .16em;
       font-size: .72rem; font-weight: 700; color: var(--green-mid);
+      margin-bottom: .9rem;
     }
     .kicker::before { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
     .kicker.center { justify-content: center; }
     .kicker.center::after { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
 
-    .section-head { max-width: 46rem; margin-inline: auto; text-align: center; }
-    .section-head .kicker { margin-bottom: .9rem; }
-    .muted { color: var(--ink-soft); }
+    .section-head { max-width: 46rem; margin-inline: auto; text-align: center; margin-bottom: clamp(2rem, 4vw, 3rem); }
     .faint { color: var(--ink-faint); }
     .mono-label { font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); }
 
@@ -135,7 +131,6 @@
     .btn-ghost-light:hover { background: rgba(255,253,246,.07); color: #F5F1E3; box-shadow: inset 0 0 0 1px #4A7862; }
     .btn-lg { padding: 1rem 2rem; font-size: 1.05rem; }
     .btn-md { padding: .8rem 1.5rem; font-size: .95rem; }
-    .btn-sm { padding: .6rem 1.15rem; font-size: .82rem; }
     .btn-block { display: flex; width: 100%; }
     .arrow { width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
 
@@ -145,16 +140,10 @@
       border: 1px solid var(--line);
       border-radius: 1.1rem;
     }
-    .pill {
-      display: inline-flex; align-items: center; gap: .5rem;
-      border-radius: 999px; font-weight: 600; font-size: .8rem;
-    }
-    .pill-gold { background: var(--gold-tint); color: var(--gold-ink); border: 1px solid #E5D3A0; padding: .35rem .85rem; }
-    .pill-green { background: var(--emerald-tint); color: var(--green-mid); border: 1px solid #CBDEC6; padding: .35rem .85rem; }
     .pill-kicker {
       display: inline-block; padding: .3rem .8rem; border-radius: 999px;
       background: var(--gold-tint); border: 1px solid #E5D3A0; color: var(--gold-ink);
-      font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      font-size: .68rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
     }
 
     .icon-tile {
@@ -172,7 +161,6 @@
     .band-cream { background: var(--cream); }
     .band-forest { background: var(--forest); color: #DCE4D6; }
     .band-forest .display, .band-forest h3, .band-forest strong { color: #F5F1E3; }
-    .band-forest .muted { color: #A9BCA9; }
 
     /* ---------- Alert bar ---------- */
     .alert-section { padding-block: clamp(1.25rem, 3vw, 2rem); }
@@ -182,10 +170,10 @@
     }
     .alert-card h2 { font-size: clamp(1.15rem, 2.6vw, 1.5rem); font-weight: 700; letter-spacing: -.01em; color: var(--ink); }
     .alert-progress-wrap { max-width: 34rem; margin: 1rem auto 0; }
-    .alert-progress-wrap .k { font-size: .66rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: .45rem; }
+    .alert-progress-wrap .k { font-size: .66rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: .45rem; }
     .progress { height: .55rem; border-radius: 999px; background: var(--paper); border: 1px solid #E8C9BE; overflow: hidden; }
     .progress > div { height: 100%; background: linear-gradient(90deg, var(--gold-deep), var(--gold)); }
-    .alert-note { margin-top: 1rem; font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--rose); line-height: 1.7; }
+    .alert-note { margin-top: 1rem; font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--rose); line-height: 1.7; }
 
     /* ---------- Hero ---------- */
     .hero { padding-block: clamp(1.5rem, 4vw, 3.5rem) clamp(2.5rem, 6vw, 4.5rem); }
@@ -193,7 +181,7 @@
     .hero-inner > * + * { margin-top: 1.25rem; }
     .hero-sub { font-size: clamp(1.02rem, 1.9vw, 1.28rem); color: var(--ink-soft); max-width: 48rem; margin-inline: auto; }
     .video-frame {
-      position: relative; aspect-ratio: 16/9; border-radius: 1rem; overflow: hidden;
+      position: relative; aspect-ratio: 16/9; border-radius: 1.1rem; overflow: hidden;
       background: var(--forest); border: 1px solid var(--line);
       box-shadow: 0 24px 50px -24px rgba(29,42,34,.35);
       margin-top: 2.25rem;
@@ -202,11 +190,11 @@
 
     /* ---------- Splits ---------- */
     .split { display: grid; gap: 2.5rem; align-items: center; }
-    @media (min-width: 1024px) { .split { grid-template-columns: 1fr 1fr; gap: 4rem; } .split.start { align-items: start; } }
+    @media (min-width: 1024px) { .split { grid-template-columns: 1fr 1fr; gap: 4rem; } }
     .split-wide { display: grid; gap: 2.5rem; align-items: start; }
     @media (min-width: 1024px) { .split-wide { grid-template-columns: 1.55fr 1fr; gap: 3.5rem; } }
 
-    /* ---------- Editorial quote + drop cap ---------- */
+    /* ---------- Editorial quote ---------- */
     .editorial-quote {
       border-left: 3px solid var(--gold-deep);
       padding-left: 1.4rem;
@@ -240,20 +228,15 @@
     /* ---------- Step cards ---------- */
     .tri-grid { display: grid; gap: 1.25rem; }
     @media (min-width: 768px) { .tri-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; } }
-    .step-card { padding: 1.9rem 1.6rem; position: relative; overflow: hidden; }
-    .step-ghost {
-      position: absolute; top: .1rem; right: .75rem; font-size: 4.5rem; font-weight: 700;
-      color: rgba(185,138,31,.10); line-height: 1; pointer-events: none; letter-spacing: -.04em;
-    }
+    .step-card { padding: 1.9rem; }
     .step-num {
-      position: relative; z-index: 1;
       width: 2.9rem; height: 2.9rem; border-radius: .8rem;
       border: 1px solid #E5D3A0; background: var(--gold-tint); color: var(--gold-ink);
       display: flex; align-items: center; justify-content: center;
       font-weight: 700; font-size: 1.15rem; margin-bottom: 1.35rem;
     }
-    .step-card h3 { position: relative; z-index: 1; font-size: 1.12rem; margin-bottom: .5rem; }
-    .step-card p { position: relative; z-index: 1; color: var(--ink-soft); font-size: .95rem; }
+    .step-card h3 { font-size: 1.12rem; margin-bottom: .5rem; }
+    .step-card p { color: var(--ink-soft); font-size: .95rem; }
 
     /* ---------- Feature (What's inside) ---------- */
     .duo-grid { display: grid; gap: 1.25rem; }
@@ -263,7 +246,7 @@
     .feature-card p { font-size: .9rem; color: var(--ink-faint); }
 
     /* ---------- Sample strategy ---------- */
-    .sample-card { padding: clamp(1.4rem, 3vw, 2rem); }
+    .sample-card { padding: clamp(1.4rem, 3vw, 2rem); background: var(--ivory); }
     .sample-head {
       display: flex; flex-direction: column; gap: 1rem;
       padding-bottom: 1.35rem; margin-bottom: 1.35rem; border-bottom: 1px solid var(--line);
@@ -274,7 +257,7 @@
     .sample-price p { font-size: .82rem; color: var(--ink-faint); }
     .sample-body p { color: var(--ink-soft); }
     .sample-body > p + p { margin-top: 1rem; }
-    .mistake-box { background: var(--rose-tint); border: 1px solid #E8C9BE; border-left: 4px solid var(--rose); border-radius: .9rem; padding: 1.1rem 1.25rem; margin-block: 1.4rem; }
+    .mistake-box { background: var(--rose-tint); border: 1px solid #E8C9BE; border-radius: .8rem; padding: 1.15rem 1.25rem; margin-block: 1.4rem; }
     .mistake-box .k { color: var(--rose); font-weight: 700; font-size: .88rem; margin-bottom: .3rem; }
     .mistake-box p { font-size: .9rem; color: var(--ink-soft); }
     .meta-row { display: flex; flex-wrap: wrap; gap: .75rem; font-size: .8rem; letter-spacing: .04em; color: var(--ink-faint); }
@@ -283,14 +266,14 @@
     .gallery { display: flex; gap: 1.25rem; overflow-x: auto; padding-bottom: 1.25rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
     .gallery::-webkit-scrollbar { display: none; }
     .shot { flex: 0 0 auto; width: 19rem; max-width: 82vw; scroll-snap-align: center; padding: .75rem; }
-    .shot-img { border-radius: .75rem; overflow: hidden; border: 1px solid var(--line); height: 20rem; background: var(--ivory); }
+    .shot-img { border-radius: .8rem; overflow: hidden; border: 1px solid var(--line); height: 20rem; background: var(--ivory); }
     .shot-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-    .shot .k { font-size: .64rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-ink); margin-top: .85rem; }
+    .shot .k { font-size: .66rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-ink); margin-top: .85rem; }
     .shot p { font-size: .8rem; color: var(--ink-faint); margin-top: .2rem; }
     .scroll-hint { display: flex; justify-content: center; align-items: center; gap: .5rem; margin-top: .5rem; font-size: .8rem; color: var(--ink-faint); }
     .scroll-hint svg { width: .9rem; height: .9rem; }
-    .trust-row { margin-top: 2.5rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; font-size: .85rem; color: var(--ink-faint); }
-    .trust-row div { display: flex; align-items: center; gap: .45rem; }
+    .trust-row { margin-top: 2.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; font-size: .88rem; color: var(--ink-faint); }
+    .trust-row div { display: flex; align-items: center; gap: .5rem; }
     .trust-row svg { color: var(--gold-deep); }
 
     /* ---------- Comparison table ---------- */
@@ -298,14 +281,14 @@
     .compare { width: 100%; min-width: 34rem; border-collapse: collapse; font-size: .95rem; }
     .compare th {
       text-align: left; padding: .9rem .75rem; font-size: .7rem; font-weight: 700;
-      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint);
+      letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint);
       border-bottom: 2px solid var(--gold-deep); background: var(--paper);
     }
     .compare th.c { text-align: center; }
     .compare td { padding: .95rem .75rem; color: var(--ink-soft); border-bottom: 1px solid var(--line); white-space: nowrap; }
     .compare td.c { text-align: center; }
     .compare tr.highlight td { background: var(--gold-tint); }
-    .compare tr.highlight td:first-child { color: var(--ink); font-weight: 700; box-shadow: inset 3px 0 0 var(--gold-deep); }
+    .compare tr.highlight td:first-child { color: var(--ink); font-weight: 700; }
     .compare .price-gold { color: var(--gold-ink); font-weight: 700; }
     .compare .good { color: var(--emerald); font-weight: 600; }
     .compare .yes { color: var(--emerald); }
@@ -326,14 +309,13 @@
     .t-saved { color: var(--gold-ink); font-weight: 700; font-size: 1.05rem; border-top: 1px solid var(--line); padding-top: 1rem; }
 
     /* ---------- FAQ ---------- */
-    .faq-item { overflow: hidden; }
+    .faq-item { overflow: hidden; background: var(--ivory); }
     .faq-item + .faq-item { margin-top: .9rem; }
     .faq-question {
       width: 100%; padding: 1.25rem 1.5rem; display: flex; align-items: center;
       justify-content: space-between; gap: 1rem; text-align: left;
       background: none; border: none; font-size: 1rem; font-weight: 600; color: var(--ink);
     }
-    .faq-question span { font-size: 1rem; font-weight: 600; }
     .faq-icon { width: 1.15rem; height: 1.15rem; color: var(--ink-faint); transition: transform .25s; flex-shrink: 0; }
     .faq-icon.rotate { transform: rotate(180deg); }
     .faq-answer { padding: 0 1.5rem 1.35rem; color: var(--ink-soft); }
@@ -361,17 +343,15 @@
     .cta-stack { max-width: 40rem; margin-inline: auto; }
     .decline-box {
       margin-top: 1.1rem; border: 1px solid var(--forest-edge); background: rgba(255,253,246,.05);
-      border-radius: 1rem; padding: 1.15rem 1.25rem; text-align: center;
+      border-radius: 1.1rem; padding: 1.15rem 1.25rem; text-align: center;
     }
-    .decline-box .k { font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: #A9BCA9; margin-bottom: .85rem; }
+    .decline-box .k { font-size: .66rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #A9BCA9; margin-bottom: .85rem; }
     .final-trust { margin-top: 2.25rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; font-size: .88rem; color: #A9BCA9; }
     .final-trust div { display: flex; align-items: center; gap: .5rem; }
     .final-trust svg { color: var(--gold); }
 
     /* ---------- Mobile ---------- */
     @media (max-width: 1023px) {
-      .m-center { text-align: center; }
-      .kicker.m-center { justify-content: center; }
       .order-first-mobile { order: -1; }
     }
     @media (max-width: 640px) {
@@ -468,7 +448,7 @@
          ═══════════════════════════════════════════════════ -->
     <section class="band-paper">
         <div class="wrap">
-            <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3.25rem);">
+            <div class="section-head">
                 <p class="kicker center">The Hidden Cost</p>
                 <h2 class="display">
                     The Tax You're Paying<br>That Nobody Talks About
@@ -531,7 +511,7 @@
         <div class="wrap">
             <div class="split-wide">
                 <div>
-                    <p class="kicker" style="margin-bottom:.9rem;">The Proprietary System</p>
+                    <p class="kicker">The Proprietary System</p>
                     <h2 class="display" style="margin-bottom:1.6rem;">
                         How We Discovered the 37 Strategies Most Taxpayers Miss
                     </h2>
@@ -544,7 +524,7 @@
                             We found the same opportunities missed again and again. S-Corp elections never filed. Retirement accounts underfunded. Real estate strategies completely unknown. Business deductions left on the table.
                         </p>
                         <p>
-                            We distilled everything into a <strong style="color:var(--gold-ink);">12-question diagnostic</strong>. It shows which of the 37 IRS-approved strategies apply to YOUR situation—and calculates your savings potential.
+                            We distilled everything into a <strong>12-question diagnostic</strong>. It shows which of the 37 IRS-approved strategies apply to YOUR situation—and calculates your savings potential.
                         </p>
                     </div>
                 </div>
@@ -584,7 +564,7 @@
          ═══════════════════════════════════════════════════ -->
     <section class="band-cream">
         <div class="wrap">
-            <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3.25rem);">
+            <div class="section-head">
                 <p class="kicker center">The Process</p>
                 <h2 class="display">
                     Your Personalized Report in 3 Steps
@@ -593,21 +573,18 @@
 
             <div class="tri-grid">
                 <div class="card step-card">
-                    <span class="step-ghost">01</span>
                     <div class="step-num">1</div>
                     <h3>We Ask About Your Situation</h3>
                     <p>Income and state, W-2 or side income, filing status, homeowner status, current strategies, and risk tolerance.</p>
                 </div>
 
                 <div class="card step-card">
-                    <span class="step-ghost">02</span>
                     <div class="step-num">2</div>
                     <h3>AI Analysis</h3>
                     <p>Our system cross-references your answers against 37 IRS-approved strategies.</p>
                 </div>
 
                 <div class="card step-card">
-                    <span class="step-ghost">03</span>
                     <div class="step-num">3</div>
                     <h3>Get A Custom 40+ Page Report</h3>
                     <p>See your marginal tax rate breakdown, missed strategies with projected savings, and your action plan.</p>
@@ -621,7 +598,7 @@
          ═══════════════════════════════════════════════════ -->
     <section>
         <div class="wrap">
-            <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3.25rem);">
+            <div class="section-head">
                 <p class="kicker center">The Deliverable</p>
                 <h2 class="display">
                     What's Inside Your Report
@@ -685,12 +662,12 @@
          ═══════════════════════════════════════════════════ -->
     <section class="band-paper">
         <div class="wrap wrap-sm">
-            <div class="section-head" style="margin-bottom:clamp(1.75rem,3.5vw,2.5rem);">
+            <div class="section-head">
                 <p class="kicker center">Sample From Real Report</p>
                 <h2 class="display">Here's What One Strategy Looks Like</h2>
             </div>
 
-            <div class="card sample-card" style="background:var(--ivory);">
+            <div class="card sample-card">
                 <div class="sample-head">
                     <div>
                         <span class="pill-kicker">Real Estate Strategy</span>
@@ -731,7 +708,7 @@
          ═══════════════════════════════════════════════════ -->
     <section>
         <div class="wrap">
-            <div class="section-head" style="margin-bottom:clamp(1.75rem,3.5vw,2.75rem);">
+            <div class="section-head">
                 <p class="kicker center">Real Report Samples</p>
                 <h2 class="display">
                     Sneak Peek Inside Your Report
@@ -802,7 +779,7 @@
          ═══════════════════════════════════════════════════ -->
     <section class="band-cream">
         <div class="wrap">
-            <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3rem);">
+            <div class="section-head">
                 <p class="kicker center">$47 vs. The Alternatives</p>
                 <h2 class="display">How We Compare</h2>
             </div>
@@ -859,7 +836,7 @@
          ═══════════════════════════════════════════════════ -->
     <section>
         <div class="wrap wrap-md">
-            <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3rem);">
+            <div class="section-head">
                 <p class="kicker center">Results</p>
                 <h2 class="display">What People Are Saying</h2>
             </div>
@@ -921,13 +898,13 @@
          ═══════════════════════════════════════════════════ -->
     <section class="band-paper">
         <div class="wrap wrap-sm">
-            <div class="section-head" style="margin-bottom:clamp(2rem,4vw,3rem);">
+            <div class="section-head">
                 <p class="kicker center">Questions</p>
                 <h2 class="display">Answers</h2>
             </div>
 
             <div id="faq-container">
-                <div class="card faq-item" style="background:var(--ivory);">
+                <div class="card faq-item">
                     <button type="button" class="faq-question" aria-expanded="false">
                         <span>Can't I just Google this for free?</span>
                         <svg class="faq-icon"><use href="#i-chevron-down"/></svg>
@@ -937,7 +914,7 @@
                     </div>
                 </div>
 
-                <div class="card faq-item" style="background:var(--ivory);">
+                <div class="card faq-item">
                     <button type="button" class="faq-question" aria-expanded="false">
                         <span>Are these strategies legal?</span>
                         <svg class="faq-icon"><use href="#i-chevron-down"/></svg>
@@ -947,7 +924,7 @@
                     </div>
                 </div>
 
-                <div class="card faq-item" style="background:var(--ivory);">
+                <div class="card faq-item">
                     <button type="button" class="faq-question" aria-expanded="false">
                         <span>I already have a CPA. Do I need this?</span>
                         <svg class="faq-icon"><use href="#i-chevron-down"/></svg>
@@ -957,7 +934,7 @@
                     </div>
                 </div>
 
-                <div class="card faq-item" style="background:var(--ivory);">
+                <div class="card faq-item">
                     <button type="button" class="faq-question" aria-expanded="false">
                         <span>What if the report says I can't save much?</span>
                         <svg class="faq-icon"><use href="#i-chevron-down"/></svg>
@@ -996,7 +973,7 @@
             <p class="final-warn">
                 ⚠️ Every Month You Wait Costs $1,600-$8,000
             </p>
-            <h2 class="display" style="font-size:clamp(1.8rem,4.2vw,2.9rem);">
+            <h2 class="display">
                 Stop Overpaying.<br>
                 <span class="h-accent">Start Saving.</span>
             </h2>
