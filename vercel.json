@@ -4,35 +4,35 @@
   "rewrites": [
     {
       "source": "/october",
-      "destination": "/index.html"
+      "destination": "/index"
     },
     {
       "source": "/regularticketoct",
-      "destination": "/regularticket26.html"
+      "destination": "/regularticket26"
     },
     {
       "source": "/vipticketoct",
-      "destination": "/vipticket26.html"
+      "destination": "/vipticket26"
     },
     {
       "source": "/vipupgradeoct",
-      "destination": "/upgradevip.html"
+      "destination": "/upgradevip"
     },
     {
       "source": "/prepkitoct",
-      "destination": "/prepkit.html"
+      "destination": "/prepkit"
     },
     {
       "source": "/prepkitvipoct",
-      "destination": "/prepkitvip.html"
+      "destination": "/prepkitvip"
     },
     {
       "source": "/taxreportoct",
-      "destination": "/taxreport.html"
+      "destination": "/taxreport"
     },
     {
       "source": "/taxreportvipoct",
-      "destination": "/taxreportvip.html"
+      "destination": "/taxreportvip"
     }
   ]
 }
