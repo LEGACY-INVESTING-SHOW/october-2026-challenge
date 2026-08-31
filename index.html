@@ -2081,9 +2081,6 @@
   // OPT-IN POPUP FUNCTIONALITY
   // ============================================
 
-  // Zapier webhook URL for challenge opt-ins
-  const CLICKFUNNELS_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/9914831/uqdkbug/';
-
   // Redirect URLs for each ticket type
   const REDIRECT_URLS = {
     ticket: 'https://www.managemoney101.com/accessticket',
@@ -2139,7 +2136,7 @@
   });
 
   // Handle form submission
-  async function handleOptInSubmit(event) {
+  function handleOptInSubmit(event) {
     event.preventDefault();
 
     const form = event.target;
@@ -2169,42 +2166,16 @@
     btnText.classList.add('hidden');
     btnLoading.classList.remove('hidden');
 
-    try {
-      // Send data to ClickFunnels webhook
-      if (CLICKFUNNELS_WEBHOOK_URL && CLICKFUNNELS_WEBHOOK_URL !== 'YOUR_CLICKFUNNELS_WEBHOOK_URL_HERE') {
-        await fetch(CLICKFUNNELS_WEBHOOK_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-          mode: 'no-cors' // ClickFunnels webhooks may not support CORS
-        });
-      } else {
-        console.warn('ClickFunnels webhook URL not configured. Form data:', formData);
-      }
+    // Get the redirect URL based on ticket type
+    const redirectUrl = REDIRECT_URLS[formData.ticketType] || REDIRECT_URLS.ticket;
 
-      // Get the redirect URL based on ticket type
-      const redirectUrl = REDIRECT_URLS[formData.ticketType] || REDIRECT_URLS.ticket;
+    // Append URL parameters for tracking
+    const params = window.location.search;
+    const separator = redirectUrl.includes('?') ? '&' : '?';
+    const finalUrl = params ? redirectUrl + separator + params.substring(1) : redirectUrl;
 
-      // Append URL parameters for tracking
-      const params = window.location.search;
-      const separator = redirectUrl.includes('?') ? '&' : '?';
-      const finalUrl = params ? redirectUrl + separator + params.substring(1) : redirectUrl;
-
-      // Redirect to checkout page
-      window.location.href = finalUrl;
-
-    } catch (error) {
-      console.error('Error submitting form:', error);
-
-      // Even if webhook fails, still redirect (don't block the user)
-      const redirectUrl = REDIRECT_URLS[formData.ticketType] || REDIRECT_URLS.ticket;
-      const params = window.location.search;
-      const separator = redirectUrl.includes('?') ? '&' : '?';
-      const finalUrl = params ? redirectUrl + separator + params.substring(1) : redirectUrl;
-      window.location.href = finalUrl;
-    }
+    // Redirect to checkout page
+    window.location.href = finalUrl;
   }
 </script>
 

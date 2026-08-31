@@ -14,7 +14,6 @@
   <link rel="dns-prefetch" href="https://tracking.joinlwb.com">
   <link rel="dns-prefetch" href="https://212809.t.hyros.com">
   <link rel="dns-prefetch" href="https://js.static.spiffy.co">
-  <link rel="dns-prefetch" href="https://35063397.aevent.online">
 
   <!-- Start the font CSS fetch before the tracking scripts parse (non-blocking) -->
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
@@ -319,8 +318,6 @@
     }
   </style>
 
-  <!-- Aevent Dynamic Fields & Countdown -->
-  <script defer type="application/javascript" src="https://35063397.aevent.online/getscript?page=registration&wtl=vhmriHXslxTC43K"></script>
 </head>
 
 <body>
@@ -883,16 +880,7 @@
     })();
 
     // Countdown Timer
-    const fallbackTargetDate = new Date('2026-10-16T10:00:00-04:00').getTime();
-    let targetDate = Number(window.eventTargetDate) || fallbackTargetDate;
-
-    window.addEventListener('event-target-updated', (event) => {
-      const nextTarget = Number(event?.detail?.timestamp);
-      if (Number.isFinite(nextTarget)) {
-        targetDate = nextTarget;
-        updateCountdown();
-      }
-    });
+    const targetDate = new Date('2026-10-16T10:00:00-04:00').getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
