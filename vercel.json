@@ -33,6 +33,14 @@
     {
       "source": "/taxreportvipoct",
       "destination": "/taxreportvip"
+    },
+    {
+      "source": "/octchallengeconfirmation",
+      "destination": "/octchallengeconfirmation"
+    },
+    {
+      "source": "/octchallengeconfirmationvip",
+      "destination": "/octchallengeconfirmationvip"
     }
   ]
 }
