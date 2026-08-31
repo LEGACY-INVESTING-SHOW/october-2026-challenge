@@ -209,6 +209,7 @@
     .checkout-grid { display: grid; gap: 2.25rem; align-items: start; }
     @media (min-width: 1024px) { .checkout-grid { grid-template-columns: 1fr 1fr; gap: 3rem; } }
     .checkout-shell { position: relative; border-radius: 1.1rem; overflow: hidden; background: var(--paper); border: 1px solid var(--line); }
+    .checkout-shell spiffy-element { display: block; min-height: 760px; background: #fff; }
     .checkout-overlay {
       position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
       text-align: center; padding: 0 1.5rem; font-size: .9rem;
@@ -437,24 +438,7 @@
     <div class="checkout-grid">
       <!-- Left: Checkout Form -->
       <div class="checkout-shell">
-        <iframe
-          id="spiffy-inline-checkout"
-          title="Secure VIP Checkout"
-          data-checkout-url="https://legacyinvestingshow.spiffy.co/checkout/tax-free-income-challenge-early-bird-vip1234"
-          style="width: 100%; height: 1050px; border: 0; min-height: 760px; display: block; background: #ffffff; opacity: 0; transition: opacity 0.25s ease;"
-          loading="eager"
-          allow="payment"
-          referrerpolicy="strict-origin-when-cross-origin">
-        </iframe>
-        <div id="spiffy-checkout-status" class="checkout-overlay" style="background: var(--paper); color: var(--ink-faint);">
-          Loading secure checkout...
-        </div>
-        <div id="spiffy-checkout-error" class="checkout-overlay" style="display: none; background: var(--rose-tint); color: var(--rose);">
-          <span>
-            Having trouble loading checkout?
-            <a id="spiffy-checkout-open" href="#" target="_blank" rel="noopener noreferrer" style="color: var(--gold-ink); text-decoration: underline; font-weight: 700;">Open secure checkout in a new tab</a>.
-          </span>
-        </div>
+        <spiffy-element type="checkout" url="https://legacyinvestingshow.spiffy.co/checkout/tax-fre-income-challenge-vip-oct-26"></spiffy-element>
       </div>
 
       <!-- Right: What's Included -->
@@ -742,140 +726,6 @@
      ═══════════════════════════════════════════════════ -->
 <script>
   (function() {
-    // Checkout embed (manual inline mount for reliability)
-    (function initCheckoutEmbed() {
-      const iframe = document.getElementById('spiffy-inline-checkout');
-      if (!iframe) return;
-
-      const checkoutBase = iframe.dataset.checkoutUrl;
-      if (!checkoutBase) return;
-
-      const statusEl = document.getElementById('spiffy-checkout-status');
-      const errorEl = document.getElementById('spiffy-checkout-error');
-      const fallbackLinkEl = document.getElementById('spiffy-checkout-open');
-
-      const url = new URL(checkoutBase);
-      const allowedOrigin = url.origin;
-      const pageParams = new URLSearchParams(window.location.search);
-      pageParams.forEach((value, key) => {
-        if (key !== 'elements') url.searchParams.set(key, value);
-      });
-
-      // Let Spiffy Flow handle post-purchase routing and upsell sequencing.
-      url.searchParams.delete('success_url');
-
-      try {
-        const payload = {
-          modality: 'inline',
-          uid: 'manual-embed',
-          from: window.location.href,
-          sessionId: `manual-${Date.now()}`
-        };
-        url.searchParams.set('elements', btoa(JSON.stringify(payload)));
-      } catch (err) {
-        // Fall back to plain checkout URL if encoding fails.
-      }
-
-      const resolvedCheckoutUrl = url.toString();
-      if (fallbackLinkEl) fallbackLinkEl.href = resolvedCheckoutUrl;
-
-      let hasLoaded = false;
-      let hasStarted = false;
-      let loadTimeoutId = null;
-
-      function setLoadingState(isLoading) {
-        if (!statusEl) return;
-        statusEl.style.display = isLoading ? 'flex' : 'none';
-      }
-
-      function showErrorState() {
-        if (errorEl) errorEl.style.display = 'flex';
-      }
-
-      function hideErrorState() {
-        if (errorEl) errorEl.style.display = 'none';
-      }
-
-      function markLoaded() {
-        if (hasLoaded) return;
-        hasLoaded = true;
-        if (loadTimeoutId !== null) {
-          window.clearTimeout(loadTimeoutId);
-          loadTimeoutId = null;
-        }
-        iframe.style.opacity = '1';
-        setLoadingState(false);
-        hideErrorState();
-      }
-
-      function startEmbed() {
-        if (hasStarted) return;
-        hasStarted = true;
-        iframe.src = resolvedCheckoutUrl;
-      }
-
-      iframe.addEventListener('load', markLoaded, { once: true });
-      iframe.addEventListener('error', () => {
-        if (loadTimeoutId !== null) {
-          window.clearTimeout(loadTimeoutId);
-          loadTimeoutId = null;
-        }
-        setLoadingState(false);
-        showErrorState();
-        iframe.style.opacity = '1';
-      });
-
-      setLoadingState(true);
-      loadTimeoutId = window.setTimeout(() => {
-        if (!hasLoaded) {
-          setLoadingState(false);
-          showErrorState();
-          iframe.style.opacity = '1';
-        }
-      }, 15000);
-
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries, obs) => {
-          const [entry] = entries;
-          if (!entry || !entry.isIntersecting) return;
-          startEmbed();
-          obs.disconnect();
-        }, { rootMargin: '350px 0px' });
-        observer.observe(iframe);
-      } else {
-        startEmbed();
-      }
-
-      window.addEventListener('message', (event) => {
-        if (typeof event.origin !== 'string') return;
-        if (event.origin !== allowedOrigin && !event.origin.endsWith('.spiffy.co')) return;
-
-        let message = event.data;
-        if (typeof message === 'string') {
-          try {
-            message = JSON.parse(message);
-          } catch (err) {
-            return;
-          }
-        }
-
-        const eventName = message?.event || message?.type;
-        const height = Number(message?.data?.height ?? message?.height);
-        if (eventName === 'form:size' && Number.isFinite(height) && height > 0) {
-          iframe.style.height = `${Math.max(700, Math.ceil(height))}px`;
-          markLoaded();
-        }
-
-        // Respect Spiffy-directed navigation for custom upsell/thank-you flow.
-        if (eventName === 'navigate' || eventName === 'redirect') {
-          const navUrl = message?.data?.url || message?.url;
-          if (typeof navUrl === 'string' && /^https?:\/\//i.test(navUrl)) {
-            window.location.href = navUrl;
-          }
-        }
-      });
-    })();
-
     // Countdown Timer
     const targetDate = new Date('2026-10-16T10:00:00-04:00').getTime();
 
