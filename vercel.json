@@ -5,6 +5,34 @@
     {
       "source": "/october",
       "destination": "/index.html"
+    },
+    {
+      "source": "/regularticketoct",
+      "destination": "/regularticket26.html"
+    },
+    {
+      "source": "/vipticketoct",
+      "destination": "/vipticket26.html"
+    },
+    {
+      "source": "/vipupgradeoct",
+      "destination": "/upgradevip.html"
+    },
+    {
+      "source": "/prepkitoct",
+      "destination": "/prepkit.html"
+    },
+    {
+      "source": "/prepkitvipoct",
+      "destination": "/prepkitvip.html"
+    },
+    {
+      "source": "/taxreportoct",
+      "destination": "/taxreport.html"
+    },
+    {
+      "source": "/taxreportvipoct",
+      "destination": "/taxreportvip.html"
     }
   ]
 }
