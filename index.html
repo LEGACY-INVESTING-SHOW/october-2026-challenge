@@ -613,11 +613,18 @@
     .nx-switch button{position:relative;border:none;background:none;font-family:inherit;font-size:.82rem;font-weight:700;padding:9px 18px;border-radius:100px;color:var(--ink-soft);transition:color .3s;white-space:nowrap;cursor:pointer}
     .nx-ba[data-state="before"] .nx-switch button:first-child{color:var(--rose)}
     .nx-ba[data-state="after"] .nx-switch button:last-child{color:var(--emerald)}
-    .nx-ba-panels{position:relative}
-    .nx-ba-panel{border-radius:16px;padding:1.5rem 1.7rem;transition:opacity .35s ease,transform .35s cubic-bezier(.16,1,.3,1)}
+    .nx-ba-panels{display:grid}
+    .nx-ba-panel{grid-area:1/1;border-radius:16px;padding:1.5rem 1.7rem;transition:opacity .35s ease,transform .35s cubic-bezier(.16,1,.3,1)}
     .nx-ba-panel.b{background:var(--rose-tint)}
-    .nx-ba-panel.a{background:var(--emerald-tint);position:absolute;inset:0;overflow:auto}
+    .nx-ba-panel.a{background:var(--emerald-tint)}
     .nx-ba[data-state="before"] .nx-ba-panel.a,.nx-ba[data-state="after"] .nx-ba-panel.b{opacity:0;transform:scale(.985);pointer-events:none}
+    @media(min-width:768px){
+      .nx-ba{max-width:980px}
+      .nx-ba-toggle{display:none}
+      .nx-ba-panels{grid-template-columns:1fr 1fr;gap:1.6rem;align-items:start}
+      .nx-ba-panel{grid-area:auto}
+      .nx-ba[data-state] .nx-ba-panel.a,.nx-ba[data-state] .nx-ba-panel.b{opacity:1;transform:none;pointer-events:auto}
+    }
     .nx-ba-panel h4{font-size:1rem;margin-bottom:.7rem}
     .nx-ba-panel.b h4{color:var(--rose)}
     .nx-ba-panel.a h4{color:var(--emerald)}
@@ -970,9 +977,7 @@
         <p class="muted" style="margin-bottom:1.75rem;">
           This framework gives you the exact order of operations: which moves to make first, second, and third.
         </p>
-        <div style="border-radius:1rem;overflow:hidden;border:1px solid var(--line);">
-          <img src="/assets/images/06-preston-basement.webp" alt="Preston Seo" width="1000" height="1500" loading="lazy" decoding="async" style="width:500px;max-width:100%">
-        </div>
+        <img src="/assets/images/06-preston-basement.webp" alt="Tax-free investment vehicle pyramid: pay less taxes, reduce debt, increase cash flow" width="1000" height="1500" loading="lazy" decoding="async" style="width:500px;max-width:100%;border-radius:1rem;align-self:start;">
       </div>
 
       <!-- Right: Pillars -->
@@ -1055,6 +1060,7 @@
           <div class="sess"><span class="n">Session 2</span><p>Why Your 401(k) Is Bleeding Money &amp; What To Do Instead</p></div>
           <div class="sess"><span class="n">Session 3</span><p>Debt Elimination &amp; Credit Mastery</p></div>
           <div class="sess"><span class="n">Session 4</span><p>Entity Structure &amp; Business Credit Expert Deep Dive</p></div>
+          <div class="sess vip"><span class="vip-tag">VIP Only</span><p>Live Roundtable Q&amp;A with Preston (Day 1)</p></div>
         </div>
       </div>
 
@@ -1259,6 +1265,13 @@
           <li>Common mistakes that lead to double taxation</li>
         </ul>
       </div>
+
+      <!-- VIP Session 1 -->
+      <div class="card sess-detail vip">
+        <span class="vip-tag">VIP Session 1</span>
+        <h3>VIP Day 1 Session: Live Roundtable Q&amp;A With Preston</h3>
+        <p>Live roundtable call after Day 1 wraps. Unmute and get your questions from the first day answered before Day 2 begins.</p>
+      </div>
     </div>
 
     <!-- Day 2 -->
@@ -1310,9 +1323,9 @@
         <p>Now that you've seen every strategy, we'll show you how they stack into one system, and your wealth plan comes together. The average conservative plan we build maps out $85,871 in first-year value.</p>
       </div>
 
-      <!-- VIP Session 1 -->
+      <!-- VIP Session 2 -->
       <div class="card sess-detail vip">
-        <span class="vip-tag">VIP Session 1</span>
+        <span class="vip-tag">VIP Session 2</span>
         <h3>VIP Day 2 Session: Live Roundtable Q&amp;A With Preston</h3>
         <p>Live roundtable call where you can unmute and ask Preston directly.</p>
       </div>
@@ -1360,9 +1373,9 @@
         <p>Get your last questions answered and walk away with your own 12-month wealth plan in hand.</p>
       </div>
 
-      <!-- VIP Session 2 -->
+      <!-- VIP Session 3 -->
       <div class="card sess-detail vip">
-        <span class="vip-tag">VIP Session 2</span>
+        <span class="vip-tag">VIP Session 3</span>
         <h3>VIP Day 3 Session: Live Roundtable Q&amp;A With Preston</h3>
         <p>Live roundtable call. Bring your plan and get it checked live.</p>
       </div>
@@ -1428,7 +1441,7 @@
 
         <ul class="price-list">
           <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Preston's $15M Asset Protection Masterclass, sent BEFORE the challenge starts. The same LLC, S-Corp, trust, and holding company structure he uses on his own $20M+ portfolio, plus the S-Corp mistakes that cost people thousands.</li>
-          <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Live roundtable calls with Preston (Days 2 &amp; 3) where you can unmute and get your specific questions answered</li>
+          <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Live roundtable calls with Preston on all 3 days where you can unmute and get your specific questions answered</li>
           <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Lifetime access to 15+ hours of session replays, slides, notes, and materials</li>
         </ul>
 
@@ -1449,7 +1462,7 @@
         <tbody>
           <tr><td>All 3 days of live training</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
           <tr><td>Pre-challenge $15M Asset Protection Masterclass with Preston</td><td class="c no">—</td><td class="c yes">✓</td></tr>
-          <tr><td>Live roundtable with Preston (Days 2 &amp; 3)</td><td class="c no">—</td><td class="c yes">✓</td></tr>
+          <tr><td>Live roundtable with Preston (Days 1-3)</td><td class="c no">—</td><td class="c yes">✓</td></tr>
           <tr><td>Ask Preston questions directly</td><td class="c no">—</td><td class="c yes">✓</td></tr>
           <tr><td>15+ hours of lifetime replay access</td><td class="c no">—</td><td class="c yes">✓</td></tr>
           <tr><td>All slides, notes &amp; materials</td><td class="c no">—</td><td class="c yes">✓</td></tr>
@@ -1847,7 +1860,7 @@
           <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
         </button>
         <div class="faq-answer hidden">
-          Each day runs from 10 AM to 4 PM EST. VIP members also get a pre-challenge asset protection session before Day 1 plus live roundtable Q&amp;A calls on Days 2 and 3.
+          Each day runs from 10 AM to 4 PM EST. VIP members also get a pre-challenge asset protection session before Day 1 plus a live roundtable Q&amp;A call on each of the 3 days.
         </div>
       </div>
 
