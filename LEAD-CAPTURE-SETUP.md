@@ -8,7 +8,7 @@ The opt-in popup, the checkout prefill, and the evergreen timer are built and li
 
 - Both ticket buttons ("Join the Challenge" and "Get VIP Access") open a popup with three fields: full name, email, phone.
 - On submit the page validates the fields, saves the lead in the browser (`localStorage.lis_lead`), sends it to Kit and/or a webhook, fires a Meta `Lead` event if a pixel is present, then redirects to the order page.
-- The redirect keeps every tracking param already on the URL (UTMs, Hyros, fbclid) and adds `name_first`, `name_last`, `email`, `phone`.
+- The redirect keeps every tracking param already on the URL (UTMs, Hyros, fbclid) and adds `name_first`, `name_last`, `email`, `phone`, and Spiffy's phone prefill key `phone_number`.
 - The redirect never waits more than 1.5 seconds for Kit. If Kit is slow or down, the buyer still reaches checkout.
 - The config block is at the top of the last `<script>` in `index.html`:
 
@@ -47,7 +47,7 @@ Both checkouts must accept the prefill params.
 
 1. Open each checkout in Spiffy → Checkout Editor → hover the **Contact Info** block → Edit Block.
 2. Expand **First Name**, **Last Name**, **Email**. The "Field URL Parameter" should be `name_first`, `name_last`, `email`. These are Spiffy defaults. Leave them.
-3. Expand **Phone** and set its Field URL Parameter to `phone`. If the checkout has no phone field, add one in the contact block.
+3. Expand **Phone** and confirm its Field URL Parameter is `phone_number`. If the checkout has no phone field, add one in the contact block.
 4. Checkouts to update:
    - `tax-free-income-challenge-oct-26` (General Admission)
    - `tax-fre-income-challenge-vip-oct-26` (VIP)
@@ -105,7 +105,7 @@ No Meta pixel is on the pages today. The popup already calls `fbq('track', 'Lead
 
 1. Open `https://october-2026-challenge.vercel.app/october?utm_source=test`.
 2. Click "Join the Challenge". Enter a name, a real test email, and a phone number. Submit.
-3. The order page URL must contain `utm_source=test`, `name_first`, `email`, `phone`.
+3. The order page URL must contain `utm_source=test`, `name_first`, `email`, `phone`, and `phone_number`.
 4. The Spiffy form must show the name and email already filled (and phone once Step 2 is done).
 5. In Kit, the test email must appear with tag `challenge-lead` and the custom fields filled.
 6. Complete a $47 test order. The subscriber must receive tag `challenge-buyer-ga`, and the automation must skip the emails.

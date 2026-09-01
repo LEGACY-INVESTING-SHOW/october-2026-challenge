@@ -479,7 +479,8 @@
             name_first: q.get('name_first') || saved.first,
             name_last:  q.get('name_last')  || saved.last,
             email:      q.get('email')      || saved.email,
-            phone:      q.get('phone')      || saved.phone
+            phone:      q.get('phone')      || saved.phone,
+            phone_number: q.get('phone_number') || q.get('phone') || saved.phone
           };
           var out = new URLSearchParams();
           Object.keys(fields).forEach(function (k) { if (fields[k]) out.set(k, fields[k]); });

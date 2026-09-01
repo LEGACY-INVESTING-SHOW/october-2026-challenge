@@ -2216,6 +2216,7 @@
     if (n.last) q.set('name_last', n.last);
     q.set('email', email);
     q.set('phone', phone);
+    q.set('phone_number', phone);
     var url = (REDIRECT_URLS[ticket] || REDIRECT_URLS.ticket) + '?' + q.toString();
 
     sendLead(lead).then(function () { location.href = url; });
