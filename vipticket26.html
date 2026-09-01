@@ -39,6 +39,23 @@
   spiffy.load("legacyinvestingshow");
   </script>
 
+  <!-- Evergreen deadline: resets at midnight America/New_York.
+       Inside the final 24h before the event it counts to the event start. -->
+  <script>
+  window.LIS_DEADLINE = (function () {
+    var EVENT = new Date('2026-10-16T10:00:00-04:00').getTime();
+    var fmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    return function () {
+      var now = Date.now();
+      if (EVENT - now < 864e5) return EVENT;
+      var p = {};
+      fmt.formatToParts(new Date(now)).forEach(function (x) { p[x.type] = +x.value; });
+      var elapsed = (((p.hour % 24) * 60 + p.minute) * 60 + p.second) * 1000 + (now % 1000);
+      return now + (864e5 - elapsed);
+    };
+  })();
+  </script>
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -295,16 +312,8 @@
     @media(max-width:560px){.nx-step .nx-lbl{display:none}.nx-step.nx-current .nx-lbl{display:inline}}
     .nx-stepper-hint{font-size:12px;color:var(--rose);font-weight:600;margin-top:10px;letter-spacing:.04em}
 
-    /* ── Loading skeleton behind the Spiffy embed ── */
     .checkout-shell{min-height:520px}
     @media(max-width:640px){.checkout-shell{min-height:600px}}
-    .checkout-shell spiffy-element{position:relative;z-index:1;background:transparent}
-    .nx-skel{position:absolute;inset:.55rem;z-index:0;border-radius:.7rem;padding:26px 22px;display:flex;flex-direction:column;gap:20px;overflow:hidden}
-    .nx-skel i{display:block;border-radius:8px;background:linear-gradient(90deg,#EDE7DA 25%,#F8F4EB 40%,#EDE7DA 60%);background-size:300% 100%;animation:nx-shimmer 1.5s linear infinite}
-    .nx-skel .nx-skel-label{width:36%;height:10px;margin-bottom:9px;border-radius:4px}
-    .nx-skel .nx-skel-field{height:44px}
-    .nx-skel .nx-skel-btn{margin-top:10px;height:52px;border-radius:10px;background:linear-gradient(90deg,#DFB556 25%,#EDD293 40%,#DFB556 60%);background-size:300% 100%}
-    @keyframes nx-shimmer{from{background-position:150% 0}to{background-position:-150% 0}}
 
     /* ── Mini order summary ── */
     .nx-summary{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.45rem;background:var(--gold-tint);border:1px solid #E5D3A0;border-radius:.9rem;padding:.8rem 1.1rem;font-size:.95rem;font-weight:600;color:var(--ink);text-align:center}
@@ -344,7 +353,6 @@
     }
 
     @media(prefers-reduced-motion:reduce){
-      .nx-skel i{animation:none}
     }
   </style>
 
@@ -443,14 +451,10 @@
 
     <!-- Deadline copy line -->
     <div class="nx-a4-wrap">
-      <p class="nx-a4-line">Your $50 early-bird discount ends in&hellip;</p>
+      <p class="nx-a4-line">Your $50 discount ends in&hellip;</p>
     </div>
 
     <div class="count-row" id="countdown">
-      <div class="count-cell">
-        <div class="count-num" id="days">00</div>
-        <div class="count-lbl">Days</div>
-      </div>
       <div class="count-cell">
         <div class="count-num" id="hours">00</div>
         <div class="count-lbl">Hours</div>
@@ -478,14 +482,28 @@
 
       <!-- Left: Checkout Form -->
       <div class="checkout-shell">
-        <!-- Loading skeleton behind the Spiffy embed -->
-        <div class="nx-skel" aria-hidden="true">
-          <div><i class="nx-skel-label"></i><i class="nx-skel-field"></i></div>
-          <div><i class="nx-skel-label"></i><i class="nx-skel-field"></i></div>
-          <div><i class="nx-skel-label"></i><i class="nx-skel-field"></i></div>
-          <i class="nx-skel-btn"></i>
-        </div>
-        <spiffy-element type="checkout" url="https://legacyinvestingshow.spiffy.co/checkout/tax-fre-income-challenge-vip-oct-26"></spiffy-element>
+        <div class="checkout-mount" data-checkout="https://legacyinvestingshow.spiffy.co/checkout/tax-fre-income-challenge-vip-oct-26"></div>
+        <script>
+        (function () {
+          // Build the Spiffy embed with prefill params (from the opt-in popup on the sales page).
+          var mount = document.currentScript.previousElementSibling;
+          var q = new URLSearchParams(location.search);
+          var saved = {};
+          try { saved = JSON.parse(localStorage.getItem('lis_lead') || '{}'); } catch (e) {}
+          var fields = {
+            name_first: q.get('name_first') || saved.first,
+            name_last:  q.get('name_last')  || saved.last,
+            email:      q.get('email')      || saved.email,
+            phone:      q.get('phone')      || saved.phone
+          };
+          var out = new URLSearchParams();
+          Object.keys(fields).forEach(function (k) { if (fields[k]) out.set(k, fields[k]); });
+          var el = document.createElement('spiffy-element');
+          el.setAttribute('type', 'checkout');
+          el.setAttribute('url', mount.getAttribute('data-checkout') + (out.toString() ? '?' + out.toString() : ''));
+          mount.replaceWith(el);
+        })();
+        </script>
       </div>
 
       <!-- Trust cluster below the embed -->
@@ -779,23 +797,19 @@
 <script>
   (function() {
     // Countdown Timer
-    const targetDate = new Date('2026-10-16T10:00:00-04:00').getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
-      const distance = targetDate - now;
+      const distance = window.LIS_DEADLINE() - now;
 
-      const days = distance > 0 ? Math.floor(distance / (1000 * 60 * 60 * 24)) : 0;
-      const hours = distance > 0 ? Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) : 0;
+      const hours = distance > 0 ? Math.floor(distance / (1000 * 60 * 60)) : 0;
       const minutes = distance > 0 ? Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) : 0;
       const seconds = distance > 0 ? Math.floor((distance % (1000 * 60)) / 1000) : 0;
 
-      const daysEl = document.getElementById('days');
       const hoursEl = document.getElementById('hours');
       const minutesEl = document.getElementById('minutes');
       const secondsEl = document.getElementById('seconds');
 
-      if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
       if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
       if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
       if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');

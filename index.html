@@ -41,6 +41,23 @@
   spiffy.load("legacyinvestingshow");
   </script>
 
+  <!-- Evergreen deadline: resets at midnight America/New_York.
+       Inside the final 24h before the event it counts to the event start. -->
+  <script>
+  window.LIS_DEADLINE = (function () {
+    var EVENT = new Date('2026-10-16T10:00:00-04:00').getTime();
+    var fmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    return function () {
+      var now = Date.now();
+      if (EVENT - now < 864e5) return EVENT;
+      var p = {};
+      fmt.formatToParts(new Date(now)).forEach(function (x) { p[x.type] = +x.value; });
+      var elapsed = (((p.hour % 24) * 60 + p.minute) * 60 + p.second) * 1000 + (now % 1000);
+      return now + (864e5 - elapsed);
+    };
+  })();
+  </script>
+
   <style>
     :root {
       --ivory: #F7F2E7;          /* page ground */
@@ -375,7 +392,8 @@
     @media (min-width: 900px) { .price-grid { grid-template-columns: 1fr 1fr; align-items: stretch; } }
     .price-card { padding: 2rem; display: flex; flex-direction: column; }
     .price-card h3 { font-family: var(--serif); font-size: 1.35rem; margin-bottom: 1rem; }
-    .price-line { display: flex; align-items: baseline; gap: .6rem; margin-bottom: 1.4rem; }
+    .price-line { display: flex; align-items: baseline; gap: .6rem; margin-bottom: .5rem; }
+    .price-save { font-size: .82rem; font-weight: 700; color: var(--emerald); margin-bottom: 1.4rem; }
     .price-old { color: var(--ink-faint); text-decoration: line-through; font-size: 1.1rem; }
     .price-now { font-family: var(--serif); font-weight: 700; font-size: 2.6rem; line-height: 1; }
     .price-intro { font-size: .9rem; color: var(--ink-faint); margin-bottom: 1.25rem; }
@@ -551,7 +569,10 @@
     .modal-close svg { width: 1.4rem; height: 1.4rem; }
     .modal-head { text-align: center; margin-bottom: 1.5rem; }
     .modal-head h3 { font-family: var(--serif); font-size: 1.4rem; margin-bottom: .35rem; }
-    .modal-head p { font-size: .88rem; color: var(--ink-faint); }
+    .modal-kicker { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-ink); background: var(--gold-tint); border: 1px solid #E5D3A0; border-radius: 999px; padding: .3rem .8rem; margin-bottom: .9rem; }
+    .modal-error { font-size: .85rem; color: var(--rose); text-align: center; margin-top: .9rem; }
+    .field input:user-invalid { border-color: var(--rose); }
+    #optInSubmitBtn[disabled] { opacity: .7; cursor: wait; }
     .field label { display: block; font-size: .85rem; font-weight: 600; color: var(--ink-soft); margin-bottom: .35rem; }
     .field input {
       width: 100%; padding: .8rem 1rem; font-size: .95rem; font-family: inherit;
@@ -669,45 +690,38 @@
 <!-- ═══════════════════════════════════════════════════
      OPT-IN POPUP MODAL
      ═══════════════════════════════════════════════════ -->
-<div id="optInModal">
+<div id="optInModal" role="dialog" aria-modal="true" aria-labelledby="optInTitle">
   <div class="modal-card">
     <button type="button" class="modal-close" onclick="closeOptInPopup()" aria-label="Close">
       <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
 
     <div class="modal-head">
-      <span class="pill pill-gold" style="margin-bottom:1rem;"><span class="dot"></span>Almost There!</span>
-      <h3>Reserve Your Spot</h3>
-      <p>Enter your details to save your seat.</p>
+      <span class="modal-kicker" id="optInKicker">General Admission &middot; $47</span>
+      <h3 id="optInTitle">Where should we send your ticket?</h3>
     </div>
 
-    <form id="optInForm" onsubmit="handleOptInSubmit(event)">
-      <input type="hidden" id="ticketType" name="ticketType" value="">
+    <form id="optInForm" novalidate>
+      <input type="hidden" id="ticketType" name="ticketType" value="ticket">
 
       <div class="field">
-        <label for="optInName">Full Name</label>
-        <input type="text" id="optInName" name="name" required placeholder="Enter your full name">
+        <label for="optInName">Full name</label>
+        <input type="text" id="optInName" name="name" autocomplete="name" required placeholder="Jane Smith">
       </div>
       <div class="field">
-        <label for="optInEmail">Email Address</label>
-        <input type="email" id="optInEmail" name="email" required placeholder="Enter your email">
+        <label for="optInEmail">Email</label>
+        <input type="email" id="optInEmail" name="email" autocomplete="email" inputmode="email" required placeholder="jane@email.com">
       </div>
       <div class="field">
-        <label for="optInPhone">Phone Number</label>
-        <input type="tel" id="optInPhone" name="phone" required placeholder="Enter your phone number">
+        <label for="optInPhone">Phone</label>
+        <input type="tel" id="optInPhone" name="phone" autocomplete="tel" inputmode="tel" required placeholder="(555) 123-4567">
       </div>
 
-      <button type="submit" id="optInSubmitBtn" class="btn btn-gold btn-block btn-md" style="margin-top:1.5rem;">
-        <span id="submitBtnText">Continue to Checkout →</span>
-        <span id="submitBtnLoading" class="hidden">
-          <svg class="spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle style="opacity:.25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path style="opacity:.75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-        </span>
-      </button>
+      <p class="modal-error" id="optInError" hidden></p>
 
-      <p class="modal-note">🔒 Your information is secure and will never be shared.</p>
+      <button type="submit" id="optInSubmitBtn" class="btn btn-gold btn-block btn-md" style="margin-top:1.5rem;">Continue to Checkout &rarr;</button>
+
+      <p class="modal-note">&#128274; Secure checkout. Your details are never shared.</p>
     </form>
   </div>
 </div>
@@ -723,7 +737,7 @@
     <div style="display:flex;align-items:center;gap:1rem;margin-left:auto;">
       <div class="sticky-count">
         <span class="dot"></span>
-        <span class="hide-mobile">Ends in:</span>
+        <span class="hide-mobile">50% off ends in:</span>
         <span id="sticky-countdown" style="font-weight:700;color:var(--rose);font-variant-numeric:tabular-nums;">--</span>
       </div>
       <a href="#pricing" class="btn btn-gold btn-sm">Get Your Seat</a>
@@ -777,7 +791,7 @@
 
         <!-- Rolling-digit countdown -->
         <div class="nx-count">
-          <p class="label">Early Bird Pricing Ends Soon</p>
+          <p class="label">50% Off Ends At Midnight</p>
           <div class="nx-cd" id="nxCountdown"></div>
         </div>
       </div>
@@ -1414,6 +1428,7 @@
           <span class="price-old">$97</span>
           <span class="price-now">$47</span>
         </div>
+        <p class="price-save">Save 50% today &middot; price goes up at midnight</p>
 
         <p class="price-intro">You'll walk away with a complete action plan:</p>
 
@@ -1425,7 +1440,7 @@
           <li><svg class="check-svg"><use href="#check-icon"/></svg>Your first $5K-$15K/month income stream blueprint</li>
         </ul>
 
-        <a href="/regularticketoct" class="btn btn-outline btn-md btn-block">Join the Challenge →</a>
+        <a href="/regularticketoct" class="btn btn-outline btn-md btn-block" onclick="return openOptInPopup('ticket', event)">Join the Challenge →</a>
       </div>
 
       <!-- VIP -->
@@ -1436,6 +1451,7 @@
           <span class="price-old">$197</span>
           <span class="price-now">$147</span>
         </div>
+        <p class="price-save">Save $50 today &middot; price goes up at midnight</p>
 
         <p class="price-intro">Everything in General Admission plus...</p>
 
@@ -1445,7 +1461,7 @@
           <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Lifetime access to 15+ hours of session replays, slides, notes, and materials</li>
         </ul>
 
-        <a href="/vipticketoct" class="btn btn-gold btn-md btn-block">Get VIP Access →</a>
+        <a href="/vipticketoct" class="btn btn-gold btn-md btn-block" onclick="return openOptInPopup('vip', event)">Get VIP Access →</a>
       </div>
     </div>
 
@@ -1968,7 +1984,7 @@
     <p class="muted" style="margin-top:1rem;">Oct 16th - Oct 18th | 10 AM - 4 PM EST</p>
 
     <div class="final-count">
-      <span class="lbl">Early Bird Ends:</span>
+      <span class="lbl">50% off ends in:</span>
       <div class="nx-cd" id="nxCountdown2"></div>
     </div>
   </div>
@@ -2021,14 +2037,13 @@
       observer.observe(hero);
 
       // Update sticky countdown less frequently
-      const stickyTarget = new Date('2026-10-16T10:00:00-04:00').getTime();
       const stickyEl = document.getElementById('sticky-countdown');
       function stickyTick() {
-        const diff = stickyTarget - Date.now();
-        if (diff <= 0 || !stickyEl) return;
-        const d = Math.floor(diff / 86400000);
-        const h = Math.floor((diff % 86400000) / 3600000);
-        stickyEl.textContent = `${d}d ${h}h`;
+        const diff = Math.max(0, window.LIS_DEADLINE() - Date.now());
+        if (!stickyEl) return;
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        stickyEl.textContent = `${h}h ${String(m).padStart(2, '0')}m`;
       }
       stickyTick();
       setInterval(stickyTick, 2000);
@@ -2086,105 +2101,125 @@
   })();
 
   // ============================================
-  // OPT-IN POPUP FUNCTIONALITY
+  // OPT-IN POPUP  →  LEAD CAPTURE  →  PREFILLED CHECKOUT
+  // Setup for the tech team: see LEAD-CAPTURE-SETUP.md in this repo.
   // ============================================
-
-  // Redirect URLs for each ticket type
-  const REDIRECT_URLS = {
-    ticket: '/regularticketoct',
-    vip: '/vipticketoct'
+  var LEAD_CONFIG = {
+    kitFormId: '',      // Kit (ConvertKit) form ID, e.g. '7654321'
+    kitApiKey: '',      // Kit v3 PUBLIC API key (Settings → Developer → API Key). Never the secret.
+    kitTagIds: [],      // optional numeric tag IDs to add on opt-in, e.g. [1234567]
+    webhookUrl: ''      // optional: Zapier / Make catch-hook URL (used as well as, or instead of, Kit)
   };
 
-  // Open the opt-in popup
-  function openOptInPopup(ticketType) {
-    const modal = document.getElementById('optInModal');
-    const ticketInput = document.getElementById('ticketType');
+  var REDIRECT_URLS = { ticket: '/regularticketoct', vip: '/vipticketoct' };
+  var TICKET_LABELS = { ticket: 'General Admission · $47', vip: 'VIP Access · $147' };
 
-    // Set the ticket type
-    ticketInput.value = ticketType;
+  function openOptInPopup(ticketType, ev) {
+    if (ev) ev.preventDefault();
+    var modal = document.getElementById('optInModal');
+    document.getElementById('ticketType').value = ticketType;
+    document.getElementById('optInKicker').textContent = TICKET_LABELS[ticketType] || TICKET_LABELS.ticket;
+    document.getElementById('optInError').hidden = true;
 
-    // Show the modal
+    // Returning visitor: reuse what they typed before
+    try {
+      var saved = JSON.parse(localStorage.getItem('lis_lead') || 'null');
+      if (saved) {
+        document.getElementById('optInName').value = saved.name || '';
+        document.getElementById('optInEmail').value = saved.email || '';
+        document.getElementById('optInPhone').value = saved.phone || '';
+      }
+    } catch (e) {}
+
     modal.classList.add('open');
-
-    // Prevent body scroll
     document.body.style.overflow = 'hidden';
-
-    // Focus on first input
-    setTimeout(() => {
-      document.getElementById('optInName').focus();
-    }, 100);
+    setTimeout(function () {
+      var first = ['optInName', 'optInEmail', 'optInPhone'].map(function (id) { return document.getElementById(id); })
+        .find(function (el) { return !el.value; }) || document.getElementById('optInName');
+      first.focus();
+    }, 80);
+    return false;
   }
 
-  // Close the opt-in popup
   function closeOptInPopup() {
-    const modal = document.getElementById('optInModal');
-
-    // Hide the modal
-    modal.classList.remove('open');
-
-    // Restore body scroll
+    document.getElementById('optInModal').classList.remove('open');
     document.body.style.overflow = '';
-
-    // Reset the form
-    document.getElementById('optInForm').reset();
   }
 
-  // Close modal on escape key
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      closeOptInPopup();
-    }
-  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeOptInPopup(); });
+  document.getElementById('optInModal').addEventListener('click', function (e) { if (e.target === this) closeOptInPopup(); });
 
-  // Close modal on backdrop click
-  document.getElementById('optInModal').addEventListener('click', function(e) {
-    if (e.target === this) {
-      closeOptInPopup();
-    }
-  });
+  function splitName(full) {
+    var parts = full.trim().split(/\s+/);
+    return { first: parts.shift() || '', last: parts.join(' ') };
+  }
 
-  // Handle form submission
-  function handleOptInSubmit(event) {
+  // Sends the lead to Kit and/or a webhook. Always resolves; never blocks the redirect for more than ~1.5 s.
+  function sendLead(lead) {
+    var jobs = [];
+    if (LEAD_CONFIG.kitFormId && LEAD_CONFIG.kitApiKey) {
+      jobs.push(fetch('https://api.convertkit.com/v3/forms/' + LEAD_CONFIG.kitFormId + '/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        keepalive: true,
+        body: JSON.stringify({
+          api_key: LEAD_CONFIG.kitApiKey,
+          email: lead.email,
+          first_name: lead.first,
+          fields: { last_name: lead.last, phone: lead.phone, ticket_type: lead.ticket, source_url: lead.source },
+          tags: LEAD_CONFIG.kitTagIds
+        })
+      }).catch(function () {}));
+    }
+    if (LEAD_CONFIG.webhookUrl) {
+      jobs.push(fetch(LEAD_CONFIG.webhookUrl, {
+        method: 'POST', mode: 'no-cors', keepalive: true,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(lead)
+      }).catch(function () {}));
+    }
+    if (!jobs.length) console.warn('LEAD_CONFIG is empty: lead not sent anywhere.', lead);
+    return Promise.race([Promise.all(jobs), new Promise(function (r) { setTimeout(r, 1500); })]);
+  }
+
+  document.getElementById('optInForm').addEventListener('submit', function (event) {
     event.preventDefault();
+    var btn = document.getElementById('optInSubmitBtn');
+    var err = document.getElementById('optInError');
+    var name = document.getElementById('optInName').value.trim();
+    var email = document.getElementById('optInEmail').value.trim();
+    var phone = document.getElementById('optInPhone').value.trim();
+    var ticket = document.getElementById('ticketType').value || 'ticket';
 
-    const form = event.target;
-    const submitBtn = document.getElementById('optInSubmitBtn');
-    const btnText = document.getElementById('submitBtnText');
-    const btnLoading = document.getElementById('submitBtnLoading');
+    var problem = '';
+    if (!name) problem = 'Please enter your name.';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) problem = 'Please enter a valid email address.';
+    else if (phone.replace(/\D/g, '').length < 10) problem = 'Please enter a valid phone number.';
+    if (problem) { err.textContent = problem; err.hidden = false; return; }
+    err.hidden = true;
 
-    // Get form data
-    const formData = {
-      name: document.getElementById('optInName').value.trim(),
-      email: document.getElementById('optInEmail').value.trim(),
-      phone: document.getElementById('optInPhone').value.trim(),
-      ticketType: document.getElementById('ticketType').value,
-      tag: 'challenge opt-ins',
-      source: window.location.href,
-      timestamp: new Date().toISOString()
+    var n = splitName(name);
+    var lead = {
+      name: name, first: n.first, last: n.last, email: email, phone: phone,
+      ticket: ticket, tag: 'challenge-lead', source: location.href, ts: new Date().toISOString()
     };
 
-    // Basic validation
-    if (!formData.name || !formData.email || !formData.phone) {
-      alert('Please fill in all fields');
-      return;
-    }
+    try { localStorage.setItem('lis_lead', JSON.stringify(lead)); } catch (e) {}
+    if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'challenge-' + ticket });
 
-    // Show loading state
-    submitBtn.disabled = true;
-    btnText.classList.add('hidden');
-    btnLoading.classList.remove('hidden');
+    btn.disabled = true;
+    btn.textContent = 'Opening your checkout…';
 
-    // Get the redirect URL based on ticket type
-    const redirectUrl = REDIRECT_URLS[formData.ticketType] || REDIRECT_URLS.ticket;
+    // Order page URL: original tracking params + Spiffy prefill params
+    var q = new URLSearchParams(location.search);
+    q.set('name_first', n.first);
+    if (n.last) q.set('name_last', n.last);
+    q.set('email', email);
+    q.set('phone', phone);
+    var url = (REDIRECT_URLS[ticket] || REDIRECT_URLS.ticket) + '?' + q.toString();
 
-    // Append URL parameters for tracking
-    const params = window.location.search;
-    const separator = redirectUrl.includes('?') ? '&' : '?';
-    const finalUrl = params ? redirectUrl + separator + params.substring(1) : redirectUrl;
-
-    // Redirect to checkout page
-    window.location.href = finalUrl;
-  }
+    sendLead(lead).then(function () { location.href = url; });
+  });
 </script>
 
 <script>
@@ -2229,8 +2264,7 @@
   /* F2 rolling countdowns (hero + final CTA share one clock) */
   var containers = [document.getElementById('nxCountdown'), document.getElementById('nxCountdown2')].filter(Boolean);
   if(containers.length){
-    var TARGET = new Date('2026-10-16T10:00:00-04:00').getTime();
-    var UNITS = [['DAYS',864e5],['HRS',36e5],['MIN',6e4],['SEC',1e3]];
+    var UNITS = [['HRS',36e5],['MIN',6e4],['SEC',1e3]];
     var STRIP = '<b>0</b><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b>';
     var sets = containers.map(function(root){
       var strips = [];
@@ -2245,12 +2279,12 @@
         cell.appendChild(num);
         var lab = document.createElement('small'); lab.textContent = u[0]; cell.appendChild(lab);
         root.appendChild(cell);
-        if(ui < 3){ var sep = document.createElement('div'); sep.className = 'sep'; sep.textContent = ':'; root.appendChild(sep); }
+        if(ui < UNITS.length - 1){ var sep = document.createElement('div'); sep.className = 'sep'; sep.textContent = ':'; root.appendChild(sep); }
       });
       return strips;
     });
     function tick(){
-      var left = Math.max(0, TARGET - Date.now());
+      var left = Math.max(0, window.LIS_DEADLINE() - Date.now());
       var digits = [];
       UNITS.forEach(function(u){
         var val = Math.floor(left / u[1]); left -= val * u[1];
