@@ -89,7 +89,7 @@ Preston
 
 **"I can't block three full days."** Each day runs 10 AM to 4 PM Eastern, and the sessions build on each other, so live is best. If your schedule is uncertain, the VIP ticket includes lifetime access to every replay, the slides, and the notes, so you can catch what you miss. One ticket also covers you and your spouse or partner from the same screen, and I would bring them, because these decisions affect both of you.
 
-**"Are these strategies actually legal?"** Everything we teach is written into the tax code and used by wealthy families and corporations every day. No gray areas. You will see the exact section and the conditions for each one.
+**"Are these strategies actually legal?"** Everything we teach is written into the tax code and used by wealthy families and corporations every day. No gray areas, and for each one you will see the conditions you have to meet before it applies to you.
 
 **"I'm five to ten years from retirement."** That is the best window for this. Building the balance and designing how you will live on it are two different jobs, and the challenge covers how to position your accounts, income, and taxes before the paycheck stops.
 
