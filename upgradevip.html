@@ -111,10 +111,7 @@
       box-shadow: 0 1px 0 rgba(122,88,10,.35), 0 8px 22px -10px rgba(185,138,31,.55);
     }
     .btn-gold:hover { background: #C99A2E; transform: translateY(-1px); }
-    .btn-lg { padding: 1rem 2rem; font-size: 1.05rem; }
     .btn-sm { padding: .6rem 1.15rem; font-size: .82rem; }
-    .btn-block { display: flex; width: 100%; }
-    .arrow { width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
 
     /* ---------- Cards & pills ---------- */
     .card { background: var(--paper); border: 1px solid var(--line); border-radius: 1.1rem; }
@@ -138,14 +135,6 @@
     .sticky-inner { display: flex; align-items: center; justify-content: flex-end; gap: 1rem; padding-block: .7rem; }
     .sticky-right { display: flex; align-items: center; gap: .75rem; }
 
-    /* ---------- Top strip ---------- */
-    .topstrip {
-      background: var(--forest); color: #EDE7D4;
-      text-align: center; font-size: .78rem; font-weight: 600;
-      padding: .7rem 1rem; line-height: 1.5;
-    }
-    .topstrip strong { color: var(--gold); letter-spacing: .12em; text-transform: uppercase; font-weight: 700; }
-
     /* ---------- Sections ---------- */
     section { padding-block: clamp(2.75rem, 7vw, 6rem); }
     .band-paper { background: var(--paper); border-block: 1px solid var(--line); }
@@ -156,15 +145,6 @@
     .hero-copy > * + * { margin-top: 1.25rem; }
     .hero-accent { color: var(--gold-ink); }
     .hero-sub { font-size: clamp(1.05rem, 1.9vw, 1.3rem); color: var(--ink-soft); }
-    .hero-alert {
-      display: flex; align-items: center; justify-content: center; gap: .85rem;
-      color: var(--rose); font-size: .78rem; font-weight: 600;
-      letter-spacing: .12em; text-transform: uppercase; text-align: center; line-height: 1.5;
-    }
-    .hero-alert::before,
-    .hero-alert::after {
-      content: ""; width: 2.25rem; height: 1px; background: currentColor; opacity: .4; flex-shrink: 0;
-    }
 
     /* ---------- Video ---------- */
     .video-frame {
@@ -201,42 +181,6 @@
     .benefit-card h3 { font-size: 1.1rem; line-height: 1.35; margin-bottom: .8rem; }
     .benefit-card p { font-size: .95rem; color: var(--ink-soft); }
 
-    /* ---------- Pricing ---------- */
-    .offer-card {
-      position: relative; max-width: 34rem; margin-inline: auto;
-      background: var(--forest); border: 1px solid var(--forest-edge); border-radius: 1.4rem;
-      padding: clamp(2rem, 5vw, 3rem) clamp(1.25rem, 4vw, 2.5rem);
-      color: #C9D6C6; text-align: center;
-      box-shadow: 0 30px 60px -30px rgba(22,35,28,.5);
-    }
-    .offer-badge {
-      position: absolute; top: -.85rem; left: 50%; transform: translateX(-50%);
-      background: var(--gold); color: #221903; font-size: .7rem; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase; padding: .4rem 1.2rem; border-radius: 999px;
-      white-space: nowrap;
-      box-shadow: 0 6px 16px -8px rgba(185,138,31,.7);
-    }
-    .price-line { display: flex; align-items: baseline; justify-content: center; gap: .75rem; margin-bottom: .35rem; }
-    .price-old { color: #7E967E; text-decoration: line-through; font-size: 1.4rem; }
-    .price-now { font-weight: 700; font-size: clamp(3rem, 9vw, 4.25rem); line-height: 1; color: var(--gold); letter-spacing: -.02em; }
-    .price-note { color: #A9BCA9; font-size: .95rem; margin-bottom: 2rem; }
-    .offer-list { text-align: left; margin-bottom: 2rem; }
-    .offer-list li { display: flex; gap: .75rem; font-size: .95rem; color: #C9D6C6; }
-    .offer-list li + li { margin-top: .85rem; }
-    .offer-list .check-svg { color: var(--gold); }
-    .decline {
-      display: block; width: 100%; text-align: center; margin-top: 1rem;
-      font-size: .85rem; color: #A9BCA9;
-      text-decoration: underline; text-underline-offset: 4px; transition: color .18s;
-    }
-    .decline:hover { color: #F5F1E3; }
-    .trust-row {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 1.75rem;
-      margin-top: 2.25rem; padding-top: 1.75rem; border-top: 1px solid var(--forest-edge);
-    }
-    .trust-row div { display: flex; align-items: center; gap: .5rem; font-size: .85rem; color: #A9BCA9; }
-    .trust-row svg { width: 1.05rem; height: 1.05rem; color: var(--gold); flex-shrink: 0; }
-
     /* ---------- Guarantee ---------- */
     .guarantee-card { max-width: 42rem; margin-inline: auto; text-align: center; padding: clamp(2rem, 4vw, 3rem); }
     .shield {
@@ -260,15 +204,103 @@
     footer .links a { font-size: .85rem; color: #A9BCA9; text-decoration: none; }
     footer .links a:hover { color: #F5F1E3; }
 
-    /* ---------- Mobile ---------- */
-    @media (max-width: 640px) {
-      .btn-lg { width: 100%; }
-      .topstrip { font-size: .74rem; }
-      .hero-alert::before,
-      .hero-alert::after { display: none; }
-    }
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; }
+    }
+  </style>
+
+  <!-- nx component styles (order stepper, envelope reveal, copy reframe, offer card) -->
+  <style id="nx-styles">
+    /* ---- order stepper ---- */
+    .nx-stepper-wrap{background:var(--paper);border-bottom:1px solid var(--line);padding:16px clamp(16px,4vw,22px) 14px}
+    .nx-stepper{display:flex;align-items:center;gap:0;max-width:520px;margin:0 auto}
+    .nx-step{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;color:#9A947F;white-space:nowrap}
+    .nx-step .nx-pip{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:11.5px;font-weight:700;background:var(--paper);color:#9A947F;transition:.3s}
+    .nx-step.nx-done .nx-pip{background:var(--emerald);border-color:var(--emerald);color:#fff}
+    .nx-step.nx-current{color:var(--ink)}
+    .nx-step.nx-current .nx-pip{border-color:var(--gold-deep);color:var(--gold-ink);box-shadow:0 0 0 4px rgba(217,169,61,.2);animation:nx-step-pulse 2s ease-in-out infinite}
+    @keyframes nx-step-pulse{0%,100%{box-shadow:0 0 0 4px rgba(217,169,61,.2)}50%{box-shadow:0 0 0 7px rgba(217,169,61,.08)}}
+    .nx-step-bar{flex:1;height:2px;background:var(--line);margin:0 10px;position:relative;overflow:hidden;min-width:24px}
+    .nx-step-bar.nx-fill::after{content:"";position:absolute;inset:0;background:var(--emerald)}
+    .nx-step-bar.nx-half::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--emerald),var(--gold));transform:scaleX(.5);transform-origin:left}
+    @media(max-width:560px){.nx-step span.nx-lbl{display:none}.nx-step.nx-current span.nx-lbl{display:inline}}
+    .nx-stepper-hint{text-align:center;font-size:12px;color:var(--rose);font-weight:600;margin-top:11px;letter-spacing:.04em}
+
+    /* ---- envelope reveal hero ---- */
+    .nx-hero-outer{padding:clamp(20px,4vw,36px) clamp(16px,4vw,24px) 0;max-width:60rem;margin-inline:auto}
+    .nx-reveal-hero{background:linear-gradient(135deg,#F2EDE0,#EAE3D0);border:1px solid var(--line);border-radius:18px;padding:clamp(28px,5vw,48px) clamp(20px,4vw,44px);display:grid;grid-template-columns:minmax(200px,300px) 1fr;gap:clamp(24px,5vw,56px);align-items:center;position:relative;overflow:hidden}
+    @media(max-width:640px){.nx-reveal-hero{grid-template-columns:1fr;justify-items:center;text-align:center}}
+    .nx-env-scene{position:relative;width:230px;height:190px;display:grid;place-items:end center;perspective:900px}
+    .nx-env-glow{position:absolute;inset:8% 4%;border-radius:50%;background:radial-gradient(closest-side,rgba(217,169,61,.35),rgba(217,169,61,0));opacity:0;transition:opacity .8s ease;will-change:opacity}
+    .nx-reveal-hero[data-phase="3"] .nx-env-glow{opacity:1}
+    .nx-envelope{position:relative;width:210px;height:132px}
+    .nx-env-back{position:absolute;inset:0;background:var(--forest);border-radius:10px;box-shadow:0 18px 34px -14px rgba(22,53,42,.45)}
+    .nx-voucher{position:absolute;left:14px;right:14px;top:10px;height:104px;border-radius:9px;background:linear-gradient(150deg,var(--gold) 0%,#E8C36A 55%,var(--gold-deep) 100%);display:grid;place-content:center;text-align:center;z-index:2;transform:translateY(12px);transition:transform .9s cubic-bezier(.16,1,.3,1);will-change:transform;box-shadow:0 8px 20px -8px rgba(138,101,16,.5)}
+    .nx-voucher small{display:block;font-size:8.5px;font-weight:700;letter-spacing:.22em;color:rgba(29,42,34,.65);text-transform:uppercase}
+    .nx-voucher strong{font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--forest)}
+    .nx-reveal-hero[data-phase="3"] .nx-voucher{transform:translateY(-84px) rotate(-3deg);z-index:2}
+    .nx-voucher small,.nx-voucher strong{opacity:0;transition:opacity .45s ease .35s}
+    .nx-reveal-hero[data-phase="3"] .nx-voucher small,.nx-reveal-hero[data-phase="3"] .nx-voucher strong{opacity:1}
+    .nx-env-pocket{position:absolute;inset:0;background:linear-gradient(160deg,#1E4534,var(--forest) 70%);border-radius:10px;clip-path:polygon(0 0,50% 46%,100% 0,100% 100%,0 100%);z-index:3}
+    .nx-env-flap{position:absolute;left:0;right:0;top:0;height:52%;background:#0F2A20;border-radius:10px 10px 0 0;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top center;transform:rotateX(0);transition:transform .8s cubic-bezier(.45,0,.2,1);will-change:transform;z-index:4}
+    .nx-reveal-hero[data-phase="2"] .nx-env-flap,.nx-reveal-hero[data-phase="3"] .nx-env-flap{transform:rotateX(178deg);z-index:1;transition:transform .8s cubic-bezier(.45,0,.2,1),z-index 0s .35s}
+    .nx-env-seal{position:absolute;left:50%;top:44%;translate:-50% -50%;width:34px;height:34px;border-radius:50%;background:var(--gold);display:grid;place-items:center;z-index:5;font-size:13px;font-weight:700;color:var(--forest);box-shadow:0 3px 8px rgba(0,0,0,.3);transition:opacity .3s,transform .4s}
+    .nx-reveal-hero[data-phase="2"] .nx-env-seal,.nx-reveal-hero[data-phase="3"] .nx-env-seal{opacity:0;transform:scale(.5)}
+    .nx-reveal-copy{position:relative}
+    .nx-reveal-progress{display:flex;gap:10px;max-width:300px;margin-bottom:22px}
+    @media(max-width:640px){.nx-reveal-progress{margin-inline:auto}}
+    .nx-reveal-progress i{flex:1;height:3px;border-radius:2px;background:#D9D0BB;overflow:hidden;position:relative}
+    .nx-reveal-progress i::after{content:"";position:absolute;inset:0;background:var(--gold-deep);transform:scaleX(0);transform-origin:left;transition:transform 1.4s linear}
+    .nx-reveal-hero[data-phase="1"] .nx-reveal-progress i:nth-child(1)::after,
+    .nx-reveal-hero[data-phase="2"] .nx-reveal-progress i:nth-child(-n+2)::after,
+    .nx-reveal-hero[data-phase="3"] .nx-reveal-progress i:nth-child(-n+3)::after{transform:scaleX(1)}
+    .nx-reveal-lines{position:relative;min-height:130px}
+    @media(max-width:640px){.nx-reveal-copy{width:100%}.nx-reveal-lines{min-height:150px}}
+    .nx-reveal-line{position:absolute;inset:0;opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s cubic-bezier(.16,1,.3,1)}
+    .nx-reveal-line.nx-on{opacity:1;transform:none;transition-delay:.15s}
+    .nx-reveal-line .nx-kicker{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#8B8672;margin-bottom:8px}
+    .nx-reveal-line h3{font-size:clamp(24px,4vw,36px);line-height:1.1;letter-spacing:-.02em;font-weight:700;color:var(--ink)}
+    .nx-reveal-line h3 em{font-style:normal;color:var(--gold-ink)}
+    .nx-reveal-line .nx-sub{margin-top:10px;font-size:14.5px;color:var(--ink-soft)}
+    .nx-confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:6}
+    .nx-confetti i{position:absolute;top:-8px;width:6px;height:10px;border-radius:1px;opacity:0;animation:nx-confetti-fall 1.6s ease-in forwards;will-change:transform,opacity}
+    @keyframes nx-confetti-fall{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(320px) rotate(540deg)}}
+
+    /* ---- offer card with order math ---- */
+    .nx-offer-wrap{max-width:34rem;margin-inline:auto;text-align:left}
+    .nx-offer-card{background:var(--paper);border:1px solid var(--line);border-radius:1.4rem;padding:clamp(1.5rem,4vw,2.5rem);box-shadow:0 24px 50px -28px rgba(29,42,34,.3)}
+    .nx-offer-badge{display:inline-flex;align-items:center;gap:7px;background:var(--gold-tint);border:1px solid #E5D5A8;color:var(--gold-ink);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 14px;border-radius:100px}
+    .nx-offer-card h3{font-size:clamp(20px,3.4vw,28px);letter-spacing:-.01em;margin-top:12px;line-height:1.25;font-weight:700}
+    .nx-offer-price{display:flex;align-items:baseline;gap:10px;margin-top:8px;flex-wrap:wrap}
+    .nx-offer-price s{color:#9A947F;font-size:17px}
+    .nx-offer-price .nx-now{font-size:26px;font-weight:700;color:var(--ink)}
+    .nx-offer-price .nx-save{color:var(--emerald);font-weight:700;font-size:15px}
+    .nx-offer-expire{font-size:13.5px;color:var(--ink-soft);margin-top:6px}
+    .nx-offer-list{margin-top:18px;border-top:1px solid var(--line);padding-top:16px;display:grid;gap:11px}
+    .nx-offer-list li{display:flex;gap:.7rem;font-size:14.5px;line-height:1.5;color:var(--ink-soft)}
+    .nx-offer-list .check-svg{width:1.1rem;height:1.1rem;margin-top:.2rem}
+    .nx-offer-rows{margin-top:18px;border-top:1px solid var(--line);padding-top:14px;display:grid;gap:8px;font-size:14.5px}
+    .nx-offer-rows>div{display:flex;justify-content:space-between;color:var(--ink-soft)}
+    .nx-offer-rows .nx-total{border-top:1px solid var(--line);margin-top:6px;padding-top:12px;color:var(--ink);font-weight:700;font-size:16px}
+    .nx-offer-rows .nx-neg{color:var(--emerald);font-weight:600}
+    .nx-btn-pay{display:block;width:100%;margin-top:18px;background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:var(--forest);border:none;font-size:16px;font-weight:700;text-align:center;text-decoration:none;padding:16px 24px;border-radius:12px;box-shadow:0 10px 22px -10px rgba(185,138,31,.65);transition:transform .18s cubic-bezier(.16,1,.3,1),box-shadow .18s;position:relative;overflow:hidden}
+    .nx-btn-pay:hover{transform:translateY(-2px);box-shadow:0 14px 26px -10px rgba(185,138,31,.75)}
+    .nx-btn-pay::after{content:"";position:absolute;top:0;bottom:0;left:-70%;width:45%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);animation:nx-sheen 3.4s ease-in-out infinite;will-change:transform}
+    @keyframes nx-sheen{0%,64%{left:-70%}100%{left:130%}}
+    .nx-btn-decline{display:block;text-align:center;margin:14px auto 0;background:none;border:none;color:var(--ink-soft);font-size:13px;text-decoration:underline;text-underline-offset:3px}
+    .nx-btn-decline:hover{color:var(--rose)}
+    .nx-pay-trust{display:flex;justify-content:center;gap:18px;margin-top:14px;font-size:12px;color:var(--ink-soft);flex-wrap:wrap}
+    .nx-pay-trust span{display:flex;align-items:center;gap:5px}
+
+    /* ---- copy reframe ---- */
+    .nx-reframe-outer{max-width:48rem;margin:0 auto clamp(2rem,5vw,3rem);text-align:left}
+    .nx-reframe{background:var(--gold-tint);border:1px solid #E5D3A0;border-radius:1.1rem;padding:clamp(1.5rem,4vw,2.25rem);color:var(--ink-soft)}
+    .nx-reframe h2{color:var(--gold-ink);margin-bottom:1rem;font-weight:700;letter-spacing:-.02em;font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.2}
+    .nx-reframe p{font-size:1.05rem;line-height:1.75}
+
+    @media (prefers-reduced-motion:reduce){
+      #nx-stepper,#nx-reveal-hero,#nx-reveal-hero *,.nx-offer-wrap *,.nx-step.nx-current .nx-pip,.nx-confetti i{animation:none!important;transition:none!important}
+      .nx-reveal-line{transition:none!important}
     }
   </style>
 
@@ -286,13 +318,22 @@
   })();
 </script>
 
+<!-- Order stepper -->
+<div class="nx-stepper-wrap" id="nx-stepper">
+  <div class="nx-stepper">
+    <div class="nx-step nx-done"><span class="nx-pip">&#10003;</span><span class="nx-lbl">Ticket</span></div>
+    <div class="nx-step-bar nx-fill"></div>
+    <div class="nx-step nx-current"><span class="nx-pip">2</span><span class="nx-lbl">Your VIP offer</span></div>
+    <div class="nx-step-bar nx-half"></div>
+    <div class="nx-step"><span class="nx-pip">3</span><span class="nx-lbl">Access</span></div>
+  </div>
+  <p class="nx-stepper-hint">DO NOT CLOSE THIS PAGE &mdash; YOUR ORDER IS STILL PROCESSING</p>
+</div>
+
 <!-- SVG Sprite Definitions (hidden) -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
   <symbol id="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-  </symbol>
-  <symbol id="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7"/>
   </symbol>
   <symbol id="target-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
     <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>
@@ -305,12 +346,6 @@
   </symbol>
   <symbol id="shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-  </symbol>
-  <symbol id="clock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/>
-  </symbol>
-  <symbol id="check-circle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M8.5 12.2l2.4 2.4 4.6-4.8"/>
   </symbol>
 </svg>
 
@@ -325,9 +360,45 @@
   </div>
 </header>
 
-<!-- Urgency Banner -->
-<div class="topstrip">
-  <strong>WAIT!</strong> Don't close this page. Your VIP upgrade expires when the timer hits zero
+<!-- Envelope reveal hero -->
+<div class="nx-hero-outer">
+  <div class="nx-reveal-hero" id="nx-reveal-hero" data-phase="0">
+    <div class="nx-env-scene">
+      <div class="nx-env-glow"></div>
+      <div class="nx-envelope">
+        <div class="nx-env-back"></div>
+        <div class="nx-voucher"><small>Private offer</small><strong>$101 OFF</strong></div>
+        <div class="nx-env-pocket"></div>
+        <div class="nx-env-flap"></div>
+        <div class="nx-env-seal">L</div>
+      </div>
+    </div>
+    <div class="nx-reveal-copy">
+      <div class="nx-reveal-progress"><i></i><i></i><i></i></div>
+      <div class="nx-reveal-lines">
+        <div class="nx-reveal-line" data-line="0">
+          <p class="nx-kicker">Order confirmed</p>
+          <h3>Your seat<br>is secured</h3>
+          <p class="nx-sub">Check your inbox for the receipt.</p>
+        </div>
+        <div class="nx-reveal-line" data-line="1">
+          <p class="nx-kicker">One moment</p>
+          <h3>You've unlocked<br>a private offer</h3>
+          <p class="nx-sub">This is only shown once, on this page.</p>
+        </div>
+        <div class="nx-reveal-line" data-line="2">
+          <p class="nx-kicker">Opening it now&hellip;</p>
+          <h3>Revealing your<br>special offer</h3>
+        </div>
+        <div class="nx-reveal-line" data-line="3">
+          <p class="nx-kicker">Private offer unlocked</p>
+          <h3>You unlocked <em>$101 off</em><br>the VIP experience</h3>
+          <p class="nx-sub">Available only while you stay on this page.</p>
+        </div>
+      </div>
+    </div>
+    <div class="nx-confetti" id="nx-confetti"></div>
+  </div>
 </div>
 
 <!-- Hero Section -->
@@ -337,8 +408,6 @@
       <h1 class="display">
         Get The <span class="hero-accent">VIP Ticket</span>
       </h1>
-
-      <p class="hero-alert">Once you leave this page, this offer disappears</p>
     </div>
   </div>
 </section>
@@ -395,11 +464,18 @@
 <!-- VIP Benefits Section -->
 <section class="band-cream">
   <div class="wrap">
+    <!-- Copy reframe: "the one thing your ticket doesn't solve" -->
+    <div class="nx-reframe-outer">
+      <div class="nx-reframe">
+        <h2>The one thing your ticket doesn't solve</h2>
+        <p>You've got the seat. Here's the one thing the ticket doesn't solve: 15 sessions in 3 days is a firehose. Most people lose 80% of it by the weekend. VIP is how you keep it.</p>
+      </div>
+    </div>
+
     <div class="section-head" style="margin-bottom:clamp(2rem,5vw,3rem);">
       <h2 class="display">
         That's Why I Created <span class="gold-ink">The VIP Option!</span>
       </h2>
-      <p class="muted" style="margin-top:1rem;font-size:1.05rem;">Here's what you'll get as a VIP</p>
     </div>
 
     <div class="benefit-grid">
@@ -427,47 +503,28 @@
 <!-- Pricing Section -->
 <section id="pricing" class="band-paper">
   <div class="wrap">
-    <div class="offer-card">
-      <!-- VIP Badge -->
-      <div class="offer-badge">Most Popular</div>
-
-      <div class="price-line">
-        <span class="price-old">$200</span>
-        <span class="price-now">$99</span>
-      </div>
-      <p class="price-note">One-time payment</p>
-
-      <!-- What's Included -->
-      <ul class="offer-list">
-        <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Recordings and replays of each challenge session</span></li>
-        <li><svg class="check-svg"><use href="#check-icon"/></svg><span>VIP Pre-Challenge Training + Day 2 &amp; Day 3 Roundtable Q&amp;A</span></li>
-        <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Implementation worksheets and templates</span></li>
-        <li><svg class="check-svg"><use href="#check-icon"/></svg><span>All slides, notes, and supporting materials</span></li>
-        <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Organized VIP resource hub so you can find everything fast</span></li>
-      </ul>
-
-      <a href="https://legacyinvestingshow.spiffy.co/offer/wjNrOcMuR" class="btn btn-gold btn-lg btn-block">
-        Yes, Upgrade to VIP Now
-        <svg class="arrow"><use href="#arrow-icon"/></svg>
-      </a>
-
-      <a href="https://legacyinvestingshow.spiffy.co/offer/6XDQ4ipub" class="decline">
-        No thanks, I'll continue with my regular ticket
-      </a>
-
-      <div class="trust-row">
-        <div>
-          <svg><use href="#shield-icon"/></svg>
-          Secure Checkout
+    <!-- Offer card: features + order math -->
+    <div class="nx-offer-wrap">
+      <div class="nx-offer-card">
+        <span class="nx-offer-badge">&#9733; One-time offer</span>
+        <h3>VIP Upgrade &mdash; recordings, replays &amp; live Q&amp;A</h3>
+        <div class="nx-offer-price"><s>$200</s><span class="nx-now">$99</span><span class="nx-save">Save $101</span></div>
+        <p class="nx-offer-expire">One-time payment. This price expires when you leave this page.</p>
+        <ul class="nx-offer-list">
+          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Recordings and replays of each challenge session</span></li>
+          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>VIP Pre-Challenge Training + Day 2 &amp; Day 3 Roundtable Q&amp;A</span></li>
+          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Implementation worksheets and templates</span></li>
+          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>All slides, notes, and supporting materials</span></li>
+          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Organized VIP resource hub so you can find everything fast</span></li>
+        </ul>
+        <div class="nx-offer-rows">
+          <div><span>Subtotal</span><span>$200.00</span></div>
+          <div><span>Page-only discount</span><span class="nx-neg">&minus; $101.00</span></div>
+          <div class="nx-total"><span>Total today</span><span>$99.00 USD</span></div>
         </div>
-        <div>
-          <svg><use href="#clock-icon"/></svg>
-          Instant Access
-        </div>
-        <div>
-          <svg><use href="#check-circle-icon"/></svg>
-          7-Day Guarantee
-        </div>
+        <a href="https://legacyinvestingshow.spiffy.co/offer/wjNrOcMuR" class="nx-btn-pay">Yes, Upgrade Me To VIP &middot; $99</a>
+        <a href="https://legacyinvestingshow.spiffy.co/offer/6XDQ4ipub" class="nx-btn-decline">No thanks, I'll continue with my regular ticket</a>
+        <div class="nx-pay-trust"><span>&#128274; Secure checkout</span><span>&#9889; Instant access</span><span>&#10003; 7-day guarantee</span></div>
       </div>
     </div>
   </div>
@@ -517,33 +574,6 @@
 <!-- JavaScript -->
 <script>
   (function() {
-    // Countdown Timer
-    const targetDate = new Date('2026-10-16T10:00:00-04:00').getTime();
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      const days = distance > 0 ? Math.floor(distance / (1000 * 60 * 60 * 24)) : 0;
-      const hours = distance > 0 ? Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) : 0;
-      const minutes = distance > 0 ? Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) : 0;
-      const seconds = distance > 0 ? Math.floor((distance % (1000 * 60)) / 1000) : 0;
-
-      const daysEl = document.getElementById('days');
-      const hoursEl = document.getElementById('hours');
-      const minutesEl = document.getElementById('minutes');
-      const secondsEl = document.getElementById('seconds');
-
-      if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-      if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-      if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
-      if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
-
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
     // Sticky Header
     const stickyHeader = document.getElementById('sticky-header');
 
@@ -619,6 +649,47 @@ spiffy.config({
     hideSidebar: false,
 })
 spiffy.load("legacyinvestingshow");
+</script>
+
+<!-- Envelope reveal animation -->
+<script>
+(function(){
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* --- envelope reveal --- */
+  var hero = document.getElementById('nx-reveal-hero');
+  if (hero) {
+    var lines = hero.querySelectorAll('.nx-reveal-line');
+    var confettiBox = document.getElementById('nx-confetti');
+    function nxSetPhase(p){
+      hero.dataset.phase = p;
+      lines.forEach(function(l){ l.classList.toggle('nx-on', l.dataset.line == p); });
+    }
+    function nxBurstConfetti(){
+      if (!confettiBox) return;
+      var colors = ['#D9A93D','#B98A1F','#2F7D5B','#B0503C','#F7F2E7'];
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < 24; i++) {
+        var s = document.createElement('i');
+        s.style.left = (4 + Math.random()*92) + '%';
+        s.style.background = colors[i % colors.length];
+        s.style.animationDelay = (Math.random()*0.35) + 's';
+        s.style.animationDuration = (1.2 + Math.random()*0.7) + 's';
+        frag.appendChild(s);
+      }
+      confettiBox.appendChild(frag);
+      setTimeout(function(){ confettiBox.innerHTML = ''; }, 2400);
+    }
+    if (reduced) {
+      nxSetPhase(3);
+    } else {
+      nxSetPhase(0);
+      setTimeout(function(){ nxSetPhase(1); }, 1700);
+      setTimeout(function(){ nxSetPhase(2); }, 3400);
+      setTimeout(function(){ nxSetPhase(3); nxBurstConfetti(); }, 4700);
+    }
+  }
+})();
 </script>
 
 </body>

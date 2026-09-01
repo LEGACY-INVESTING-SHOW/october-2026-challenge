@@ -125,7 +125,6 @@
       border-radius: 999px; font-weight: 600; font-size: .8rem;
     }
     .pill-gold { background: var(--gold-tint); color: var(--gold-ink); border: 1px solid #E5D3A0; padding: .35rem .85rem; }
-    .pill-green { background: var(--emerald-tint); color: var(--green-mid); border: 1px solid #CBDEC6; padding: .35rem .85rem; }
     .pill svg { width: 1rem; height: 1rem; flex-shrink: 0; }
 
     .check-svg { width: 1.2rem; height: 1.2rem; color: var(--emerald); flex-shrink: 0; margin-top: .2rem; }
@@ -137,34 +136,6 @@
     .band-forest { background: var(--forest); color: #DCE4D6; }
     .band-forest .display, .band-forest h3, .band-forest strong { color: #F5F1E3; }
     .band-forest .muted { color: #A9BCA9; }
-
-    /* ---------- Progress strip ---------- */
-    .progress-section {
-      position: sticky; top: 0; z-index: 40;
-      background: rgba(255,253,246,.92);
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
-      padding-block: .6rem;
-    }
-    .progress-bar-container {
-      background: var(--ivory);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      overflow: hidden;
-      height: 2.5rem;
-    }
-    .progress-bar {
-      height: 100%;
-      width: 75%;
-      background: var(--gold);
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 999px;
-    }
-    .progress-label {
-      color: #221903; font-weight: 700; font-size: .84rem;
-      letter-spacing: .06em; text-transform: uppercase; text-align: center;
-      padding-inline: .5rem;
-    }
 
     /* ---------- Hero ---------- */
     .hero { text-align: center; padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 4vw, 3rem); }
@@ -236,15 +207,6 @@
       padding-block: .8rem; border-bottom: 1px solid var(--line);
     }
     .session-list li:last-child { border-bottom: none; }
-    .session-list li.vip-session {
-      background: var(--gold-tint); border: 1px solid #E5D3A0; border-radius: 1.1rem;
-      padding: 1.25rem 1.4rem; margin-block: .8rem; display: block;
-    }
-    .vip-highlight {
-      display: inline-block; padding: .24rem .75rem; border-radius: 999px;
-      background: var(--gold); color: #221903; font-size: .68rem; font-weight: 700;
-      letter-spacing: .08em; text-transform: uppercase; margin-bottom: .55rem;
-    }
 
     /* ---------- Testimonials ---------- */
     .tri-grid { display: grid; gap: 1.25rem; }
@@ -272,7 +234,6 @@
       padding: clamp(2rem, 4vw, 3rem);
     }
     .guarantee-card > img { max-width: 7.5rem; margin: 0 auto 1.4rem; }
-    .guarantee-badge { margin-bottom: 1.4rem; }
     .guarantee-card h2 { margin-bottom: 1rem; }
     .guarantee-card p { color: var(--ink-soft); max-width: 38rem; margin-inline: auto; }
     .guarantee-card p + p { margin-top: 1.25rem; }
@@ -280,8 +241,7 @@
 
     /* ---------- Urgency ---------- */
     .urgency { text-align: center; }
-    .urgency .display { margin-bottom: .7rem; }
-    .urgency-note { color: #A9BCA9; font-size: 1.05rem; max-width: 28rem; margin-inline: auto; }
+    .urgency .display { margin-bottom: 0; }
 
     /* ---------- FAQ ---------- */
     .faq-item { overflow: hidden; }
@@ -310,16 +270,94 @@
     @media (max-width: 640px) {
       h1.display { font-size: 1.6rem; }
       .count-cell { min-width: 3.6rem; }
-      .progress-label { font-size: .72rem; letter-spacing: .04em; }
     }
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; }
     }
   </style>
 
+  <!-- Checkout CRO styles (stepper, skeleton, summary, trust, testimonial, deadline copy, mobile order) -->
+  <style id="nx-styles">
+    /* ── Order stepper ── */
+    .nx-stepper{background:var(--paper);border-bottom:1px solid var(--line);padding:14px clamp(1rem,4vw,1.5rem) 12px;text-align:center}
+    .nx-stepper-row{display:flex;align-items:center;max-width:520px;margin:0 auto}
+    .nx-step{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;color:#9A947F;white-space:nowrap}
+    .nx-step .nx-pip{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:11.5px;font-weight:700;background:var(--paper);color:#9A947F}
+    .nx-step.nx-current{color:var(--ink)}
+    .nx-step.nx-current .nx-pip{border-color:var(--gold-deep);color:var(--gold-ink);box-shadow:0 0 0 4px rgba(217,169,61,.2)}
+    .nx-step-bar{flex:1;height:2px;background:var(--line);margin:0 10px;min-width:24px}
+    .nx-step-bar.nx-half{background:linear-gradient(90deg,var(--gold) 0 50%,var(--line) 50% 100%)}
+    @media(max-width:560px){.nx-step .nx-lbl{display:none}.nx-step.nx-current .nx-lbl{display:inline}}
+    .nx-stepper-hint{font-size:12px;color:var(--rose);font-weight:600;margin-top:10px;letter-spacing:.04em}
+
+    /* ── Loading skeleton behind the Spiffy embed ── */
+    .checkout-shell{min-height:520px}
+    @media(max-width:640px){.checkout-shell{min-height:600px}}
+    .checkout-shell spiffy-element{position:relative;z-index:1;background:transparent}
+    .nx-skel{position:absolute;inset:.55rem;z-index:0;border-radius:.7rem;padding:26px 22px;display:flex;flex-direction:column;gap:20px;overflow:hidden}
+    .nx-skel i{display:block;border-radius:8px;background:linear-gradient(90deg,#EDE7DA 25%,#F8F4EB 40%,#EDE7DA 60%);background-size:300% 100%;animation:nx-shimmer 1.5s linear infinite}
+    .nx-skel .nx-skel-label{width:36%;height:10px;margin-bottom:9px;border-radius:4px}
+    .nx-skel .nx-skel-field{height:44px}
+    .nx-skel .nx-skel-btn{margin-top:10px;height:52px;border-radius:10px;background:linear-gradient(90deg,#DFB556 25%,#EDD293 40%,#DFB556 60%);background-size:300% 100%}
+    @keyframes nx-shimmer{from{background-position:150% 0}to{background-position:-150% 0}}
+
+    /* ── Mini order summary ── */
+    .nx-summary{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.45rem;background:var(--gold-tint);border:1px solid #E5D3A0;border-radius:.9rem;padding:.8rem 1.1rem;font-size:.95rem;font-weight:600;color:var(--ink);text-align:center}
+    .nx-summary s{color:#9A947F;font-weight:500}
+    .nx-summary .nx-save{color:var(--emerald);font-weight:700}
+
+    /* ── Trust cluster ── */
+    .nx-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:.35rem 1.1rem;font-size:.8rem;color:var(--ink-faint);text-align:center}
+
+    /* ── Mini testimonial beside the form ── */
+    .nx-mini-t{background:var(--paper);border:1px solid var(--line);border-radius:1.1rem;padding:1.1rem 1.25rem;margin:0 0 1.4rem}
+    .nx-mini-t .nx-stars{display:flex;gap:.2rem;color:var(--gold-deep);margin-bottom:.6rem}
+    .nx-mini-t .nx-stars svg{width:1rem;height:1rem}
+    .nx-mini-t blockquote{margin:0;font-size:.95rem;color:var(--ink);line-height:1.5}
+    .nx-mini-t figcaption{margin-top:.6rem;font-size:.82rem;color:var(--ink-faint);font-weight:600}
+
+    /* ── Checkout grid placement + sticky column (desktop) ── */
+    @media(min-width:1024px){
+      .checkout-grid{row-gap:1.1rem}
+      .checkout-grid>.nx-summary{grid-column:1;grid-row:1}
+      .checkout-grid>.checkout-shell{grid-column:1;grid-row:2}
+      .checkout-grid>.nx-trust{grid-column:1;grid-row:3}
+      .checkout-grid>.whats-included{grid-column:2;grid-row:1/span 3;position:sticky;top:24px}
+    }
+
+    /* ── Deadline copy line ── */
+    .nx-a4-wrap{margin-bottom:1.1rem}
+    .nx-a4-line{font-weight:700;letter-spacing:.02em;font-size:clamp(1.05rem,2.2vw,1.35rem);margin:0}
+    .band-forest .nx-a4-line{color:var(--gold)}
+    .scarcity .nx-a4-line{color:var(--gold-ink)}
+
+    /* ── Mobile checkout-first (CSS order only; desktop untouched) ── */
+    @media(max-width:1023px){
+      body{display:flex;flex-direction:column}
+      .nx-stepper{order:-2}
+      body>section:has(.checkout-grid){order:-1;padding-top:1.25rem}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      .nx-skel i{animation:none}
+    }
+  </style>
+
 </head>
 
 <body>
+
+<!-- Order progress stepper -->
+<div class="nx-stepper">
+  <div class="nx-stepper-row">
+    <div class="nx-step nx-current"><span class="nx-pip">1</span><span class="nx-lbl">VIP ticket</span></div>
+    <div class="nx-step-bar nx-half"></div>
+    <div class="nx-step"><span class="nx-pip">2</span><span class="nx-lbl">Confirm</span></div>
+    <div class="nx-step-bar"></div>
+    <div class="nx-step"><span class="nx-pip">3</span><span class="nx-lbl">Access</span></div>
+  </div>
+  <p class="nx-stepper-hint">ORDER PROCESSING &mdash; 75% COMPLETE</p>
+</div>
 
 <!-- SVG Sprite Definitions (hidden) -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
@@ -339,26 +377,10 @@
   <symbol id="chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 01-2 2H8l-4 4V5a2 2 0 012-2h13a2 2 0 012 2v10z"/>
   </symbol>
-  <symbol id="shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-  </symbol>
   <symbol id="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
   </symbol>
 </svg>
-
-<!-- ═══════════════════════════════════════════════════
-     PROGRESS BAR
-     ═══════════════════════════════════════════════════ -->
-<div class="progress-section">
-  <div class="wrap">
-    <div class="progress-bar-container">
-      <div class="progress-bar">
-        <span class="progress-label">Order Processing</span>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- ═══════════════════════════════════════════════════
      HERO
@@ -414,6 +436,11 @@
   <div class="wrap">
     <div class="scarcity-text">ONLY 8 VIP SPOTS LEFT...</div>
 
+    <!-- Deadline copy line -->
+    <div class="nx-a4-wrap">
+      <p class="nx-a4-line">Your $50 early-bird discount ends in&hellip;</p>
+    </div>
+
     <div class="count-row" id="countdown">
       <div class="count-cell">
         <div class="count-num" id="days">00</div>
@@ -441,13 +468,35 @@
 <section style="padding-top:0;">
   <div class="wrap">
     <div class="checkout-grid">
+      <!-- Mini order summary above the embed -->
+      <div class="nx-summary">VIP Ticket &mdash; <s>$197</s> $147 &middot; <span class="nx-save">Save $50 today</span></div>
+
       <!-- Left: Checkout Form -->
       <div class="checkout-shell">
+        <!-- Loading skeleton behind the Spiffy embed -->
+        <div class="nx-skel" aria-hidden="true">
+          <div><i class="nx-skel-label"></i><i class="nx-skel-field"></i></div>
+          <div><i class="nx-skel-label"></i><i class="nx-skel-field"></i></div>
+          <div><i class="nx-skel-label"></i><i class="nx-skel-field"></i></div>
+          <i class="nx-skel-btn"></i>
+        </div>
         <spiffy-element type="checkout" url="https://legacyinvestingshow.spiffy.co/checkout/tax-fre-income-challenge-vip-oct-26"></spiffy-element>
       </div>
 
+      <!-- Trust cluster below the embed -->
+      <div class="nx-trust"><span>&#128274; Secure checkout</span><span>&#128179; All cards accepted</span><span>&#10003; 7-day money-back guarantee</span><span>4,400+ joined</span></div>
+
       <!-- Right: What's Included -->
       <div class="whats-included">
+        <!-- Testimonial beside the form -->
+        <figure class="nx-mini-t">
+          <div class="nx-stars">
+            <svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg>
+          </div>
+          <blockquote>"I didn't want to work my whole life just to be told I couldn't use my own money."</blockquote>
+          <figcaption>Dustin &middot; First property in 30 days</figcaption>
+        </figure>
+
         <h2 class="display">When you join today, here's what you're getting inside VIP:</h2>
 
         <div class="benefit-box">
@@ -467,7 +516,6 @@
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Why Your 401(k) Is Bleeding Money &amp; What To Do Instead</span></li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Debt Elimination &amp; Credit Mastery: From High-Interest Trap to Smart Funding</span></li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Expert Deep Dive - Entity Structure &amp; Business Credit with Tommy Thornburgh</span></li>
-          <li class="vip-session"><span class="vip-highlight">VIP Exclusive</span><span style="display:block;"><strong>VIP Pre-Challenge Training + Day 2 &amp; Day 3 Roundtable Q&amp;A</strong>. Start with Preston's asset protection training before Day 1, then bring your questions to the live roundtables on Days 2 and 3.</span></li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>The W-2 Taxes Playbook: How High-Earners Keep Losing Half Their Income</span></li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>The Investor Playbook: How to Build Wealth Without Paying Taxes</span></li>
           <li><svg class="check-svg"><use href="#check-icon"/></svg><span>How To Start A 100% Tax-Free Airbnb Business (Without Buying Property)</span></li>
@@ -581,11 +629,6 @@
     <div class="card guarantee-card">
       <img src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/18060688/file/25f4baf4d5fdfef60d8675af6efe8f8b.webp" alt="Money Back Guarantee" loading="lazy" decoding="async" width="549" height="520">
 
-      <div class="pill pill-green guarantee-badge">
-        <svg><use href="#shield-icon"/></svg>
-        100% Risk-Free Guarantee
-      </div>
-
       <h2 class="display">100% Risk-Free Guarantee</h2>
       <p>
         In <strong>3 days</strong>, you'll walk away with your wealth plan built.
@@ -608,7 +651,6 @@
 <section class="band-forest urgency">
   <div class="wrap">
     <h2 class="display">This Offer Expires When You Close This Page</h2>
-    <p class="urgency-note">Once you leave, this VIP ticket is gone.</p>
   </div>
 </section>
 

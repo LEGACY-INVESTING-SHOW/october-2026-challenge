@@ -138,7 +138,6 @@
       border-radius: 999px; font-weight: 600; font-size: .8rem;
       padding: .35rem .85rem;
     }
-    .pill-gold { background: var(--gold-tint); color: var(--gold-ink); border: 1px solid #E5D3A0; }
     .pill-green { background: var(--emerald-tint); color: var(--green-mid); border: 1px solid #CBDEC6; }
     .pill svg { width: 1rem; height: 1rem; flex-shrink: 0; }
 
@@ -151,33 +150,6 @@
     .band-forest { background: var(--forest); color: #DCE4D6; }
     .band-forest .display, .band-forest h3, .band-forest strong { color: #F5F1E3; }
     .band-forest .muted { color: #A9BCA9; }
-
-    /* ---------- Progress strip ---------- */
-    .progress-section {
-      position: sticky; top: 0; z-index: 40;
-      background: var(--paper);
-      border-bottom: 1px solid var(--line);
-      padding-block: .6rem;
-    }
-    .progress-bar-container {
-      background: var(--ivory);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      overflow: hidden;
-      height: 2.5rem;
-    }
-    .progress-bar {
-      height: 100%;
-      width: 60%;
-      background: var(--gold);
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 999px;
-    }
-    .progress-label {
-      color: #221903; font-weight: 700; font-size: .84rem;
-      letter-spacing: .06em; text-transform: uppercase; text-align: center;
-      padding-inline: .5rem;
-    }
 
     /* ---------- Hero ---------- */
     .hero { text-align: center; padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 4vw, 3rem); }
@@ -316,7 +288,6 @@
     @media (max-width: 640px) {
       h1.display { font-size: 1.6rem; }
       .count-cell { min-width: 3.6rem; }
-      .progress-label { font-size: .72rem; letter-spacing: .04em; }
       .btn-lg { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -324,9 +295,82 @@
     }
   </style>
 
+  <!-- Checkout CRO styles (stepper, skeleton, summary, trust, testimonial, mobile order) -->
+  <style id="nx-styles">
+    /* ── Order stepper ── */
+    .nx-stepper{background:var(--paper);border-bottom:1px solid var(--line);padding:14px clamp(1rem,4vw,1.5rem) 12px;text-align:center}
+    .nx-stepper-row{display:flex;align-items:center;max-width:520px;margin:0 auto}
+    .nx-step{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;color:#9A947F;white-space:nowrap}
+    .nx-step .nx-pip{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:11.5px;font-weight:700;background:var(--paper);color:#9A947F}
+    .nx-step.nx-current{color:var(--ink)}
+    .nx-step.nx-current .nx-pip{border-color:var(--gold-deep);color:var(--gold-ink);box-shadow:0 0 0 4px rgba(217,169,61,.2)}
+    .nx-step-bar{flex:1;height:2px;background:var(--line);margin:0 10px;min-width:24px}
+    .nx-step-bar.nx-half{background:linear-gradient(90deg,var(--gold) 0 50%,var(--line) 50% 100%)}
+    @media(max-width:560px){.nx-step .nx-lbl{display:none}.nx-step.nx-current .nx-lbl{display:inline}}
+    .nx-stepper-hint{font-size:12px;color:var(--rose);font-weight:600;margin-top:10px;letter-spacing:.04em}
+
+    /* ── Loading skeleton behind the Spiffy embed ── */
+    .checkout-shell{min-height:520px}
+    @media(max-width:640px){.checkout-shell{min-height:600px}}
+    .checkout-shell spiffy-element{position:relative;z-index:1;background:transparent}
+    .nx-skel{position:absolute;inset:.55rem;z-index:0;border-radius:.7rem;padding:26px 22px;display:flex;flex-direction:column;gap:20px;overflow:hidden}
+    .nx-skel i{display:block;border-radius:8px;background:linear-gradient(90deg,#EDE7DA 25%,#F8F4EB 40%,#EDE7DA 60%);background-size:300% 100%;animation:nx-shimmer 1.5s linear infinite}
+    .nx-skel .nx-skel-label{width:36%;height:10px;margin-bottom:9px;border-radius:4px}
+    .nx-skel .nx-skel-field{height:44px}
+    .nx-skel .nx-skel-btn{margin-top:10px;height:52px;border-radius:10px;background:linear-gradient(90deg,#DFB556 25%,#EDD293 40%,#DFB556 60%);background-size:300% 100%}
+    @keyframes nx-shimmer{from{background-position:150% 0}to{background-position:-150% 0}}
+
+    /* ── Mini order summary ── */
+    .nx-summary{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.45rem;background:var(--gold-tint);border:1px solid #E5D3A0;border-radius:.9rem;padding:.8rem 1.1rem;font-size:.95rem;font-weight:600;color:var(--ink);text-align:center}
+    .nx-summary s{color:#9A947F;font-weight:500}
+    .nx-summary .nx-save{color:var(--emerald);font-weight:700}
+
+    /* ── Trust cluster ── */
+    .nx-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:.35rem 1.1rem;font-size:.8rem;color:var(--ink-faint);text-align:center}
+
+    /* ── Mini testimonial beside the form ── */
+    .nx-mini-t{background:var(--paper);border:1px solid var(--line);border-radius:1.1rem;padding:1.1rem 1.25rem;margin:0 0 1.4rem}
+    .nx-mini-t .nx-stars{display:flex;gap:.2rem;color:var(--gold-deep);margin-bottom:.6rem}
+    .nx-mini-t .nx-stars svg{width:1rem;height:1rem}
+    .nx-mini-t blockquote{margin:0;font-size:.95rem;color:var(--ink);line-height:1.5}
+    .nx-mini-t figcaption{margin-top:.6rem;font-size:.82rem;color:var(--ink-faint);font-weight:600}
+
+    /* ── Checkout grid placement + sticky column (desktop) ── */
+    @media(min-width:1024px){
+      .checkout-grid{row-gap:1.1rem}
+      .checkout-grid>.nx-summary{grid-column:1;grid-row:1}
+      .checkout-grid>.checkout-shell{grid-column:1;grid-row:2}
+      .checkout-grid>.nx-trust{grid-column:1;grid-row:3}
+      .checkout-grid>.whats-included{grid-column:2;grid-row:1/span 3;position:sticky;top:24px}
+    }
+
+    /* ── Mobile checkout-first (CSS order only; desktop untouched) ── */
+    @media(max-width:1023px){
+      body{display:flex;flex-direction:column}
+      .nx-stepper{order:-2}
+      body>section:has(.checkout-grid){order:-1;padding-top:1.25rem}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      .nx-skel i{animation:none}
+    }
+  </style>
+
 </head>
 
 <body>
+
+<!-- Order progress stepper -->
+<div class="nx-stepper">
+  <div class="nx-stepper-row">
+    <div class="nx-step nx-current"><span class="nx-pip">1</span><span class="nx-lbl">Ticket</span></div>
+    <div class="nx-step-bar nx-half"></div>
+    <div class="nx-step"><span class="nx-pip">2</span><span class="nx-lbl">Confirm</span></div>
+    <div class="nx-step-bar"></div>
+    <div class="nx-step"><span class="nx-pip">3</span><span class="nx-lbl">Access</span></div>
+  </div>
+  <p class="nx-stepper-hint">ORDER PROCESSING &mdash; 60% COMPLETE</p>
+</div>
 
 <!-- SVG Sprite Definitions (hidden) -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
@@ -335,10 +379,6 @@
   </symbol>
   <symbol id="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-  </symbol>
-  <symbol id="ticket-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M3 9V7a2 2 0 012-2h14a2 2 0 012 2v2a3 3 0 000 6v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2a3 3 0 000-6z"/>
-    <path stroke-linecap="round" d="M13 5v2m0 4v2m0 4v2"/>
   </symbol>
   <symbol id="shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
@@ -352,28 +392,10 @@
 </svg>
 
 <!-- ═══════════════════════════════════════════════════
-     PROGRESS BAR
-     ═══════════════════════════════════════════════════ -->
-<div class="progress-section">
-  <div class="wrap">
-    <div class="progress-bar-container">
-      <div class="progress-bar">
-        <span class="progress-label">Order Processing - 60% Complete</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════
      HERO
      ═══════════════════════════════════════════════════ -->
 <section class="hero">
   <div class="wrap">
-    <span class="pill pill-gold">
-      <svg><use href="#ticket-icon"/></svg>
-      Limited Seats Available
-    </span>
-
     <h1 class="display">Secure Your Seat For The <span class="hero-accent">Tax-Free Income Challenge</span></h1>
 
     <p class="hero-sub">Join 4,400+ high-income earners who've used this system to stop losing money to taxes and start building real wealth.</p>
@@ -445,13 +467,35 @@
 <section id="checkout" style="padding-top:0;">
   <div class="wrap">
     <div class="checkout-grid">
+      <!-- Mini order summary above the embed -->
+      <div class="nx-summary">3-Day Challenge Ticket &mdash; <s>$97</s> $47 &middot; <span class="nx-save">Save $50 today</span></div>
+
       <!-- Left: Checkout Form -->
       <div class="checkout-shell">
+        <!-- Loading skeleton behind the Spiffy embed -->
+        <div class="nx-skel" aria-hidden="true">
+          <div><i class="nx-skel-label"></i><i class="nx-skel-field"></i></div>
+          <div><i class="nx-skel-label"></i><i class="nx-skel-field"></i></div>
+          <div><i class="nx-skel-label"></i><i class="nx-skel-field"></i></div>
+          <i class="nx-skel-btn"></i>
+        </div>
         <spiffy-element type="checkout" url="https://legacyinvestingshow.spiffy.co/checkout/tax-free-income-challenge-oct-26"></spiffy-element>
       </div>
 
+      <!-- Trust cluster below the embed -->
+      <div class="nx-trust"><span>&#128274; Secure checkout</span><span>&#128179; All cards accepted</span><span>&#10003; 7-day money-back guarantee</span><span>4,400+ joined</span></div>
+
       <!-- Right: What's Included -->
       <div class="whats-included">
+        <!-- Testimonial beside the form -->
+        <figure class="nx-mini-t">
+          <div class="nx-stars">
+            <svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg>
+          </div>
+          <blockquote>"I didn't want to work my whole life just to be told I couldn't use my own money."</blockquote>
+          <figcaption>Dustin &middot; First property in 30 days</figcaption>
+        </figure>
+
         <h2 class="display">When you join today, here's what you're getting inside the Tax-Free Income Challenge:</h2>
 
         <ul class="session-list">
@@ -594,7 +638,7 @@
      ═══════════════════════════════════════════════════ -->
 <section class="band-forest final-cta">
   <div class="wrap">
-    <h2 class="display">Offer Expires In...</h2>
+    <h2 class="display">Your $50 early-bird discount ends in&hellip;</h2>
 
     <div class="final-count">
       <div style="text-align:center;"><div class="num" id="days2">00</div><div class="u">Days</div></div>

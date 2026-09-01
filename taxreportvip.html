@@ -161,11 +161,6 @@
       padding: 1.4rem 1.5rem; text-align: center;
     }
     .alert-card h2 { font-size: clamp(1.15rem, 2.6vw, 1.5rem); font-weight: 700; letter-spacing: -.01em; color: var(--ink); }
-    .alert-progress-wrap { max-width: 34rem; margin: 1rem auto 0; }
-    .alert-progress-wrap .k { font-size: .66rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: .45rem; }
-    .progress { height: .55rem; border-radius: 999px; background: var(--paper); border: 1px solid #E8C9BE; overflow: hidden; }
-    .progress > div { height: 100%; background: linear-gradient(90deg, var(--gold-deep), var(--gold)); }
-    .alert-note { margin-top: 1rem; font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--rose); line-height: 1.7; }
 
     /* ---------- Hero ---------- */
     .hero { padding-block: clamp(1.5rem, 4vw, 3.5rem) clamp(2.5rem, 6vw, 4.5rem); }
@@ -368,6 +363,25 @@
     }
     </style>
 
+    <style id="nx-styles">
+      /* Order progress stepper */
+      .nx-stepper-wrap{max-width:72rem;margin:14px auto 0;padding-inline:clamp(1rem,4vw,1.5rem);text-align:center}
+      .nx-stepper-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 22px}
+      .nx-stepper{display:flex;align-items:center;max-width:520px;margin:0 auto}
+      .nx-step{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;color:#9A947F;white-space:nowrap}
+      .nx-step .nx-pip{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:11.5px;font-weight:700;background:var(--paper);color:#9A947F}
+      .nx-step.nx-done .nx-pip{background:var(--emerald);border-color:var(--emerald);color:#fff}
+      .nx-step.nx-current{color:var(--ink)}
+      .nx-step.nx-current .nx-pip{border-color:var(--gold-deep);color:var(--gold-ink);box-shadow:0 0 0 4px rgba(217,169,61,.2);animation:nx-step-pulse 2s ease-in-out infinite}
+      @keyframes nx-step-pulse{0%,100%{box-shadow:0 0 0 4px rgba(217,169,61,.2)}50%{box-shadow:0 0 0 7px rgba(217,169,61,.08)}}
+      .nx-step-bar{flex:1;height:2px;background:var(--line);margin:0 10px;position:relative;overflow:hidden;min-width:24px}
+      .nx-step-bar.nx-fill::after{content:"";position:absolute;inset:0;background:var(--emerald)}
+      .nx-step-bar.nx-half::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--emerald),var(--gold));transform:scaleX(.5);transform-origin:left}
+      @media(max-width:560px){.nx-step span.nx-lbl{display:none}.nx-step.nx-current span.nx-lbl{display:inline}}
+      .nx-stepper-hint{text-align:center;font-size:12px;color:var(--rose);font-weight:600;margin-top:12px;letter-spacing:.04em}
+
+    </style>
+
 </head>
 <body>
     <script>
@@ -380,6 +394,20 @@
             }
         })();
     </script>
+
+    <!-- Order progress stepper -->
+    <div class="nx-stepper-wrap">
+      <div class="nx-stepper-card">
+        <div class="nx-stepper">
+          <div class="nx-step nx-done"><span class="nx-pip">✓</span><span class="nx-lbl">Ticket</span></div>
+          <div class="nx-step-bar nx-fill"></div>
+          <div class="nx-step nx-current"><span class="nx-pip">2</span><span class="nx-lbl">Tax report</span></div>
+          <div class="nx-step-bar nx-half"></div>
+          <div class="nx-step"><span class="nx-pip">3</span><span class="nx-lbl">Access</span></div>
+        </div>
+        <p class="nx-stepper-hint">DO NOT CLOSE THIS PAGE — YOUR ORDER IS STILL PROCESSING</p>
+      </div>
+    </div>
 
     <!-- SVG Sprite Definitions (hidden) -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
@@ -410,13 +438,6 @@
         <div class="wrap">
             <div class="alert-card">
                 <h2>⚠️ STOP! Watch This Video Before You Exit</h2>
-                <div class="alert-progress-wrap">
-                    <p class="k">Order Processing</p>
-                    <div class="progress"><div style="width:56%"></div></div>
-                </div>
-                <p class="alert-note">
-                    IMPORTANT! Don't close this window or tap the back button or it might mess with your order.
-                </p>
             </div>
         </div>
     </section>
@@ -437,6 +458,7 @@
                 </p>
             </div>
 
+
             <div style="max-width:64rem;margin-inline:auto;">
                 <div id="vsl" class="video-frame">
                     <!-- Above the fold: stays eager. Wrapper carries aspect-ratio 16/9 so there is no shift. -->
@@ -445,6 +467,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- ═══════════════════════════════════════════════════
          PROBLEM SECTION
@@ -466,10 +489,6 @@
                     <div class="body-copy">
                         <p>
                             You're not cheating. You're overpaying because no one taught you the rules. The tax code has over 70,000 pages of incentives, deductions, and strategies. But your CPA only uses the same dozen every year.
-                        </p>
-
-                        <p>
-                            We analyzed 300+ tax returns and found the same pattern: <strong>94% of high earners were overpaying by $22,000-$57,000</strong>.
                         </p>
                     </div>
                 </div>
@@ -938,7 +957,7 @@
                         <svg class="faq-icon"><use href="#i-chevron-down"/></svg>
                     </button>
                     <div class="faq-answer hidden">
-                        We show both your CURRENT situation and MAXIMUM POTENTIAL. Even W-2 employees typically find $5K-$15K. If your report doesn't identify at least $5,000 in savings, you get a full refund.
+                        We show both your CURRENT situation and MAXIMUM POTENTIAL. Even W-2 employees typically find $5K-$15K.
                     </div>
                 </div>
             </div>
@@ -993,6 +1012,7 @@
             </div>
         </div>
     </section>
+
 
     <script>
         // Preserve flow/session query params across upsell CTA clicks.
@@ -1095,6 +1115,7 @@ spiffy.config({
 })
 spiffy.load("legacyinvestingshow");
 </script>
+
 
 </body>
 </html>

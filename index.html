@@ -509,8 +509,6 @@
     .cost-total .k { font-size: .85rem; font-weight: 600; color: var(--ink-faint); margin-bottom: .4rem; }
     .cost-total .v { font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3rem); font-weight: 600; color: var(--rose); margin-bottom: 1rem; }
     .cost-total p { font-size: .92rem; color: var(--ink-soft); }
-    .cost-total p + p { margin-top: 1.2rem; font-size: 1.05rem; }
-    .cost-total .gold { color: var(--gold-ink); font-weight: 700; }
 
     /* ---------- Final CTA ---------- */
     .final-cta { text-align: center; }
@@ -590,6 +588,60 @@
       * { transition: none !important; }
     }
   </style>
+  <style id="nx-styles">
+    /* ═══ Approved components: F2 rolling countdown, F5 before/after toggle, F8 scroll progress, F10 price anchor ═══ */
+    .nx-progress{position:absolute;top:0;left:0;right:0;height:3px;background:transparent;pointer-events:none}
+    .nx-progress i{display:block;height:100%;background:linear-gradient(90deg,var(--emerald),var(--gold));transform:scaleX(0);transform-origin:left;will-change:transform}
+
+    .nx-count{background:var(--forest);border-radius:16px;padding:20px 16px;text-align:center}
+    .nx-count .label{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+    .nx-cd{display:flex;justify-content:center;gap:clamp(8px,2.5vw,18px)}
+    .nx-cell .num{display:flex;justify-content:center;gap:2px}
+    .nx-digit{width:.72em;height:1.15em;overflow:hidden;font-size:clamp(26px,4.5vw,36px);font-weight:700;color:var(--ivory);font-variant-numeric:tabular-nums;line-height:1.15}
+    .nx-digit>span{display:block;transition:transform .55s cubic-bezier(.45,0,.2,1);will-change:transform}
+    .nx-digit b{display:block;font-weight:700;height:1.15em}
+    .nx-cell small{display:block;margin-top:4px;font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#7E9A89}
+    .nx-cd .sep{font-size:clamp(22px,3.5vw,30px);font-weight:700;color:#3E5F50;line-height:1.5}
+    .final-count .nx-cell .num{font-size:inherit;line-height:1.15}
+    .final-count .nx-cd .sep{align-self:center;margin-top:0;color:#3E5F50}
+
+    .nx-ba{max-width:640px;margin:0 auto}
+    .nx-ba-toggle{display:flex;justify-content:center;margin-bottom:1.3rem}
+    .nx-switch{position:relative;display:flex;background:var(--cream);border-radius:100px;padding:5px}
+    .nx-switch::before{content:"";position:absolute;top:5px;bottom:5px;left:5px;width:calc(50% - 5px);background:var(--paper);border-radius:100px;box-shadow:0 4px 10px -4px rgba(29,42,34,.3);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+    .nx-ba[data-state="after"] .nx-switch::before{transform:translateX(100%)}
+    .nx-switch button{position:relative;border:none;background:none;font-family:inherit;font-size:.82rem;font-weight:700;padding:9px 18px;border-radius:100px;color:var(--ink-soft);transition:color .3s;white-space:nowrap;cursor:pointer}
+    .nx-ba[data-state="before"] .nx-switch button:first-child{color:var(--rose)}
+    .nx-ba[data-state="after"] .nx-switch button:last-child{color:var(--emerald)}
+    .nx-ba-panels{position:relative}
+    .nx-ba-panel{border-radius:16px;padding:1.5rem 1.7rem;transition:opacity .35s ease,transform .35s cubic-bezier(.16,1,.3,1)}
+    .nx-ba-panel.b{background:var(--rose-tint)}
+    .nx-ba-panel.a{background:var(--emerald-tint);position:absolute;inset:0;overflow:auto}
+    .nx-ba[data-state="before"] .nx-ba-panel.a,.nx-ba[data-state="after"] .nx-ba-panel.b{opacity:0;transform:scale(.985);pointer-events:none}
+    .nx-ba-panel h4{font-size:1rem;margin-bottom:.7rem}
+    .nx-ba-panel.b h4{color:var(--rose)}
+    .nx-ba-panel.a h4{color:var(--emerald)}
+    .nx-ba-panel ul{list-style:none;margin:0;padding:0;display:grid;gap:.5rem;font-size:.9rem;color:var(--ink-soft)}
+    .nx-ba-panel li{padding-left:24px;position:relative}
+    .nx-ba-panel.b li::before{content:"✕";position:absolute;left:0;color:var(--rose);font-weight:700;font-size:.75rem;top:2px}
+    .nx-ba-panel.a li::before{content:"✓";position:absolute;left:0;color:var(--emerald);font-weight:700;font-size:.8rem;top:1px}
+
+    .nx-anchor{max-width:640px;margin:0 auto 2.6rem}
+    .nx-arow{margin-bottom:1.4rem}
+    .nx-arow .lbl{display:flex;justify-content:space-between;align-items:baseline;font-size:.88rem;font-weight:600;margin-bottom:.5rem;gap:10px}
+    .nx-arow .lbl b{font-size:1.25rem;letter-spacing:-.01em;font-variant-numeric:tabular-nums;white-space:nowrap}
+    .nx-arow.leak .lbl b{color:var(--rose)}
+    .nx-arow.ticket .lbl b{color:var(--gold-ink)}
+    .nx-abar{height:24px;border-radius:7px;background:var(--paper);border:1px solid var(--line);overflow:hidden}
+    .nx-abar i{display:block;height:100%;border-radius:7px;transform:scaleX(0);transform-origin:left;transition:transform 1.3s cubic-bezier(.16,1,.3,1)}
+    .nx-arow.leak .nx-abar i{background:linear-gradient(90deg,#C86A54,var(--rose))}
+    .nx-arow.ticket .nx-abar i{background:linear-gradient(90deg,var(--gold),var(--gold-deep))}
+    .nx-anchor.in .nx-arow.leak i{transform:scaleX(1)}
+    .nx-anchor.in .nx-arow.ticket i{transform:scaleX(.012);transition-delay:.5s;border-radius:2px}
+    .nx-apunch{text-align:center;background:var(--emerald-tint);border:1px solid #CBDFC6;border-radius:14px;padding:1rem 1.3rem;font-size:.92rem;opacity:0;transform:translateY(12px);transition:opacity .5s ease 1.2s,transform .5s cubic-bezier(.16,1,.3,1) 1.2s}
+    .nx-anchor.in .nx-apunch{opacity:1;transform:none}
+    .nx-apunch b{color:var(--green-mid)}
+  </style>
 </head>
 
 <body>
@@ -655,6 +707,8 @@
 
 <!-- Sticky Header -->
 <header id="sticky-header">
+  <!-- Scroll progress bar -->
+  <div class="nx-progress"><i id="nxProgress"></i></div>
   <div class="wrap sticky-inner">
     <span class="hide-mobile" style="font-size:.9rem;font-weight:600;color:var(--ink-soft);">
       Tax-Free Income Challenge <span style="color:var(--gold-ink);font-weight:700;">Oct 16-Oct 18</span>
@@ -714,17 +768,10 @@
           <p class="date">Oct 16th - Oct 18th | 10 AM - 4 PM EST</p>
         </div>
 
-        <div class="card countdown-card">
+        <!-- Rolling-digit countdown -->
+        <div class="nx-count">
           <p class="label">Early Bird Pricing Ends Soon</p>
-          <div class="count-row">
-            <div class="count-cell"><div id="days" class="count-num">6</div><div class="count-lbl">Days</div></div>
-            <span class="count-sep">:</span>
-            <div class="count-cell"><div id="hours" class="count-num">20</div><div class="count-lbl">Hours</div></div>
-            <span class="count-sep">:</span>
-            <div class="count-cell"><div id="mins" class="count-num">11</div><div class="count-lbl">Min</div></div>
-            <span class="count-sep">:</span>
-            <div class="count-cell"><div id="secs" class="count-num">11</div><div class="count-lbl">Sec</div></div>
-          </div>
+          <div class="nx-cd" id="nxCountdown"></div>
         </div>
       </div>
     </div>
@@ -1091,40 +1138,43 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════
-     BEFORE / AFTER SECTION
+     BEFORE / AFTER SECTION (interactive toggle)
      ═══════════════════════════════════════════════════ -->
 <section class="band-paper">
   <div class="wrap">
     <div class="section-head">
       <p class="kicker center">Before &amp; After</p>
       <h2 class="display">Here's What You Can Expect From The Challenge</h2>
-      <p class="muted" style="margin-top:.7rem;">Same income. Different setup. That's the whole difference.</p>
     </div>
-
-    <div class="ba-grid">
-      <!-- Before -->
-      <div class="ba before">
-        <div class="ba-tag"><span>✗</span>Before the Challenge</div>
-        <ul>
-          <li>You're losing $20K-$50K every year to taxes without knowing why</li>
-          <li>Stuck making minimum payments while your money sits idle</li>
-          <li>Guessing your way through every money decision</li>
-          <li>A six-figure income and nothing to show for it</li>
-          <li>Constant second-guessing because every "expert" says something different</li>
-        </ul>
+    <div class="nx-ba" data-state="before" id="nxBA">
+      <div class="nx-ba-toggle">
+        <div class="nx-switch">
+          <button type="button" data-nxba="before">✕ Before the Challenge</button>
+          <button type="button" data-nxba="after">✓ After the Challenge</button>
+        </div>
       </div>
-
-      <!-- After -->
-      <div class="ba after">
-        <div class="ba-tag"><span>✓</span>After the Challenge</div>
-        <ul>
-          <li>Keeping more of every paycheck and seeing your savings grow</li>
-          <li>High-interest debts gone and cash flow freed up</li>
-          <li>Every decision feels clear because you know WHAT to do and WHEN</li>
-          <li>EXACT steps to create $5K-$15K monthly income streams</li>
-          <li>How to protect what you build and pass it on tax-free</li>
-          <li>Your wealth plan built: $85,871 in mapped year-one value</li>
-        </ul>
+      <div class="nx-ba-panels">
+        <div class="nx-ba-panel b">
+          <h4>Same income. Leaking setup.</h4>
+          <ul>
+            <li>You're losing $20K-$50K every year to taxes without knowing why</li>
+            <li>Stuck making minimum payments while your money sits idle</li>
+            <li>Guessing your way through every money decision</li>
+            <li>A six-figure income and nothing to show for it</li>
+            <li>Constant second-guessing because every "expert" says something different</li>
+          </ul>
+        </div>
+        <div class="nx-ba-panel a">
+          <h4>Same income. Different setup.</h4>
+          <ul>
+            <li>Keeping more of every paycheck and seeing your savings grow</li>
+            <li>High-interest debts gone and cash flow freed up</li>
+            <li>Every decision feels clear because you know WHAT to do and WHEN</li>
+            <li>EXACT steps to create $5K-$15K monthly income streams</li>
+            <li>How to protect what you build and pass it on tax-free</li>
+            <li>Your wealth plan built: $85,871 in mapped year-one value</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -1321,31 +1371,6 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════
-     EVENT DETAILS SECTION
-     ═══════════════════════════════════════════════════ -->
-<section style="padding-block:clamp(1.5rem,3vw,3rem);">
-  <div class="wrap wrap-md">
-    <div class="info-grid">
-      <div class="card info-card">
-        <div class="k">When</div>
-        <div class="v">October 16 - October 18, 2026</div>
-        <p>10 AM - 4 PM EST Daily</p>
-      </div>
-      <div class="card info-card">
-        <div class="k">Where</div>
-        <div class="v">Streaming Online on Zoom</div>
-        <p>Join from anywhere. We'll send you a private link.</p>
-      </div>
-      <div class="card info-card">
-        <div class="k">Why</div>
-        <div class="v">Your $85,871 Wealth Plan</div>
-        <p>Find the leaks. Cut taxes. Build $5K-$15K monthly income.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════
      PRICING SECTION
      ═══════════════════════════════════════════════════ -->
 <section id="pricing" class="band-cream">
@@ -1353,6 +1378,19 @@
     <div class="section-head">
       <p class="kicker center">Choose Your Ticket</p>
       <h2 class="display">General Admission vs VIP</h2>
+    </div>
+
+    <!-- Price anchor bars -->
+    <div class="nx-anchor" id="nxAnchor" style="margin-bottom:3rem;">
+      <div class="nx-arow leak">
+        <div class="lbl"><span>What the leaks cost you every year</span><b>&#8722;$<span data-countup="20000">0</span>+</b></div>
+        <div class="nx-abar"><i></i></div>
+      </div>
+      <div class="nx-arow ticket">
+        <div class="lbl"><span>Your ticket today</span><b>$47</b></div>
+        <div class="nx-abar"><i></i></div>
+      </div>
+      <div class="nx-apunch">If the challenge finds <b>even 1%</b> of your leaks, the ticket pays for itself <b>4&#215; over</b>. It usually finds a lot more than 1%.</div>
     </div>
 
     <div class="price-grid">
@@ -1899,9 +1937,6 @@
       <p>
         That's the average conservative first-year value of the plan you'd build this weekend. No plan, no leaks found, no strategies mapped. Every year you wait, you hand that number back. That money was already leaving your household. The plan just gives it a better job.
       </p>
-      <p>
-        Or you can invest <span class="gold">$47 today</span> and go get it.
-      </p>
     </div>
   </div>
 </section>
@@ -1921,15 +1956,7 @@
 
     <div class="final-count">
       <span class="lbl">Early Bird Ends:</span>
-      <div class="cells">
-        <div style="text-align:center;"><div id="days2" class="num">6</div><div class="u">Days</div></div>
-        <span class="sep">:</span>
-        <div style="text-align:center;"><div id="hours2" class="num">20</div><div class="u">Hrs</div></div>
-        <span class="sep">:</span>
-        <div style="text-align:center;"><div id="mins2" class="num">11</div><div class="u">Min</div></div>
-        <span class="sep">:</span>
-        <div style="text-align:center;"><div id="secs2" class="num">11</div><div class="u">Sec</div></div>
-      </div>
+      <div class="nx-cd" id="nxCountdown2"></div>
     </div>
   </div>
 </section>
@@ -1963,37 +1990,6 @@
   // Mobile detection using only user agent (avoids forced reflow from innerWidth)
   const isMobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-  // Countdown Timer - Runs after first paint
-  requestAnimationFrame(function() {
-    const target = new Date('2026-10-16T10:00:00-04:00').getTime();
-    const d1 = document.getElementById('days');
-    const h1 = document.getElementById('hours');
-    const m1 = document.getElementById('mins');
-    const s1 = document.getElementById('secs');
-    const d2 = document.getElementById('days2');
-    const h2 = document.getElementById('hours2');
-    const m2 = document.getElementById('mins2');
-    const s2 = document.getElementById('secs2');
-
-    let ld = -1, lh = -1, lm = -1, ls = -1;
-    function update() {
-      const diff = target - Date.now();
-      if (diff <= 0) return;
-
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff % 86400000) / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      const s = Math.floor((diff % 60000) / 1000);
-
-      if (d !== ld) { if (d1) d1.textContent = d; if (d2) d2.textContent = d; ld = d; }
-      if (h !== lh) { if (h1) h1.textContent = h; if (h2) h2.textContent = h; lh = h; }
-      if (m !== lm) { if (m1) m1.textContent = m; if (m2) m2.textContent = m; lm = m; }
-      if (s !== ls) { if (s1) s1.textContent = s; if (s2) s2.textContent = s; ls = s; }
-    }
-    update();
-    setInterval(update, 1000);
-  });
-
   // Sticky Header - Only init if not on mobile (saves resources)
   if (!isMobile) {
     (function() {
@@ -2012,12 +2008,17 @@
       observer.observe(hero);
 
       // Update sticky countdown less frequently
-      setInterval(() => {
-        const d = document.getElementById('days')?.textContent || '0';
-        const h = document.getElementById('hours')?.textContent || '0';
-        const el = document.getElementById('sticky-countdown');
-        if (el) el.textContent = `${d}d ${h}h`;
-      }, 2000);
+      const stickyTarget = new Date('2026-10-16T10:00:00-04:00').getTime();
+      const stickyEl = document.getElementById('sticky-countdown');
+      function stickyTick() {
+        const diff = stickyTarget - Date.now();
+        if (diff <= 0 || !stickyEl) return;
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        stickyEl.textContent = `${d}d ${h}h`;
+      }
+      stickyTick();
+      setInterval(stickyTick, 2000);
     })();
   }
 
@@ -2173,5 +2174,101 @@
   }
 </script>
 
+<script>
+/* Approved components JS: F2 rolling countdowns, F5 before/after toggle, F8 scroll progress, F10 price anchor */
+(function(){
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function countUp(el, dur){
+    var target = +el.dataset.countup;
+    if(reduced){ el.textContent = target.toLocaleString('en-US'); return; }
+    var t0 = performance.now(); dur = dur || 1400;
+    function frame(t){
+      var p = Math.min(1, (t - t0) / dur);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 4))).toLocaleString('en-US');
+      if(p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* F10 anchor + F5 auto-flip */
+  var anchor = document.getElementById('nxAnchor');
+  var ba = document.getElementById('nxBA');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      io.unobserve(e.target);
+      if(e.target === anchor) anchor.classList.add('in');
+      if(e.target === ba) setTimeout(function(){ ba.dataset.state = 'after'; }, 2500);
+      e.target.querySelectorAll('[data-countup]').forEach(countUp);
+    });
+  }, {threshold:.35});
+  if(anchor) io.observe(anchor);
+  if(ba) io.observe(ba);
+
+  /* F5 toggle buttons */
+  if(ba){
+    ba.querySelectorAll('[data-nxba]').forEach(function(btn){
+      btn.addEventListener('click', function(){ ba.dataset.state = btn.dataset.nxba; });
+    });
+  }
+
+  /* F2 rolling countdowns (hero + final CTA share one clock) */
+  var containers = [document.getElementById('nxCountdown'), document.getElementById('nxCountdown2')].filter(Boolean);
+  if(containers.length){
+    var TARGET = new Date('2026-10-16T10:00:00-04:00').getTime();
+    var UNITS = [['DAYS',864e5],['HRS',36e5],['MIN',6e4],['SEC',1e3]];
+    var STRIP = '<b>0</b><b>1</b><b>2</b><b>3</b><b>4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b>';
+    var sets = containers.map(function(root){
+      var strips = [];
+      UNITS.forEach(function(u, ui){
+        var cell = document.createElement('div'); cell.className = 'nx-cell';
+        var num = document.createElement('div'); num.className = 'num';
+        for(var d = 0; d < 2; d++){
+          var dg = document.createElement('div'); dg.className = 'nx-digit';
+          dg.innerHTML = '<span>' + STRIP + '</span>';
+          num.appendChild(dg); strips.push(dg.firstChild);
+        }
+        cell.appendChild(num);
+        var lab = document.createElement('small'); lab.textContent = u[0]; cell.appendChild(lab);
+        root.appendChild(cell);
+        if(ui < 3){ var sep = document.createElement('div'); sep.className = 'sep'; sep.textContent = ':'; root.appendChild(sep); }
+      });
+      return strips;
+    });
+    function tick(){
+      var left = Math.max(0, TARGET - Date.now());
+      var digits = [];
+      UNITS.forEach(function(u){
+        var val = Math.floor(left / u[1]); left -= val * u[1];
+        var str = String(val).padStart(2, '0').slice(-2);
+        digits.push(+str[0], +str[1]);
+      });
+      sets.forEach(function(strips){
+        for(var i = 0; i < strips.length; i++){
+          strips[i].style.transform = 'translateY(-' + (digits[i] * 1.15) + 'em)';
+        }
+      });
+    }
+    tick(); setInterval(tick, 1000);
+  }
+
+  /* F8 scroll progress (passive, transform-only) */
+  var prog = document.getElementById('nxProgress');
+  if(prog){
+    var raf = false;
+    function paint(){
+      raf = false;
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - innerHeight;
+      prog.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, scrollY / max) : 0) + ')';
+    }
+    addEventListener('scroll', function(){
+      if(!raf){ raf = true; requestAnimationFrame(paint); }
+    }, {passive: true});
+    paint();
+  }
+})();
+</script>
 </body>
 </html>
