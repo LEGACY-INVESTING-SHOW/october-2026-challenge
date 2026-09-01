@@ -573,15 +573,28 @@
     .modal-error { font-size: .85rem; color: var(--rose); text-align: center; margin-top: .9rem; }
     .field input:user-invalid { border-color: var(--rose); }
     #optInSubmitBtn[disabled] { opacity: .7; cursor: wait; }
+    .modal-card .formkit-form { margin: 0; max-width: none !important; }
+    .modal-card .formkit-alert { list-style: none; padding: .7rem .9rem; margin: 0 0 1rem; border-radius: .75rem; font-size: .85rem; text-align: center; }
+    .modal-card .formkit-alert:empty { display: none; }
+    .modal-card .formkit-alert-error { background: var(--rose-tint); border: 1px solid #E8C9BE; color: var(--rose); }
+    .modal-card .formkit-fields { display: block; }
+    .modal-card .formkit-field { margin: 0; }
+    .modal-card .formkit-field + .formkit-field { margin-top: 1rem; }
     .field label { display: block; font-size: .85rem; font-weight: 600; color: var(--ink-soft); margin-bottom: .35rem; }
-    .field input {
+    .field input,
+    .modal-card .formkit-input {
       width: 100%; padding: .8rem 1rem; font-size: .95rem; font-family: inherit;
       background: var(--ivory); border: 1px solid var(--line); border-radius: .75rem;
       color: var(--ink); outline: none; transition: border-color .15s, box-shadow .15s;
     }
-    .field input::placeholder { color: var(--ink-faint); }
-    .field input:focus { border-color: var(--gold-deep); box-shadow: 0 0 0 3px rgba(185,138,31,.18); }
+    .field input::placeholder,
+    .modal-card .formkit-input::placeholder { color: var(--ink-faint); }
+    .field input:focus,
+    .modal-card .formkit-input:focus { border-color: var(--gold-deep); box-shadow: 0 0 0 3px rgba(185,138,31,.18); }
     .field + .field { margin-top: 1rem; }
+    .modal-card .formkit-submit { width: 100%; margin-top: 1.5rem; }
+    .modal-card .formkit-submit .formkit-spinner { display: none; }
+    .modal-card .formkit-submit > span { display: block; padding: 0; }
     .modal-note { font-size: .75rem; color: var(--ink-faint); text-align: center; margin-top: 1rem; }
     .spin { animation: spin 1s linear infinite; width: 1.25rem; height: 1.25rem; margin-inline: auto; }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -701,25 +714,34 @@
       <h3 id="optInTitle">Where should we send your ticket?</h3>
     </div>
 
-    <form id="optInForm" novalidate>
-      <input type="hidden" id="ticketType" name="ticketType" value="ticket">
+    <script defer src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+    <iframe id="kitOptInTarget" name="kitOptInTarget" title="Kit form submission" hidden></iframe>
+    <form action="https://app.kit.com/forms/9870586/subscriptions" class="seva-form formkit-form" method="post" target="kitOptInTarget" data-sv-form="9870586" data-uid="bc35c8452d" data-format="inline" data-version="5" id="optInForm" novalidate>
+      <input type="hidden" id="ticketType" name="fields[ticket_type]" value="ticket">
+      <input type="hidden" id="kitFirstName" name="fields[first_name]" value="">
+      <input type="hidden" id="kitLastName" name="fields[last_name]" value="">
+      <input type="hidden" id="kitPhone" name="fields[phone]" value="">
+      <input type="hidden" id="kitSourceUrl" name="fields[source_url]" value="">
 
-      <div class="field">
+      <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
+      <div data-element="fields" data-stacked="true" class="seva-fields formkit-fields">
+      <div class="field formkit-field">
         <label for="optInName">Full name</label>
-        <input type="text" id="optInName" name="name" autocomplete="name" required placeholder="Jane Smith">
+        <input class="formkit-input" type="text" id="optInName" name="full_name" autocomplete="name" required placeholder="Jane Smith">
       </div>
-      <div class="field">
+      <div class="field formkit-field">
         <label for="optInEmail">Email</label>
-        <input type="email" id="optInEmail" name="email" autocomplete="email" inputmode="email" required placeholder="jane@email.com">
+        <input class="formkit-input" type="email" id="optInEmail" name="email_address" autocomplete="email" inputmode="email" required placeholder="jane@email.com">
       </div>
-      <div class="field">
+      <div class="field formkit-field">
         <label for="optInPhone">Phone</label>
-        <input type="tel" id="optInPhone" name="phone" autocomplete="tel" inputmode="tel" required placeholder="(555) 123-4567">
+        <input class="formkit-input" type="tel" id="optInPhone" name="fields[phone_number]" autocomplete="tel" inputmode="tel" required placeholder="(555) 123-4567">
       </div>
 
       <p class="modal-error" id="optInError" hidden></p>
 
-      <button type="submit" id="optInSubmitBtn" class="btn btn-gold btn-block btn-md" style="margin-top:1.5rem;">Continue to Checkout &rarr;</button>
+      <button type="submit" id="optInSubmitBtn" data-element="submit" class="formkit-submit btn btn-gold btn-block btn-md"><span>Continue to Checkout &rarr;</span></button>
+      </div>
 
       <p class="modal-note">&#128274; Secure checkout. Your details are never shared.</p>
     </form>
@@ -2101,16 +2123,9 @@
   })();
 
   // ============================================
-  // OPT-IN POPUP  →  LEAD CAPTURE  →  PREFILLED CHECKOUT
+  // OPT-IN POPUP → KIT FORM SUBMIT → PREFILLED CHECKOUT
   // Setup for the tech team: see LEAD-CAPTURE-SETUP.md in this repo.
   // ============================================
-  var LEAD_CONFIG = {
-    kitFormId: '',      // Kit (ConvertKit) form ID, e.g. '7654321'
-    kitApiKey: '',      // Kit v3 PUBLIC API key (Settings → Developer → API Key). Never the secret.
-    kitTagIds: [],      // optional numeric tag IDs to add on opt-in, e.g. [1234567]
-    webhookUrl: ''      // optional: Zapier / Make catch-hook URL (used as well as, or instead of, Kit)
-  };
-
   var REDIRECT_URLS = { ticket: '/regularticketoct', vip: '/vipticketoct' };
   var TICKET_LABELS = { ticket: 'General Admission · $47', vip: 'VIP Access · $147' };
 
@@ -2154,36 +2169,36 @@
     return { first: parts.shift() || '', last: parts.join(' ') };
   }
 
-  // Sends the lead to Kit and/or a webhook. Always resolves; never blocks the redirect for more than ~1.5 s.
+  // Posts the real Kit embed form in a hidden iframe. Always resolves; never blocks checkout for more than ~1.5 s.
   function sendLead(lead) {
-    var jobs = [];
-    if (LEAD_CONFIG.kitFormId && LEAD_CONFIG.kitApiKey) {
-      jobs.push(fetch('https://api.convertkit.com/v3/forms/' + LEAD_CONFIG.kitFormId + '/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json; charset=utf-8' },
-        keepalive: true,
-        body: JSON.stringify({
-          api_key: LEAD_CONFIG.kitApiKey,
-          email: lead.email,
-          first_name: lead.first,
-          fields: { last_name: lead.last, phone: lead.phone, ticket_type: lead.ticket, source_url: lead.source },
-          tags: LEAD_CONFIG.kitTagIds
-        })
-      }).catch(function () {}));
-    }
-    if (LEAD_CONFIG.webhookUrl) {
-      jobs.push(fetch(LEAD_CONFIG.webhookUrl, {
-        method: 'POST', mode: 'no-cors', keepalive: true,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(lead)
-      }).catch(function () {}));
-    }
-    if (!jobs.length) console.warn('LEAD_CONFIG is empty: lead not sent anywhere.', lead);
-    return Promise.race([Promise.all(jobs), new Promise(function (r) { setTimeout(r, 1500); })]);
+    var form = document.getElementById('optInForm');
+    var frame = document.getElementById('kitOptInTarget');
+    document.getElementById('kitFirstName').value = lead.first;
+    document.getElementById('kitLastName').value = lead.last;
+    document.getElementById('kitPhone').value = lead.phone;
+    document.getElementById('kitSourceUrl').value = lead.source;
+
+    return new Promise(function (resolve) {
+      var done = false;
+      var finish = function () {
+        if (done) return;
+        done = true;
+        frame.removeEventListener('load', finish);
+        resolve();
+      };
+      frame.addEventListener('load', finish);
+      try {
+        HTMLFormElement.prototype.submit.call(form);
+      } catch (e) {
+        finish();
+      }
+      setTimeout(finish, 1500);
+    });
   }
 
   document.getElementById('optInForm').addEventListener('submit', function (event) {
     event.preventDefault();
+    event.stopImmediatePropagation();
     var btn = document.getElementById('optInSubmitBtn');
     var err = document.getElementById('optInError');
     var name = document.getElementById('optInName').value.trim();
@@ -2208,7 +2223,7 @@
     if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'challenge-' + ticket });
 
     btn.disabled = true;
-    btn.textContent = 'Opening your checkout…';
+    btn.querySelector('span').textContent = 'Opening your checkout…';
 
     // Order page URL: original tracking params + Spiffy prefill params
     var q = new URLSearchParams(location.search);
@@ -2220,7 +2235,7 @@
     var url = (REDIRECT_URLS[ticket] || REDIRECT_URLS.ticket) + '?' + q.toString();
 
     sendLead(lead).then(function () { location.href = url; });
-  });
+  }, true);
 </script>
 
 <script>

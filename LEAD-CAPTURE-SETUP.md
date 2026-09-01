@@ -6,20 +6,10 @@ The opt-in popup, the checkout prefill, and the evergreen timer are built and li
 
 **Sales page (`index.html`)**
 
-- Both ticket buttons ("Join the Challenge" and "Get VIP Access") open a popup with three fields: full name, email, phone.
-- On submit the page validates the fields, saves the lead in the browser (`localStorage.lis_lead`), sends it to Kit and/or a webhook, fires a Meta `Lead` event if a pixel is present, then redirects to the order page.
+- Both ticket buttons ("Join the Challenge" and "Get VIP Access") open a popup with a Kit form styled to match the site: full name, email, phone.
+- On submit the page validates the fields, saves the lead in the browser (`localStorage.lis_lead`), submits the Kit form in a hidden iframe, fires a Meta `Lead` event if a pixel is present, then redirects to the order page.
 - The redirect keeps every tracking param already on the URL (UTMs, Hyros, fbclid) and adds `name_first`, `name_last`, `email`, `phone`, and Spiffy's phone prefill key `phone_number`.
 - The redirect never waits more than 1.5 seconds for Kit. If Kit is slow or down, the buyer still reaches checkout.
-- The config block is at the top of the last `<script>` in `index.html`:
-
-```js
-var LEAD_CONFIG = {
-  kitFormId: '',      // Kit form ID
-  kitApiKey: '',      // Kit v3 PUBLIC API key
-  kitTagIds: [],      // optional numeric tag IDs, e.g. [1234567]
-  webhookUrl: ''      // optional Zapier / Make catch-hook
-};
-```
 
 **Order pages (`regularticket26.html`, `vipticket26.html`)**
 
@@ -33,13 +23,10 @@ var LEAD_CONFIG = {
 
 ## Step 1 — Kit (ConvertKit)
 
-1. **Create a form.** Kit → Grow → Landing Pages & Forms → Create new → Form (any design; it is never embedded). Name it "October Challenge Opt-in". Copy the form ID from the URL (`app.kit.com/forms/designers/<FORM_ID>/edit`). Turn off double opt-in on this form.
-2. **Public API key.** Kit → Settings → Developer → "API Key" (the public one, not "API Secret"). This key is safe in page code. It can only add subscribers.
-3. **Custom fields.** Kit → Subscribers → any subscriber → Add a new field. Create these keys exactly: `last_name`, `phone`, `ticket_type`, `source_url`. If a field does not exist, Kit drops that value silently.
-4. **Tag.** Kit → Subscribers → Tags → Create "challenge-lead". Open it and copy the numeric ID from the URL. Put it in `kitTagIds`.
-5. **Paste into `LEAD_CONFIG`** in `index.html`, commit, push. Vercel deploys from `main`.
-
-Optional: set `webhookUrl` to a Zapier or Make catch-hook if you also want leads in a Google Sheet for the setters. The page posts JSON with `name, first, last, email, phone, ticket, source, ts`.
+1. The popup uses Kit form `9870586` (`https://app.kit.com/forms/9870586/subscriptions`) as the real form submission.
+2. Turn off double opt-in on this form if buyers should enter the abandoned-cart automation immediately.
+3. **Custom fields.** Kit → Subscribers → any subscriber → Add a new field. Confirm these keys exist: `last_name`, `phone`, `phone_number`, `ticket_type`, `source_url`. If a field does not exist, Kit drops that value silently.
+4. **Tag.** Configure the Kit form or automation so every submission receives the tag `challenge-lead`.
 
 ## Step 2 — Spiffy
 
