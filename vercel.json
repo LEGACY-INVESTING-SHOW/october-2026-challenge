@@ -41,6 +41,10 @@
     {
       "source": "/octchallengeconfirmationvip",
       "destination": "/octchallengeconfirmationvip"
+    },
+    {
+      "source": "/octprechallengetraining",
+      "destination": "/prechallengetraining123"
     }
   ]
 }
