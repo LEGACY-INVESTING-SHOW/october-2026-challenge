@@ -251,6 +251,21 @@
     .shot img { width: 100%; }
 
     /* ---------- Guarantee ---------- */
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+      font-weight: 700; border-radius: 999px; text-decoration: none;
+      transition: transform .18s cubic-bezier(.22,1,.36,1), box-shadow .18s, background-color .18s;
+      border: none;
+    }
+    .btn-gold {
+      background: var(--gold); color: #221903;
+      box-shadow: 0 1px 0 rgba(122,88,10,.35), 0 8px 22px -10px rgba(185,138,31,.55);
+    }
+    .btn-gold:hover { background: #C99A2E; transform: translateY(-1px); }
+    .btn-lg { padding: 1rem 2rem; font-size: 1.05rem; }
+    @media (max-width: 640px) { .btn-lg { width: 100%; } }
+
     .guarantee-card {
       max-width: 44rem; margin-inline: auto; text-align: center;
       padding: clamp(2rem, 4vw, 3rem);
@@ -459,7 +474,7 @@
 <!-- ═══════════════════════════════════════════════════
      CHECKOUT
      ═══════════════════════════════════════════════════ -->
-<section style="padding-top:0;">
+<section id="checkout" style="padding-top:0;">
   <div class="wrap">
     <div class="checkout-grid">
       <!-- Mini order summary above the embed -->
@@ -650,6 +665,9 @@
         If you don't leave with total clarity on what to do next and the confidence to move forward...
         just email us at <strong class="email">preston@legacyinvestingshow.com</strong> within 7 days of the challenge ending and we'll refund you.
       </p>
+      <div style="margin-top:1.75rem;">
+        <a href="#checkout" class="btn btn-gold btn-lg">Complete My Order &rarr;</a>
+      </div>
     </div>
   </div>
 </section>

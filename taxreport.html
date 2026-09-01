@@ -306,8 +306,9 @@
         width: 3rem; height: 3rem; border-radius: 999px; flex-shrink: 0;
         background: var(--gold); color: #221903;
         display: flex; align-items: center; justify-content: center;
-        font-family: var(--serif); font-weight: 700; font-size: 1.15rem;
+        font-family: var(--serif); font-weight: 700; font-size: 1.15rem; overflow: hidden;
       }
+      .t-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
       .t-name { font-weight: 600; color: var(--ink); font-size: .98rem; }
       .t-role { font-size: .82rem; color: var(--ink-faint); }
       .t-quote { font-family: var(--serif); font-size: 1.02rem; line-height: 1.6; color: var(--ink-soft); margin-bottom: 1.1rem; }
@@ -386,12 +387,12 @@
       #sticky-cta.show { transform: translateY(0); opacity: 1; }
       .sticky-cta-inner {
         max-width: 72rem; margin-inline: auto; padding: .7rem clamp(1rem,4vw,1.5rem);
-        display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem; text-align: center;
       }
-      .sticky-cta-copy { min-width: 0; }
+      .sticky-cta-copy { min-width: 0; text-align: center; }
       .sticky-cta-copy strong { display: block; font-size: .92rem; line-height: 1.25; }
       .sticky-cta-copy span { display: block; font-size: .78rem; color: var(--ink-faint); }
-      .sticky-cta-actions { display: flex; align-items: center; gap: .7rem; flex-shrink: 0; }
+      .sticky-cta-actions { display: flex; align-items: center; justify-content: center; gap: .7rem; flex-shrink: 0; }
       .sticky-cta-actions .btn { padding: .72rem 1.1rem; font-size: .88rem; white-space: nowrap; }
 
       /* ---------- Mobile ---------- */
@@ -404,8 +405,8 @@
         .final-warn::before, .final-warn::after { display: none; }
         .btn-xl { width: 100%; }
         .compare { font-size: .88rem; }
-        .sticky-cta-inner { display: grid; gap: .7rem; text-align: center; }
-        .sticky-cta-actions { display: grid; gap: .45rem; }
+        .sticky-cta-inner { display: grid; justify-items: center; gap: .7rem; text-align: center; }
+        .sticky-cta-actions { display: grid; justify-items: center; gap: .45rem; width: 100%; }
       }
       @media (prefers-reduced-motion: reduce) {
         * { transition: none !important; animation: none !important; }
@@ -745,13 +746,6 @@
                         <p>Most people try to average 7+ days to avoid "hotel" classification. You want the OPPOSITE: keep it under 7 days to qualify as non-passive.</p>
                     </div>
 
-                    <div class="meta-row">
-                        <span>IRC §469(c)(7)(A)</span>
-                        <span class="sep">•</span>
-                        <span>5-10 hrs/week</span>
-                        <span class="sep">•</span>
-                        <span>Low audit risk</span>
-                    </div>
                 </div>
             </div>
 
@@ -923,7 +917,7 @@
             <div class="duo">
                 <div class="card t-card">
                     <div class="t-head">
-                        <div class="t-avatar">M</div>
+                        <div class="t-avatar"><img src="/assets/images/avatar-michael.webp" alt="" width="96" height="96" loading="lazy" decoding="async"></div>
                         <div>
                             <p class="t-name">Michael R.</p>
                             <p class="t-role">Software Engineer, $185K</p>
@@ -935,7 +929,7 @@
 
                 <div class="card t-card">
                     <div class="t-head">
-                        <div class="t-avatar">S</div>
+                        <div class="t-avatar"><img src="/assets/images/avatar-sarah.webp" alt="" width="96" height="96" loading="lazy" decoding="async"></div>
                         <div>
                             <p class="t-name">Sarah T.</p>
                             <p class="t-role">Agency Owner, $320K</p>
@@ -947,7 +941,7 @@
 
                 <div class="card t-card">
                     <div class="t-head">
-                        <div class="t-avatar">D</div>
+                        <div class="t-avatar"><img src="/assets/images/avatar-david.webp" alt="" width="96" height="96" loading="lazy" decoding="async"></div>
                         <div>
                             <p class="t-name">David K.</p>
                             <p class="t-role">Physician, $450K</p>
@@ -959,7 +953,7 @@
 
                 <div class="card t-card">
                     <div class="t-head">
-                        <div class="t-avatar">J</div>
+                        <div class="t-avatar"><img src="/assets/images/avatar-jennifer.webp" alt="" width="96" height="96" loading="lazy" decoding="async"></div>
                         <div>
                             <p class="t-name">Jennifer L.</p>
                             <p class="t-role">Consultant, $125K</p>

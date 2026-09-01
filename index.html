@@ -126,7 +126,7 @@
     /* ---------- Buttons ---------- */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
-      font-weight: 700; border-radius: 999px; text-decoration: none;
+      font-weight: 700; border-radius: .9rem; text-decoration: none;
       transition: transform .18s cubic-bezier(.22,1,.36,1), box-shadow .18s, background-color .18s;
       border: none;
     }
@@ -208,7 +208,7 @@
     .hero-copy > * + * { margin-top: 1.25rem; }
     .hero-copy h1.display { margin-top: 1.05rem; }
     .hero-accent { color: var(--gold-ink); font-style: italic; font-family: var(--serif); font-weight: 600; font-size: 1.04em; }
-    .hero-proof { font-size: .9rem; color: var(--ink-faint); }
+    .hero-proof { font-size: .9rem; color: var(--ink-faint); text-align: center; }
 
     .video-frame {
       position: relative; aspect-ratio: 16/9; border-radius: 1rem; overflow: hidden;
@@ -437,7 +437,7 @@
     .stat-row .emoji { font-size: 1.3rem; }
     .stat-row p { font-size: .88rem; color: var(--ink-soft); }
     .stat-row + .stat-row { margin-top: .8rem; }
-    .roi-box { margin-top: 1.4rem; background: var(--emerald-tint); border: 1px solid #CBDEC6; border-radius: .9rem; padding: 1rem 1.25rem; }
+    .roi-box { margin-top: 1.4rem; background: var(--emerald-tint); border: 1px solid #CBDEC6; border-radius: .9rem; padding: 1rem 1.25rem; text-align: center; }
     .roi-box .k { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--emerald); margin-bottom: .2rem; }
     .roi-box .v { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; color: var(--emerald); }
 
@@ -447,12 +447,12 @@
     /* ---------- Wealth plans ---------- */
     .plan-card { padding: clamp(1.25rem, 3vw, 2rem); }
     .plan-card + .plan-card { margin-top: 1.75rem; }
-    .plan-top { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; justify-content: space-between; margin-bottom: 1.4rem; }
-    .plan-id { display: flex; align-items: center; gap: 1rem; }
+    .plan-top { display: flex; flex-wrap: nowrap; gap: 1rem; align-items: flex-start; justify-content: space-between; margin-bottom: 1.4rem; }
+    .plan-id { display: flex; align-items: center; gap: 1rem; min-width: 0; }
     .plan-id .emoji { width: 3rem; height: 3rem; border-radius: 999px; background: var(--gold-tint); border: 1px solid #E5D3A0; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
     .plan-id h3 { font-size: 1.15rem; }
     .plan-id .inc { font-size: .85rem; color: var(--ink-faint); }
-    .plan-value { background: var(--ivory); border: 1px solid var(--line); border-radius: .9rem; padding: .7rem 1.1rem; text-align: center; }
+    .plan-value { background: var(--ivory); border: 1px solid var(--line); border-radius: .9rem; padding: .7rem 1.1rem; text-align: center; flex-shrink: 0; }
     .plan-value .k { font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: .15rem; }
     .plan-value .v { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; color: var(--gold-ink); }
     .plan-body > * + * { margin-top: .95rem; }
@@ -614,6 +614,7 @@
       h1.display { font-size: clamp(1.95rem, 7.4vw, 2.45rem); line-height: 1.12; }
       table.compare { font-size: .85rem; }
       .topstrip { font-size: .64rem; letter-spacing: .12em; }
+      .topstrip .l1 { white-space: nowrap; display: inline-block; max-width: 100%; font-size: clamp(.5rem, 2.05vw, .64rem); letter-spacing: .1em; }
       .cost-card { padding: 1.1rem .7rem; }
       .cost-card .v { font-size: .98rem; }
     }
@@ -768,7 +769,7 @@
 </header>
 
 <!-- Top strip -->
-<div class="topstrip">A Live 3-Day Tax-Free Income Challenge With Preston Seo <span>&bull;</span> October 16&ndash;18, 2026</div>
+<div class="topstrip"><span class="l1">A Live 3-Day Tax-Free Income Challenge With Preston Seo</span><br>October 16&ndash;18, 2026</div>
 
 <!-- ═══════════════════════════════════════════════════
      HERO SECTION
@@ -778,15 +779,9 @@
     <div class="hero-grid">
       <!-- Left: Content -->
       <div class="hero-copy">
-        <span class="pill pill-gold"><span class="dot"></span>Live Event - Oct 16 - Oct 18, 2026</span>
-
         <h1 class="display">
           You'll Find The Leaks In Your Current Financial Setup, See Where Your Money Should Actually Go, And Build A Wealth Plan To Add <span class="hero-accent">$85,871</span> Over The Next 12 Months
         </h1>
-
-        <p class="hero-proof">
-          ($85,871 is the average conservative first-year value we map out when we build these plans for our clients internally. 4,400+ people have been through this system.)
-        </p>
 
         <div class="hero-cta only-desktop">
           <a href="#pricing" class="btn btn-gold btn-lg">
@@ -816,6 +811,10 @@
           <p class="label">50% Off Ends At Midnight</p>
           <div class="nx-cd" id="nxCountdown"></div>
         </div>
+
+        <p class="hero-proof">
+          ($85,871 is the average conservative first-year value we map out when we build these plans for our clients internally. 4,400+ people have been through this system.)
+        </p>
       </div>
     </div>
   </div>
@@ -949,7 +948,6 @@
 <section>
   <div class="wrap">
     <div class="section-head">
-      <p class="kicker center">Preston's Story</p>
       <h2 class="display">You're Making More Money Than Ever... Why Does It Feel Like You're Falling Behind?</h2>
     </div>
 
@@ -1072,7 +1070,6 @@
 <section>
   <div class="wrap">
     <div class="section-head">
-      <p class="kicker center">The Challenge</p>
       <h2 class="display">3 Days To Find Your Leaks And Build Your $85,871 Wealth Plan</h2>
     </div>
 
@@ -1443,6 +1440,27 @@
     </div>
 
     <div class="price-grid">
+      <!-- VIP -->
+      <div class="card price-card vip">
+        <div class="vip-badge">Most Popular</div>
+        <h3>VIP Access</h3>
+        <div class="price-line">
+          <span class="price-old">$197</span>
+          <span class="price-now">$147</span>
+        </div>
+        <p class="price-save">Save $50 today &middot; price goes up at midnight</p>
+
+        <p class="price-intro">Everything in General Admission plus...</p>
+
+        <ul class="price-list">
+          <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Preston's $15M Asset Protection Masterclass, sent BEFORE the challenge starts. The same LLC, S-Corp, trust, and holding company structure he uses on his own $20M+ portfolio, plus the S-Corp mistakes that cost people thousands.</li>
+          <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Live roundtable calls with Preston on all 3 days where you can unmute and get your specific questions answered</li>
+          <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Lifetime access to 15+ hours of session replays, slides, notes, and materials</li>
+        </ul>
+
+        <a href="/vipticketoct" class="btn btn-gold btn-md btn-block" onclick="return openOptInPopup('vip', event)">Get VIP Access →</a>
+      </div>
+
       <!-- General Admission -->
       <div class="card price-card">
         <h3>General Admission</h3>
@@ -1463,27 +1481,6 @@
         </ul>
 
         <a href="/regularticketoct" class="btn btn-outline btn-md btn-block" onclick="return openOptInPopup('ticket', event)">Join the Challenge →</a>
-      </div>
-
-      <!-- VIP -->
-      <div class="card price-card vip">
-        <div class="vip-badge">Most Popular</div>
-        <h3>VIP Access</h3>
-        <div class="price-line">
-          <span class="price-old">$197</span>
-          <span class="price-now">$147</span>
-        </div>
-        <p class="price-save">Save $50 today &middot; price goes up at midnight</p>
-
-        <p class="price-intro">Everything in General Admission plus...</p>
-
-        <ul class="price-list">
-          <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Preston's $15M Asset Protection Masterclass, sent BEFORE the challenge starts. The same LLC, S-Corp, trust, and holding company structure he uses on his own $20M+ portfolio, plus the S-Corp mistakes that cost people thousands.</li>
-          <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Live roundtable calls with Preston on all 3 days where you can unmute and get your specific questions answered</li>
-          <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Lifetime access to 15+ hours of session replays, slides, notes, and materials</li>
-        </ul>
-
-        <a href="/vipticketoct" class="btn btn-gold btn-md btn-block" onclick="return openOptInPopup('vip', event)">Get VIP Access →</a>
       </div>
     </div>
 
