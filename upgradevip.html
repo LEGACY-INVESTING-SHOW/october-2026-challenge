@@ -211,20 +211,9 @@
 
   <!-- nx component styles (order stepper, envelope reveal, copy reframe, offer card) -->
   <style id="nx-styles">
-    /* ---- order stepper ---- */
+    /* ---- order status ---- */
     .nx-stepper-wrap{background:var(--paper);border-bottom:1px solid var(--line);padding:16px clamp(16px,4vw,22px) 14px}
-    .nx-stepper{display:flex;align-items:center;gap:0;max-width:520px;margin:0 auto}
-    .nx-step{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;color:#9A947F;white-space:nowrap}
-    .nx-step .nx-pip{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:11.5px;font-weight:700;background:var(--paper);color:#9A947F;transition:.3s}
-    .nx-step.nx-done .nx-pip{background:var(--emerald);border-color:var(--emerald);color:#fff}
-    .nx-step.nx-current{color:var(--ink)}
-    .nx-step.nx-current .nx-pip{border-color:var(--gold-deep);color:var(--gold-ink);box-shadow:0 0 0 4px rgba(217,169,61,.2);animation:nx-step-pulse 2s ease-in-out infinite}
-    @keyframes nx-step-pulse{0%,100%{box-shadow:0 0 0 4px rgba(217,169,61,.2)}50%{box-shadow:0 0 0 7px rgba(217,169,61,.08)}}
-    .nx-step-bar{flex:1;height:2px;background:var(--line);margin:0 10px;position:relative;overflow:hidden;min-width:24px}
-    .nx-step-bar.nx-fill::after{content:"";position:absolute;inset:0;background:var(--emerald)}
-    .nx-step-bar.nx-half::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--emerald),var(--gold));transform:scaleX(.5);transform-origin:left}
-    @media(max-width:560px){.nx-step span.nx-lbl{display:none}.nx-step.nx-current span.nx-lbl{display:inline}}
-    .nx-stepper-hint{text-align:center;font-size:12px;color:var(--rose);font-weight:600;margin-top:11px;letter-spacing:.04em}
+    .nx-stepper-hint{text-align:center;font-size:12px;color:var(--rose);font-weight:600;margin:0;letter-spacing:.04em}
 
     /* ---- envelope reveal hero ---- */
     .nx-hero-outer{padding:clamp(20px,4vw,36px) clamp(16px,4vw,24px) 0;max-width:60rem;margin-inline:auto}
@@ -299,7 +288,7 @@
     .nx-reframe p{font-size:1.05rem;line-height:1.75}
 
     @media (prefers-reduced-motion:reduce){
-      #nx-stepper,#nx-reveal-hero,#nx-reveal-hero *,.nx-offer-wrap *,.nx-step.nx-current .nx-pip,.nx-confetti i{animation:none!important;transition:none!important}
+      #nx-stepper,#nx-reveal-hero,#nx-reveal-hero *,.nx-offer-wrap *,.nx-confetti i{animation:none!important;transition:none!important}
       .nx-reveal-line{transition:none!important}
     }
   </style>
@@ -320,13 +309,6 @@
 
 <!-- Order stepper -->
 <div class="nx-stepper-wrap" id="nx-stepper">
-  <div class="nx-stepper">
-    <div class="nx-step nx-done"><span class="nx-pip">&#10003;</span><span class="nx-lbl">Ticket</span></div>
-    <div class="nx-step-bar nx-fill"></div>
-    <div class="nx-step nx-current"><span class="nx-pip">2</span><span class="nx-lbl">Your VIP offer</span></div>
-    <div class="nx-step-bar nx-half"></div>
-    <div class="nx-step"><span class="nx-pip">3</span><span class="nx-lbl">Access</span></div>
-  </div>
   <p class="nx-stepper-hint">DO NOT CLOSE THIS PAGE &mdash; YOUR ORDER IS STILL PROCESSING</p>
 </div>
 
