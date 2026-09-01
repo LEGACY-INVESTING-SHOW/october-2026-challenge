@@ -1,19 +1,19 @@
 # Abandoned Cart Sequence
 
-Reader: filled the opt-in popup on the sales page and did not finish checkout. Tagged `challenge-lead` in Kit.
+Reader: filled the opt-in popup on the sales page and did not finish checkout. Tagged `challenge-lead` in Kit. A large share is cold traffic that met Preston for the first time on the sales page, so every email stands on its own.
 
 | Email | Send | Job |
 |---|---|---|
-| 1 | 1 hour after opt-in | Back to the prefilled checkout, no pitch |
-| 2 | 24 hours after opt-in | What the three days are for, and what they are not |
-| 3 | 72 hours after opt-in | Why October and not "some time this year" |
+| 1 | 1 hour after opt-in | Who Preston is, what the challenge is, finish the order |
+| 2 | 24 hours after opt-in | What they get over the three days and what it is worth |
+| 3 | 72 hours after opt-in | Answer the objections that stop people, then the decision |
 
 Link (General Admission branch):
 `https://october-2026-challenge.vercel.app/regularticketoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }}`
 
 For the VIP branch use `/vipticketoct` and change **$47** to **$147** where it appears.
 
-One line to confirm before sending: Email 2 says there is an offer at the end of Day 3 for people who want the team to build the plan with them. If that is not the plan for October, delete that paragraph.
+Confirm before sending: Email 3 says there is an offer at the end of Day 3 for people who want the team to build the plan with them. If that is not the plan for October, delete that answer.
 
 ---
 
@@ -21,19 +21,25 @@ One line to confirm before sending: Email 2 says there is an offer at the end of
 
 ### Subject lines
 
-1. Saw your name, no ticket
-2. {{ subscriber.first_name }}, did it go through?
-3. Your seat is still open
+1. Your seat at the challenge is not saved yet
+2. {{ subscriber.first_name }}, you were one step away
+3. I'm Preston, quick note about your ticket
 
 ### Body
 
-Your name came through on the ticket page a little while ago, but no order came behind it.
+Hey {{ subscriber.first_name }}, I'm Preston.
 
-If the page glitched or your bank flagged the card, this takes you back to the same checkout with your details already filled in:
+A little while ago you started grabbing a ticket to my 3-Day Tax-Free Income Challenge and stopped before the order went through. Your name and email came through, but the seat is only yours once the order is complete.
+
+Quick background in case we have not met. I'm 33. My wife and I were living in my parents' basement in our twenties, doing everything we were told to do with money and getting nowhere. Then we learned how money actually works, applied it, and by 28 we were financially free with a real estate portfolio that is now over **$20 million**. Along the way I have saved more than **$500,000** in taxes using the same strategies I teach, and over 6 million people follow that work.
+
+The challenge is three days, October 16 to 18, live on Zoom. Over those three days you find the leaks in your own setup, the taxes you are overpaying, the debt that is costing you more than it should, the money sitting idle, and you see which strategies fit your income and in what order. You leave with a written 12-month wealth plan. The average plan we build maps out **$85,871** in year-one value, and more than 4,400 people have been through this.
+
+The ticket is **$47** and your details are already on the checkout:
 
 [Finish your order here](https://october-2026-challenge.vercel.app/regularticketoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
 
-If you stopped because you wanted to think about it, that is fine. Tomorrow I will send you the one thing I would want to know before spending **$47** on this, and you can decide from there. The seat is not held until the order goes through, that is all.
+If you go through all three days and do not leave with total clarity on what to do next, email us within 7 days and we refund you.
 
 Preston
 
@@ -43,23 +49,25 @@ Preston
 
 ### Subject lines
 
-1. What the three days are not
-2. The order is the whole thing
-3. Before you spend $47 on me
+1. What you actually walk out with on Sunday
+2. Five people, five wealth plans, one number
+3. Where the $85,871 comes from
 
 ### Body
 
-If you have followed me for any amount of time, you already know most of the strategies I am going to talk about in October. You have heard me on the W-4, the S-corp, the short-term rental loophole, the solo 401(k). Some of it you have probably saved to watch later.
+{{ subscriber.first_name }}, yesterday I told you what the challenge is. Today I want to show you what you get from it, because "a wealth plan" can sound vague until you see one.
 
-So I want to be straight about what the three days are for, because it is not more strategies.
+Day 1 is finding the leaks. You go through your 401(k), your debt and credit, and your entity setup with Tommy Thornburgh, and you see where your money is going that it should not be. Most people find that every raise came with a bigger tax bill and they never asked why, and that they have been guessing on questions like pay off the car loan or max out the 401(k).
 
-It is the order. Two people can get the exact same list, buy a rental, set up an LLC, max the retirement account, and one of them ends up lying awake in the month the water heater dies and the tenant pays late, because his cash flow was already tight when he bought. The other one fixed the cash flow first and barely noticed the water heater. Same list. Different order.
+Day 2 is multiplying what is left. The W-2 tax playbook that saves high earners **$20,000 to $50,000** a year, how to invest without paying tax on the growth, how to start a tax-free Airbnb business without buying property, and how the pieces stack into one system. Access to **$50,000 to $100,000** in funding and my **$5,000 to $15,000** a month income stream blueprint are in there too.
 
-That is what you build over the three days. You go through the five pillars in sequence, taxes, debt, income, investing, protection, and you do it against your own paycheck, your own return, your own balances, not a made-up example. By Sunday afternoon you have the first move, the second move, and the things to ignore for now, written down for your situation.
+Day 3 is protecting it and putting it in order. Advanced tax optimization, real numbers from students who crossed **$100,000** net worth, and then you build your own 12-month plan out of the strategies that fit you, first move to last.
 
-I will also tell you the part I would want to know. At the end of Day 3 there is an offer for people who want my team to build and implement the plan with them. It takes maybe an hour, you can ignore it, and everything before it stands on its own.
+Five people whose plans we built are on the sales page. Lauren, on **$125,000** a year, was losing **$1,237** a month to a W-4 she filled out in 2019, and her plan found six strategies worth **$61,000 to $109,000** in year one. Chad's plan mapped eight strategies to his income. Michelle and Trenton, on **$300,000** combined in San Francisco, found **$86,000 to $192,000**. Average the conservative end of every plan we build and it comes to **$85,871** in year-one value. Those are modeled estimates, and each one depends on that person's income, filing status, and what they already had set up.
 
-The ticket is **$47** and if you sit through all three days and still do not know what to do first, email us within 7 days and we refund it.
+That is what the three days are for. Nobody has ever sat down and built you the map, and this is where you build it.
+
+The ticket is **$47**, and your checkout is still filled in:
 
 [Grab your seat here](https://october-2026-challenge.vercel.app/regularticketoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
 
@@ -71,22 +79,28 @@ Preston
 
 ### Subject lines
 
-1. Why October and not February
-2. About ten weeks left on this year's return
-3. The calendar problem with waiting
+1. The five reasons people don't grab a ticket
+2. "I can't block three full days"
+3. Last note on the challenge
 
 ### Body
 
-This is the last email I will send you about the ticket, so I want to spend it on the timing, because I think that is the real decision here, not the $47.
+{{ subscriber.first_name }}, this is the last email I will send about the ticket. I hear the same handful of reasons from people who almost join and then don't, so I want to answer them directly.
 
-Most of the moves that change the tax return you file in April have to be in place before **December 31**. A 401(k) contribution only counts if it comes out of a paycheck before then. An S-corp election, a new entity, an accountable plan, the hours that make a short-term rental count against your W-2 income, all of it counts on this year's return only if it is done inside this year. A W-4 change only helps on the paychecks that are still ahead of you.
+**"I can't block three full days."** Each day runs 10 AM to 4 PM Eastern, and the sessions build on each other, so live is best. If your schedule is uncertain, the VIP ticket includes lifetime access to every replay, the slides, and the notes, so you can catch what you miss. One ticket also covers you and your spouse or partner from the same screen, and I would bring them, because these decisions affect both of you.
 
-The challenge ends on October 18. That leaves about ten weeks to act on whatever you find, which is enough time for most of the list above if you know what you are doing first. The same three days in February would give you a plan for a tax year that is already closed, and you would be waiting on April 2028 to see the result.
+**"Are these strategies actually legal?"** Everything we teach is written into the tax code and used by wealthy families and corporations every day. No gray areas. You will see the exact section and the conditions for each one.
 
-So the question I would ask is whether you want this year's return to reflect what you learn or next year's. If it is next year's, skip it and I will still be in your inbox. If it is this one, your checkout is still filled in:
+**"I'm five to ten years from retirement."** That is the best window for this. Building the balance and designing how you will live on it are two different jobs, and the challenge covers how to position your accounts, income, and taxes before the paycheck stops.
+
+**"Is this a three-day sales pitch?"** At the end of Day 3 there is an offer for people who want my team to build and implement the plan with them. It is about an hour, you can ignore it, and everything before it stands on its own.
+
+**"What's the catch at $47?"** There is none. If you sit through all three days and do not leave with total clarity on what to do next, email us within 7 days and we refund it.
+
+If one of those was the thing holding you back, your checkout is still filled in:
 
 [Take your seat here](https://october-2026-challenge.vercel.app/regularticketoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
 
-Which of those apply to you depends on your income, whether you have a business, and what you already have set up, and the 7-day refund still stands either way.
+If it was something else, reply to this email and tell me what it was. I read them.
 
 Preston

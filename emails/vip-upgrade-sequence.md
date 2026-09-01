@@ -17,15 +17,13 @@ Upgrade link in all three:
 
 ### Subject lines
 
-1. Skip this if you have no business
+1. The session I took out of the challenge
 2. Why I moved this session out of the challenge
 3. The part I am not teaching live
 
 ### Body
 
-If you are W-2 only, with no side business, no rental, and no plans for either, you can skip this email. The asset protection masterclass will not change much for you yet.
-
-If you have a business or a rental, or you are going to start one after the challenge, I want to explain why that masterclass goes out to VIPs before Day 1 instead of being a session inside it.
+{{ subscriber.first_name }}, this one matters most if you have a business or a rental, or you plan to start one after the challenge. I want to explain why the asset protection masterclass goes out to VIPs before Day 1 instead of being a session inside it.
 
 Entity structure is the thing people ask me about most, and it is the thing I see set up wrong most, usually by someone who got an LLC because a video said to and never asked what it was protecting or what it would cost them in tax. If I teach it live, half the room needs the basics and the other half needs their specific S-corp and holding company questions answered, and neither half gets what they came for.
 
@@ -49,7 +47,7 @@ Preston
 
 ### Body
 
-Everything in the twelve sessions is taught to the room. I have to pick the example that fits the most people, which means something like a $140K W-2 household with a mortgage and a 401(k), and if that is not you, you spend part of every session translating.
+{{ subscriber.first_name }}, everything in the twelve sessions is taught to the room. I have to pick the example that fits the most people, which means something like a $140K W-2 household with a mortgage and a 401(k), and if that is not you, you spend part of every session translating.
 
 The roundtable at the end of each day is the one hour where that flips. Someone unmutes and says, for example, they make $210K with a spouse who stays home and a rental that is losing money on paper, and I answer for that household, with their numbers. Then the next person. Most of the questions are ones you would have asked if you had the chance, and the ones you do ask, you get answered before the next day builds on them.
 
@@ -77,7 +75,7 @@ Tomorrow at 10 AM Eastern we start. Your join link is in your inbox already and 
 
 One practical note on VIP. The masterclass goes out to everyone who has upgraded before Day 1, and the first roundtable is at the end of Day 1 tomorrow. If you upgrade tonight you get both. If you upgrade on Saturday, the same **$99** buys you two roundtables instead of three and a masterclass you watch after the entity session instead of before it. The price does not change, but what it buys does.
 
-If you are staying General Admission, that is a fine answer and I will see you at 10.
+Either way, I will see you at 10.
 
 [Upgrade to VIP here](https://october-2026-challenge.vercel.app/vipupgradeoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
 
