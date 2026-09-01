@@ -377,10 +377,10 @@
 
       /* ---------- Sticky CTA ---------- */
       #sticky-cta {
-        position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
-        background: rgba(255,253,246,.96); border-top: 1px solid var(--line);
-        box-shadow: 0 -16px 40px -28px rgba(29,42,34,.55);
-        transform: translateY(110%); opacity: 0;
+        position: fixed; left: 0; right: 0; top: 0; z-index: 40;
+        background: rgba(255,253,246,.96); border-bottom: 1px solid var(--line);
+        box-shadow: 0 16px 40px -28px rgba(29,42,34,.55);
+        transform: translateY(-110%); opacity: 0;
         transition: transform .25s ease, opacity .25s ease;
       }
       #sticky-cta.show { transform: translateY(0); opacity: 1; }
@@ -393,7 +393,6 @@
       .sticky-cta-copy span { display: block; font-size: .78rem; color: var(--ink-faint); }
       .sticky-cta-actions { display: flex; align-items: center; gap: .7rem; flex-shrink: 0; }
       .sticky-cta-actions .btn { padding: .72rem 1.1rem; font-size: .88rem; white-space: nowrap; }
-      .sticky-cta-actions .decline-link { color: var(--ink-faint); font-size: .82rem; white-space: nowrap; }
 
       /* ---------- Mobile ---------- */
       @media (max-width: 899px) {
@@ -402,7 +401,6 @@
         .kicker.m-center::after { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
       }
       @media (max-width: 640px) {
-        body { padding-bottom: 8rem; }
         .final-warn::before, .final-warn::after { display: none; }
         .btn-xl { width: 100%; }
         .compare { font-size: .88rem; }
@@ -1100,8 +1098,7 @@
                 <span>One-time offer. Your order is still processing.</span>
             </div>
             <div class="sticky-cta-actions">
-                <a href="https://legacyinvestingshow.spiffy.co/offer/6XDRJspuj" class="btn btn-gold">Add Report</a>
-                <a href="https://legacyinvestingshow.spiffy.co/offer/z7QYDT7uD" class="decline-link">Skip</a>
+                <a href="#report" class="btn btn-gold">Go To Offer</a>
             </div>
         </div>
     </aside>
