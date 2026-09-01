@@ -177,6 +177,12 @@
         max-width: 60rem; margin: clamp(2rem, 4vw, 3rem) auto 0;
       }
       .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+      .vsl-actions {
+        max-width: 42rem; margin: 1.25rem auto 0;
+        display: grid; gap: .8rem; justify-items: stretch;
+      }
+      .vsl-actions .decline-link { color: var(--ink-faint); }
+      .vsl-actions .decline-link:hover { color: var(--rose); text-decoration-color: var(--rose); }
 
       /* ---------- Split layout ---------- */
       .split { display: grid; gap: 2.5rem; align-items: center; }
@@ -369,6 +375,26 @@
       .final-trust div { display: flex; align-items: center; gap: .5rem; font-size: .88rem; color: #A9BCA9; }
       .final-trust svg { color: #6FBF92; }
 
+      /* ---------- Sticky CTA ---------- */
+      #sticky-cta {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+        background: rgba(255,253,246,.96); border-top: 1px solid var(--line);
+        box-shadow: 0 -16px 40px -28px rgba(29,42,34,.55);
+        transform: translateY(110%); opacity: 0;
+        transition: transform .25s ease, opacity .25s ease;
+      }
+      #sticky-cta.show { transform: translateY(0); opacity: 1; }
+      .sticky-cta-inner {
+        max-width: 72rem; margin-inline: auto; padding: .7rem clamp(1rem,4vw,1.5rem);
+        display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      }
+      .sticky-cta-copy { min-width: 0; }
+      .sticky-cta-copy strong { display: block; font-size: .92rem; line-height: 1.25; }
+      .sticky-cta-copy span { display: block; font-size: .78rem; color: var(--ink-faint); }
+      .sticky-cta-actions { display: flex; align-items: center; gap: .7rem; flex-shrink: 0; }
+      .sticky-cta-actions .btn { padding: .72rem 1.1rem; font-size: .88rem; white-space: nowrap; }
+      .sticky-cta-actions .decline-link { color: var(--ink-faint); font-size: .82rem; white-space: nowrap; }
+
       /* ---------- Mobile ---------- */
       @media (max-width: 899px) {
         .m-center { text-align: center; }
@@ -376,9 +402,12 @@
         .kicker.m-center::after { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
       }
       @media (max-width: 640px) {
+        body { padding-bottom: 8rem; }
         .final-warn::before, .final-warn::after { display: none; }
         .btn-xl { width: 100%; }
         .compare { font-size: .88rem; }
+        .sticky-cta-inner { display: grid; gap: .7rem; text-align: center; }
+        .sticky-cta-actions { display: grid; gap: .45rem; }
       }
       @media (prefers-reduced-motion: reduce) {
         * { transition: none !important; animation: none !important; }
@@ -467,6 +496,15 @@
                 <!-- Above the fold: must stay loading="eager". width/height give the
                      intrinsic 16:9 ratio; the CSS above still sizes it to the frame. -->
                 <iframe src="https://player.vimeo.com/video/1151644607?autoplay=0&title=0&byline=0" title="Upsell Video" width="1600" height="900" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="eager"></iframe>
+            </div>
+            <div class="vsl-actions" aria-label="Tax report offer actions below video">
+                <a href="https://legacyinvestingshow.spiffy.co/offer/6XDRJspuj" class="btn btn-gold btn-xl btn-block">
+                    Yes, Add My Tax Report
+                    <svg class="arrow"><use href="#i-arrow-right"/></svg>
+                </a>
+                <a href="https://legacyinvestingshow.spiffy.co/offer/z7QYDT7uD" class="decline-link">
+                    No thanks, continue to the next step
+                </a>
             </div>
         </div>
     </section>
@@ -1055,8 +1093,31 @@
         </div>
     </section>
 
+    <aside id="sticky-cta" aria-label="Tax report offer shortcut">
+        <div class="sticky-cta-inner">
+            <div class="sticky-cta-copy">
+                <strong>Add the 24-page tax report to your order</strong>
+                <span>One-time offer. Your order is still processing.</span>
+            </div>
+            <div class="sticky-cta-actions">
+                <a href="https://legacyinvestingshow.spiffy.co/offer/6XDRJspuj" class="btn btn-gold">Add Report</a>
+                <a href="https://legacyinvestingshow.spiffy.co/offer/z7QYDT7uD" class="decline-link">Skip</a>
+            </div>
+        </div>
+    </aside>
+
 
     <script>
+        const stickyCta = document.getElementById('sticky-cta');
+        const vsl = document.getElementById('vsl');
+        function updateStickyCta() {
+            if (!stickyCta || !vsl) return;
+            const shouldShow = window.scrollY > vsl.offsetTop + 140;
+            stickyCta.classList.toggle('show', shouldShow);
+        }
+        window.addEventListener('scroll', updateStickyCta, { passive: true });
+        updateStickyCta();
+
         // Preserve flow/session query params across upsell CTA clicks.
         const incomingParams = new URLSearchParams(window.location.search);
         if ([...incomingParams.keys()].length) {
