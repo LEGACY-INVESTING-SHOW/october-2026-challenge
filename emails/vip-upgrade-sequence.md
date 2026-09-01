@@ -1,16 +1,15 @@
 # GA to VIP Upgrade Sequence
 
-Reader: bought the $47 General Admission ticket, has not bought VIP. Sent in the week before the challenge.
+Reader: bought the $47 General Admission ticket and has not bought VIP. They saw the VIP page, so the emails do not re-list the features. Segment: has tag `challenge-buyer-ga`, does not have tag `challenge-buyer-vip`.
 
 | Email | Send | Job |
 |---|---|---|
-| 1 | Thu Oct 9 | The asset protection masterclass only helps if it lands before Day 1 |
-| 2 | Sun Oct 12 | Replays and the roundtable are how you keep 12 sessions and get your own case answered |
-| 3 | Thu Oct 15 | Friday morning under each ticket, decide tonight |
+| 1 | Thu Oct 9 | Who the asset protection masterclass is for, and why it goes out before Day 1 |
+| 2 | Sun Oct 12 | The roundtable is the only part of the three days that is about you specifically |
+| 3 | Thu Oct 15 | Same $99, less of it left to buy after tomorrow |
 
-Upgrade link used in all three: `https://october-2026-challenge.vercel.app/vipupgradeoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }}`
-
-The upgrade page passes `name_first` and `email` straight through to checkout.
+Upgrade link in all three:
+`https://october-2026-challenge.vercel.app/vipupgradeoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }}`
 
 ---
 
@@ -18,27 +17,23 @@ The upgrade page passes `name_first` and `email` straight through to checkout.
 
 ### Subject lines
 
-1. The one part of VIP with an expiry date
-2. What VIPs are watching a week before you
-3. {{ subscriber.first_name }}, this one only works early
+1. Skip this if you have no business
+2. Why I moved this session out of the challenge
+3. The part I am not teaching live
 
 ### Body
 
-You are in for October 16. Your Zoom link comes by email before Day 1.
+If you are W-2 only, with no side business, no rental, and no plans for either, you can skip this email. The asset protection masterclass will not change much for you yet.
 
-One piece of VIP has a date on it. The rest you could add later. This one you cannot.
+If you have a business or a rental, or you are going to start one after the challenge, I want to explain why that masterclass goes out to VIPs before Day 1 instead of being a session inside it.
 
-It is my asset protection masterclass, and VIP members get it **before the challenge starts**. I walk through the LLC, S-Corp, trust, and holding company setup I use on my own $20M+ portfolio. It also covers the S-Corp mistakes that cost people thousands a year. Most high earners hear about those from a CPA in April, when the year is already closed.
+Entity structure is the thing people ask me about most, and it is the thing I see set up wrong most, usually by someone who got an LLC because a video said to and never asked what it was protecting or what it would cost them in tax. If I teach it live, half the room needs the basics and the other half needs their specific S-corp and holding company questions answered, and neither half gets what they came for.
 
-The date matters more than the content here.
+So the basics are recorded. The LLC, the S-corp, the trust, the holding company, how they sit on top of each other in my own portfolio, and the S-corp mistakes I see on real returns. You watch it before Friday. Then when Tommy Thornburgh does entity structure and business credit at the end of Day 1, you are asking about your situation instead of learning the vocabulary, and in the roundtable after that session I can go deeper with you instead of starting over.
 
-Day 1 ends with entity structure and business credit with Tommy Thornburgh. Watch the masterclass first and you walk into that session already knowing the words. You spend the hour asking how it fits your income instead of learning what a holding company is.
+The upgrade is **$99**, and the masterclass goes out before Day 1 to everyone who has upgraded by then.
 
-Watch it the night before Day 1 instead and you get the same video with none of the head start.
-
-The upgrade is **$99** on top of the ticket you have. It also opens the live roundtable calls with me on all three days, plus lifetime access to the replays.
-
-[Upgrade to VIP](https://october-2026-challenge.vercel.app/vipupgradeoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
+[Upgrade to VIP here](https://october-2026-challenge.vercel.app/vipupgradeoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
 
 Preston
 
@@ -48,27 +43,21 @@ Preston
 
 ### Subject lines
 
-1. Nobody remembers Session 3 by Sunday
-2. Twelve sessions, one weekend, one brain
-3. The part you will want in November
+1. The only hour that is about you
+2. What I actually do in the roundtable
+3. I teach fast on purpose
 
 ### Body
 
-Twelve sessions across three days, 10 AM to 4 PM Eastern each day. That is a lot of new material, and it is more than anyone holds onto live.
+Everything in the twelve sessions is taught to the room. I have to pick the example that fits the most people, which means something like a $140K W-2 household with a mortgage and a 401(k), and if that is not you, you spend part of every session translating.
 
-Friday you take good notes. Saturday the notes get thinner. By Sunday afternoon you are following the room instead of writing, and on Monday you can recall the strategies you already half knew and about half of the new ones.
+The roundtable at the end of each day is the one hour where that flips. Someone unmutes and says, for example, they make $210K with a spouse who stays home and a rental that is losing money on paper, and I answer for that household, with their numbers. Then the next person. Most of the questions are ones you would have asked if you had the chance, and the ones you do ask, you get answered before the next day builds on them.
 
-Six hours a day of new information does that to everybody.
+That is the part of VIP I would pay for. The replays matter too, mostly because I go fast, and the session you need in November is the one you took the thinnest notes on. General Admission is live only, so once a session ends it is gone.
 
-Two things fix it, and both of them are VIP.
+**$99** on top of what you paid. Three roundtables, all the replays, and the asset protection masterclass I wrote about on Thursday.
 
-The first is lifetime access to the replays. **15+ hours** of sessions, plus the slides, notes, and materials. When you finally sit down in November to set up the entity or change your W-4, you rewatch the twelve minutes that cover it instead of trying to remember them. General Admission is live only, so once a session ends it is gone.
-
-The second is the roundtable call with me at the end of each day. You unmute and ask about your income, your state, your debt, your setup. The sessions teach the rule. The roundtable is where you find out what the rule does to your numbers.
-
-**$99** on top of what you already paid.
-
-[Upgrade to VIP](https://october-2026-challenge.vercel.app/vipupgradeoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
+[Upgrade to VIP here](https://october-2026-challenge.vercel.app/vipupgradeoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
 
 Preston
 
@@ -78,24 +67,18 @@ Preston
 
 ### Subject lines
 
-1. Two versions of tomorrow morning
-2. After tonight this stops mattering
-3. Doors open at 10
+1. Same $99, less of it after tomorrow
+2. Before the Day 1 roundtable
+3. Last one on VIP
 
 ### Body
 
-We start tomorrow at **10 AM Eastern**. Your Zoom link is in your inbox and I will send it again in the morning.
+Tomorrow at 10 AM Eastern we start. Your join link is in your inbox already and I will send it again in the morning.
 
-Two versions of tomorrow. Pick the one you want.
+One practical note on VIP. The masterclass goes out to everyone who has upgraded before Day 1, and the first roundtable is at the end of Day 1 tomorrow. If you upgrade tonight you get both. If you upgrade on Saturday, the same **$99** buys you two roundtables instead of three and a masterclass you watch after the entity session instead of before it. The price does not change, but what it buys does.
 
-On General Admission you log in at 10, sit through the four Day 1 sessions live, take notes, and close the laptop when Day 1 ends at 4. Whatever you miss while you are getting coffee is missed.
+If you are staying General Admission, that is a fine answer and I will see you at 10.
 
-On VIP the asset protection masterclass lands in your inbox tonight, so you can watch it before we start. At 10 you sit through the same four sessions. When they end you stay on the line for the roundtable, unmute, and ask me about your own numbers before Day 2 begins. Every session is saved for you to keep.
-
-The gap between those two mornings is **$99**, and tonight is the last night it can change anything about Friday.
-
-[Upgrade to VIP](https://october-2026-challenge.vercel.app/vipupgradeoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
-
-If you stay General Admission, that is a fine answer and I will see you at 10 either way. Just make the call tonight instead of at 9:55 tomorrow.
+[Upgrade to VIP here](https://october-2026-challenge.vercel.app/vipupgradeoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
 
 Preston

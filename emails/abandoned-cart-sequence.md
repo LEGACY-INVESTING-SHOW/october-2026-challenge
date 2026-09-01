@@ -1,19 +1,19 @@
 # Abandoned Cart Sequence
 
-Reader: clicked a ticket button on the sales page, filled name, email and phone in the opt-in popup, never completed checkout. Tagged in Kit.
+Reader: filled the opt-in popup on the sales page and did not finish checkout. Tagged `challenge-lead` in Kit.
 
 | Email | Send | Job |
 |---|---|---|
-| 1 | 1 hour after opt-in | Get them back to a prefilled checkout |
-| 2 | 24 hours after opt-in | Give the one real reason to come |
-| 3 | 72 hours after opt-in | Guarantee, then ask for a decision either way |
+| 1 | 1 hour after opt-in | Back to the prefilled checkout, no pitch |
+| 2 | 24 hours after opt-in | What the three days are for, and what they are not |
+| 3 | 72 hours after opt-in | Why October and not "some time this year" |
 
-Link per branch. Use the order page the subscriber clicked:
+Link (General Admission branch):
+`https://october-2026-challenge.vercel.app/regularticketoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }}`
 
-- General Admission tag: `https://october-2026-challenge.vercel.app/regularticketoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }}`
-- VIP tag: `https://october-2026-challenge.vercel.app/vipticketoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }}`
+For the VIP branch use `/vipticketoct` and change **$47** to **$147** where it appears.
 
-Both order pages read `name_first` and `email` from the URL and prefill the checkout. The GA link is written into the emails below. Swap the path to `/vipticketoct` for the VIP branch and change the two price mentions in Email 2 and Email 3 from $47 to $147.
+One line to confirm before sending: Email 2 says there is an offer at the end of Day 3 for people who want the team to build the plan with them. If that is not the plan for October, delete that paragraph.
 
 ---
 
@@ -21,25 +21,19 @@ Both order pages read `name_first` and `email` from the URL and prefill the chec
 
 ### Subject lines
 
-1. Checkout stopped halfway
-2. {{ subscriber.first_name }}, did the page break on you?
-3. Your name is in, your seat is not
+1. Saw your name, no ticket
+2. {{ subscriber.first_name }}, did it go through?
+3. Your seat is still open
 
 ### Body
 
-You put your name and email on the ticket page about an hour ago, and the checkout never finished.
+Your name came through on the ticket page a little while ago, but no order came behind it.
 
-That happens for all kinds of reasons. A card gets declined, a tab closes, someone walks into the room.
+If the page glitched or your bank flagged the card, this takes you back to the same checkout with your details already filled in:
 
-Only one thing matters out of all that. The form saved your details. The checkout saves your seat. Right now only the first one is done.
+[Finish your order here](https://october-2026-challenge.vercel.app/regularticketoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
 
-Here is the same checkout with your details already in it:
-
-[Finish checking out](https://october-2026-challenge.vercel.app/regularticketoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
-
-It takes about a minute.
-
-If the page itself gave you trouble, email support@legacyinvestingshow.com and tell us what you saw. We will sort it out.
+If you stopped because you wanted to think about it, that is fine. Tomorrow I will send you the one thing I would want to know before spending **$47** on this, and you can decide from there. The seat is not held until the order goes through, that is all.
 
 Preston
 
@@ -49,31 +43,25 @@ Preston
 
 ### Subject lines
 
-1. A form she filled out in 2019 costs her $1,237 a month
-2. The leak we found before we got to the fun part
-3. $14,840 a year, parked with the IRS
+1. What the three days are not
+2. The order is the whole thing
+3. Before you spend $47 on me
 
 ### Body
 
-Lauren makes $125,000 a year. When we built her wealth plan, the first leak we found was her W-4.
+If you have followed me for any amount of time, you already know most of the strategies I am going to talk about in October. You have heard me on the W-4, the S-corp, the short-term rental loophole, the solo 401(k). Some of it you have probably saved to watch later.
 
-She filled it out in 2019, at a different job, at a different salary. Nobody told her to look at it again.
+So I want to be straight about what the three days are for, because it is not more strategies.
 
-So her withholding kept running on a life she no longer had. It was pulling **$1,237** a month more out of her paycheck than her actual tax bill needed, which is **$14,840 a year** sitting with the IRS until she filed.
+It is the order. Two people can get the exact same list, buy a rental, set up an LLC, max the retirement account, and one of them ends up lying awake in the month the water heater dies and the tenant pays late, because his cash flow was already tight when he bought. The other one fixed the cash flow first and barely noticed the water heater. Same list. Different order.
 
-Some of that comes back at tax time, so call it a loan she never agreed to make. It was still $1,237 a month she could not put against debt, savings, or a property while she waited on the refund.
+That is what you build over the three days. You go through the five pillars in sequence, taxes, debt, income, investing, protection, and you do it against your own paycheck, your own return, your own balances, not a made-up example. By Sunday afternoon you have the first move, the second move, and the things to ignore for now, written down for your situation.
 
-Fixing it took one form and one afternoon.
+I will also tell you the part I would want to know. At the end of Day 3 there is an offer for people who want my team to build and implement the plan with them. It takes maybe an hour, you can ignore it, and everything before it stands on its own.
 
-That W-4 was one leak. Her plan found five more strategies she already qualified for and was not using, and the year-one value came out between $61,000 and $109,000 depending on how much of it she actually implements.
+The ticket is **$47** and if you sit through all three days and still do not know what to do first, email us within 7 days and we refund it.
 
-That is what the three days are for. You go through your own setup, session by session, and find where the money is already going before you try to make more of it.
-
-The ticket is **$47**. Lauren's one bad form was costing her more than that every two days.
-
-Your number will not be her number. It depends on your income, your filing status, and what you already have in place. But you cannot plug a leak you have never measured.
-
-[Grab your seat](https://october-2026-challenge.vercel.app/regularticketoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
+[Grab your seat here](https://october-2026-challenge.vercel.app/regularticketoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
 
 Preston
 
@@ -83,26 +71,22 @@ Preston
 
 ### Subject lines
 
-1. Say no if the answer is no
-2. Seven days to change your mind
-3. Last note from me on this
+1. Why October and not February
+2. About ten weeks left on this year's return
+3. The calendar problem with waiting
 
 ### Body
 
-October 16 to 18, Friday through Sunday, 10 AM to 4 PM Eastern each day. Twelve sessions with me and my team. You spend those three days working through your own numbers, and you walk out with a written 12-month plan instead of a folder of ideas you meant to get to.
+This is the last email I will send you about the ticket, so I want to spend it on the timing, because I think that is the real decision here, not the $47.
 
-The ticket is **$47**.
+Most of the moves that change the tax return you file in April have to be in place before **December 31**. A 401(k) contribution only counts if it comes out of a paycheck before then. An S-corp election, a new entity, an accountable plan, the hours that make a short-term rental count against your W-2 income, all of it counts on this year's return only if it is done inside this year. A W-4 change only helps on the paychecks that are still ahead of you.
 
-If you sit through it and do not leave with total clarity on what to do next, email us within **7 days** and we refund you. That is the whole guarantee, and it means the most this can cost you is a weekend.
+The challenge ends on October 18. That leaves about ten weeks to act on whatever you find, which is enough time for most of the list above if you know what you are doing first. The same three days in February would give you a plan for a tax year that is already closed, and you would be waiting on April 2028 to see the result.
 
-So the real question is the calendar.
+So the question I would ask is whether you want this year's return to reflect what you learn or next year's. If it is next year's, skip it and I will still be in your inbox. If it is this one, your checkout is still filled in:
 
-If that weekend is already spoken for, this is an easy no, and I would rather you decided that now. **4,400 people** have been through this challenge, and the ones who got the most out of it blocked all three days the way they would block a work trip.
+[Take your seat here](https://october-2026-challenge.vercel.app/regularticketoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
 
-If the weekend is open, your checkout is still filled in:
-
-[Take your seat](https://october-2026-challenge.vercel.app/regularticketoct?name_first={{ subscriber.first_name }}&email={{ subscriber.email_address }})
-
-Either answer works. The only one that costs you anything is leaving it open.
+Which of those apply to you depends on your income, whether you have a business, and what you already have set up, and the 7-day refund still stands either way.
 
 Preston
