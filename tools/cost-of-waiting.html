@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cost of Waiting Calculator | Legacy Investing Show</title>
+  <meta name="description" content="Compare investing today with starting in a few years and see what the delay costs at retirement.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/tools/assets/tools.css">
+</head>
+<body>
+
+<header class="wrap">
+  <div class="topbar">
+    <a class="brand" href="/tools"><span class="brand-mark">LIS</span>Legacy Investing Show</a>
+    <nav class="topbar-nav" aria-label="Tools">
+      <a href="/tools/wealth-trajectory">Trajectory</a>
+      <a href="/tools/tax-leak">Tax Leak</a>
+      <a href="/tools/fee-drag">Fees</a>
+      <a href="/tools/cost-of-waiting" aria-current="page">Waiting</a>
+      <a href="/tools/debt-meter">Debt</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <div class="hero-single">
+    <div>
+      <p class="eyebrow">Tool 4 of 5</p>
+      <h1>The price of <em>procrastination</em></h1>
+      <p class="lede">Compare starting today with starting in a few years. The money you skip is small. What it would have grown into is not.</p>
+      <div class="hero-meta"><span>Start now vs later</span><span>Live results</span><span>Nothing is saved</span></div>
+    </div>
+  </div>
+</section>
+
+<main class="tool wrap">
+  <div class="tool-grid">
+    <aside class="worksheet" id="ws" aria-label="Your numbers">
+      <div class="worksheet-head"><h2>Your numbers</h2><a href="#" class="reset" data-reset>Reset</a></div>
+
+      <div class="fieldset">
+        <div class="field" data-key="age" data-min="18" data-max="70" data-step="1" data-default="30" data-fmt="age">
+          <div class="field-row"><label for="in-age">Current age</label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Current age"><div class="numwrap"><input type="number" id="in-age"></div></div>
+        </div>
+        <div class="field" data-key="monthly" data-min="0" data-max="20000" data-step="50" data-default="1000" data-fmt="money">
+          <div class="field-row"><label for="in-monthly">Invest each month</label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Monthly investment"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-monthly"></div></div>
+        </div>
+        <div class="field" data-key="delay" data-min="0" data-max="30" data-step="1" data-default="5" data-fmt="years">
+          <div class="field-row"><label for="in-delay">Years you wait</label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Years delayed"><div class="numwrap"><input type="number" id="in-delay"></div></div>
+        </div>
+        <div class="segment" id="quick" aria-label="Quick delay presets" style="margin-top:-.3rem"><button data-val="1">1 yr</button><button data-val="3">3 yrs</button><button data-val="5">5 yrs</button><button data-val="10">10 yrs</button></div>
+      </div>
+
+      <details class="adv">
+        <summary>Assumptions</summary>
+        <div class="fieldset">
+          <div class="field" data-key="retireAge" data-min="19" data-max="80" data-step="1" data-default="60" data-fmt="age">
+            <div class="field-row"><label for="in-retire">Invest until age</label><output class="field-out"></output></div>
+            <div class="field-ctl"><input type="range" aria-label="Retirement age"><div class="numwrap"><input type="number" id="in-retire"></div></div>
+          </div>
+          <div class="field" data-key="ret" data-min="1" data-max="12" data-step="0.5" data-default="8" data-fmt="pct" data-dec="1">
+            <div class="field-row"><label for="in-ret">Annual return</label><output class="field-out"></output></div>
+            <div class="field-ctl"><input type="range" aria-label="Annual return"><div class="numwrap has-post"><input type="number" id="in-ret"><span class="affix post">%</span></div></div>
+          </div>
+          <div class="field" data-key="lump" data-min="0" data-max="1000000" data-step="1000" data-default="0" data-fmt="money">
+            <div class="field-row"><label for="in-lump">Starting lump sum <span class="tip" tabindex="0" data-tip="Money you already have invested. Grows in both scenarios from today.">i</span></label><output class="field-out"></output></div>
+            <div class="field-ctl"><input type="range" aria-label="Starting lump sum"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-lump"></div></div>
+          </div>
+        </div>
+      </details>
+    </aside>
+
+    <section class="statement">
+      <div class="statement-head"><h2>Procrastination penalty</h2><span class="stamp" id="stamp"></span></div>
+      <div class="figure">
+        <span class="label" id="lead-label">Waiting 5 years costs you at 60</span>
+        <span class="value neg" id="penalty">—</span>
+        <span class="sub" id="penalty-sub"></span>
+      </div>
+      <div class="figures">
+        <div class="figure"><span class="label">Start now, at <span id="s-age"></span></span><span class="value pos" id="now">—</span><span class="sub" id="now-sub"></span></div>
+        <div class="figure"><span class="label">Start at <span id="d-age"></span></span><span class="value" id="later">—</span><span class="sub" id="later-sub"></span></div>
+        <div class="figure"><span class="label">Each day you wait costs</span><span class="value neg" id="perday">—</span><span class="sub">in money you will not have at <span id="r-age"></span></span></div>
+      </div>
+      <div class="note" id="note"><span class="dot"></span><span id="note-t"></span></div>
+
+      <div class="section">
+        <p class="section-title">Two paths to the same age</p>
+        <div id="chart"></div>
+      </div>
+
+      <div class="section" style="display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));align-items:start">
+        <div>
+          <p class="section-title">The compounding gap</p>
+          <div class="ledger">
+            <div class="ledger-row"><span class="k">Contributions you skip by waiting</span><span class="v" id="skip"></span></div>
+            <div class="ledger-row"><span class="k">What you lose at the end</span><span class="v neg" id="lose"></span></div>
+            <div class="ledger-row"><span class="k">Every $1 skipped costs</span><span class="v" id="mult"></span></div>
+            <div class="ledger-row total"><span class="k">To catch up after waiting, invest</span><span class="v" id="catchup"></span></div>
+          </div>
+          <p class="muted" id="catchup-sub" style="font-size:.84rem;color:var(--ink-soft);margin-top:.7rem"></p>
+        </div>
+        <div>
+          <p class="section-title">Cost of each year of delay</p>
+          <div class="table-wrap"><table><thead><tr><th>Wait</th><th>You end with</th><th>Penalty</th></tr></thead><tbody id="rows"></tbody></table></div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-ghost btn-sm" data-share>Copy link to these results</button>
+        <span class="hint">Your numbers live in the link. Nothing is stored.</span>
+        <span class="spacer"></span>
+        <a class="btn btn-gold btn-sm" href="/tools/debt-meter">Next: Bad Debt</a>
+      </div>
+      <p class="fine" id="fine"></p>
+    </section>
+  </div>
+
+  <nav class="next" aria-label="More tools">
+    <a href="/tools/fee-drag"><span class="k">Tool 3</span><span class="t">The cost hiding in your investment fees</span></a>
+    <a href="/tools/debt-meter"><span class="k">Tool 5</span><span class="t">How much is bad debt bleeding you?</span></a>
+  </nav>
+</main>
+
+<footer class="site"><div class="wrap inner"><span>© 2026 Legacy Investing Show LLC · Educational only, not financial or tax advice</span><span><a href="https://www.firstairbnb.com/contactus">Contact</a><a href="https://www.firstairbnb.com/privacypolicy">Privacy</a><a href="https://managemoney101.com/challengeterms">Terms</a></span></div></footer>
+
+<script src="/tools/assets/tools.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const F = LIS.fmt, fin = LIS.fin;
+
+  function render(s) {
+    const r = s.ret / 100;
+    const yrs = Math.max(0, s.retireAge - s.age);
+    const delay = Math.min(s.delay, yrs);
+    const mNow = yrs * 12, mLate = Math.max(0, (yrs - delay) * 12);
+    const now = fin.fv(s.monthly, r, mNow, s.lump);
+    // lump grows for the full period in both cases; contributions start later in the delayed case
+    const later = fin.fv(s.monthly, r, mLate, 0) + s.lump * Math.pow(1 + r / 12, mNow);
+    const penalty = now - later, pct = now > 0 ? (penalty / now) * 100 : 0;
+    const skip = s.monthly * 12 * delay;
+    const mult = skip > 0 ? penalty / skip : 0;
+    const perDay = delay > 0 ? penalty / (delay * 365) : 0;
+    const catchup = mLate > 0 ? fin.pmt(s.lump * Math.pow(1 + r / 12, delay * 12), now, r, mLate) : Infinity;
+
+    LIS.text($('stamp'), `${F.pct(s.ret, 1)} a year · until ${s.retireAge}`);
+    LIS.text($('lead-label'), delay === 0 ? 'Waiting costs you' : `Waiting ${F.yearsWord(delay)} costs you at ${s.retireAge}`);
+    LIS.count($('penalty'), penalty);
+    LIS.text($('penalty-sub'), delay === 0 ? 'Set the years you wait above to see the gap.' : yrs === 0 ? 'You are at the end age already, so there is no time to invest in either case.' : `${F.pct(pct, 1)} of what you would have had. You skip ${F.money(skip)} of contributions and lose ${F.mult(mult)} that much.`);
+    LIS.text($('s-age'), s.age); LIS.text($('d-age'), s.age + delay); LIS.text($('r-age'), s.retireAge);
+    LIS.count($('now'), now); LIS.text($('now-sub'), `${F.money(s.monthly)} a month for ${F.yearsWord(yrs)}`);
+    LIS.count($('later'), later); LIS.text($('later-sub'), `${F.money(s.monthly)} a month for ${F.yearsWord(yrs - delay)}`);
+    LIS.count($('perday'), perDay, v => F.money(v, 0));
+    const note = $('note');
+    if (delay === 0 || yrs === 0) { note.className = 'note'; LIS.text($('note-t'), 'Both paths are the same. Drag the delay slider to see what waiting does.'); }
+    else if (delay >= yrs) { note.className = 'note warn'; LIS.text($('note-t'), `Waiting ${F.yearsWord(delay)} means you never start before ${s.retireAge}. The whole ${F.money(now)} is the penalty.`); }
+    else { note.className = 'note warn'; LIS.text($('note-t'), `The first ${F.yearsWord(delay)} of contributions are the most valuable ones you will ever make. They compound the longest. Waiting does not delay the plan by ${F.yearsWord(delay)}, it removes the best ${F.yearsWord(delay)} from it.`); }
+
+    const ages = [], a = [], b = [];
+    for (let age = s.age; age <= s.retireAge; age++) {
+      const m = (age - s.age) * 12; ages.push(age);
+      a.push(fin.fv(s.monthly, r, m, s.lump));
+      b.push(age < s.age + delay ? s.lump * Math.pow(1 + r / 12, m) : fin.fv(s.monthly, r, m - delay * 12, 0) + s.lump * Math.pow(1 + r / 12, m));
+    }
+    LIS.chart.line($('chart'), { x: ages, series: [{ name: 'Start now', values: a, color: '#2F7D5B', area: true }, { name: `Start at ${s.age + delay}`, values: b, color: '#B0503C' }], markers: delay > 0 && delay < yrs ? [{ x: s.age + delay, label: 'Delayed start', color: '#B0503C' }] : [], xFmt: v => v, tipLabel: v => 'Age ' + v, label: 'Portfolio value starting now versus later' });
+
+    LIS.text($('skip'), F.money(skip));
+    LIS.text($('lose'), F.money(penalty));
+    LIS.text($('mult'), F.money(mult, 2));
+    LIS.text($('catchup'), isFinite(catchup) && delay > 0 && delay < yrs ? F.money(catchup) + ' / mo' : '—');
+    LIS.text($('catchup-sub'), isFinite(catchup) && delay > 0 && delay < yrs ? `That is ${F.money(catchup - s.monthly)} more every month for ${F.yearsWord(yrs - delay)}, just to land where ${F.money(s.monthly)} a month starting today would.` : delay >= yrs && yrs > 0 ? 'There is no catching up. The window is gone.' : '');
+
+    let rows = '';
+    [0, 1, 2, 3, 5, 10, 15].filter(d => d <= yrs).forEach(d => {
+      const v = fin.fv(s.monthly, r, (yrs - d) * 12, 0) + s.lump * Math.pow(1 + r / 12, mNow);
+      rows += `<tr${d === delay ? ' class="hi"' : ''}><td>${d === 0 ? 'Start now' : F.yearsWord(d)}</td><td>${F.money(v)}</td><td style="color:var(--rose-ink)">${d === 0 ? '—' : F.money(now - v)}</td></tr>`;
+    });
+    $('rows').innerHTML = rows;
+    LIS.text($('fine'), `Educational estimate. Assumes ${F.pct(s.ret, 1)} a year compounded monthly, contributions at the start of each month, no taxes or fees, until age ${s.retireAge}. Not investment advice.`);
+  }
+  const A = LIS.bind($('ws'), s => { A.setMin('retireAge', s.age + 1); A.setMax('delay', Math.max(1, s.retireAge - s.age)); render(s); });
+  $('quick').querySelectorAll('button').forEach(b => b.addEventListener('click', () => A.set('delay', +b.dataset.val)));
+})();
+</script>
+</body>
+</html>

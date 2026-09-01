@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bad Debt Calculator | Legacy Investing Show</title>
+  <meta name="description" content="See the real cost of credit card debt, when you will be free, and how much faster an extra payment gets you there.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/tools/assets/tools.css">
+</head>
+<body>
+
+<header class="wrap">
+  <div class="topbar">
+    <a class="brand" href="/tools"><span class="brand-mark">LIS</span>Legacy Investing Show</a>
+    <nav class="topbar-nav" aria-label="Tools">
+      <a href="/tools/wealth-trajectory">Trajectory</a>
+      <a href="/tools/tax-leak">Tax Leak</a>
+      <a href="/tools/fee-drag">Fees</a>
+      <a href="/tools/cost-of-waiting">Waiting</a>
+      <a href="/tools/debt-meter" aria-current="page">Debt</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <div class="hero-single">
+    <div>
+      <p class="eyebrow">Tool 5 of 5</p>
+      <h1>How much is bad debt <em>bleeding you dry?</em></h1>
+      <p class="lede">See what your credit card really costs, the day you are free of it, and how much sooner one extra payment a month gets you there.</p>
+      <div class="hero-meta"><span>Payoff date</span><span>Live results</span><span>Nothing is saved</span></div>
+    </div>
+  </div>
+</section>
+
+<main class="tool wrap">
+  <div class="tool-grid">
+    <aside class="worksheet" id="ws" aria-label="Your numbers">
+      <div class="worksheet-head"><h2>Your debt</h2><a href="#" class="reset" data-reset>Reset</a></div>
+
+      <div class="fieldset">
+        <div class="field" data-key="balance" data-min="0" data-max="100000" data-step="100" data-default="10000" data-fmt="money">
+          <div class="field-row"><label for="in-bal">Card balance <span class="tip" tabindex="0" data-tip="Add up every card and high-interest loan.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Total credit card balance"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-bal"></div></div>
+        </div>
+        <div class="field" data-key="apr" data-min="0" data-max="40" data-step="0.1" data-default="24" data-fmt="pct" data-dec="1">
+          <div class="field-row"><label for="in-apr">Interest rate (APR) <span class="tip" tabindex="0" data-tip="On your statement. US cards average about 22% to 25%.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Annual percentage rate"><div class="numwrap has-post"><input type="number" id="in-apr"><span class="affix post">%</span></div></div>
+        </div>
+        <div class="field" data-key="pay" data-min="0" data-max="5000" data-step="10" data-default="250" data-fmt="money">
+          <div class="field-row"><label for="in-pay">You pay each month</label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Monthly payment"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-pay"></div></div>
+        </div>
+      </div>
+
+      <div class="fieldset">
+        <p class="fieldset-title">What if</p>
+        <div class="field" data-key="extra" data-min="0" data-max="2000" data-step="10" data-default="100" data-fmt="money">
+          <div class="field-row"><label for="in-extra">Extra per month</label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Extra monthly payment"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-extra"></div></div>
+        </div>
+      </div>
+
+      <details class="adv">
+        <summary>Assumptions</summary>
+        <div class="fieldset">
+          <div class="field" data-key="ret" data-min="0" data-max="12" data-step="0.5" data-default="7" data-fmt="pct" data-dec="1">
+            <div class="field-row"><label for="in-ret">Return if invested instead</label><output class="field-out"></output></div>
+            <div class="field-ctl"><input type="range" aria-label="Investment return"><div class="numwrap has-post"><input type="number" id="in-ret"><span class="affix post">%</span></div></div>
+          </div>
+        </div>
+      </details>
+    </aside>
+
+    <section class="statement">
+      <div class="statement-head"><h2>Blood loss meter</h2><span class="stamp" id="stamp"></span></div>
+      <div class="figure">
+        <span class="label">Interest you will pay on this debt</span>
+        <span class="value neg" id="interest">—</span>
+        <span class="sub" id="interest-sub"></span>
+      </div>
+      <div class="meter" aria-hidden="true">
+        <div class="meter-track"><div class="meter-fill rose" id="meter"></div><div class="meter-marker" id="marker" style="left:50%"></div></div>
+        <div class="meter-scale"><span>$0</span><span id="meter-mid">Equal to your balance</span><span id="meter-r">2× balance</span></div>
+      </div>
+      <div class="note" id="note"><span class="dot"></span><span id="note-t"></span></div>
+
+      <div class="figures">
+        <div class="figure"><span class="label">Interest in the next 12 months</span><span class="value" id="i12">—</span><span class="sub" id="i12-sub"></span></div>
+        <div class="figure"><span class="label">Time to pay off</span><span class="value" id="time">—</span><span class="sub" id="time-sub"></span></div>
+        <div class="figure"><span class="label">Debt-free date</span><span class="value" id="date">—</span><span class="sub" id="date-sub"></span></div>
+      </div>
+
+      <div class="section">
+        <p class="section-title">Balance over time</p>
+        <div id="chart"></div>
+      </div>
+
+      <div class="section" style="display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));align-items:start">
+        <div>
+          <p class="section-title">Pay <span id="x-extra" style="text-transform:none;letter-spacing:0"></span> more a month</p>
+          <div class="ledger">
+            <div class="ledger-row"><span class="k">Debt-free</span><span class="v pos" id="x-time"></span></div>
+            <div class="ledger-row"><span class="k">Sooner by</span><span class="v pos" id="x-sooner"></span></div>
+            <div class="ledger-row"><span class="k">Interest saved</span><span class="v pos" id="x-saved"></span></div>
+            <div class="ledger-row total"><span class="k">Interest saved, invested for 10 years <span class="tip" tabindex="0" data-tip="The interest you no longer pay, invested at the return in Assumptions.">i</span></span><span class="v" id="x-invest"></span></div>
+          </div>
+        </div>
+        <div>
+          <p class="section-title">Where each payment goes</p>
+          <div id="donut"></div>
+          <p class="muted" id="donut-sub" style="font-size:.84rem;color:var(--ink-soft);margin-top:.5rem;text-align:center"></p>
+        </div>
+      </div>
+
+      <div class="section">
+        <p class="section-title">Why the minimum is a trap</p>
+        <p class="muted">The card company sets the minimum so that most of it goes to interest. Your balance barely moves and the interest keeps coming. Every dollar above the minimum goes straight at the balance, which is why a small extra payment cuts so many months off. The fastest exits are a lower rate through a balance transfer or consolidation, then attacking one card at a time.</p>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-ghost btn-sm" data-share>Copy link to these results</button>
+        <span class="hint">Your numbers live in the link. Nothing is stored.</span>
+        <span class="spacer"></span>
+        <a class="btn btn-gold btn-sm" href="/tools">All five tools</a>
+      </div>
+      <p class="fine">Educational estimate. Interest is charged monthly at APR ÷ 12 on the remaining balance with a fixed payment. Real cards use daily interest and a shrinking minimum. Not financial advice.</p>
+    </section>
+  </div>
+
+  <nav class="next" aria-label="More tools">
+    <a href="/tools/cost-of-waiting"><span class="k">Tool 4</span><span class="t">The price of waiting to invest</span></a>
+    <a href="/tools"><span class="k">All tools</span><span class="t">Five free wealth tools</span></a>
+  </nav>
+</main>
+
+<footer class="site"><div class="wrap inner"><span>© 2026 Legacy Investing Show LLC · Educational only, not financial or tax advice</span><span><a href="https://www.firstairbnb.com/contactus">Contact</a><a href="https://www.firstairbnb.com/privacypolicy">Privacy</a><a href="https://managemoney101.com/challengeterms">Terms</a></span></div></footer>
+
+<script src="/tools/assets/tools.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const F = LIS.fmt;
+  const CAP = 600;
+
+  function amortize(balance, apr, pay) {
+    const rate = apr / 100 / 12;
+    const out = { months: 0, interest: 0, i12: 0, balances: [balance], cumInterest: [0], never: false, capped: false, firstInterest: balance * rate };
+    if (balance <= 0 || pay <= 0) return out;
+    if (rate > 0 && pay <= out.firstInterest) {
+      out.never = true; let b = balance;
+      for (let m = 1; m <= 360; m++) { const i = b * rate; out.interest += i; if (m <= 12) out.i12 += i; b = b + i - pay; out.balances.push(b); out.cumInterest.push(out.interest); }
+      return out;
+    }
+    let b = balance;
+    while (b > 0.005 && out.months < CAP) {
+      const i = b * rate; out.interest += i; if (out.months < 12) out.i12 += i;
+      b = Math.max(0, b + i - pay); out.months++;
+      out.balances.push(b); out.cumInterest.push(out.interest);
+    }
+    if (b > 0.005) out.capped = true;
+    return out;
+  }
+  function freeDate(months) { const d = new Date(); d.setMonth(d.getMonth() + months); return F.monthYear(d); }
+
+  function render(s) {
+    const base = amortize(s.balance, s.apr, s.pay);
+    const alt = amortize(s.balance, s.apr, s.pay + s.extra);
+    const perDay = (s.balance * s.apr / 100) / 365;
+    const ratio = s.balance > 0 ? base.interest / s.balance : 0;
+    const noDebt = s.balance <= 0 || s.pay <= 0;
+
+    LIS.text($('stamp'), `${F.pct(s.apr, 1)} APR · ${F.money(s.pay)} a month`);
+    LIS.text($('interest-sub'), noDebt ? 'Enter a balance and a payment to see the cost.' : base.never ? `Your payment does not even cover the ${F.money(base.firstInterest)} of interest each month. The balance grows.` : base.capped ? 'Over 50 years at this pace. The balance barely moves.' : `On a ${F.money(s.balance)} balance. That is ${F.pct(ratio * 100, 0)} of what you borrowed, paid to the bank on top.`);
+    if (base.never) { LIS.text($('interest'), 'No end'); LIS.meter($('meter'), 100, 'rose'); }
+    else { LIS.count($('interest'), base.interest); LIS.meter($('meter'), (ratio / 2) * 100, ratio >= 1 ? 'rose' : ratio >= 0.4 ? 'gold' : 'emerald'); }
+    LIS.text($('meter-r'), '2× balance');
+    const note = $('note');
+    if (noDebt) { note.className = 'note'; LIS.text($('note-t'), 'No debt entered.'); }
+    else if (base.never) { note.className = 'note warn'; LIS.text($('note-t'), `To make any progress you must pay more than ${F.money(base.firstInterest)} a month. At ${F.money(Math.ceil((base.firstInterest + s.balance / 120) / 10) * 10)} a month you would be clear in about 10 years.`); }
+    else if (base.capped) { note.className = 'note warn'; LIS.text($('note-t'), `Paying ${F.money(s.pay)} a month barely beats the interest. Raise the payment or lower the rate. Both matter more than anything else on this page.`); }
+    else if (ratio >= 1) { note.className = 'note warn'; LIS.text($('note-t'), `You will pay the bank more in interest than you ever borrowed. This card costs ${F.money(perDay, 2)} a day right now, before you buy anything.`); }
+    else if (ratio >= 0.3) { note.className = 'note gold'; LIS.text($('note-t'), `This debt costs ${F.money(perDay, 2)} a day in interest today. Every extra dollar on top of the payment goes straight to the balance.`); }
+    else { note.className = 'note good'; LIS.text($('note-t'), `You are ahead of most cardholders. ${base.months > 0 ? 'Clear in ' + F.months(base.months) + '.' : ''} Keep the payment fixed as the balance falls and it accelerates.`); }
+
+    LIS.count($('i12'), base.i12); LIS.text($('i12-sub'), noDebt ? '' : `${F.money(perDay, 2)} a day`);
+    LIS.text($('time'), noDebt ? '—' : base.never ? 'Never' : base.capped ? '50+ years' : F.months(base.months));
+    LIS.cls($('time'), 'value', base.never || base.capped ? 'neg' : '');
+    LIS.text($('time-sub'), noDebt ? '' : base.never ? 'Payment is below the interest' : `${base.months} payments of ${F.money(s.pay)}`);
+    LIS.text($('date'), noDebt ? '—' : base.never || base.capped ? 'None' : freeDate(base.months));
+    LIS.cls($('date'), 'value', base.never || base.capped ? 'neg' : 'pos');
+    LIS.text($('date-sub'), noDebt ? '' : base.never || base.capped ? 'at this payment' : 'at the current payment');
+
+    // chart: monthly balances for both scenarios, cumulative interest dashed
+    const n = Math.max(base.balances.length, alt.balances.length);
+    const x = []; for (let m = 0; m < n; m++) x.push(m);
+    const pad = (arr, len) => arr.concat(Array(Math.max(0, len - arr.length)).fill(0));
+    const series = [{ name: 'Balance at ' + F.money(s.pay), values: pad(base.balances, n), color: '#B0503C', area: true }];
+    if (s.extra > 0 && !noDebt) series.push({ name: 'Balance at ' + F.money(s.pay + s.extra), values: pad(alt.balances, n), color: '#2F7D5B' });
+    series.push({ name: 'Interest paid so far', values: pad(base.cumInterest, n).map((v, i) => i < base.cumInterest.length ? v : base.interest), color: '#B98A1F', dash: true });
+    LIS.chart.line($('chart'), { x, series, xFmt: m => m === 0 ? 'Now' : m % 12 === 0 ? 'Y' + (m / 12) : 'M' + m, xTicks: (() => { const step = n > 240 ? 60 : n > 120 ? 24 : n > 48 ? 12 : n > 24 ? 6 : 3; const t = []; for (let m = 0; m < n; m += step) t.push(m); return t; })(), tipLabel: m => m === 0 ? 'Today' : F.months(m) + ' from now', label: 'Remaining balance and interest paid over time' });
+
+    // what-if
+    LIS.text($('x-extra'), F.money(s.extra));
+    const saved = base.never ? Infinity : Math.max(0, base.interest - alt.interest);
+    const sooner = base.never ? Infinity : Math.max(0, base.months - alt.months);
+    LIS.text($('x-time'), noDebt || s.extra === 0 ? '—' : alt.never ? 'Still never' : alt.capped ? '50+ years' : F.months(alt.months) + ' · ' + freeDate(alt.months));
+    LIS.text($('x-sooner'), noDebt || s.extra === 0 || alt.never ? '—' : base.never || base.capped ? 'From never to ' + F.months(alt.months) : F.months(sooner));
+    LIS.text($('x-saved'), noDebt || s.extra === 0 || alt.never ? '—' : base.never || base.capped ? 'Everything' : F.money(saved));
+    const inv = isFinite(saved) && !alt.never ? LIS.fin.fv(0, s.ret / 100, 120, saved) : NaN;
+    LIS.text($('x-invest'), isFinite(inv) && s.extra > 0 && !noDebt ? F.money(inv) : '—');
+
+    // first payment split
+    const firstI = base.firstInterest, firstP = Math.max(0, s.pay - firstI);
+    LIS.chart.donut($('donut'), { items: [{ label: 'Interest', value: Math.min(firstI, s.pay), color: '#B0503C' }, { label: 'Balance', value: firstP, color: '#16352A' }], big: s.pay > 0 ? F.pct(Math.min(100, (firstI / s.pay) * 100), 0) : '—', small: 'goes to interest' });
+    LIS.text($('donut-sub'), s.pay > 0 ? `Of your first ${F.money(s.pay)} payment, ${F.money(Math.min(firstI, s.pay))} is interest and ${F.money(firstP)} reduces the debt.` : '');
+  }
+  LIS.bind($('ws'), render);
+})();
+</script>
+</body>
+</html>

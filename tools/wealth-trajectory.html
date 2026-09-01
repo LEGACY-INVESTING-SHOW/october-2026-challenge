@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wealth Trajectory | Legacy Investing Show</title>
+  <meta name="description" content="See how long your money lasts, your freedom number, and where you stand against people your age.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/tools/assets/tools.css">
+</head>
+<body>
+
+<header class="wrap">
+  <div class="topbar">
+    <a class="brand" href="/tools"><span class="brand-mark">LIS</span>Legacy Investing Show</a>
+    <nav class="topbar-nav" aria-label="Tools">
+      <a href="/tools/wealth-trajectory" aria-current="page">Trajectory</a>
+      <a href="/tools/tax-leak">Tax Leak</a>
+      <a href="/tools/fee-drag">Fees</a>
+      <a href="/tools/cost-of-waiting">Waiting</a>
+      <a href="/tools/debt-meter">Debt</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <div class="hero-single">
+    <div>
+      <p class="eyebrow">Tool 1 of 5</p>
+      <h1>Discover your <em>wealth trajectory</em></h1>
+      <p class="lede">See where you stand, how far you are from work being optional, and what has to change so your lifestyle goes up as you age, not down.</p>
+      <div class="hero-meta"><span>Three views</span><span>Live results</span><span>Nothing is saved</span></div>
+    </div>
+  </div>
+</section>
+
+<main class="tool wrap">
+  <div class="tabs" role="tablist" aria-label="Wealth trajectory views" id="tabs">
+    <button role="tab" data-tab="burn" aria-controls="p-burn" id="t-burn"><span class="n">i.</span>Lifestyle Burn Rate</button>
+    <button role="tab" data-tab="freedom" aria-controls="p-freedom" id="t-freedom"><span class="n">ii.</span>Freedom Number</button>
+    <button role="tab" data-tab="gap" aria-controls="p-gap" id="t-gap"><span class="n">iii.</span>Wealth Gap</button>
+  </div>
+
+  <div class="tool-grid">
+    <aside class="worksheet" id="ws" aria-label="Your numbers">
+      <div class="worksheet-head"><h2>Your numbers</h2><a href="#" class="reset" data-reset>Reset</a></div>
+
+      <div class="fieldset" data-tabs="burn freedom gap">
+        <div class="field" data-key="age" data-min="18" data-max="80" data-step="1" data-default="35" data-fmt="age">
+          <div class="field-row"><label for="in-age">Current age</label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Current age"><div class="numwrap"><input type="number" id="in-age"></div></div>
+        </div>
+        <div class="field" data-key="retireAge" data-min="19" data-max="90" data-step="1" data-default="55" data-fmt="age" data-tabs="burn freedom">
+          <div class="field-row"><label for="in-retire">Retire at <span class="tip" tabindex="0" data-tip="The age you want work to be optional.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Retirement age"><div class="numwrap"><input type="number" id="in-retire"></div></div>
+        </div>
+      </div>
+
+      <div class="fieldset" data-tabs="burn freedom">
+        <p class="fieldset-title">Each month</p>
+        <div class="field" data-key="income" data-min="0" data-max="50000" data-step="100" data-default="6000" data-fmt="money" data-tabs="burn">
+          <div class="field-row"><label for="in-income">After-tax income <span class="tip" tabindex="0" data-tip="Take-home pay after taxes, from all sources.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Monthly after-tax income"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-income"></div></div>
+        </div>
+        <div class="field" data-key="living" data-min="0" data-max="30000" data-step="50" data-default="3500" data-fmt="money">
+          <div class="field-row"><label for="in-living">Living expenses <span class="tip" tabindex="0" data-tip="Essentials: housing, food, utilities, insurance, transport.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Monthly living expenses"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-living"></div></div>
+        </div>
+        <div class="field" data-key="lifestyle" data-min="0" data-max="30000" data-step="50" data-default="1800" data-fmt="money" data-tabs="burn">
+          <div class="field-row"><label for="in-lifestyle">Lifestyle spending <span class="tip" tabindex="0" data-tip="Dining out, travel, entertainment, subscriptions, shopping.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Monthly lifestyle spending"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-lifestyle"></div></div>
+        </div>
+        <div class="field" data-key="passive" data-min="0" data-max="30000" data-step="50" data-default="500" data-fmt="money" data-tabs="freedom">
+          <div class="field-row"><label for="in-passive">Passive income now <span class="tip" tabindex="0" data-tip="Rent, dividends, interest, royalties. Money that comes in without your time.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Current monthly passive income"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-passive"></div></div>
+        </div>
+        <div class="field" data-key="invest" data-min="0" data-max="20000" data-step="50" data-default="1200" data-fmt="money" data-tabs="freedom">
+          <div class="field-row"><label for="in-invest">You invest each month <span class="tip" tabindex="0" data-tip="What you add to investments today. Default is 20% of the income on the first view.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Monthly amount invested"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-invest"></div></div>
+        </div>
+      </div>
+
+      <div class="fieldset" data-tabs="burn freedom gap">
+        <p class="fieldset-title">Investments</p>
+        <div class="field" data-key="portfolio" data-min="0" data-max="5000000" data-step="1000" data-default="150000" data-fmt="money">
+          <div class="field-row"><label for="in-portfolio">Saved and invested today <span class="tip" tabindex="0" data-tip="Retirement accounts, brokerage, cash savings. Not your home.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Total savings and investments"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-portfolio"></div></div>
+        </div>
+        <div class="field" data-key="wr" data-min="2" data-max="8" data-step="0.1" data-default="4" data-fmt="pct" data-dec="1" data-tabs="burn freedom">
+          <div class="field-row"><label for="in-wr">Withdrawal rate <span class="tip" tabindex="0" data-tip="The share of your portfolio you take out each year in retirement. 4% is the common rule of thumb.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Withdrawal rate"><div class="numwrap has-post"><input type="number" id="in-wr"><span class="affix post">%</span></div></div>
+        </div>
+        <div class="field" data-key="annualIncome" data-min="0" data-max="1000000" data-step="1000" data-default="72000" data-fmt="money" data-tabs="gap">
+          <div class="field-row"><label for="in-annual">Annual income (gross) <span class="tip" tabindex="0" data-tip="Before tax. Used to compare your savings to your income.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Annual gross income"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-annual"></div></div>
+        </div>
+      </div>
+
+      <details class="adv" data-tabs="burn freedom gap">
+        <summary>Assumptions</summary>
+        <div class="fieldset">
+          <div class="field" data-key="retPre" data-min="1" data-max="12" data-step="0.5" data-default="7" data-fmt="pct" data-dec="1">
+            <div class="field-row"><label for="in-retpre">Return while working</label><output class="field-out"></output></div>
+            <div class="field-ctl"><input type="range" aria-label="Annual return before retirement"><div class="numwrap has-post"><input type="number" id="in-retpre"><span class="affix post">%</span></div></div>
+          </div>
+          <div class="field" data-key="retPost" data-min="0" data-max="10" data-step="0.5" data-default="5" data-fmt="pct" data-dec="1" data-tabs="burn">
+            <div class="field-row"><label for="in-retpost">Return in retirement</label><output class="field-out"></output></div>
+            <div class="field-ctl"><input type="range" aria-label="Annual return in retirement"><div class="numwrap has-post"><input type="number" id="in-retpost"><span class="affix post">%</span></div></div>
+          </div>
+          <div class="field" data-key="infl" data-min="0" data-max="6" data-step="0.1" data-default="2.5" data-fmt="pct" data-dec="1" data-tabs="burn">
+            <div class="field-row"><label for="in-infl">Inflation</label><output class="field-out"></output></div>
+            <div class="field-ctl"><input type="range" aria-label="Inflation rate"><div class="numwrap has-post"><input type="number" id="in-infl"><span class="affix post">%</span></div></div>
+          </div>
+          <div class="field" data-key="planAge" data-min="70" data-max="105" data-step="1" data-default="90" data-fmt="age" data-tabs="burn">
+            <div class="field-row"><label for="in-plan">Plan to age</label><output class="field-out"></output></div>
+            <div class="field-ctl"><input type="range" aria-label="Planning age"><div class="numwrap"><input type="number" id="in-plan"></div></div>
+          </div>
+        </div>
+      </details>
+    </aside>
+
+    <section class="statement">
+      <!-- ============ i. Lifestyle Burn Rate ============ -->
+      <div role="tabpanel" id="p-burn" aria-labelledby="t-burn">
+        <div class="statement-head"><h2>Burn rate</h2><span class="stamp" id="b-stamp"></span></div>
+        <div class="figure">
+          <span class="label">Your money lasts until</span>
+          <span class="value" id="b-runout">—</span>
+          <span class="sub" id="b-sub"></span>
+        </div>
+        <div class="meter" aria-hidden="true">
+          <div class="meter-track"><div class="meter-fill" id="b-meter"></div><div class="meter-marker" id="b-marker" style="left:100%"></div></div>
+          <div class="meter-scale"><span id="b-scale-l">Retire</span><span id="b-scale-r">Age 90</span></div>
+        </div>
+        <div class="note" id="b-note"><span class="dot"></span><span id="b-note-t"></span></div>
+
+        <div class="ledger">
+          <div class="ledger-row"><span class="k">Spending today</span><span class="v" id="b-spend"></span></div>
+          <div class="ledger-row"><span class="k">Spending at retirement, after inflation <span class="tip" tabindex="0" data-tip="Today's spending grown at the inflation rate until your retirement age.">i</span></span><span class="v" id="b-need"></span></div>
+          <div class="ledger-row"><span class="k">Nest egg that supports it <span class="tip" tabindex="0" data-tip="Yearly spending at retirement divided by your withdrawal rate.">i</span></span><span class="v" id="b-nest"></span></div>
+          <div class="ledger-row"><span class="k">What you are on track to have <span class="tip" tabindex="0" data-tip="Today's investments plus what is left of your income each month, grown at the working-years return.">i</span></span><span class="v" id="b-proj"></span></div>
+          <div class="ledger-row total"><span class="k" id="b-gapk">Shortfall</span><span class="v" id="b-gap"></span></div>
+        </div>
+
+        <div class="section">
+          <p class="section-title">Balance by age</p>
+          <div id="b-chart"></div>
+        </div>
+
+        <div class="section" style="display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));align-items:start">
+          <div>
+            <p class="section-title">Where it goes</p>
+            <div id="b-donut"></div>
+            <div class="ledger" style="margin-top:.5rem">
+              <div class="ledger-row"><span class="k"><span class="swatch" style="background:#16352A"></span>Living</span><span class="v" id="b-ess"></span></div>
+              <div class="ledger-row"><span class="k"><span class="swatch" style="background:#D9A93D"></span>Lifestyle</span><span class="v" id="b-life"></span></div>
+              <div class="ledger-row"><span class="k"><span class="swatch" style="background:#EDE6D4"></span>Saved</span><span class="v" id="b-saved"></span></div>
+            </div>
+            <p class="muted" id="b-mix" style="font-size:.84rem;color:var(--ink-soft);margin-top:.7rem"></p>
+          </div>
+          <div>
+            <p class="section-title">Three ways to close the gap</p>
+            <div class="ledger" id="b-levers">
+              <div class="ledger-row"><span class="k">Save more each month</span><span class="v" id="b-lever-save"></span></div>
+              <div class="ledger-row"><span class="k">Or retire at</span><span class="v" id="b-lever-age"></span></div>
+              <div class="ledger-row"><span class="k">Or trim lifestyle spending by</span><span class="v" id="b-lever-cut"></span></div>
+            </div>
+            <p class="muted" style="font-size:.84rem;color:var(--ink-soft);margin-top:.7rem">Each lever on its own is enough. Most people use a mix of all three.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ ii. Freedom Number ============ -->
+      <div role="tabpanel" id="p-freedom" aria-labelledby="t-freedom" hidden>
+        <div class="statement-head"><h2>Freedom number</h2><span class="stamp" id="f-stamp"></span></div>
+        <div class="figure">
+          <span class="label">Invested capital that makes work optional</span>
+          <span class="value" id="f-number">—</span>
+          <span class="sub" id="f-sub"></span>
+        </div>
+
+        <div class="figures">
+          <div class="figure"><span class="label">Portfolio progress</span><span class="value" id="f-prog">—</span><span class="sub" id="f-prog-sub"></span></div>
+          <div class="figure"><span class="label">Passive income covers</span><span class="value" id="f-cover">—</span><span class="sub" id="f-cover-sub"></span></div>
+          <div class="figure"><span class="label">Freedom at your current pace</span><span class="value" id="f-age">—</span><span class="sub" id="f-age-sub"></span></div>
+        </div>
+
+        <div class="note" id="f-note"><span class="dot"></span><span id="f-note-t"></span></div>
+
+        <div class="section">
+          <p class="section-title">Path to your number</p>
+          <div id="f-chart"></div>
+        </div>
+
+        <div class="ledger">
+          <div class="ledger-row"><span class="k">Living expenses per year</span><span class="v" id="f-annual"></span></div>
+          <div class="ledger-row"><span class="k">Already covered by passive income</span><span class="v" id="f-passive"></span></div>
+          <div class="ledger-row"><span class="k">Capital still needed for the rest <span class="tip" tabindex="0" data-tip="Only the expenses your passive income does not cover, divided by your withdrawal rate.">i</span></span><span class="v" id="f-remain"></span></div>
+          <div class="ledger-row"><span class="k">Monthly investing to be free by <span id="f-by"></span></span><span class="v" id="f-needmo"></span></div>
+          <div class="ledger-row total"><span class="k">Extra per month on top of today</span><span class="v" id="f-extra"></span></div>
+        </div>
+      </div>
+
+      <!-- ============ iii. Wealth Gap ============ -->
+      <div role="tabpanel" id="p-gap" aria-labelledby="t-gap" hidden>
+        <div class="statement-head"><h2>Wealth gap</h2><span class="stamp" id="g-stamp"></span></div>
+        <div class="figure">
+          <span class="label" id="g-label">You are ahead of</span>
+          <span class="value" id="g-pct">—</span>
+          <span class="sub" id="g-sub"></span>
+        </div>
+        <div class="meter" aria-hidden="true">
+          <div class="meter-track"><div class="meter-fill gold" id="g-meter"></div></div>
+          <div class="meter-scale"><span>Bottom</span><span>Median</span><span>Top 1%</span></div>
+        </div>
+        <div class="note" id="g-note"><span class="dot"></span><span id="g-note-t"></span></div>
+
+        <div class="section">
+          <p class="section-title">Net worth by age group <span style="text-transform:none;letter-spacing:0;font-weight:400" id="g-bracket"></span></p>
+          <div id="g-chart"></div>
+        </div>
+
+        <div class="section" style="display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));align-items:start">
+          <div>
+            <p class="section-title">Savings vs income</p>
+            <div class="ledger">
+              <div class="ledger-row"><span class="k">You have saved</span><span class="v" id="g-ratio"></span></div>
+              <div class="ledger-row"><span class="k">Common target at <span id="g-ratio-age"></span> <span class="tip" tabindex="0" data-tip="A widely used planner guideline: about 1× income by 30, 3× by 40, 6× by 50, 8× by 60, 10× by 67.">i</span></span><span class="v" id="g-target"></span></div>
+              <div class="ledger-row total"><span class="k" id="g-ratio-k">Gap</span><span class="v" id="g-ratio-gap"></span></div>
+            </div>
+          </div>
+          <div>
+            <p class="section-title">Path to the top 10%</p>
+            <div class="ledger">
+              <div class="ledger-row"><span class="k">Top 10% line for your age today</span><span class="v" id="g-top10"></span></div>
+              <div class="ledger-row"><span class="k">Top 10% line at age <span id="g-age10"></span></span><span class="v" id="g-top10-next"></span></div>
+              <div class="ledger-row total"><span class="k">Invest per month for 10 years</span><span class="v" id="g-monthly"></span></div>
+            </div>
+            <p class="muted" id="g-path" style="font-size:.84rem;color:var(--ink-soft);margin-top:.7rem"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-ghost btn-sm" data-share>Copy link to these results</button>
+        <span class="hint">Your numbers live in the link. Nothing is stored.</span>
+        <span class="spacer"></span>
+        <a class="btn btn-gold btn-sm" href="/tools/tax-leak">Next: Tax Leak</a>
+      </div>
+      <p class="fine">Educational estimates only. Returns, inflation and the peer table are assumptions you can change above. This is not financial advice.</p>
+    </section>
+  </div>
+
+  <nav class="next" aria-label="More tools">
+    <a href="/tools"><span class="k">All tools</span><span class="t">Five free wealth tools</span></a>
+    <a href="/tools/tax-leak"><span class="k">Tool 2</span><span class="t">How much is the IRS quietly taking?</span></a>
+  </nav>
+</main>
+
+<footer class="site"><div class="wrap inner"><span>© 2026 Legacy Investing Show LLC · Educational only, not financial or tax advice</span><span><a href="https://www.firstairbnb.com/contactus">Contact</a><a href="https://www.firstairbnb.com/privacypolicy">Privacy</a><a href="https://managemoney101.com/challengeterms">Terms</a></span></div></footer>
+
+<script src="/tools/assets/tools.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const F = LIS.fmt, fin = LIS.fin;
+  const ws = $('ws');
+  let tab = 'burn';
+
+  /* ---- peer table (net worth by age bracket) ---- */
+  const PEERS = [
+    { max: 35, label: 'under 35', p10: 10000, p25: 25000, p50: 50000, p75: 125000, p90: 250000, p99: 1000000 },
+    { max: 45, label: '35–44', p10: 50000, p25: 100000, p50: 200000, p75: 400000, p90: 800000, p99: 3000000 },
+    { max: 55, label: '45–54', p10: 100000, p25: 200000, p50: 400000, p75: 800000, p90: 1500000, p99: 5000000 },
+    { max: 999, label: '55 and over', p10: 175000, p25: 350000, p50: 700000, p75: 1500000, p90: 3000000, p99: 10000000 },
+  ];
+  const bracketFor = age => PEERS.find(b => age < b.max);
+  function percentile(nw, b) {
+    const seg = (lo, hi, plo, phi) => plo + ((nw - lo) / (hi - lo)) * (phi - plo);
+    if (nw >= b.p99) return 99;
+    if (nw >= b.p90) return seg(b.p90, b.p99, 90, 99);
+    if (nw >= b.p75) return seg(b.p75, b.p90, 75, 90);
+    if (nw >= b.p50) return seg(b.p50, b.p75, 50, 75);
+    if (nw >= b.p25) return seg(b.p25, b.p50, 25, 50);
+    if (nw >= b.p10) return seg(b.p10, b.p25, 10, 25);
+    return Math.max(0, (nw / b.p10) * 10);
+  }
+  const RATIO = [[30, 1], [35, 2], [40, 3], [45, 4], [50, 6], [55, 7], [60, 8], [67, 10]];
+  function ratioTarget(age) {
+    if (age <= RATIO[0][0]) return (age / RATIO[0][0]) * RATIO[0][1];
+    for (let i = 1; i < RATIO.length; i++) if (age <= RATIO[i][0]) { const [a0, r0] = RATIO[i - 1], [a1, r1] = RATIO[i]; return r0 + ((age - a0) / (a1 - a0)) * (r1 - r0); }
+    return RATIO[RATIO.length - 1][1];
+  }
+
+  /* ---- burn-rate simulation (also used for the levers) ---- */
+  function burn(s) {
+    const infl = s.infl / 100, rPre = s.retPre / 100, rPost = s.retPost / 100, wr = s.wr / 100;
+    const yrs = Math.max(0, s.retireAge - s.age);
+    const spend = s.living + s.lifestyle;
+    const needMonthly = spend * Math.pow(1 + infl, yrs);
+    const needAnnual = needMonthly * 12;
+    const nest = wr > 0 ? needAnnual / wr : Infinity;
+    const save = Math.max(0, s.income - spend);
+    const projected = fin.fv(save, rPre, yrs * 12, s.portfolio);
+    const realR = (1 + rPost) / (1 + infl) - 1;
+    // yearly balance path
+    const path = [], ages = [];
+    let bal = s.portfolio;
+    for (let a = s.age; a <= s.retireAge; a++) { ages.push(a); path.push(bal); bal = fin.fv(save, rPre, 12, bal); }
+    bal = projected; let lasts = 0;
+    const endAge = Math.max(s.planAge + 3, s.retireAge + 1);
+    for (let a = s.retireAge + 1; a <= Math.min(endAge, s.retireAge + 100); a++) {
+      if (bal >= needAnnual && lasts < 100) { bal = (bal - needAnnual) * (1 + realR); lasts++; } else bal = 0;
+      ages.push(a); path.push(bal);
+    }
+    // count full years covered beyond the plotted window
+    let b2 = projected, l2 = 0; while (l2 < 100 && b2 >= needAnnual) { b2 = (b2 - needAnnual) * (1 + realR); l2++; }
+    lasts = l2;
+    const runOut = s.retireAge + lasts;
+    const sustainable = runOut >= s.planAge;
+    const N = Math.max(0, s.planAge - s.retireAge);
+    const target = Math.abs(realR) < 1e-9 ? needAnnual * N : needAnnual * (1 - Math.pow(1 + realR, -N)) / realR;
+    const extra = Math.max(0, fin.pmt(s.portfolio, target, rPre, yrs * 12) - save);
+    return { yrs, spend, needMonthly, needAnnual, nest, save, projected, lasts, runOut, sustainable, target, extra, ages, path };
+  }
+
+  function renderBurn(s) {
+    const r = burn(s);
+    LIS.text($('b-stamp'), `Retire at ${s.retireAge} · plan to ${s.planAge}`);
+    const forever = r.lasts >= 100;
+    LIS.text($('b-runout'), forever ? 'Age ' + s.planAge + '+' : 'Age ' + r.runOut);
+    LIS.cls($('b-runout'), 'value', r.sustainable ? 'pos' : 'neg');
+    LIS.text($('b-sub'), r.yrs === 0 ? 'You are at your retirement age now, so this is what today\'s savings support.' : `Retiring at ${s.retireAge} on ${F.money(r.needMonthly)} a month, your nest egg supports ${forever ? 'you for life' : F.yearsWord(r.lasts) + ' of spending'}.`);
+    const span = Math.max(1, s.planAge - s.retireAge);
+    LIS.meter($('b-meter'), (r.lasts / span) * 100, r.sustainable ? 'emerald' : 'rose');
+    LIS.text($('b-scale-l'), 'Retire at ' + s.retireAge); LIS.text($('b-scale-r'), 'Age ' + s.planAge);
+    const note = $('b-note');
+    if (r.sustainable) { note.className = 'note good'; LIS.text($('b-note-t'), forever ? 'Your money keeps growing faster than you spend it. You can afford a bigger life in retirement, or an earlier one.' : `On track. Your money lasts past ${s.planAge} with ${F.money(r.projected - r.target)} to spare.`); }
+    else { note.className = 'note warn'; LIS.text($('b-note-t'), `At this pace you run out at ${r.runOut}, ${s.planAge - r.runOut} years short. That means a forced downgrade later, unless you change one of the levers below.`); }
+    LIS.text($('b-spend'), F.money(r.spend) + ' / mo');
+    LIS.text($('b-need'), F.money(r.needMonthly) + ' / mo');
+    LIS.text($('b-nest'), F.money(r.nest));
+    LIS.text($('b-proj'), F.money(r.projected));
+    const gap = r.projected - r.nest;
+    LIS.text($('b-gapk'), gap >= 0 ? 'Surplus' : 'Shortfall');
+    LIS.text($('b-gap'), F.money(Math.abs(gap)));
+    LIS.cls($('b-gap'), 'v', gap >= 0 ? 'pos' : 'neg');
+    // chart
+    LIS.chart.line($('b-chart'), {
+      x: r.ages, series: [{ name: 'Your balance', values: r.path, color: r.sustainable ? '#2F7D5B' : '#B0503C', area: true }],
+      markers: [{ x: s.retireAge, label: 'Retire ' + s.retireAge, color: '#8A6510' }, { x: s.planAge, label: 'Plan to ' + s.planAge, color: '#8D9BA6' }],
+      xFmt: v => v, tipLabel: v => 'Age ' + v, label: 'Projected balance by age',
+    });
+    // donut
+    const saved = Math.max(0, s.income - r.spend);
+    LIS.chart.donut($('b-donut'), { items: [{ label: 'Living', value: s.living, color: '#16352A' }, { label: 'Lifestyle', value: s.lifestyle, color: '#D9A93D' }, { label: 'Saved', value: saved, color: '#EDE6D4' }], big: s.income > 0 ? F.pct((r.spend / s.income) * 100, 0) : '—', small: 'of income spent' });
+    const pctOf = v => s.income > 0 ? ' · ' + F.pct((v / s.income) * 100, 0) : '';
+    LIS.text($('b-ess'), F.money(s.living) + pctOf(s.living));
+    LIS.text($('b-life'), F.money(s.lifestyle) + pctOf(s.lifestyle));
+    LIS.text($('b-saved'), F.money(saved) + pctOf(saved));
+    const lifeShare = r.spend > 0 ? s.lifestyle / r.spend : 0;
+    LIS.text($('b-mix'), r.spend === 0 ? 'No spending entered, so everything you earn is saved.' : s.income > 0 && r.spend > s.income ? `You spend ${F.money(r.spend - s.income)} more than you bring in each month. Nothing is being saved, so the projection only grows what you already have.` : lifeShare > 0.4 ? `Lifestyle is ${F.pct(lifeShare * 100, 0)} of your spending. That is the part you control fastest.` : `Living costs are ${F.pct((1 - lifeShare) * 100, 0)} of spending. A healthy balance, so income and what you keep of it are the main levers.`);
+    // levers
+    if (r.sustainable) {
+      LIS.text($('b-lever-save'), 'Not needed'); LIS.text($('b-lever-age'), 'Already works'); LIS.text($('b-lever-cut'), 'Not needed');
+      let earlier = null; for (let ra = s.retireAge - 1; ra > s.age; ra--) { if (burn({ ...s, retireAge: ra }).sustainable) earlier = ra; else break; }
+      if (earlier) LIS.text($('b-lever-age'), `Could be ${earlier}`);
+    } else {
+      LIS.text($('b-lever-save'), isFinite(r.extra) ? '+' + F.money(r.extra) + ' / mo' : 'No time left');
+      let later = null; for (let ra = s.retireAge + 1; ra <= 85; ra++) if (burn({ ...s, retireAge: ra }).sustainable) { later = ra; break; }
+      LIS.text($('b-lever-age'), later ? 'Age ' + later : 'Beyond 85');
+      let cut = null; for (let c = 50; c <= s.lifestyle; c += 50) if (burn({ ...s, lifestyle: s.lifestyle - c }).sustainable) { cut = c; break; }
+      LIS.text($('b-lever-cut'), cut ? F.money(cut) + ' / mo' : (s.lifestyle > 0 ? 'More than all of it' : 'No lifestyle spending'));
+    }
+  }
+
+  /* ---- freedom number ---- */
+  function renderFreedom(s) {
+    const wr = s.wr / 100, rPre = s.retPre / 100;
+    const annual = s.living * 12;
+    const number = wr > 0 ? annual / wr : Infinity;
+    const cover = s.living > 0 ? Math.min(100, (s.passive / s.living) * 100) : 100;
+    const prog = number > 0 ? Math.min(100, (s.portfolio / number) * 100) : 100;
+    const months = fin.monthsTo(s.portfolio, number, s.invest, rPre);
+    const freeAge = s.age + months / 12;
+    const yrs = Math.max(0, s.retireAge - s.age);
+    const needMo = fin.pmt(s.portfolio, number, rPre, yrs * 12);
+    const extra = Math.max(0, needMo - s.invest);
+    const remain = wr > 0 ? Math.max(0, s.living - s.passive) * 12 / wr : Infinity;
+    LIS.text($('f-stamp'), `${F.pct(s.wr, 1)} withdrawal rate`);
+    LIS.count($('f-number'), number);
+    LIS.text($('f-sub'), `At a ${F.pct(s.wr, 1)} withdrawal rate this pays ${F.money(s.living)} a month for life. Every $1 of monthly spending needs about ${F.money(wr > 0 ? 12 / wr : 0)} invested.`);
+    LIS.count($('f-prog'), prog, v => F.pct(v, 0));
+    LIS.text($('f-prog-sub'), `${F.money(s.portfolio)} of ${F.money(number)}`);
+    LIS.count($('f-cover'), cover, v => F.pct(v, 0));
+    LIS.text($('f-cover-sub'), `${F.money(s.passive)} of ${F.money(s.living)} a month`);
+    LIS.text($('f-age'), months === 0 ? 'Now' : isFinite(months) ? 'Age ' + Math.round(freeAge) : 'Never');
+    LIS.cls($('f-age'), 'value', months === 0 ? 'pos' : !isFinite(months) ? 'neg' : '');
+    LIS.text($('f-age-sub'), months === 0 ? 'Your portfolio already covers your living expenses.' : isFinite(months) ? `${F.months(months)} from now at ${F.money(s.invest)} a month` : s.invest > 0 ? 'More than 100 years at this pace' : 'Nothing is being invested each month');
+    const note = $('f-note');
+    if (cover >= 100 && s.living > 0) { note.className = 'note good'; LIS.text($('f-note-t'), `Your passive income already covers your living expenses. Work is optional today. The portfolio is your margin of safety and your upgrade fund.`); }
+    else if (months === 0) { note.className = 'note good'; LIS.text($('f-note-t'), 'Work is already optional on paper. The next question is how much bigger you want the life to be.'); }
+    else if (needMo <= s.invest) { note.className = 'note good'; LIS.text($('f-note-t'), `You are on track to reach your number by ${s.retireAge}. You could invest ${F.money(s.invest - needMo)} less a month and still make it, or keep going and get there ${Math.max(0, Math.round(s.retireAge - freeAge))} years early.`); }
+    else if (!isFinite(needMo)) { note.className = 'note warn'; LIS.text($('f-note-t'), 'Your retirement age is now. Move it later or raise the passive income side.'); }
+    else { note.className = 'note warn'; LIS.text($('f-note-t'), `To be free by ${s.retireAge} you need ${F.money(needMo)} a month going in, ${F.money(extra)} more than today. Growing passive income shrinks the number itself.`); }
+    LIS.text($('f-annual'), F.money(annual));
+    LIS.text($('f-passive'), F.money(s.passive * 12) + ' / yr');
+    LIS.text($('f-remain'), F.money(remain));
+    LIS.text($('f-by'), s.retireAge);
+    LIS.text($('f-needmo'), isFinite(needMo) ? F.money(Math.max(0, needMo)) + ' / mo' : '—');
+    LIS.text($('f-extra'), isFinite(needMo) ? (extra > 0 ? '+' + F.money(extra) + ' / mo' : 'On track') : '—');
+    LIS.cls($('f-extra'), 'v', extra > 0 ? 'neg' : 'pos');
+    // chart: portfolio path by age until number reached (or 40 years)
+    const horizon = Math.min(40, isFinite(months) ? Math.ceil(months / 12) + 2 : 40);
+    const ages = [], path = [], flat = []; let b = s.portfolio;
+    for (let y = 0; y <= horizon; y++) { ages.push(s.age + y); path.push(b); flat.push(number); b = fin.fv(s.invest, rPre, 12, b); }
+    LIS.chart.line($('f-chart'), { x: ages, series: [{ name: 'Your portfolio', values: path, color: '#16352A', area: true }, { name: 'Freedom number', values: flat, color: '#B98A1F', dash: true }], markers: isFinite(months) && months > 0 ? [{ x: Math.round(freeAge), label: 'Free at ' + Math.round(freeAge), color: '#2F7D5B' }] : [], xFmt: v => v, tipLabel: v => 'Age ' + v, label: 'Portfolio growth toward freedom number' });
+  }
+
+  /* ---- wealth gap ---- */
+  function renderGap(s) {
+    const b = bracketFor(s.age), nw = s.portfolio, rPre = s.retPre / 100;
+    const pct = percentile(nw, b);
+    LIS.text($('g-stamp'), `Age group ${b.label}`);
+    LIS.count($('g-pct'), pct, v => F.pct(v, 0));
+    LIS.cls($('g-pct'), 'value', pct >= 50 ? 'pos' : '');
+    LIS.text($('g-sub'), `of people ${b.label === 'under 35' ? 'under 35' : 'aged ' + b.label} by net worth. That puts you in the top ${F.pct(Math.max(1, 100 - pct), 0)}.`);
+    LIS.meter($('g-meter'), pct, pct >= 90 ? 'emerald' : 'gold');
+    const note = $('g-note');
+    if (pct >= 90) { note.className = 'note good'; LIS.text($('g-note-t'), `You are in the top 10% for your age. ${nw >= b.p99 ? 'You have crossed the top 1% line.' : 'The top 1% line is ' + F.money(b.p99 - nw) + ' away.'}`); }
+    else if (pct >= 50) { note.className = 'note gold'; LIS.text($('g-note-t'), `Above the median for your age. The top 10% line is ${F.money(b.p90 - nw)} away. Most people at your level stall here because income grows and spending grows with it.`); }
+    else { note.className = 'note warn'; LIS.text($('g-note-t'), `Below the median of ${F.money(b.p50)} for your age. The gap is ${F.money(b.p50 - nw)}. It closes fastest through savings rate, not returns.`); }
+    LIS.text($('g-bracket'), '· ' + b.label);
+    LIS.chart.bars($('g-chart'), { items: [{ label: 'You', value: nw, color: '#D9A93D' }, { label: 'Median', value: b.p50, color: '#8D9BA6' }, { label: 'Top 10%', value: b.p90, color: '#2A6B4F' }, { label: 'Top 1%', value: b.p99, color: '#16352A' }], label: 'Your net worth vs peers' });
+    // savings-to-income
+    const ratio = s.annualIncome > 0 ? nw / s.annualIncome : Infinity;
+    const tgt = ratioTarget(s.age);
+    LIS.text($('g-ratio'), isFinite(ratio) ? F.num(ratio, 1) + '× income' : '—');
+    LIS.text($('g-ratio-age'), s.age);
+    LIS.text($('g-target'), F.num(tgt, 1) + '× income · ' + F.money(tgt * s.annualIncome));
+    const rgap = tgt * s.annualIncome - nw;
+    LIS.text($('g-ratio-k'), rgap > 0 ? 'Behind by' : 'Ahead by');
+    LIS.text($('g-ratio-gap'), F.money(Math.abs(rgap)));
+    LIS.cls($('g-ratio-gap'), 'v', rgap > 0 ? 'neg' : 'pos');
+    // path to top 10% in 10 years
+    const b10 = bracketFor(s.age + 10);
+    const monthly = fin.pmt(nw, b10.p90, rPre, 120);
+    LIS.text($('g-top10'), F.money(b.p90));
+    LIS.text($('g-age10'), s.age + 10);
+    LIS.text($('g-top10-next'), F.money(b10.p90));
+    LIS.text($('g-monthly'), monthly <= 0 ? 'Already there' : F.money(monthly) + ' / mo');
+    LIS.cls($('g-monthly'), 'v', monthly <= 0 ? 'pos' : '');
+    LIS.text($('g-path'), monthly <= 0 ? `Your ${F.money(nw)} grows past the ${F.money(b10.p90)} line by age ${s.age + 10} at ${F.pct(s.retPre, 1)} without adding a dollar.` : `Investing ${F.money(monthly)} a month at ${F.pct(s.retPre, 1)} takes you from ${F.money(nw)} to ${F.money(b10.p90)} by age ${s.age + 10}, the top 10% line for that age.`);
+  }
+
+  function showFields() {
+    ws.querySelectorAll('[data-tabs]').forEach(el => { el.hidden = !el.dataset.tabs.split(' ').includes(tab); });
+  }
+  const A = LIS.bind(ws, render);
+  function render(s) {
+    A.setMin('retireAge', s.age + 1);
+    if (tab === 'burn') renderBurn(s); else if (tab === 'freedom') renderFreedom(s); else renderGap(s);
+  }
+  LIS.tabs($('tabs'), name => { tab = name; showFields(); history.replaceState(null, '', location.pathname + location.search + '#' + name); A.run(); });
+  showFields();
+})();
+</script>
+</body>
+</html>

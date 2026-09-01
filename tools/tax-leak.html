@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tax Leak Calculator | Legacy Investing Show</title>
+  <meta name="description" content="Find how much tax you overpay each year by leaving legal strategies unused, and what that costs you over time.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/tools/assets/tools.css">
+</head>
+<body>
+
+<header class="wrap">
+  <div class="topbar">
+    <a class="brand" href="/tools"><span class="brand-mark">LIS</span>Legacy Investing Show</a>
+    <nav class="topbar-nav" aria-label="Tools">
+      <a href="/tools/wealth-trajectory">Trajectory</a>
+      <a href="/tools/tax-leak" aria-current="page">Tax Leak</a>
+      <a href="/tools/fee-drag">Fees</a>
+      <a href="/tools/cost-of-waiting">Waiting</a>
+      <a href="/tools/debt-meter">Debt</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <div class="hero-single">
+    <div>
+      <p class="eyebrow">Tool 2 of 5</p>
+      <h1>How much is the IRS <em>quietly taking</em> from you?</h1>
+      <p class="lede">Every dollar you overpay in tax is a dollar that never grows for you. Find your leak, see what it compounds into, and plug it.</p>
+      <div class="hero-meta"><span>2026 IRS limits</span><span>Live results</span><span>Nothing is saved</span></div>
+    </div>
+  </div>
+</section>
+
+<main class="tool wrap">
+  <div class="tool-grid">
+    <aside class="worksheet" id="ws" aria-label="Your numbers">
+      <div class="worksheet-head"><h2>Your numbers</h2><a href="#" class="reset" data-reset>Reset</a></div>
+
+      <div class="fieldset">
+        <p class="fieldset-title">Income this year</p>
+        <div class="field" data-key="w2" data-min="0" data-max="1000000" data-step="1000" data-default="85000" data-fmt="money">
+          <div class="field-row"><label for="in-w2">W-2 salary</label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="W-2 income"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-w2"></div></div>
+        </div>
+        <div class="field" data-key="se" data-min="0" data-max="1000000" data-step="1000" data-default="25000" data-fmt="money">
+          <div class="field-row"><label for="in-se">1099 / self-employed <span class="tip" tabindex="0" data-tip="Consulting, freelance, side business. Gross, before expenses.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="1099 or consulting income"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-se"></div></div>
+        </div>
+        <div class="field" data-key="rental" data-min="0" data-max="500000" data-step="1000" data-default="18000" data-fmt="money">
+          <div class="field-row"><label for="in-rental">Rental income</label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Rental income"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-rental"></div></div>
+        </div>
+        <div class="field" data-key="gains" data-min="0" data-max="500000" data-step="1000" data-default="5000" data-fmt="money">
+          <div class="field-row"><label for="in-gains">Investment gains</label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Investment gains"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-gains"></div></div>
+        </div>
+      </div>
+
+      <div class="fieldset">
+        <p class="fieldset-title">What you already do</p>
+        <div class="field" data-key="k401" data-min="0" data-max="24500" data-step="500" data-default="6500" data-fmt="money">
+          <div class="field-row"><label for="in-401k">401(k) contribution <span class="tip" tabindex="0" data-tip="Your own pre-tax contribution this year. 2026 limit is $24,500 under age 50.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="401k contribution"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-401k"></div></div>
+        </div>
+        <div class="field" data-key="ira" data-min="0" data-max="7500" data-step="250" data-default="2000" data-fmt="money">
+          <div class="field-row"><label for="in-ira">IRA contribution <span class="tip" tabindex="0" data-tip="2026 limit is $7,500 under age 50.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="IRA contribution"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-ira"></div></div>
+        </div>
+        <div class="field" data-key="hsa" data-min="0" data-max="8750" data-step="250" data-default="1000" data-fmt="money">
+          <div class="field-row"><label for="in-hsa">HSA contribution <span class="tip" tabindex="0" data-tip="Needs a high-deductible health plan. 2026 limits: $4,400 self, $8,750 family.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="HSA contribution"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-hsa"></div></div>
+        </div>
+        <div class="field" data-key="bizDed" data-min="0" data-max="500000" data-step="500" data-default="2000" data-fmt="money">
+          <div class="field-row"><label for="in-bizded">Business deductions taken</label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Business deductions taken"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-bizded"></div></div>
+        </div>
+        <label class="toggle" data-key="scorp"><span>Already an S-Corp</span><input type="checkbox"><span class="sw"></span></label>
+        <label class="toggle" data-key="hsaFamily"><span>HSA family coverage</span><input type="checkbox"><span class="sw"></span></label>
+        <label class="toggle" data-key="hsaPayroll"><span>HSA through payroll <span class="tip" tabindex="0" data-tip="Payroll HSA contributions also skip the 7.65% Social Security and Medicare tax.">i</span></span><input type="checkbox" checked><span class="sw"></span></label>
+        <label class="toggle" data-key="iraDed"><span>IRA is deductible <span class="tip" tabindex="0" data-tip="A traditional IRA is fully deductible if you have no workplace plan, or if your income is under the phase-out.">i</span></span><input type="checkbox" checked><span class="sw"></span></label>
+      </div>
+
+      <details class="adv">
+        <summary>Assumptions</summary>
+        <div class="fieldset">
+          <div class="field" data-key="rate" data-min="10" data-max="37" data-step="1" data-default="24" data-fmt="pct">
+            <div class="field-row"><label for="in-rate">Marginal federal rate <span class="tip" tabindex="0" data-tip="The tax rate on your next dollar. 2026 brackets: 10, 12, 22, 24, 32, 35, 37%.">i</span></label><output class="field-out"></output></div>
+            <div class="field-ctl"><input type="range" aria-label="Marginal federal tax rate"><div class="numwrap has-post"><input type="number" id="in-rate"><span class="affix post">%</span></div></div>
+          </div>
+          <div class="field" data-key="ret" data-min="0" data-max="12" data-step="0.5" data-default="7" data-fmt="pct" data-dec="1">
+            <div class="field-row"><label for="in-ret">Annual return if invested</label><output class="field-out"></output></div>
+            <div class="field-ctl"><input type="range" aria-label="Annual investment return"><div class="numwrap has-post"><input type="number" id="in-ret"><span class="affix post">%</span></div></div>
+          </div>
+          <div class="field" data-key="salaryPct" data-min="30" data-max="100" data-step="5" data-default="50" data-fmt="pct">
+            <div class="field-row"><label for="in-sal">S-Corp salary share <span class="tip" tabindex="0" data-tip="The share of net business profit paid to you as a reasonable W-2 salary. The rest is distribution, free of self-employment tax.">i</span></label><output class="field-out"></output></div>
+            <div class="field-ctl"><input type="range" aria-label="S-Corp reasonable salary percent"><div class="numwrap has-post"><input type="number" id="in-sal"><span class="affix post">%</span></div></div>
+          </div>
+          <div class="field" data-key="scorpCost" data-min="0" data-max="6000" data-step="250" data-default="2000" data-fmt="money">
+            <div class="field-row"><label for="in-scost">S-Corp yearly cost <span class="tip" tabindex="0" data-tip="Payroll service, separate tax return, state fees. Netted out of the S-Corp saving.">i</span></label><output class="field-out"></output></div>
+            <div class="field-ctl"><input type="range" aria-label="S-Corp annual admin cost"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-scost"></div></div>
+          </div>
+          <div class="field" data-key="extraDed" data-min="0" data-max="200000" data-step="500" data-default="0" data-fmt="money">
+            <div class="field-row"><label for="in-extra">Deductible expenses you skip <span class="tip" tabindex="0" data-tip="Home office, mileage, equipment, phone, education you could deduct but do not.">i</span></label><output class="field-out"></output></div>
+            <div class="field-ctl"><input type="range" aria-label="Additional deductible business expenses"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-extra"></div></div>
+          </div>
+        </div>
+      </details>
+    </aside>
+
+    <section class="statement">
+      <div class="statement-head"><h2>Your tax leak</h2><span class="stamp" id="stamp"></span></div>
+      <div class="figure">
+        <span class="label">Overpaid this year by leaving strategies unused</span>
+        <span class="value neg" id="leak">—</span>
+        <span class="sub" id="leak-sub"></span>
+      </div>
+      <div class="figures">
+        <div class="figure"><span class="label">Per day</span><span class="value" id="day">—</span></div>
+        <div class="figure"><span class="label">Share of income</span><span class="value" id="share">—</span><span class="sub">of what you earned</span></div>
+        <div class="figure"><span class="label">Per month</span><span class="value" id="month">—</span><span class="sub">a car payment, gone</span></div>
+      </div>
+      <div class="note" id="note"><span class="dot"></span><span id="note-t"></span></div>
+
+      <div class="section">
+        <p class="section-title">Where the leak is</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Strategy</th><th>What it means</th><th>Saves per year</th></tr></thead>
+            <tbody id="rows"></tbody>
+            <tfoot><tr><td>Total</td><td></td><td id="total"></td></tr></tfoot>
+          </table>
+        </div>
+        <p class="muted" id="empty" hidden style="font-size:.88rem;color:var(--ink-soft);margin-top:.75rem">No leak found with these numbers. You already use the main strategies this tool checks.</p>
+      </div>
+
+      <div class="section">
+        <p class="section-title">What the leak becomes if invested</p>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+          <div class="figure" style="padding-bottom:.5rem"><span class="label" id="grow-label">In 10 years</span><span class="value gold" id="grow">—</span><span class="sub" id="grow-sub"></span></div>
+          <div class="segment" data-key="horizon" data-default="10" id="horizon"><button data-val="10">10 yrs</button><button data-val="20">20 yrs</button><button data-val="30">30 yrs</button></div>
+        </div>
+        <div id="chart"></div>
+      </div>
+
+      <div class="section" style="display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));align-items:start">
+        <div>
+          <p class="section-title">Money out vs growth lost</p>
+          <div id="donut"></div>
+        </div>
+        <div>
+          <p class="section-title">Reading the numbers</p>
+          <div class="ledger">
+            <div class="ledger-row"><span class="k">Overpaid, over <span id="d-yrs"></span></span><span class="v" id="d-paid"></span></div>
+            <div class="ledger-row"><span class="k">Growth you never see</span><span class="v neg" id="d-growth"></span></div>
+            <div class="ledger-row total"><span class="k">Cost of doing nothing</span><span class="v" id="d-total"></span></div>
+          </div>
+          <p class="muted" style="font-size:.84rem;color:var(--ink-soft);margin-top:.7rem">These are not loopholes. They are the deductions and accounts the tax code expects you to use.</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-ghost btn-sm" data-share>Copy link to these results</button>
+        <span class="hint">Your numbers live in the link. Nothing is stored.</span>
+        <span class="spacer"></span>
+        <a class="btn btn-gold btn-sm" href="/tools/fee-drag">Next: Investment Fees</a>
+      </div>
+      <p class="fine">Educational estimate using 2026 federal limits and your marginal rate. State tax, phase-outs, catch-up contributions and your full situation are not modelled. Not tax advice. Talk to a CPA before acting.</p>
+    </section>
+  </div>
+
+  <nav class="next" aria-label="More tools">
+    <a href="/tools/wealth-trajectory"><span class="k">Tool 1</span><span class="t">Discover your wealth trajectory</span></a>
+    <a href="/tools/fee-drag"><span class="k">Tool 3</span><span class="t">The cost hiding in your investment fees</span></a>
+  </nav>
+</main>
+
+<footer class="site"><div class="wrap inner"><span>© 2026 Legacy Investing Show LLC · Educational only, not financial or tax advice</span><span><a href="https://www.firstairbnb.com/contactus">Contact</a><a href="https://www.firstairbnb.com/privacypolicy">Privacy</a><a href="https://managemoney101.com/challengeterms">Terms</a></span></div></footer>
+
+<script src="/tools/assets/tools.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const F = LIS.fmt;
+  const LIM = { k401: 24500, ira: 7500, hsaSelf: 4400, hsaFamily: 8750, fica: 0.0765, seNet: 0.9235, seTax: 0.153 };
+
+  function fvAnnuity(annual, r, n) { return r === 0 ? annual * n : annual * ((Math.pow(1 + r, n) - 1) / r); }
+
+  function render(s) {
+    const rate = s.rate / 100, ret = s.ret / 100;
+    const income = s.w2 + s.se + s.rental + s.gains;
+    const k401 = Math.max(0, LIM.k401 - s.k401) * rate;
+    const hsaLimit = s.hsaFamily ? LIM.hsaFamily : LIM.hsaSelf;
+    const hsa = Math.max(0, hsaLimit - s.hsa) * (rate + (s.hsaPayroll ? LIM.fica : 0));
+    const ira = s.iraDed ? Math.max(0, LIM.ira - s.ira) * rate : 0;
+    const netSE = Math.max(0, s.se - s.bizDed);
+    const seNow = netSE * LIM.seNet * LIM.seTax;
+    const seCorp = (s.salaryPct / 100) * netSE * LIM.seTax;
+    const scorp = s.scorp ? 0 : Math.max(0, seNow - seCorp - s.scorpCost);
+    const ded = s.extraDed * rate;
+    const leak = k401 + hsa + ira + scorp + ded;
+    const H = +s.horizon;
+    const grow = fvAnnuity(leak, ret, H);
+
+    LIS.text($('stamp'), `${F.pct(s.rate, 0)} marginal · ${F.pct(s.ret, 1)} return`);
+    LIS.count($('leak'), leak);
+    LIS.text($('leak-sub'), leak > 0 ? `On ${F.money(income)} of income. That is money the IRS keeps because a form was never filled in.` : 'Nothing left on the table with these numbers.');
+    LIS.count($('day'), leak / 365, v => F.money(v, 2));
+    LIS.count($('share'), income > 0 ? (leak / income) * 100 : 0, v => F.pct(v, 1));
+    LIS.count($('month'), leak / 12);
+    const note = $('note');
+    if (leak <= 0) { note.className = 'note good'; LIS.text($('note-t'), 'You are already using the 401(k), IRA, HSA and entity strategies this tool checks. The next level is real estate, cost segregation and timing, which the challenge covers.'); }
+    else if (leak >= 10000) { note.className = 'note warn'; LIS.text($('note-t'), `A ${F.money(leak)} leak is a second car payment every month, gone. The good news: every line below is a decision, not a hardship.`); }
+    else { note.className = 'note gold'; LIS.text($('note-t'), `${F.money(leak)} a year does not sound like much until you see what ${H} years of it grows into below.`); }
+
+    const rows = [
+      { n: '401(k) room', d: `Add ${F.money(Math.max(0, LIM.k401 - s.k401))} more pre-tax`, v: k401 },
+      { n: 'HSA room', d: `Add ${F.money(Math.max(0, hsaLimit - s.hsa))} more${s.hsaPayroll ? ', skips payroll tax too' : ''}`, v: hsa },
+      { n: 'IRA room', d: s.iraDed ? `Add ${F.money(Math.max(0, LIM.ira - s.ira))} more, deductible` : 'Not deductible for you', v: ira },
+      { n: 'S-Corp election', d: s.scorp ? 'Already elected' : netSE > 0 ? (scorp > 0 ? `Pay ${F.pct(s.salaryPct, 0)} of ${F.money(netSE)} as salary, rest as distribution` : `Saves ${F.money(Math.max(0, seNow - seCorp))} in payroll tax, but costs ${F.money(s.scorpCost)} to run. Not worth it below about ${F.money(Math.ceil((s.scorpCost / ((LIM.seNet - s.salaryPct / 100) * LIM.seTax)) / 5000) * 5000)} of profit.`) : 'No self-employed profit', v: scorp, keep: !s.scorp && netSE > 0 },
+      { n: 'Deductions you skip', d: s.extraDed > 0 ? `${F.money(s.extraDed)} of expenses never claimed` : 'Add skipped expenses in Assumptions', v: ded },
+    ].filter(r => r.v > 0 || r.keep).sort((a, b) => b.v - a.v);
+    $('rows').innerHTML = rows.map((r, i) => `<tr${i === 0 ? ' class="hi"' : ''}><td><strong>${r.n}</strong></td><td style="text-align:left;color:var(--ink-soft);white-space:normal">${r.d}</td><td style="color:${r.v > 0 ? 'var(--rose-ink)' : 'var(--ink-faint)'};font-weight:600">${F.money(r.v)}</td></tr>`).join('');
+    $('empty').hidden = leak > 0;
+    $('rows').closest('table').hidden = rows.length === 0;
+    LIS.text($('total'), F.money(leak));
+
+    LIS.text($('grow-label'), `In ${H} years, invested at ${F.pct(s.ret, 1)}`);
+    LIS.count($('grow'), grow);
+    LIS.text($('grow-sub'), `${F.money(leak)} a year, every year, compounding`);
+    LIS.chart.bars($('chart'), { items: [{ label: 'This year', value: leak, color: '#B0503C' }, { label: '10 years', value: fvAnnuity(leak, ret, 10), color: H === 10 ? '#D9A93D' : '#EDE6D4' }, { label: '20 years', value: fvAnnuity(leak, ret, 20), color: H === 20 ? '#D9A93D' : '#EDE6D4' }, { label: '30 years', value: fvAnnuity(leak, ret, 30), color: H === 30 ? '#D9A93D' : '#EDE6D4' }], label: 'Leak compounded over time' });
+    const paid = leak * H, lost = grow - paid;
+    LIS.chart.donut($('donut'), { items: [{ label: 'Overpaid', value: paid, color: '#B0503C' }, { label: 'Growth lost', value: lost, color: '#D9A93D' }], big: F.compact(grow), small: `over ${H} years` });
+    LIS.text($('d-yrs'), H + ' years');
+    LIS.text($('d-paid'), F.money(paid));
+    LIS.text($('d-growth'), F.money(lost));
+    LIS.text($('d-total'), F.money(grow));
+  }
+  // the horizon segment sits in the statement, bind it separately and share the render
+  const B = LIS.bind($('horizon').parentElement, () => {}, { url: false });
+  const A = LIS.bind($('ws'), s => render({ ...s, horizon: B.state.horizon }));
+  $('horizon').querySelectorAll('button').forEach(b => b.addEventListener('click', () => A.run()));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fee Drag Calculator | Legacy Investing Show</title>
+  <meta name="description" content="See what investment fees really cost you over time, including the compound growth you never get.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/tools/assets/tools.css">
+</head>
+<body>
+
+<header class="wrap">
+  <div class="topbar">
+    <a class="brand" href="/tools"><span class="brand-mark">LIS</span>Legacy Investing Show</a>
+    <nav class="topbar-nav" aria-label="Tools">
+      <a href="/tools/wealth-trajectory">Trajectory</a>
+      <a href="/tools/tax-leak">Tax Leak</a>
+      <a href="/tools/fee-drag" aria-current="page">Fees</a>
+      <a href="/tools/cost-of-waiting">Waiting</a>
+      <a href="/tools/debt-meter">Debt</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <div class="hero-single">
+    <div>
+      <p class="eyebrow">Tool 3 of 5</p>
+      <h1>The <em>$100,000 mistake</em> hiding in your investment fees</h1>
+      <p class="lede">A 1% fee sounds harmless. Over a working life it can take a quarter of everything you build. See your number, then see what a low-cost fund keeps for you.</p>
+      <div class="hero-meta"><span>Fund and advisor fees</span><span>Live results</span><span>Nothing is saved</span></div>
+    </div>
+  </div>
+</section>
+
+<main class="tool wrap">
+  <div class="tool-grid">
+    <aside class="worksheet" id="ws" aria-label="Your numbers">
+      <div class="worksheet-head"><h2>Your numbers</h2><a href="#" class="reset" data-reset>Reset</a></div>
+
+      <div class="fieldset">
+        <div class="field" data-key="portfolio" data-min="0" data-max="5000000" data-step="1000" data-default="50000" data-fmt="money">
+          <div class="field-row"><label for="in-portfolio">Invested today</label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Current portfolio size"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-portfolio"></div></div>
+        </div>
+        <div class="field" data-key="monthly" data-min="0" data-max="10000" data-step="50" data-default="0" data-fmt="money">
+          <div class="field-row"><label for="in-monthly">Added each month</label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Monthly contribution"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-monthly"></div></div>
+        </div>
+        <div class="field" data-key="years" data-min="5" data-max="40" data-step="1" data-default="30" data-fmt="years">
+          <div class="field-row"><label for="in-years">Years invested</label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Years invested"><div class="numwrap"><input type="number" id="in-years"></div></div>
+        </div>
+      </div>
+
+      <div class="fieldset">
+        <p class="fieldset-title">What you pay</p>
+        <div class="field" data-key="er" data-min="0" data-max="3" data-step="0.01" data-default="1" data-fmt="pct" data-dec="2">
+          <div class="field-row"><label for="in-er">Fund expense ratio <span class="tip" tabindex="0" data-tip="The yearly fee inside a fund, as a share of your money. Printed in the fund's fact sheet. US mutual funds average 0.82%.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Expense ratio"><div class="numwrap has-post"><input type="number" id="in-er"><span class="affix post">%</span></div></div>
+        </div>
+        <p id="er-band" style="font-size:.78rem;margin:-.5rem 0 .9rem;font-weight:600"></p>
+        <div class="field" data-key="advisor" data-min="0" data-max="2" data-step="0.05" data-default="0" data-fmt="pct" data-dec="2">
+          <div class="field-row"><label for="in-adv">Advisor fee <span class="tip" tabindex="0" data-tip="Assets-under-management fee, if you pay one. Typical is 1% a year, on top of fund fees.">i</span></label><output class="field-out"></output></div>
+          <div class="field-ctl"><input type="range" aria-label="Advisor fee"><div class="numwrap has-post"><input type="number" id="in-adv"><span class="affix post">%</span></div></div>
+        </div>
+      </div>
+
+      <details class="adv">
+        <summary>Assumptions</summary>
+        <div class="fieldset">
+          <div class="field" data-key="ret" data-min="1" data-max="15" data-step="0.1" data-default="8" data-fmt="pct" data-dec="1">
+            <div class="field-row"><label for="in-ret">Return before fees</label><output class="field-out"></output></div>
+            <div class="field-ctl"><input type="range" aria-label="Expected annual return"><div class="numwrap has-post"><input type="number" id="in-ret"><span class="affix post">%</span></div></div>
+          </div>
+          <div class="field" data-key="alt" data-min="0" data-max="0.5" data-step="0.01" data-default="0.03" data-fmt="pct" data-dec="2">
+            <div class="field-row"><label for="in-alt">Low-cost alternative <span class="tip" tabindex="0" data-tip="Broad index funds charge 0.03% to 0.10% a year.">i</span></label><output class="field-out"></output></div>
+            <div class="field-ctl"><input type="range" aria-label="Low-cost fund fee"><div class="numwrap has-post"><input type="number" id="in-alt"><span class="affix post">%</span></div></div>
+          </div>
+        </div>
+      </details>
+    </aside>
+
+    <section class="statement">
+      <div class="statement-head"><h2>Fee drag</h2><span class="stamp" id="stamp"></span></div>
+      <div class="figure">
+        <span class="label" id="lead-label">Fees cost you over 30 years</span>
+        <span class="value neg" id="drag">—</span>
+        <span class="sub" id="drag-sub"></span>
+      </div>
+      <div class="meter" aria-hidden="true">
+        <div class="meter-track"><div class="meter-fill rose" id="meter"></div></div>
+        <div class="meter-scale"><span>0% of your potential wealth</span><span id="meter-r"></span></div>
+      </div>
+      <div class="note" id="note"><span class="dot"></span><span id="note-t"></span></div>
+
+      <div class="ledger">
+        <div class="ledger-row"><span class="k">Fees this year</span><span class="v" id="l-year"></span></div>
+        <div class="ledger-row"><span class="k">Fees paid directly over <span id="l-yrs"></span></span><span class="v" id="l-direct"></span></div>
+        <div class="ledger-row"><span class="k">Growth those fees would have earned</span><span class="v" id="l-compound"></span></div>
+        <div class="ledger-row total"><span class="k">Total drag</span><span class="v neg" id="l-total"></span></div>
+      </div>
+
+      <div class="section">
+        <p class="section-title">Three futures for the same money</p>
+        <div id="chart"></div>
+      </div>
+
+      <div class="section" style="display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));align-items:start">
+        <div>
+          <p class="section-title">Ending balance</p>
+          <div class="ledger">
+            <div class="ledger-row"><span class="k"><span class="swatch" style="background:#EDE6D4;border:1px solid #E2D9C3"></span>No fees at all</span><span class="v muted" id="e-none"></span></div>
+            <div class="ledger-row"><span class="k"><span class="swatch" style="background:#2F7D5B"></span>Low-cost fund, <span id="e-alt-pct"></span></span><span class="v pos" id="e-alt"></span></div>
+            <div class="ledger-row"><span class="k"><span class="swatch" style="background:#B0503C"></span>Your fees, <span id="e-you-pct"></span></span><span class="v" id="e-you"></span></div>
+            <div class="ledger-row total"><span class="k">Switching keeps</span><span class="v pos" id="e-keep"></span></div>
+          </div>
+        </div>
+        <div>
+          <p class="section-title">Who gets the growth</p>
+          <div id="donut"></div>
+          <p class="muted" id="donut-sub" style="font-size:.84rem;color:var(--ink-soft);margin-top:.5rem;text-align:center"></p>
+        </div>
+      </div>
+
+      <details class="adv section" style="border-top:0">
+        <summary>Year by year</summary>
+        <div class="table-wrap"><table><thead><tr><th>Year</th><th>No fees</th><th>Low-cost</th><th>Your fees</th><th>Drag so far</th></tr></thead><tbody id="rows"></tbody></table></div>
+      </details>
+
+      <div class="actions">
+        <button class="btn btn-ghost btn-sm" data-share>Copy link to these results</button>
+        <span class="hint">Your numbers live in the link. Nothing is stored.</span>
+        <span class="spacer"></span>
+        <a class="btn btn-gold btn-sm" href="/tools/cost-of-waiting">Next: Cost of Waiting</a>
+      </div>
+      <p class="fine">Educational estimate. Fees are charged yearly on the balance, returns are constant, and taxes are ignored. Past returns do not predict future ones. Not investment advice.</p>
+    </section>
+  </div>
+
+  <nav class="next" aria-label="More tools">
+    <a href="/tools/tax-leak"><span class="k">Tool 2</span><span class="t">How much is the IRS quietly taking?</span></a>
+    <a href="/tools/cost-of-waiting"><span class="k">Tool 4</span><span class="t">The price of waiting to invest</span></a>
+  </nav>
+</main>
+
+<footer class="site"><div class="wrap inner"><span>© 2026 Legacy Investing Show LLC · Educational only, not financial or tax advice</span><span><a href="https://www.firstairbnb.com/contactus">Contact</a><a href="https://www.firstairbnb.com/privacypolicy">Privacy</a><a href="https://managemoney101.com/challengeterms">Terms</a></span></div></footer>
+
+<script src="/tools/assets/tools.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const F = LIS.fmt;
+
+  function band(er) {
+    if (er <= 0.1) return ['Very low. Index-fund territory.', '#2F7D5B'];
+    if (er <= 0.5) return ['Low.', '#2A6B4F'];
+    if (er <= 0.82) return ['Average. US mutual funds average 0.82%.', '#8A6510'];
+    if (er <= 1) return ['High.', '#B0503C'];
+    return ['Very high. Common in actively managed and insurance products.', '#8E3C2B'];
+  }
+  // yearly simulation: fee charged on the balance each year, contributions added monthly
+  function sim(P, monthly, r, fee, N) {
+    const path = [P]; let b = P, paid = 0;
+    for (let y = 1; y <= N; y++) {
+      const feeThis = b * fee; paid += feeThis;
+      b = b * (1 + r - fee) + monthly * 12 * (1 + (r - fee) / 2);
+      path.push(b);
+    }
+    return { path, end: b, paid };
+  }
+
+  function render(s) {
+    const r = s.ret / 100, feeYou = (s.er + s.advisor) / 100, feeAlt = s.alt / 100, N = s.years;
+    const none = sim(s.portfolio, s.monthly, r, 0, N), you = sim(s.portfolio, s.monthly, r, feeYou, N), alt = sim(s.portfolio, s.monthly, r, feeAlt, N);
+    const drag = none.end - you.end, pct = none.end > 0 ? (drag / none.end) * 100 : 0;
+    const compound = drag - you.paid;
+    const [bandText, bandColor] = band(s.er);
+    $('er-band').textContent = bandText; $('er-band').style.color = bandColor;
+
+    LIS.text($('stamp'), `${F.pct(s.er + s.advisor, 2)} all-in · ${F.pct(s.ret, 1)} return`);
+    LIS.text($('lead-label'), `Fees cost you over ${N} years`);
+    LIS.count($('drag'), drag);
+    LIS.text($('drag-sub'), `${F.pct(pct, 1)} of the wealth this money could have built. Fees compound too, just against you.`);
+    LIS.meter($('meter'), pct, 'rose'); LIS.text($('meter-r'), F.pct(pct, 1) + ' lost to fees');
+    const note = $('note');
+    if (feeYou <= 0.0015) { note.className = 'note good'; LIS.text($('note-t'), 'You are already at low-cost index levels. There is nothing meaningful left to cut here.'); }
+    else if (s.advisor > 0) { note.className = 'note warn'; LIS.text($('note-t'), `Your advisor fee alone takes ${F.money(sim(s.portfolio, s.monthly, r, s.er / 100, N).end - you.end)} over ${N} years. Good advice can be worth it. Make sure you are getting a plan, not just a fund pick.`); }
+    else if (s.er > 0.5) { note.className = 'note warn'; LIS.text($('note-t'), `Most of this drag is avoidable. The same market exposure exists at ${F.pct(s.alt, 2)}. Switching keeps ${F.money(alt.end - you.end)} in your pocket.`); }
+    else { note.className = 'note gold'; LIS.text($('note-t'), `Reasonable fees. Trimming to ${F.pct(s.alt, 2)} still keeps ${F.money(alt.end - you.end)} over ${N} years.`); }
+
+    LIS.text($('l-year'), F.money(s.portfolio * feeYou));
+    LIS.text($('l-yrs'), F.yearsWord(N));
+    LIS.text($('l-direct'), F.money(you.paid));
+    LIS.text($('l-compound'), F.money(compound));
+    LIS.text($('l-total'), F.money(drag));
+
+    const x = []; for (let y = 0; y <= N; y++) x.push(y);
+    LIS.chart.line($('chart'), { x, series: [{ name: 'No fees', values: none.path, color: '#B9B09A', dash: true }, { name: 'Low-cost fund', values: alt.path, color: '#2F7D5B', width: 2 }, { name: 'Your fees', values: you.path, color: '#B0503C', area: true, areaOpacity: .08 }], xFmt: v => 'Y' + v, tipLabel: v => 'Year ' + v, label: 'Portfolio value with and without fees' });
+
+    LIS.text($('e-none'), F.money(none.end));
+    LIS.text($('e-alt-pct'), F.pct(s.alt, 2)); LIS.text($('e-alt'), F.money(alt.end));
+    LIS.text($('e-you-pct'), F.pct(s.er + s.advisor, 2)); LIS.text($('e-you'), F.money(you.end));
+    LIS.text($('e-keep'), F.money(Math.max(0, alt.end - you.end)));
+    LIS.chart.donut($('donut'), { items: [{ label: 'You keep', value: you.end, color: '#16352A' }, { label: 'Fees and lost growth', value: drag, color: '#B0503C' }], big: none.end > 0 ? F.pct(100 - pct, 0) : '—', small: 'stays yours' });
+    LIS.text($('donut-sub'), `${F.money(you.end)} to you, ${F.money(drag)} to fees, from ${F.money(none.end)} of potential.`);
+
+    let rows = ''; for (let y = 0; y <= N; y++) if (y % 5 === 0 || y === N) rows += `<tr${y === N ? ' class="hi"' : ''}><td>${y}</td><td>${F.money(none.path[y])}</td><td>${F.money(alt.path[y])}</td><td>${F.money(you.path[y])}</td><td style="color:var(--rose-ink)">${F.money(none.path[y] - you.path[y])}</td></tr>`;
+    $('rows').innerHTML = rows;
+  }
+  LIS.bind($('ws'), render);
+})();
+</script>
+</body>
+</html>
