@@ -208,7 +208,8 @@
     .hero-copy > * + * { margin-top: 1.25rem; }
     .hero-copy h1.display { margin-top: 1.05rem; }
     .hero-accent { color: var(--gold-ink); font-style: italic; font-family: var(--serif); font-weight: 600; font-size: 1.04em; }
-    .hero-proof { font-size: .9rem; color: var(--ink-faint); text-align: center; }
+    .hero-proof { font-size: clamp(1.02rem, 1.2vw, 1.15rem); line-height: 1.5; color: var(--ink-soft, var(--ink-faint)); max-width: 34rem; }
+    @media (max-width: 1023px) { .hero-proof { margin-inline: auto; } }
 
     .video-frame {
       position: relative; aspect-ratio: 16/9; border-radius: 1rem; overflow: hidden;
@@ -783,9 +784,13 @@
           Find The Leaks In Your Finances And Build A Wealth Plan To Add <span class="hero-accent">$85,871</span> In The Next 12 Months
         </h1>
 
+        <p class="hero-proof">
+          $85,871 is the average conservative first-year value we map out when we build these plans for our clients internally. 4,400+ people have been through this system.
+        </p>
+
         <div class="hero-cta only-desktop">
           <a href="#pricing" class="btn btn-gold btn-lg">
-            Claim Your Ticket Now
+            Grab Your Ticket Now
             <svg class="arrow"><use href="#arrow-icon"/></svg>
           </a>
           <p class="date">Oct 16th - Oct 18th | 10 AM - 4 PM EST</p>
@@ -800,7 +805,7 @@
 
         <div class="only-mobile" style="text-align:center;">
           <a href="#pricing" class="btn btn-gold btn-lg">
-            Claim Your Ticket Now
+            Grab Your Ticket Now
             <svg class="arrow"><use href="#arrow-icon"/></svg>
           </a>
           <p class="date">Oct 16th - Oct 18th | 10 AM - 4 PM EST</p>
@@ -811,10 +816,6 @@
           <p class="label">50% Off Ends At Midnight</p>
           <div class="nx-cd" id="nxCountdown"></div>
         </div>
-
-        <p class="hero-proof">
-          ($85,871 is the average conservative first-year value we map out when we build these plans for our clients internally. 4,400+ people have been through this system.)
-        </p>
       </div>
     </div>
   </div>
@@ -1997,7 +1998,7 @@
     <h2 class="display" style="margin-bottom:2rem;">The Plan Is Worth $85,871. The Ticket Is $47.</h2>
 
     <a href="#pricing" class="btn btn-gold btn-lg">
-      Claim Your Ticket Now
+      Grab Your Ticket Now
       <svg class="arrow"><use href="#arrow-icon"/></svg>
     </a>
     <p class="muted" style="margin-top:1rem;">Oct 16th - Oct 18th | 10 AM - 4 PM EST</p>
