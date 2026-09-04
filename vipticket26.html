@@ -503,40 +503,6 @@
           el.setAttribute('type', 'checkout');
           el.setAttribute('url', mount.getAttribute('data-checkout') + (out.toString() ? '?' + out.toString() : ''));
           mount.replaceWith(el);
-
-          function fireMetaLeadOnce(attempt) {
-            var cameFromOptIn = q.get('lead_source') === 'popup_optin';
-            if (!cameFromOptIn) return;
-
-            var email = q.get('email') || saved.email || '';
-            var source = q.get('lead_ts') || saved.ts || q.toString() || location.href;
-            var eventId = ('lead-vip-' + (email || 'unknown') + '-' + source)
-              .replace(/[^a-z0-9]+/gi, '-')
-              .slice(0, 120);
-            var storageKey = 'lis_meta_lead_sent_' + eventId;
-
-            try {
-              if (localStorage.getItem(storageKey)) return;
-            } catch (e) {}
-
-            if (typeof fbq !== 'function') {
-              if ((attempt || 0) < 40) {
-                setTimeout(function () { fireMetaLeadOnce((attempt || 0) + 1); }, 250);
-              }
-              return;
-            }
-
-            fbq('track', 'Lead', {
-              content_name: 'challenge-vip',
-              content_category: 'challenge-optin'
-            }, {
-              eventID: eventId
-            });
-
-            try { localStorage.setItem(storageKey, '1'); } catch (e) {}
-          }
-
-          fireMetaLeadOnce(0);
         })();
         </script>
       </div>

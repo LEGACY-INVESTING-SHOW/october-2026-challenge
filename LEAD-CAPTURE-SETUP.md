@@ -7,14 +7,13 @@ The opt-in popup, the checkout prefill, and the evergreen timer are built and li
 **Sales page (`index.html`)**
 
 - Both ticket buttons ("Join the Challenge" and "Get VIP Access") open a popup with a Kit form styled to match the site: full name, email, phone.
-- On submit the page validates the fields, saves the lead in the browser (`localStorage.lis_lead`), submits the Kit form in a hidden iframe, then redirects to the order page.
+- On submit the page validates the fields, saves the lead in the browser (`localStorage.lis_lead`), submits the Kit form in a hidden iframe, fires a Meta `Lead` event if a pixel is present, then redirects to the order page.
 - The redirect keeps every tracking param already on the URL (UTMs, Hyros, fbclid) and adds `name_first`, `name_last`, `email`, `phone`, and Spiffy's phone prefill key `phone_number`.
 - The redirect never waits more than 1.5 seconds for Kit. If Kit is slow or down, the buyer still reaches checkout.
 
 **Order pages (`regularticket26.html`, `vipticket26.html`)**
 
 - The Spiffy embed is created by a small script that appends the prefill params to the checkout URL. Spiffy reads `name_first`, `name_last`, and `email` by default and fills the contact block.
-- The Meta `Lead` event fires once on the checkout landing page after the opt-in redirect, if a Meta Pixel base script is present.
 - If the params are missing (for example a buyer opened the order page from an email), the script falls back to the lead saved in `localStorage`.
 - The loading skeleton behind the checkout was removed.
 
@@ -87,7 +86,7 @@ Kit → Subscribers → Segments → New: has tag `challenge-lead`, does not hav
 
 ## Step 7 — Meta pixel (optional, recommended)
 
-No Meta pixel base script is on the pages today. The order pages call `fbq('track', 'Lead')` once after a visitor lands there from the opt-in popup, when a pixel exists. To add one, paste the standard Meta base code in the `<head>` of the pages. Add `fbq('track', 'InitiateCheckout')` on both order pages and `fbq('track', 'Purchase', { value, currency: 'USD' })` on the confirmation pages, or turn on the Spiffy → Meta pixel integration so purchases carry the correct value per product.
+No Meta pixel is on the pages today. The popup already calls `fbq('track', 'Lead')` when a pixel exists. To add one, paste the standard Meta base code in the `<head>` of every page. Add `fbq('track', 'InitiateCheckout')` on both order pages and `fbq('track', 'Purchase', { value, currency: 'USD' })` on the confirmation pages, or turn on the Spiffy → Meta pixel integration so purchases carry the correct value per product.
 
 ## Test checklist
 
