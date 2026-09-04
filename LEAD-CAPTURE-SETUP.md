@@ -16,6 +16,7 @@ The opt-in popup, the checkout prefill, and the evergreen timer are built and li
 - The Spiffy embed is created by a small script that appends the prefill params to the checkout URL. Spiffy reads `name_first`, `name_last`, and `email` by default and fills the contact block.
 - If the params are missing (for example a buyer opened the order page from an email), the script falls back to the lead saved in `localStorage`.
 - The loading skeleton behind the checkout was removed.
+- These two checkout landing pages fire the Meta `Lead` event because they are the first pages people land on after submitting the opt-in form.
 
 **Timers (all three pages)**
 
@@ -86,7 +87,7 @@ Kit → Subscribers → Segments → New: has tag `challenge-lead`, does not hav
 
 ## Step 7 — Meta pixel
 
-The LWB Meta Pixel base code is installed on the active funnel pages and currently fires PageView only with pixel ID `489941607383296`. No hard-coded Lead, InitiateCheckout, or Purchase events fire from the pages right now. Add those later only if Meta should receive those specific events outside the Spiffy integration.
+The LWB Meta Pixel base code is installed on the active funnel pages with pixel ID `489941607383296`. The regular and VIP checkout landing pages also fire `Lead` after `PageView`; the rest of the funnel pages fire PageView only. No hard-coded InitiateCheckout or Purchase events fire from the pages right now. Add those later only if Meta should receive those specific events outside the Spiffy integration.
 
 ## Test checklist
 
