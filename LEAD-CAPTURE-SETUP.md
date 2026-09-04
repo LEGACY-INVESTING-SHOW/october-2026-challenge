@@ -7,7 +7,7 @@ The opt-in popup, the checkout prefill, and the evergreen timer are built and li
 **Sales page (`index.html`)**
 
 - Both ticket buttons ("Join the Challenge" and "Get VIP Access") open a popup with a Kit form styled to match the site: full name, email, phone.
-- On submit the page validates the fields, saves the lead in the browser (`localStorage.lis_lead`), submits the Kit form in a hidden iframe, fires a Meta `Lead` event if a pixel is present, then redirects to the order page.
+- On submit the page validates the fields, saves the lead in the browser (`localStorage.lis_lead`), submits the Kit form in a hidden iframe, then redirects to the order page.
 - The redirect keeps every tracking param already on the URL (UTMs, Hyros, fbclid) and adds `name_first`, `name_last`, `email`, `phone`, and Spiffy's phone prefill key `phone_number`.
 - The redirect never waits more than 1.5 seconds for Kit. If Kit is slow or down, the buyer still reaches checkout.
 
@@ -84,9 +84,9 @@ Emails are written in `emails/vip-upgrade-sequence.md`. Send as scheduled broadc
 
 Kit → Subscribers → Segments → New: has tag `challenge-lead`, does not have tag `challenge-buyer-ga`, does not have tag `challenge-buyer-vip`. Export CSV daily, or point the optional webhook at a Google Sheet.
 
-## Step 7 — Meta pixel (optional, recommended)
+## Step 7 — Meta pixel
 
-No Meta pixel is on the pages today. The popup already calls `fbq('track', 'Lead')` when a pixel exists. To add one, paste the standard Meta base code in the `<head>` of every page. Add `fbq('track', 'InitiateCheckout')` on both order pages and `fbq('track', 'Purchase', { value, currency: 'USD' })` on the confirmation pages, or turn on the Spiffy → Meta pixel integration so purchases carry the correct value per product.
+The LWB Meta Pixel base code is installed on the active funnel pages and currently fires PageView only with pixel ID `489941607383296`. No hard-coded Lead, InitiateCheckout, or Purchase events fire from the pages right now. Add those later only if Meta should receive those specific events outside the Spiffy integration.
 
 ## Test checklist
 
