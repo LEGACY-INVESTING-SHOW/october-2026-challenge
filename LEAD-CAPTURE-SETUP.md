@@ -15,6 +15,7 @@ The opt-in popup, the checkout prefill, and the evergreen timer are built and li
 
 - The Spiffy embed is created by a small script that appends the prefill params to the checkout URL. Spiffy reads `name_first`, `name_last`, and `email` by default and fills the contact block.
 - If the params are missing (for example a buyer opened the order page from an email), the script falls back to the lead saved in `localStorage`.
+- The checkout embed also passes `fbclid` into the Spiffy order field when the buyer arrived from a Meta ad click.
 - The loading skeleton behind the checkout was removed.
 - These two checkout landing pages fire the Meta `Lead` event because they are the first pages people land on after submitting the opt-in form.
 
@@ -93,7 +94,7 @@ The LWB Meta Pixel base code is installed on the active funnel pages with pixel 
 
 1. Open `https://october-2026-challenge.vercel.app/october?utm_source=test`.
 2. Click "Join the Challenge". Enter a name, a real test email, and a phone number. Submit.
-3. The order page URL must contain `utm_source=test`, `name_first`, `email`, `phone`, and `phone_number`.
+3. The order page URL must contain `utm_source=test`, `fbclid` when present, `name_first`, `email`, `phone`, and `phone_number`.
 4. The Spiffy form must show the name and email already filled (and phone once Step 2 is done).
 5. In Kit, the test email must appear with tag `challenge-lead` and the custom fields filled.
 6. Complete a $47 test order. The subscriber must receive tag `challenge-buyer-ga`, and the automation must skip the emails.

@@ -2233,9 +2233,11 @@
     err.hidden = true;
 
     var n = splitName(name);
+    var sourceParams = new URLSearchParams(location.search);
     var lead = {
       name: name, first: n.first, last: n.last, email: email, phone: phone,
-      ticket: ticket, tag: 'challenge-lead', source: location.href, ts: new Date().toISOString()
+      ticket: ticket, fbclid: sourceParams.get('fbclid') || '',
+      tag: 'challenge-lead', source: location.href, ts: new Date().toISOString()
     };
 
     try { localStorage.setItem('lis_lead', JSON.stringify(lead)); } catch (e) {}

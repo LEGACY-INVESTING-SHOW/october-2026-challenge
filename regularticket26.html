@@ -508,7 +508,8 @@
             name_last:  q.get('name_last')  || saved.last,
             email:      q.get('email')      || saved.email,
             phone:      q.get('phone')      || saved.phone,
-            phone_number: q.get('phone_number') || q.get('phone') || saved.phone
+            phone_number: q.get('phone_number') || q.get('phone') || saved.phone,
+            fbclid:     q.get('fbclid')     || saved.fbclid
           };
           var out = new URLSearchParams();
           Object.keys(fields).forEach(function (k) { if (fields[k]) out.set(k, fields[k]); });
