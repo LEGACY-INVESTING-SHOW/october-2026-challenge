@@ -2218,8 +2218,6 @@
     };
 
     try { localStorage.setItem('lis_lead', JSON.stringify(lead)); } catch (e) {}
-    if (typeof fbq === 'function') fbq('track', 'Lead', { content_name: 'challenge-' + ticket });
-
     btn.disabled = true;
     btn.querySelector('span').textContent = 'Opening your checkout…';
 
@@ -2230,6 +2228,9 @@
     q.set('email', email);
     q.set('phone', phone);
     q.set('phone_number', phone);
+    q.set('lead_source', 'popup_optin');
+    q.set('lead_ticket', ticket);
+    q.set('lead_ts', lead.ts);
     var url = (REDIRECT_URLS[ticket] || REDIRECT_URLS.ticket) + '?' + q.toString();
 
     sendLead(lead).then(function () { location.href = url; });
