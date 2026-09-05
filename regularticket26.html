@@ -300,6 +300,23 @@
     }
   </style>
 
+  <!-- Evergreen deadline: resets at midnight America/New_York. Same logic as index.
+       Inside the final 24h before the event it counts to the event start. -->
+  <script>
+  window.LIS_DEADLINE = (function () {
+    var EVENT = new Date('2026-10-16T10:00:00-04:00').getTime();
+    var fmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    return function () {
+      var now = Date.now();
+      if (EVENT - now < 864e5) return EVENT;
+      var p = {};
+      fmt.formatToParts(new Date(now)).forEach(function (x) { p[x.type] = +x.value; });
+      var elapsed = (((p.hour % 24) * 60 + p.minute) * 60 + p.second) * 1000 + (now % 1000);
+      return now + (864e5 - elapsed);
+    };
+  })();
+  </script>
+
   <link rel="stylesheet" href="checkout.css">
 
 </head>
@@ -363,6 +380,10 @@
      ═══════════════════════════════════════════════════ -->
 <header class="checkout-header wrap">
   <h1>General Admission</h1>
+  <div class="deadline" role="timer">
+    <span class="deadline-label"><i class="dot"></i>50% off ends at midnight</span>
+    <span class="deadline-time" id="deadlineTime">--h --m --s</span>
+  </div>
 </header>
 
 <section id="checkout">
@@ -431,9 +452,9 @@
         <div class="summary-head">
           <div class="summary-row">
             <span class="summary-name">Tax-Free Income Challenge</span>
-            <span class="summary-price">$47</span>
+            <span class="summary-price"><s class="summary-old">$97</s>$47</span>
           </div>
-          <p class="summary-meta">One-time payment · Live on Zoom · Oct 16–18, 10 a.m.–4 p.m. Eastern</p>
+          <p class="summary-meta"><span class="summary-save">Save $50 today</span> · One-time payment · Live on Zoom · Oct 16–18, 10 a.m.–4 p.m. Eastern</p>
         </div>
         <div class="summary-body">
         <h2>What's included</h2>
@@ -460,6 +481,21 @@
         <p class="ticket-switch">Want replays, notes, and live Q&amp;A with Preston? <a href="/vipticketoct">See VIP · $147 →</a></p>
         </div>
       </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     HOST
+     ═══════════════════════════════════════════════════ -->
+<section class="band-paper host-section">
+  <div class="wrap host">
+    <img class="host-photo" src="/assets/images/10-preston-family.webp" alt="Preston Seo with his family" width="1000" height="714" loading="lazy" decoding="async">
+    <div class="host-body">
+      <h2 class="display">Your host, Preston Seo</h2>
+      <p>By 28, Preston was financially free. He and his wife built a $20M+ real estate portfolio and saved over $500,000 in taxes using the same strategies he teaches in this challenge.</p>
+      <p>He shares how money works with over 6 million people and has been featured alongside Ray Dalio, Robert Kiyosaki, and Daymond John.</p>
+      <img class="host-logos" src="/assets/images/04-as-featured-in-logos.webp" alt="Featured publications" width="746" height="82" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -596,7 +632,7 @@
 <!-- Mobile sticky bar: shows only after the checkout form scrolls out of view -->
 <div class="mobile-cta" id="mobileCta" aria-hidden="true">
   <div class="wrap mobile-cta-inner">
-    <span class="mobile-cta-label"><strong>General Admission · $47</strong>Tax-Free Income Challenge</span>
+    <span class="mobile-cta-label"><strong>General Admission · <s>$97</s> $47</strong>Tax-Free Income Challenge</span>
     <a href="#checkout" class="btn btn-gold">Complete order</a>
   </div>
 </div>
@@ -642,6 +678,17 @@
       desktopAgenda.addEventListener('change', syncAgenda);
       syncAgenda();
     });
+
+    // Deadline countdown (shares LIS_DEADLINE with the index page)
+    var deadlineEl = document.getElementById('deadlineTime');
+    function deadlineTick() {
+      if (!deadlineEl || typeof window.LIS_DEADLINE !== 'function') return;
+      var diff = Math.max(0, window.LIS_DEADLINE() - Date.now());
+      var h = Math.floor(diff / 3600000), m = Math.floor((diff % 3600000) / 60000), s = Math.floor((diff % 60000) / 1000);
+      deadlineEl.textContent = h + 'h ' + String(m).padStart(2, '0') + 'm ' + String(s).padStart(2, '0') + 's';
+    }
+    deadlineTick();
+    setInterval(deadlineTick, 1000);
 
     // Mobile sticky bar: visible only while the checkout form is above the viewport.
     var shell = document.querySelector('.checkout-shell');
