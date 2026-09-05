@@ -1,3 +1,5 @@
+> September 6, 2026: Removed the sales-page opt-in popup. General Admission and VIP buttons now go directly to checkout, preserving URL tracking parameters. Existing checkout Meta events remain unchanged. The lead-capture instructions below describe the previous flow.
+
 # Lead Capture Setup — October 2026 Challenge
 
 The opt-in popup, the checkout prefill, and the evergreen timer are built and live in the pages. This document lists the last steps that need account access (Kit, Spiffy, Meta). Each step says where to paste what.

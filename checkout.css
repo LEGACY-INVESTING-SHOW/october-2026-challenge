@@ -1,0 +1,44 @@
+/* Shared checkout layout. Hosted payment fields are managed in Spiffy. */
+.checkout-header { padding-block: 2rem 1.5rem; }
+.checkout-header h1 { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; font-size:clamp(1.6rem,3vw,2.2rem); line-height:1.2; }
+.checkout-header h1 span { color:var(--gold-ink); }
+.event-name { margin-top:.65rem; font-size:1.1rem; font-weight:600; }
+.event-details { margin-top:.3rem; color:var(--ink-soft); font-size:.95rem; }
+.checkout-grid { grid-template-columns:minmax(0,1fr); gap:1.75rem; }
+.checkout-column { min-width:0; }
+.checkout-shell { padding:0; border:0; border-radius:.65rem; box-shadow:none; }
+.checkout-help { margin-bottom:.8rem; color:var(--ink-soft); font-size:.85rem; }
+.checkout-help summary { cursor:pointer; }
+.checkout-help p { margin-top:.5rem; }
+.direct-checkout { display:inline-block; margin-top:.25rem; color:var(--green-mid); text-decoration:underline; text-underline-offset:3px; }
+.checkout-status { padding:.75rem; color:var(--ink-soft); font-size:.9rem; }
+.whats-included { min-width:0; padding:1.5rem; background:var(--paper); border:1px solid var(--line); border-radius:1rem; }
+.whats-included h2 { font-size:1.2rem; margin:0 0 .8rem; }
+.ticket-benefits { padding-left:1.15rem; list-style:disc; color:var(--ink-soft); }
+.ticket-benefits li + li { margin-top:.65rem; }
+.agenda { border-top:1px solid var(--line); margin-top:1.25rem; padding-top:1rem; }
+.agenda summary { cursor:pointer; font-weight:600; }
+.agenda .session-list { margin-top:.5rem; }
+.refund-note { border-top:1px solid var(--line); margin-top:1.25rem; padding-top:1.1rem; font-size:.9rem; color:var(--ink-soft); }
+.refund-note h2 { font-size:1rem; }
+.refund-note a { display:inline-block; margin-top:.65rem; color:var(--green-mid); overflow-wrap:anywhere; text-decoration:underline; }
+section { padding-block:2rem; }
+.section-head { margin-bottom:1.25rem; }
+.section-head h2 { font-size:1.5rem; }
+.t-card { display:block; }
+.t-card img.t-photo { width:100%; height:auto; object-fit:contain; border-radius:0; margin:0; border-bottom:1px solid var(--line); }
+.t-body { padding:1.1rem 1.25rem; }
+.t-quote { font-size:.95rem; margin-bottom:.75rem; }
+.stars { display:none; }
+.faq-item { margin-bottom:.6rem; }
+@media(min-width:1024px) {
+  .checkout-grid { grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); gap:2rem; }
+}
+@media(max-width:640px) {
+  .checkout-header { padding-block:1.25rem 1rem; }
+  .checkout-header h1 { font-size:1.45rem; }
+  .event-name { font-size:1rem; }
+  .event-details { font-size:.85rem; line-height:1.5; }
+  .whats-included { padding:1.1rem; }
+  .tri-grid { gap:.75rem; }
+}
