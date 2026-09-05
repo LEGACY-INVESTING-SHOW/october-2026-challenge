@@ -110,8 +110,9 @@ section { padding-block: 2.5rem; }
 .host-body h2 { font-size: 1.5rem; letter-spacing: -.025em; margin-bottom: .9rem; }
 .host-body p { color: var(--ink-soft); font-size: .97rem; line-height: 1.6; }
 .host-body p + p { margin-top: .8rem; }
-.host-logos { height: 3.25rem; width: auto; max-width: 100%; margin-top: 1.4rem; mix-blend-mode: multiply; opacity: .85; }
-.host-trustpilot { height: 4.5rem; width: auto; max-width: 100%; margin-top: .9rem; mix-blend-mode: multiply; }
+.host-proof { width: min(100%, 29rem); margin-top: 1.5rem; display: flex; flex-direction: column; gap: .9rem; }
+.host-logos { display: block; width: 100%; height: auto; mix-blend-mode: multiply; opacity: .85; }
+.host-trustpilot { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: .65rem; }
 
 /* ---------- Proof ---------- */
 .proof-section { background: var(--ivory); border-bottom: 0; }
