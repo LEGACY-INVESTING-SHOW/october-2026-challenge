@@ -30,3 +30,13 @@ Remove the multi-paragraph pitch, duplicate price badge, and the current placeme
 ## Verify after editing
 
 Check mobile and desktop on both ticket types. Confirm selecting and clearing the workbook changes the total correctly, the option appears before the purchase button, the unselected totals remain $47 / $147 before any applicable taxes, and the concise description agrees with the event details. Preserve existing checkout fields and offer details until the tech owner's separate changes are ready.
+
+## Match the two forms to the page redesign (2026-09-06)
+
+The page now carries the brand bar, ticket name, price, and event details outside the form. Apply these in Spiffy so the form does not repeat them and both tickets look the same:
+
+- Product title inside the form: use the short ticket name only ("General Admission" / "VIP Ticket"). The page header already shows the event name and dates. If Spiffy cannot hide the title row, keep the short name and drop "By Preston Seo".
+- Order bump label: use one label on both forms. Current live labels differ ("Yes, I Want The Challenge Workbook For $37" on regular vs "Add the challenge workbook" on VIP). Use: **Add the challenge workbook · $37**.
+- Font: set the checkout font to Instrument Sans (Google Fonts) so the form matches the page. Fallback: system sans-serif.
+- Colors: primary button #16352A (forest), button text #F5F1E3, link and accent #2A6B4F, total row background #EFE8D6. Field border #E2D9C3, radius 8px.
+- Keep the "All payments are secured by 256-bit encryption" line. The page adds a matching trust row under the form.

@@ -345,6 +345,17 @@
   <symbol id="chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M21 15a2 2 0 01-2 2H8l-4 4V5a2 2 0 012-2h13a2 2 0 012 2v10z"/>
   </symbol>
+  <symbol id="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <rect x="4" y="10.5" width="16" height="10" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path stroke-linecap="round" stroke-linejoin="round" d="M8 10.5V7a4 4 0 118 0v3.5"/>
+  </symbol>
+  <symbol id="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <rect x="3" y="5.5" width="18" height="13" rx="2"/>
+    <path stroke-linecap="round" d="M3 10h18M7 14.5h4"/>
+  </symbol>
+  <symbol id="shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+  </symbol>
   <symbol id="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
   </symbol>
@@ -354,12 +365,11 @@
      HERO
      ═══════════════════════════════════════════════════ -->
 <header class="checkout-header wrap">
-  <h1>VIP ticket <span>· $147</span></h1>
-  <p class="event-name">Tax-Free Income Challenge</p>
-  <p class="event-details">October 16–18, 2026 · 10 a.m.–4 p.m. Eastern · Live on Zoom</p>
+  <p class="eyebrow"><span>Tax-Free Income Challenge<span class="eyebrow-dates"> · October 16–18, 2026</span></span></p>
+  <h1>VIP Ticket</h1>
 </header>
 
-<section id="checkout" style="padding-top:0;">
+<section id="checkout">
   <div class="wrap">
     <div class="checkout-grid">
 
@@ -368,6 +378,7 @@
       <div class="checkout-column">
         <p class="checkout-status" role="status">Loading secure checkout…</p>
         <div class="checkout-shell">
+        <div class="checkout-skeleton" aria-hidden="true"><i class="t"></i><i></i><i></i><i></i><i></i><i class="s"></i><i></i><i class="b"></i></div>
         <div class="checkout-mount" data-checkout="https://legacyinvestingshow.spiffy.co/checkout/tax-fre-income-challenge-vip-oct-26"></div>
         <script>
         (function () {
@@ -392,18 +403,19 @@
           var status = mount.closest('.checkout-column').querySelector('.checkout-status');
           if (location.protocol !== 'https:') {
             status.textContent = 'The payment form requires a secure HTTPS connection.';
+            status.classList.add('is-error');
             mount.closest('.checkout-shell').hidden = true;
             return;
           }
           var observer = new MutationObserver(function () {
             var frame = el.querySelector('iframe');
             if (!frame) return;
-            frame.addEventListener('load', function () { status.hidden = true; }, { once: true });
+            frame.addEventListener('load', function () { status.hidden = true; el.closest('.checkout-shell').classList.add('is-loaded'); }, { once: true });
             observer.disconnect();
           });
           observer.observe(el, { childList: true, subtree: true });
           setTimeout(function () {
-            if (!status.hidden) status.textContent = 'The payment form is taking longer than expected. Please refresh the page.';
+            if (!status.hidden) { status.textContent = 'The payment form is taking longer than expected. Please refresh the page.'; status.classList.add('is-error'); }
             observer.disconnect();
           }, 12000);
           mount.replaceWith(el);
@@ -411,20 +423,34 @@
         })();
         </script>
         </div>
+        <ul class="trust-row" aria-label="Payment assurances">
+          <li><svg><use href="#lock-icon"/></svg>256-bit secure payment</li>
+          <li><svg><use href="#card-icon"/></svg>All major cards accepted</li>
+          <li><svg><use href="#shield-icon"/></svg>7-day money-back guarantee</li>
+        </ul>
       </div>
 
-      <!-- Right: What's Included -->
-      <aside class="whats-included">
+      <!-- Right: Order summary -->
+      <aside class="order-summary" aria-label="Order summary">
+        <div class="summary-head">
+          <span class="summary-kicker">Your order</span>
+          <div class="summary-row">
+            <span class="summary-name">VIP Ticket<span class="badge-vip">VIP</span></span>
+            <span class="summary-price">$147</span>
+          </div>
+          <p class="summary-meta">One-time payment · Live on Zoom · Oct 16–18, 10 a.m.–4 p.m. Eastern</p>
+        </div>
+        <div class="summary-body">
         <h2>What's included</h2>
         <ul class="ticket-benefits">
-          <li>Recordings and replays, plus notes and materials.</li>
-          <li>VIP pre-challenge training and live roundtable Q&amp;A.</li>
-          <li>Three days of live training with Preston and his team.</li>
-          <li>The five-pillar wealth building framework.</li>
-          <li>Your 12-month wealth implementation roadmap.</li>
+          <li><svg class="check-svg"><use href="#check-icon"/></svg><span><strong>Recordings and replays</strong>, plus notes and materials.</span></li>
+          <li><svg class="check-svg"><use href="#check-icon"/></svg><span><strong>VIP pre-challenge training</strong> and live roundtable Q&amp;A.</span></li>
+          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Three days of live training with Preston and his team.</span></li>
+          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>The five-pillar wealth building framework.</span></li>
+          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Your 12-month wealth implementation roadmap.</span></li>
         </ul>
         <div class="refund-note">
-          <h2>7-day money-back guarantee</h2>
+          <h2><svg><use href="#shield-icon"/></svg>7-day money-back guarantee</h2>
           <p>Attend the full challenge and complete the exercises. If you don't leave with clarity on your next steps and confidence to move forward, email us within 7 days of the challenge ending for a refund.</p>
           <a href="mailto:preston@legacyinvestingshow.com">preston@legacyinvestingshow.com</a>
         </div>
@@ -443,6 +469,8 @@
 <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Student case studies</span></li>
 <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Your next steps</span></li></ul>
         </details>
+        <p class="ticket-switch"><strong>Why VIP:</strong> General Admission is $47 plus a $99 upgrade later. VIP gives you everything up front, before Day 1.</p>
+        </div>
       </aside>
     </div>
   </div>
@@ -457,7 +485,7 @@
 
     <div class="tri-grid">
       <div class="card t-card">
-        <img class="t-photo" src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/17837960/file/d9184caaf06cf40dc04b0794749c427e.png" alt="Dustin" loading="lazy" decoding="async" width="608" height="760">
+        <div class="t-frame"><img class="t-photo" src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/17837960/file/d9184caaf06cf40dc04b0794749c427e.png" alt="Dustin" loading="lazy" decoding="async" width="608" height="760"></div>
         <div class="t-body">
           <div class="stars">
             <svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg>
@@ -471,7 +499,7 @@
       </div>
 
       <div class="card t-card">
-        <img class="t-photo" src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/18197690/file/5ac324c992b717212c1a7555111d1a18.png" alt="Abigail" loading="lazy" decoding="async" width="660" height="658">
+        <div class="t-frame"><img class="t-photo" src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/18197690/file/5ac324c992b717212c1a7555111d1a18.png" alt="Abigail" loading="lazy" decoding="async" width="660" height="658"></div>
         <div class="t-body">
           <div class="stars">
             <svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg>
@@ -485,7 +513,7 @@
       </div>
 
       <div class="card t-card">
-        <img class="t-photo" src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/18197688/file/1965672907e45a222161bb3832ff8b3a.png" alt="Galin" loading="lazy" decoding="async" width="650" height="868">
+        <div class="t-frame"><img class="t-photo" src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/18197688/file/1965672907e45a222161bb3832ff8b3a.png" alt="Galin" loading="lazy" decoding="async" width="650" height="868"></div>
         <div class="t-body">
           <div class="stars">
             <svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg>
@@ -506,7 +534,13 @@
      ═══════════════════════════════════════════════════ -->
 <section class="band-paper faq-section">
   <div class="wrap wrap-sm">
-    <div class="section-head"><h2 class="display">Questions before you book</h2></div>
+    <div class="section-head">
+      <h2 class="display">Questions before you book</h2>
+      <div class="faq-aside">
+        <p>Every ticket is covered by the 7-day money-back guarantee.</p>
+        <a href="#checkout" class="btn btn-gold">Back to checkout</a>
+      </div>
+    </div>
 
     <div id="faq-list">
       <div class="card faq-item">
@@ -571,6 +605,14 @@
 <!-- ═══════════════════════════════════════════════════
      FOOTER
      ═══════════════════════════════════════════════════ -->
+<!-- Mobile sticky bar: shows only after the checkout form scrolls out of view -->
+<div class="mobile-cta" id="mobileCta" aria-hidden="true">
+  <div class="wrap mobile-cta-inner">
+    <span class="mobile-cta-label"><strong>VIP Ticket · $147</strong>Tax-Free Income Challenge</span>
+    <a href="#checkout" class="btn btn-gold">Complete order</a>
+  </div>
+</div>
+
 <footer>
   <div class="wrap inner">
     <p>
@@ -612,6 +654,19 @@
       desktopAgenda.addEventListener('change', syncAgenda);
       syncAgenda();
     });
+
+    // Mobile sticky bar: visible only while the checkout form is above the viewport.
+    var shell = document.querySelector('.checkout-shell');
+    var bar = document.getElementById('mobileCta');
+    if (shell && bar && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        var e = entries[0];
+        var below = !e.isIntersecting && e.boundingClientRect.bottom < 0;
+        bar.classList.toggle('show', below);
+        bar.setAttribute('aria-hidden', below ? 'false' : 'true');
+        document.body.classList.toggle('has-mobile-cta', below);
+      }, { threshold: 0 }).observe(shell);
+    }
 
     // FAQ Accordion
     function initFAQ() {
