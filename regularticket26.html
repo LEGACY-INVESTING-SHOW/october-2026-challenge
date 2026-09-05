@@ -366,11 +366,6 @@
 
       <!-- Left: Checkout Form -->
       <div class="checkout-column">
-        <details class="checkout-help">
-          <summary>Payment form not loading?</summary>
-          <p>Open the secure checkout directly to finish your order.</p>
-          <a class="direct-checkout" href="#">Open secure checkout</a>
-        </details>
         <p class="checkout-status" role="status">Loading secure checkout…</p>
         <div class="checkout-shell">
         <div class="checkout-mount" data-checkout="https://legacyinvestingshow.spiffy.co/checkout/tax-free-income-challenge-oct-26"></div>
@@ -395,11 +390,8 @@
           el.setAttribute('type', 'checkout');
           el.setAttribute('url', mount.getAttribute('data-checkout') + (out.toString() ? '?' + out.toString() : ''));
           var status = mount.closest('.checkout-column').querySelector('.checkout-status');
-          var direct = mount.closest('.checkout-column').querySelector('.direct-checkout');
-          direct.href = el.getAttribute('url');
           if (location.protocol !== 'https:') {
-            status.textContent = 'The payment form requires HTTPS. Open the secure checkout to view the payment fields.';
-            mount.closest('.checkout-column').querySelector('.checkout-help').open = true;
+            status.textContent = 'The payment form requires a secure HTTPS connection.';
             mount.closest('.checkout-shell').hidden = true;
             return;
           }
@@ -411,7 +403,7 @@
           });
           observer.observe(el, { childList: true, subtree: true });
           setTimeout(function () {
-            if (!status.hidden) status.textContent = 'Still loading? Use the direct checkout link above.';
+            if (!status.hidden) status.textContent = 'The payment form is taking longer than expected. Please refresh the page.';
             observer.disconnect();
           }, 12000);
           mount.replaceWith(el);
@@ -596,6 +588,25 @@
      ═══════════════════════════════════════════════════ -->
 <script>
   (function() {
+    // Keep desktop topics visible; allow mobile visitors to toggle the agenda.
+    var desktopAgenda = window.matchMedia('(min-width: 768px)');
+    document.querySelectorAll('details.agenda').forEach(function (agenda) {
+      var summary = agenda.querySelector('summary');
+      function syncAgenda() {
+        agenda.open = desktopAgenda.matches;
+        if (desktopAgenda.matches) summary.setAttribute('tabindex', '-1');
+        else summary.removeAttribute('tabindex');
+      }
+      summary.addEventListener('click', function (event) {
+        if (desktopAgenda.matches) event.preventDefault();
+      });
+      agenda.addEventListener('toggle', function () {
+        if (desktopAgenda.matches && !agenda.open) agenda.open = true;
+      });
+      desktopAgenda.addEventListener('change', syncAgenda);
+      syncAgenda();
+    });
+
     // FAQ Accordion
     function initFAQ() {
       document.querySelectorAll('.faq-question').forEach(btn => {

@@ -7,10 +7,6 @@
 .checkout-grid { grid-template-columns:minmax(0,1fr); gap:1.75rem; }
 .checkout-column { min-width:0; }
 .checkout-shell { padding:0; border:0; border-radius:.65rem; box-shadow:none; }
-.checkout-help { margin-bottom:.8rem; color:var(--ink-soft); font-size:.85rem; }
-.checkout-help summary { cursor:pointer; }
-.checkout-help p { margin-top:.5rem; }
-.direct-checkout { display:inline-block; margin-top:.25rem; color:var(--green-mid); text-decoration:underline; text-underline-offset:3px; }
 .checkout-status { padding:.75rem; color:var(--ink-soft); font-size:.9rem; }
 .whats-included { min-width:0; padding:1.5rem; background:var(--paper); border:1px solid var(--line); border-radius:1rem; }
 .whats-included h2 { font-size:1.2rem; margin:0 0 .8rem; }
@@ -41,4 +37,9 @@ section { padding-block:2rem; }
   .event-details { font-size:.85rem; line-height:1.5; }
   .whats-included { padding:1.1rem; }
   .tri-grid { gap:.75rem; }
+}
+
+@media(min-width:768px) {
+  .agenda summary { cursor:default; pointer-events:none; list-style:none; }
+  .agenda summary::-webkit-details-marker { display:none; }
 }
