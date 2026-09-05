@@ -111,6 +111,7 @@ section { padding-block: 2.5rem; }
 .host-body p { color: var(--ink-soft); font-size: .97rem; line-height: 1.6; }
 .host-body p + p { margin-top: .8rem; }
 .host-logos { height: 3.25rem; width: auto; max-width: 100%; margin-top: 1.4rem; mix-blend-mode: multiply; opacity: .85; }
+.host-trustpilot { height: 4.5rem; width: auto; max-width: 100%; margin-top: .9rem; mix-blend-mode: multiply; }
 
 /* ---------- Proof ---------- */
 .proof-section { background: var(--ivory); border-bottom: 0; }
