@@ -6,10 +6,11 @@ The opt-in popup, the checkout prefill, and the evergreen timer are built and li
 
 **Sales page (`index.html`)**
 
-- Both ticket buttons ("Join the Challenge" and "Get VIP Access") open a popup with a Kit form styled to match the site: full name, email, phone.
-- On submit the page validates the fields, saves the lead in the browser (`localStorage.lis_lead`), submits the Kit form in a hidden iframe, then redirects to the order page.
-- The redirect keeps every tracking param already on the URL (UTMs, Hyros, fbclid) and adds `name_first`, `name_last`, `email`, `phone`, and Spiffy's phone prefill key `phone_number`.
-- The redirect never waits more than 1.5 seconds for Kit. If Kit is slow or down, the buyer still reaches checkout.
+- Both ticket buttons ("Join the Challenge" and "Get VIP Access") now go directly to checkout and fire the Meta `Lead` browser event on click.
+- The old Kit popup markup remains in the page but is not used by the primary ticket buttons.
+- The direct ticket-button redirect keeps tracking params already on the URL, including UTMs, Hyros params, `fbclid`, and `gclid`.
+- If the popup is used again later, the page validates the fields, saves the lead in the browser (`localStorage.lis_lead`), submits the Kit form in a hidden iframe, then redirects to the order page with `name_first`, `name_last`, `email`, `phone`, and Spiffy's phone prefill key `phone_number`.
+- The popup redirect never waits more than 1.5 seconds for Kit. If Kit is slow or down, the buyer still reaches checkout.
 
 **Order pages (`regularticket26.html`, `vipticket26.html`)**
 
@@ -88,7 +89,7 @@ Kit → Subscribers → Segments → New: has tag `challenge-lead`, does not hav
 
 ## Step 7 — Meta pixel
 
-The LWB Meta Pixel base code is installed on the active funnel pages with main pixel ID `489941607383296`. The `/october`, `/regularticketoct`, and `/vipticketoct` pages also initialize backup pixel ID `1612304766555013`. The `/october` page fires PageView on both pixels; the regular and VIP checkout landing pages fire PageView and Lead on both pixels because they are the first pages people land on after submitting the opt-in form. No hard-coded InitiateCheckout or Purchase events fire from the pages right now. Add those later only if Meta should receive those specific events outside the Spiffy integration.
+The LWB Meta Pixel base code is installed on the active funnel pages with main pixel ID `489941607383296`. The `/october`, `/regularticketoct`, and `/vipticketoct` pages also initialize backup pixel ID `1612304766555013`. The `/october` page fires PageView on both pixels, and the ticket buttons fire Lead on click before sending buyers to checkout. The regular and VIP checkout landing pages fire PageView only on both pixels. No hard-coded InitiateCheckout or Purchase events fire from the pages right now. Add those later only if Meta should receive those specific events outside the Spiffy integration.
 
 ## Test checklist
 

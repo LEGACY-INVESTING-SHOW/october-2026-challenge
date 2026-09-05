@@ -1484,7 +1484,7 @@
           <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Lifetime access to 15+ hours of session replays, slides, notes, and materials</li>
         </ul>
 
-        <a href="/vipticketoct" class="btn btn-gold btn-md btn-block" onclick="return openOptInPopup('vip', event)">Get VIP Access →</a>
+        <a href="/vipticketoct" class="btn btn-gold btn-md btn-block" onclick="return trackTicketLeadAndGo('vip', event)">Get VIP Access →</a>
       </div>
 
       <!-- General Admission -->
@@ -1506,7 +1506,7 @@
           <li><svg class="check-svg"><use href="#check-icon"/></svg>Your first $5K-$15K/month income stream blueprint</li>
         </ul>
 
-        <a href="/regularticketoct" class="btn btn-outline btn-md btn-block" onclick="return openOptInPopup('ticket', event)">Join the Challenge →</a>
+        <a href="/regularticketoct" class="btn btn-outline btn-md btn-block" onclick="return trackTicketLeadAndGo('ticket', event)">Join the Challenge →</a>
       </div>
     </div>
 
@@ -2151,6 +2151,32 @@
   // ============================================
   var REDIRECT_URLS = { ticket: '/regularticketoct', vip: '/vipticketoct' };
   var TICKET_LABELS = { ticket: 'General Admission · $47', vip: 'VIP Access · $147' };
+  var ticketLeadNavigationInProgress = false;
+
+  function checkoutUrlWithCurrentParams(ticketType) {
+    var q = new URLSearchParams(location.search);
+    var qs = q.toString();
+    return (REDIRECT_URLS[ticketType] || REDIRECT_URLS.ticket) + (qs ? '?' + qs : '');
+  }
+
+  function trackTicketLeadAndGo(ticketType, ev) {
+    if (ev) ev.preventDefault();
+    if (ticketLeadNavigationInProgress) return false;
+    ticketLeadNavigationInProgress = true;
+
+    try {
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead', {
+          content_name: ticketType === 'vip' ? 'VIP Ticket' : 'Regular Ticket'
+        });
+      }
+    } catch (e) {}
+
+    setTimeout(function () {
+      location.href = checkoutUrlWithCurrentParams(ticketType);
+    }, 200);
+    return false;
+  }
 
   function openOptInPopup(ticketType, ev) {
     if (ev) ev.preventDefault();
