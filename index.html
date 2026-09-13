@@ -226,11 +226,8 @@
     .featured-logos img { object-fit: contain; mix-blend-mode: multiply; }
 
     /* ---------- Testimonials ---------- */
-    .t-layout { display: grid; gap: 1.5rem; }
-    @media (min-width: 768px) { .t-layout { grid-template-columns: 1fr 1fr; } .t-lead { grid-column: 1 / -1; } }
-    .t-lead { padding: .5rem 0 1.75rem; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; }
-    .t-lead .t-quote { font-size: clamp(1.25rem, 2.4vw, 1.6rem); line-height: 1.4; max-width: 46rem; }
-    .t-lead .t-person { border-top: 0; padding-top: 0; }
+    .t-grid { display: grid; gap: 1.25rem; }
+    @media (min-width: 768px) { .t-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; } }
     .t-card { padding: 1.75rem; display: flex; flex-direction: column; }
     .t-quote { font-family: var(--serif); font-size: 1.05rem; line-height: 1.55; color: var(--ink); flex: 1; margin-bottom: 1.5rem; }
     .t-person { display: flex; align-items: center; gap: .9rem; border-top: 1px solid var(--line); padding-top: 1.1rem; }
@@ -434,7 +431,7 @@
     @media (min-width: 1024px) { .verify-split { grid-template-columns: .85fr 1.15fr; gap: 4rem; } .verify-intro { position: sticky; top: 5.5rem; } }
     .verify-intro h2 { text-align: left; margin-bottom: 1.25rem; }
     .verify-intro .lead { font-size: 1.1rem; font-weight: 600; color: var(--ink); margin-bottom: 1rem; }
-    .verify-intro .muted { font-size: 1.02rem; }
+    .verify-close { font-size: 1.02rem; margin-top: 1.5rem; }
     .verify-block { padding: 1.2rem 0; border-top: 1px solid var(--line); }
     .verify-block:first-child { border-top: 0; padding-top: 0; }
     .verify-block .who { color: var(--gold-ink); font-weight: 700; margin-bottom: .45rem; }
@@ -540,6 +537,11 @@
       ::selection { background: var(--gold-tint); color: var(--ink); }
     .price-now, .price-old, .plan-value .v, .roi-box .v, .cost-card .v, .cost-total .v, .strat span:last-child, .nx-anchor .v { font-variant-numeric: tabular-nums; }
       .price-now, .price-old, .plan-value .v, .roi-box .v, .cost-card .v, .cost-total .v, .final-count .num, .pillar-num { font-variant-numeric: lining-nums tabular-nums; }
+    @media (max-width: 640px) {
+      .plan-top { flex-wrap: wrap; gap: .9rem; }
+      .plan-value { flex-basis: 100%; display: flex; justify-content: space-between; align-items: baseline; text-align: left; padding: .6rem .9rem; }
+      .plan-value .k { margin-bottom: 0; }
+    }
 </style>
   <style id="nx-styles">
     /* ═══ Approved components: F2 rolling countdown, F5 before/after toggle, F8 scroll progress, F10 price anchor ═══ */
@@ -737,9 +739,9 @@
       <h2 class="display">4,400+ People Have Been Through This Challenge</h2>
     </div>
 
-    <div class="t-layout">
+    <div class="t-grid">
       <!-- Card 1 -->
-      <div class="t-lead">
+      <div class="card t-card">
         <p class="t-quote">
           "We're both full-time &amp; have a daughter. We didn't wanna just stumble around in the dark. If you wanna get out of the 9-to-5, here's how to do it. It's such a blessing."
         </p>
@@ -1662,9 +1664,6 @@
       <div class="verify-intro">
         <h2 class="display">You Don't Have To Trust Us. You Can Check.</h2>
         <p class="lead">Here are 3 things you can verify right now, depending on your situation:</p>
-        <p class="muted">
-        These are <strong>3 of the 40+ strategies</strong> we cover. The challenge shows you which ones apply to your income and in what order.
-      </p>
       </div>
       <div class="verify-list">
         <div class="verify-block">
@@ -1682,6 +1681,9 @@
         <div class="free-lesson">
         <p>Consider that a free lesson. If any one of these applies to you, you just found <strong>$2,000–$10,000</strong>. That alone pays for this event 50x over.</p>
       </div>
+        <p class="muted verify-close">
+        These are <strong>3 of the 40+ strategies</strong> we cover. The challenge shows you which ones apply to your income and in what order.
+      </p>
       </div>
     </div>
   </div>
