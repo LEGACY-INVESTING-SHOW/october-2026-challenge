@@ -39,33 +39,33 @@
 <main class="tool wrap">
   <div class="tool-grid">
     <aside class="worksheet" id="ws" aria-label="Your numbers">
-      <div class="worksheet-head"><h2>Your numbers</h2><a href="#" class="reset" data-reset>Reset</a></div>
+      <div class="worksheet-head"><h2>Your numbers</h2><button type="button" class="reset" data-reset>Reset</button></div>
 
       <div class="fieldset">
         <div class="field" data-key="portfolio" data-min="0" data-max="5000000" data-step="1000" data-default="50000" data-fmt="money">
-          <div class="field-row"><label for="in-portfolio">Invested today</label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Current portfolio size"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-portfolio"></div></div>
+          <div class="field-row"><label for="in-portfolio" id="lbl-portfolio">Invested today</label><output class="field-out" for="rg-portfolio"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-portfolio" aria-labelledby="lbl-portfolio"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-portfolio"></div></div>
         </div>
         <div class="field" data-key="monthly" data-min="0" data-max="10000" data-step="50" data-default="0" data-fmt="money">
-          <div class="field-row"><label for="in-monthly">Added each month</label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Monthly contribution"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-monthly"></div></div>
+          <div class="field-row"><label for="in-monthly" id="lbl-monthly">Added each month</label><output class="field-out" for="rg-monthly"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-monthly" aria-labelledby="lbl-monthly"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-monthly"></div></div>
         </div>
         <div class="field" data-key="years" data-min="5" data-max="40" data-step="1" data-default="30" data-fmt="years">
-          <div class="field-row"><label for="in-years">Years invested</label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Years invested"><div class="numwrap"><input type="number" id="in-years"></div></div>
+          <div class="field-row"><label for="in-years" id="lbl-years">Years invested</label><output class="field-out" for="rg-years"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-years" aria-labelledby="lbl-years"><div class="numwrap"><input type="number" id="in-years"></div></div>
         </div>
       </div>
 
       <div class="fieldset">
         <p class="fieldset-title">What you pay</p>
         <div class="field" data-key="er" data-min="0" data-max="3" data-step="0.01" data-default="1" data-fmt="pct" data-dec="2">
-          <div class="field-row"><label for="in-er">Fund expense ratio <span class="tip" tabindex="0" data-tip="The yearly fee inside a fund, as a share of your money. Printed in the fund's fact sheet. US mutual funds average 0.82%.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Expense ratio"><div class="numwrap has-post"><input type="number" id="in-er"><span class="affix post">%</span></div></div>
+          <div class="field-row"><label for="in-er" id="lbl-er">Fund expense ratio</label><span class="tip" tabindex="0" role="note" data-tip="The yearly fee inside a fund, as a share of your money. Printed in the fund's fact sheet. US mutual funds average 0.82%.">i</span><output class="field-out" for="rg-er"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-er" aria-labelledby="lbl-er"><div class="numwrap has-post"><input type="number" id="in-er"><span class="affix post">%</span></div></div>
         </div>
         <p id="er-band" style="font-size:.78rem;margin:-.5rem 0 .9rem;font-weight:600"></p>
         <div class="field" data-key="advisor" data-min="0" data-max="2" data-step="0.05" data-default="0" data-fmt="pct" data-dec="2">
-          <div class="field-row"><label for="in-adv">Advisor fee <span class="tip" tabindex="0" data-tip="Assets-under-management fee, if you pay one. Typical is 1% a year, on top of fund fees.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Advisor fee"><div class="numwrap has-post"><input type="number" id="in-adv"><span class="affix post">%</span></div></div>
+          <div class="field-row"><label for="in-adv" id="lbl-advisor">Advisor fee</label><span class="tip" tabindex="0" role="note" data-tip="Assets-under-management fee, if you pay one. Typical is 1% a year, on top of fund fees.">i</span><output class="field-out" for="rg-advisor"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-advisor" aria-labelledby="lbl-advisor"><div class="numwrap has-post"><input type="number" id="in-adv"><span class="affix post">%</span></div></div>
         </div>
       </div>
 
@@ -73,12 +73,12 @@
         <summary>Assumptions</summary>
         <div class="fieldset">
           <div class="field" data-key="ret" data-min="1" data-max="15" data-step="0.1" data-default="8" data-fmt="pct" data-dec="1">
-            <div class="field-row"><label for="in-ret">Return before fees</label><output class="field-out"></output></div>
-            <div class="field-ctl"><input type="range" aria-label="Expected annual return"><div class="numwrap has-post"><input type="number" id="in-ret"><span class="affix post">%</span></div></div>
+            <div class="field-row"><label for="in-ret" id="lbl-ret">Return before fees</label><output class="field-out" for="rg-ret"></output></div>
+            <div class="field-ctl"><input type="range" id="rg-ret" aria-labelledby="lbl-ret"><div class="numwrap has-post"><input type="number" id="in-ret"><span class="affix post">%</span></div></div>
           </div>
           <div class="field" data-key="alt" data-min="0" data-max="0.5" data-step="0.01" data-default="0.03" data-fmt="pct" data-dec="2">
-            <div class="field-row"><label for="in-alt">Low-cost alternative <span class="tip" tabindex="0" data-tip="Broad index funds charge 0.03% to 0.10% a year.">i</span></label><output class="field-out"></output></div>
-            <div class="field-ctl"><input type="range" aria-label="Low-cost fund fee"><div class="numwrap has-post"><input type="number" id="in-alt"><span class="affix post">%</span></div></div>
+            <div class="field-row"><label for="in-alt" id="lbl-alt">Low-cost alternative</label><span class="tip" tabindex="0" role="note" data-tip="Broad index funds charge 0.03% to 0.10% a year.">i</span><output class="field-out" for="rg-alt"></output></div>
+            <div class="field-ctl"><input type="range" id="rg-alt" aria-labelledby="lbl-alt"><div class="numwrap has-post"><input type="number" id="in-alt"><span class="affix post">%</span></div></div>
           </div>
         </div>
       </details>
@@ -86,6 +86,7 @@
 
     <section class="statement">
       <div class="statement-head"><h2>Fee drag</h2><span class="stamp" id="stamp"></span></div>
+      <p class="sr-only" role="status" aria-live="polite" id="live-summary"></p>
       <div class="figure">
         <span class="label" id="lead-label">Fees cost you over 30 years</span>
         <span class="value neg" id="drag">—</span>
@@ -158,7 +159,7 @@
   function band(er) {
     if (er <= 0.1) return ['Very low. Index-fund territory.', '#2F7D5B'];
     if (er <= 0.5) return ['Low.', '#2A6B4F'];
-    if (er <= 0.82) return ['Average. US mutual funds average 0.82%.', '#8A6510'];
+    if (er <= 0.82) return ['Average. US mutual funds average 0.82%.', '#7A5A0E'];
     if (er <= 1) return ['High.', '#B0503C'];
     return ['Very high. Common in actively managed and insurance products.', '#8E3C2B'];
   }
@@ -199,7 +200,7 @@
     LIS.text($('l-total'), F.money(drag));
 
     const x = []; for (let y = 0; y <= N; y++) x.push(y);
-    LIS.chart.line($('chart'), { x, series: [{ name: 'No fees', values: none.path, color: '#B9B09A', dash: true }, { name: 'Low-cost fund', values: alt.path, color: '#2F7D5B', width: 2 }, { name: 'Your fees', values: you.path, color: '#B0503C', area: true, areaOpacity: .08 }], xFmt: v => 'Y' + v, tipLabel: v => 'Year ' + v, label: 'Portfolio value with and without fees' });
+    LIS.chart.line($('chart'), { x, series: [{ name: 'No fees', values: none.path, color: '#5C6957', dash: true }, { name: 'Low-cost fund', values: alt.path, color: '#2F7D5B', width: 2 }, { name: 'Your fees', values: you.path, color: '#B0503C', area: true, areaOpacity: .08 }], xFmt: v => 'Y' + v, tipLabel: v => 'Year ' + v, label: 'Portfolio value with and without fees' });
 
     LIS.text($('e-none'), F.money(none.end));
     LIS.text($('e-alt-pct'), F.pct(s.alt, 2)); LIS.text($('e-alt'), F.money(alt.end));

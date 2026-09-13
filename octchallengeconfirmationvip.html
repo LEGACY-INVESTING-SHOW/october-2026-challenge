@@ -133,7 +133,7 @@
             </div>
             <div class="schedule-row">
               <span class="day">Main Challenge - October 16th to 18th</span>
-              <span class="time">10 AM - 4 PM EST daily</span>
+              <span class="time">10 AM - 4 PM ET daily</span>
               <span class="muted">Three live training days for your 12-month wealth plan.</span>
             </div>
             <div class="schedule-row">
@@ -143,9 +143,9 @@
             </div>
           </div>
           <div class="calendar-links">
-            <a class="btn" id="calendar-google" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
-            <a class="btn" id="calendar-outlook" href="#" target="_blank" rel="noopener noreferrer">Outlook</a>
-            <a class="btn" id="calendar-apple" href="#">Apple Calendar</a>
+            <a class="btn" id="calendar-google" href="#" target="_blank" rel="noopener noreferrer" aria-label="Add to Google Calendar">Google Calendar</a>
+            <a class="btn" id="calendar-outlook" href="#" target="_blank" rel="noopener noreferrer" aria-label="Add to Outlook calendar">Outlook</a>
+            <a class="btn" id="calendar-apple" href="#" aria-label="Download for Apple Calendar (.ics)">Apple Calendar</a>
           </div>
         </div>
       </div>
@@ -195,7 +195,8 @@
     const details = 'Your VIP ticket is confirmed. Join the October Tax-Free Income Challenge online. Final VIP access links will be sent by email.';
     const location = 'Online';
     const start = new Date('2026-10-16T10:00:00-04:00');
-    const end = new Date('2026-10-18T16:00:00-04:00');
+    const end = new Date('2026-10-16T16:00:00-04:00');
+    const recur = 'RRULE:FREQ=DAILY;COUNT=3';
 
     function utcStamp(date) {
       return date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
@@ -208,11 +209,11 @@
     const apple = document.getElementById('calendar-apple');
 
     if (google) {
-      google.href = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + startStamp + '%2F' + endStamp + '&details=' + encodeURIComponent(details) + '&location=' + encodeURIComponent(location);
+      google.href = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(title) + '&dates=' + startStamp + '%2F' + endStamp + '&recur=' + encodeURIComponent(recur) + '&details=' + encodeURIComponent(details) + '&location=' + encodeURIComponent(location);
     }
 
     if (outlook) {
-      outlook.href = 'https://outlook.live.com/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent&subject=' + encodeURIComponent(title) + '&startdt=' + encodeURIComponent(start.toISOString()) + '&enddt=' + encodeURIComponent(end.toISOString()) + '&body=' + encodeURIComponent(details) + '&location=' + encodeURIComponent(location);
+      outlook.href = 'https://outlook.live.com/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent&subject=' + encodeURIComponent(title) + '&startdt=' + encodeURIComponent(start.toISOString()) + '&enddt=' + encodeURIComponent(new Date('2026-10-18T16:00:00-04:00').toISOString()) + '&body=' + encodeURIComponent(details) + '&location=' + encodeURIComponent(location);
     }
 
     if (apple) {
@@ -225,6 +226,7 @@
         'DTSTAMP:' + utcStamp(new Date()),
         'DTSTART:' + startStamp,
         'DTEND:' + endStamp,
+        recur,
         'SUMMARY:' + title,
         'DESCRIPTION:' + details,
         'LOCATION:' + location,

@@ -74,9 +74,10 @@
       if (f.num && document.activeElement !== f.num) f.num.value = v;
       if (f.out) f.out.textContent = fmtOut(f, v);
     }
+    function run() { onChange(state); LIS.live(); }
     function emit() {
       cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => { onChange(state); pushUrl(); });
+      raf = requestAnimationFrame(() => { run(); pushUrl(); });
     }
     function pushUrl() {
       if (opts.url === false) return;
@@ -160,10 +161,10 @@
       });
       emit();
     }
-    root.querySelectorAll('[data-reset]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); reset(); }));
+    root.querySelectorAll('[data-reset]').forEach(b => b.addEventListener('click', () => reset()));
 
-    const api = { state, set, setMin, setMax, reset, fields, run: () => onChange(state) };
-    if (opts.run !== false) requestAnimationFrame(() => onChange(state));
+    const api = { state, set, setMin, setMax, reset, fields, run };
+    if (opts.run !== false) requestAnimationFrame(run);
     let rz = 0, lastW = window.innerWidth;
     window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if (window.innerWidth !== lastW) { lastW = window.innerWidth; onChange(state); } }, 200); });
     return api;
@@ -190,6 +191,22 @@
     requestAnimationFrame(tick);
   };
   LIS.text = function (el, s) { if (el && el.textContent !== s) el.textContent = s; };
+
+  /* ---------- Live summary (screen readers) ----------
+     Mirrors the headline figure already on the page into #live-summary, debounced so slider drags announce once. */
+  let liveTimer = 0;
+  LIS.live = function () {
+    const out = document.getElementById('live-summary');
+    if (!out) return;
+    clearTimeout(liveTimer);
+    liveTimer = setTimeout(() => {
+      const fig = [...document.querySelectorAll('.statement .figure')].find(f => !f.closest('[hidden]'));
+      const label = fig && fig.querySelector('.label'), value = fig && fig.querySelector('.value');
+      if (!label || !value) return;
+      const s = (label.textContent + ': ' + value.textContent).replace(/\s+/g, ' ').trim();
+      if (out.textContent !== s) out.textContent = s;
+    }, 700);
+  };
   LIS.cls = function (el, base, extra) { if (el) el.className = base + (extra ? ' ' + extra : ''); };
   LIS.meter = function (el, pct, color) {
     if (!el) return;
@@ -255,6 +272,7 @@
   chart.line = function (host, cfg) {
     host.innerHTML = '';
     host.classList.add('chart');
+    const anim = !reduced && !cfg.noAnim && !host.dataset.animated; host.dataset.animated = '1';
     const narrow = host.clientWidth && host.clientWidth < 520;
     const W = narrow ? 400 : 640, H = cfg.height || (narrow ? 260 : 300), ml = narrow ? 46 : 52, mr = 14, mt = 18, mb = 34;
     const iw = W - ml - mr, ih = H - mt - mb;
@@ -283,11 +301,11 @@
       const d = 'M' + pts.map(p => p.join(',')).join('L');
       const p = svgEl('path', { d, fill: 'none', stroke: s.color, 'stroke-width': s.width || 2.2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, svg);
       if (s.dash) p.setAttribute('stroke-dasharray', '5 5');
-      if (!reduced && !cfg.noAnim) { const len = p.getTotalLength ? p.getTotalLength() : 2000; p.style.strokeDasharray = s.dash ? '5 5' : len; p.style.strokeDashoffset = s.dash ? 0 : len; p.style.transition = 'stroke-dashoffset .9s cubic-bezier(.22,1,.36,1)'; requestAnimationFrame(() => requestAnimationFrame(() => { p.style.strokeDashoffset = 0; })); }
+      if (anim) { const len = p.getTotalLength ? p.getTotalLength() : 2000; p.style.strokeDasharray = s.dash ? '5 5' : len; p.style.strokeDashoffset = s.dash ? 0 : len; p.style.transition = 'stroke-dashoffset .9s cubic-bezier(.22,1,.36,1)'; requestAnimationFrame(() => requestAnimationFrame(() => { p.style.strokeDashoffset = 0; })); }
     });
     (cfg.markers || []).forEach(m => {
       if (m.x < x0 || m.x > x1) return;
-      svgEl('line', { x1: X(m.x), x2: X(m.x), y1: mt, y2: mt + ih, stroke: m.color || '#8D9BA6', 'stroke-dasharray': '3 4' }, svg);
+      svgEl('line', { x1: X(m.x), x2: X(m.x), y1: mt, y2: mt + ih, stroke: m.color || '#45544A', 'stroke-dasharray': '3 4' }, svg);
       const t = svgEl('text', { x: X(m.x) + 5, y: mt + 10, class: 'lbl', fill: m.color || '' }, svg); t.textContent = m.label;
     });
     // legend
@@ -315,6 +333,7 @@
   /* Bars. cfg: { items:[{label, value, color, muted}], yFmt, height } */
   chart.bars = function (host, cfg) {
     host.innerHTML = ''; host.classList.add('chart');
+    const anim = !reduced && !cfg.noAnim && !host.dataset.animated; host.dataset.animated = '1';
     const narrow = host.clientWidth && host.clientWidth < 520;
     const W = narrow ? 400 : 640, H = cfg.height || (narrow ? 220 : 240), ml = narrow ? 46 : 52, mr = 10, mt = 14, mb = 30, iw = W - ml - mr, ih = H - mt - mb;
     const ticks = niceTicks(Math.max(...cfg.items.map(i => isFinite(i.value) ? i.value : 0), 1), 4); const ymax = ticks[ticks.length - 1];
@@ -326,7 +345,7 @@
     cfg.items.forEach((it, i) => {
       const cx = ml + slot * i + slot / 2, v = isFinite(it.value) ? Math.max(0, it.value) : 0;
       const r = svgEl('rect', { x: cx - bw / 2, y: Y(v), width: bw, height: mt + ih - Y(v), rx: 3, fill: it.color }, svg);
-      if (!reduced && !cfg.noAnim) { r.style.transformOrigin = `${cx}px ${mt + ih}px`; r.style.transform = 'scaleY(0)'; r.style.transition = 'transform .7s cubic-bezier(.22,1,.36,1) ' + (i * 60) + 'ms'; requestAnimationFrame(() => requestAnimationFrame(() => { r.style.transform = 'scaleY(1)'; })); }
+      if (anim) { r.style.transformOrigin = `${cx}px ${mt + ih}px`; r.style.transform = 'scaleY(0)'; r.style.transition = 'transform .7s cubic-bezier(.22,1,.36,1) ' + (i * 60) + 'ms'; requestAnimationFrame(() => requestAnimationFrame(() => { r.style.transform = 'scaleY(1)'; })); }
       const t = svgEl('text', { x: cx, y: H - mb + 18, 'text-anchor': 'middle' }, axis); t.textContent = it.label;
       const vl = svgEl('text', { x: cx, y: Y(v) - 6, 'text-anchor': 'middle', class: 'lbl', 'font-weight': 600 }, svg); vl.textContent = (cfg.valFmt || fmt.compact)(it.value);
     });
@@ -352,24 +371,6 @@
     if (cfg.small) { const t = svgEl('text', { x: c, y: c + 20, 'text-anchor': 'middle', 'font-size': 10, fill: '#74816F' }, svg); t.textContent = cfg.small; }
     return svg;
   };
-
-  /* Horizontal comparison bars. cfg: { items:[{label,value,color,note}], max } */
-  chart.hbars = function (host, cfg) {
-    host.innerHTML = ''; host.classList.add('chart');
-    const max = cfg.max || Math.max(...cfg.items.map(i => isFinite(i.value) ? i.value : 0), 1);
-    cfg.items.forEach(it => {
-      const row = document.createElement('div'); row.className = 'hbar';
-      const v = isFinite(it.value) ? Math.max(0, it.value) : 0;
-      row.innerHTML = `<div class="hbar-k"><span>${it.label}</span><span class="hbar-v">${(cfg.fmt || fmt.money)(it.value)}</span></div><div class="hbar-t"><div class="hbar-f" style="background:${it.color};width:0"></div></div>` + (it.note ? `<div class="hbar-n">${it.note}</div>` : '');
-      host.appendChild(row);
-      const f = row.querySelector('.hbar-f');
-      requestAnimationFrame(() => requestAnimationFrame(() => { f.style.width = (v / max) * 100 + '%'; }));
-    });
-  };
-  // inject hbar css
-  const st = document.createElement('style');
-  st.textContent = '.hbar{margin-top:.7rem}.hbar-k{display:flex;justify-content:space-between;font-size:.86rem;margin-bottom:.3rem}.hbar-v{font-variant-numeric:tabular-nums;font-weight:600}.hbar-t{height:8px;border-radius:4px;background:var(--line-soft);overflow:hidden}.hbar-f{height:100%;border-radius:4px;transition:width .8s cubic-bezier(.22,1,.36,1)}.hbar-n{font-size:.76rem;color:var(--ink-faint);margin-top:.25rem}';
-  document.head.appendChild(st);
 
   /* ---------- Finance helpers ---------- */
   LIS.fin = {

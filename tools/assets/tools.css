@@ -9,7 +9,7 @@
   --line-soft: #EDE6D4;
   --ink: #1D2A22;
   --ink-soft: #45544A;
-  --ink-faint: #74816F;
+  --ink-faint: #5C6957;
   --forest: #16352A;
   --forest-2: #1D4234;
   --forest-edge: #2C5443;
@@ -19,7 +19,7 @@
   --gold: #D9A93D;
   --gold-deep: #B98A1F;
   --gold-tint: #F5EBD2;
-  --gold-ink: #8A6510;
+  --gold-ink: #7A5A0E;
   --rose: #B0503C;
   --rose-tint: #F5E3DC;
   --rose-ink: #8E3C2B;
@@ -49,7 +49,6 @@ strong { font-weight: 600; }
 ul { list-style: none; }
 
 .wrap { width: min(74rem, 100% - 2rem); margin-inline: auto; }
-.wrap-narrow { width: min(52rem, 100% - 2rem); margin-inline: auto; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* ---------- Top bar ---------- */
@@ -116,6 +115,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16p
 input[type="range"]::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--paper); border: 2px solid var(--forest); box-shadow: 0 1px 4px rgba(0, 0, 0, .18); }
 input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb { transform: scale(1.15); }
 input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px rgba(22, 53, 42, .15); }
+input[type="range"]:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 4px rgba(22, 53, 42, .15); }
 
 /* Toggle */
 .toggle { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .5rem 0; font-size: .86rem; font-weight: 500; }
@@ -134,7 +134,8 @@ input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px 
 
 /* Info tip */
 .tip { position: relative; display: inline-grid; place-items: center; width: 15px; height: 15px; border-radius: 50%; border: 1px solid var(--line); color: var(--ink-faint); font-size: .62rem; font-weight: 700; cursor: help; }
-.tip:hover, .tip:focus-visible { border-color: var(--forest-edge); color: var(--forest); outline: none; }
+.tip:hover, .tip:focus-visible { border-color: var(--forest-edge); color: var(--forest); }
+.field-row > .tip { margin-left: -.4rem; margin-right: auto; align-self: center; }
 .tip::after { content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%) translateY(4px); width: max-content; max-width: 16rem; background: var(--forest); color: var(--paper); font-weight: 400; font-size: .76rem; line-height: 1.4; padding: .5rem .65rem; border-radius: 6px; opacity: 0; pointer-events: none; transition: opacity .15s, transform .15s var(--ease); z-index: 10; text-align: left; }
 .tip:hover::after, .tip:focus-visible::after { opacity: 1; transform: translateX(-50%) translateY(0); }
 
@@ -244,6 +245,10 @@ tbody tr:hover { background: var(--paper); }
 tr.hi td { background: var(--gold-tint); }
 tfoot td { font-weight: 600; border-top: 1px solid var(--forest); border-bottom: 0; }
 
+/* Focus */
+:where(.btn, .segment button, .reset, summary, .topbar-nav a, .tabs [role=tab], .tip):focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.segment button:focus-visible { outline-offset: -3px; } /* .segment clips overflow, so the ring sits inside */
+
 /* Buttons */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border-radius: .75rem; font-weight: 600; text-decoration: none; padding: .8rem 1.5rem; font-size: .92rem; transition: transform .18s var(--ease), background .18s; }
 .btn-gold { background: var(--gold); color: #221903; box-shadow: 0 1px 0 rgba(122, 88, 10, .35), 0 8px 22px -10px rgba(185, 138, 31, .55); }
@@ -287,18 +292,15 @@ footer.site a:hover { color: var(--paper); }
 
 /* Animations */
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-.reveal { animation: rise .6s var(--ease) both; }
-.reveal:nth-child(2) { animation-delay: .06s; }
-.reveal:nth-child(3) { animation-delay: .12s; }
-.flash { animation: flash .6s var(--ease); }
-@keyframes flash { 0% { color: var(--gold-ink); } 100% { } }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  .meter-fill { transition: none; }
+  [role="tabpanel"] { animation: none; }
+  .btn-gold:hover, .next a:hover { transform: none; }
 }
 
 @media print {
-  .topbar, .video, .actions, .next, footer.site, .worksheet-head .reset { display: none !important; }
+  .topbar, .actions, .next, footer.site, .worksheet-head .reset { display: none !important; }
   .tool-grid { grid-template-columns: 1fr; }
   body { background: #fff; }
 }

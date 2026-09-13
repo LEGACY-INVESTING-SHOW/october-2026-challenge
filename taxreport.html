@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,7 +39,7 @@
     ;var n=i.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)}}}}(document,window),
     spiffy.SNIPPET_VERSION="1.1.0";
     spiffy.config({
-        hideSidebar: true,
+        hideSidebar: false, /* the page previously loaded a second Spiffy snippet that set false; kept that effective value */
     })
     spiffy.load("legacyinvestingshow");
     </script>
@@ -58,7 +58,7 @@
         --line: #E2D9C3;           /* hairline borders */
         --ink: #1D2A22;            /* primary text */
         --ink-soft: #45544A;       /* secondary text */
-        --ink-faint: #74816F;      /* tertiary text */
+        --ink-faint: #5C6957;      /* tertiary text */
         --forest: #16352A;         /* dark green bands */
         --forest-2: #1D4234;
         --forest-edge: #2C5443;
@@ -68,7 +68,7 @@
         --gold: #D9A93D;           /* CTA */
         --gold-deep: #B98A1F;
         --gold-tint: #F5EBD2;
-        --gold-ink: #8A6510;       /* gold-toned text on light */
+        --gold-ink: #7A5A0E;       /* gold-toned text on light */
         --rose: #B0503C;           /* negative */
         --rose-tint: #F5E3DC;
         --sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -105,16 +105,6 @@
       h3 { font-weight: 600; color: var(--ink); }
       .gold-word { color: var(--gold-ink); }
 
-      .kicker {
-        display: flex; align-items: center; gap: .7rem;
-        text-transform: uppercase; letter-spacing: .16em;
-        font-size: .72rem; font-weight: 700; color: var(--green-mid);
-        margin-bottom: .9rem;
-      }
-      .kicker::before { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
-      .kicker.center { justify-content: center; }
-      .kicker.center::after { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
-
       .section-head { max-width: 46rem; margin-inline: auto; text-align: center; margin-bottom: clamp(2rem, 4vw, 3rem); }
       .muted { color: var(--ink-soft); }
       .faint { color: var(--ink-faint); }
@@ -132,13 +122,7 @@
         box-shadow: 0 1px 0 rgba(122,88,10,.35), 0 8px 22px -10px rgba(185,138,31,.55);
       }
       .btn-gold:hover { background: #C99A2E; transform: translateY(-1px); }
-      .btn-ghost-light {
-        background: transparent; color: #DCE4D6;
-        box-shadow: inset 0 0 0 1px var(--forest-edge);
-      }
-      .btn-ghost-light:hover { background: rgba(255,253,246,.07); color: #F5F1E3; }
       .btn-xl { padding: 1.15rem 2rem; font-size: clamp(.98rem, 2.2vw, 1.15rem); line-height: 1.35; }
-      .btn-md { padding: .8rem 1.5rem; font-size: .95rem; }
       .btn-block { display: flex; width: 100%; border-radius: .75rem; }
       .arrow { width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
 
@@ -262,8 +246,6 @@
       .mistake-box { background: var(--rose-tint); border: 1px solid #E8C9BE; border-radius: .9rem; padding: 1.25rem 1.4rem; margin-block: 1.35rem; }
       .mistake-box .hd { color: var(--rose); font-weight: 700; font-size: .9rem; margin-bottom: .25rem; }
       .mistake-box p { font-size: .9rem; color: var(--ink-soft); }
-      .meta-row { display: flex; flex-wrap: wrap; gap: .5rem .9rem; font-size: .82rem; color: var(--ink-faint); letter-spacing: .02em; }
-      .meta-row .sep { color: var(--gold-deep); }
 
       /* ---------- Screenshot gallery ---------- */
       .gallery { display: flex; gap: 1.25rem; overflow-x: auto; padding-bottom: 1.25rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
@@ -322,7 +304,7 @@
         padding: 1.2rem 1.4rem; background: none; border: 0; text-align: left; color: var(--ink);
       }
       .faq-question:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: -2px; }
-      .faq-question-title { font-family: var(--serif); font-size: clamp(1rem, 1.9vw, 1.15rem); font-weight: 600; color: var(--ink); line-height: 1.4; margin: 0; }
+      .faq-question-title { display: block; font-family: var(--serif); font-size: clamp(1rem, 1.9vw, 1.15rem); font-weight: 600; color: var(--ink); line-height: 1.4; margin: 0; }
       .faq-icon-wrap {
         width: 2.25rem; height: 2.25rem; flex-shrink: 0; border-radius: 999px;
         border: 1px solid #E5D3A0; background: var(--gold-tint); color: var(--gold-ink);
@@ -381,10 +363,10 @@
         position: fixed; left: 0; right: 0; top: 0; z-index: 40;
         background: rgba(255,253,246,.96); border-bottom: 1px solid var(--line);
         box-shadow: 0 16px 40px -28px rgba(29,42,34,.55);
-        transform: translateY(-110%); opacity: 0;
-        transition: transform .25s ease, opacity .25s ease;
+        transform: translateY(-110%); opacity: 0; visibility: hidden;
+        transition: transform .25s ease, opacity .25s ease, visibility 0s linear .25s;
       }
-      #sticky-cta.show { transform: translateY(0); opacity: 1; }
+      #sticky-cta.show { transform: translateY(0); opacity: 1; visibility: visible; transition-delay: 0s; }
       .sticky-cta-inner {
         max-width: 72rem; margin-inline: auto; padding: .7rem clamp(1rem,4vw,1.5rem);
         display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem; text-align: center;
@@ -398,8 +380,6 @@
       /* ---------- Mobile ---------- */
       @media (max-width: 899px) {
         .m-center { text-align: center; }
-        .kicker.m-center { justify-content: center; }
-        .kicker.m-center::after { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
       }
       @media (max-width: 640px) {
         .final-warn::before, .final-warn::after { display: none; }
@@ -490,7 +470,7 @@
     <section class="alertbar">
         <div class="wrap">
             <div class="alert-card">
-                <h2>⚠️ STOP! Watch This Video Before You Exit</h2>
+                <h2>STOP! Watch This Video Before You Exit</h2>
             </div>
         </div>
     </section>
@@ -511,7 +491,6 @@
                 </p>
             </div>
 
-
             <div id="vsl" class="video-frame">
                 <!-- Above the fold: must stay loading="eager". width/height give the
                      intrinsic 16:9 ratio; the CSS above still sizes it to the frame. -->
@@ -528,7 +507,6 @@
             </div>
         </div>
     </section>
-
 
     <!-- ═══════════════════════════════════════════════════
          PROBLEM SECTION
@@ -602,7 +580,7 @@
                             Over the past 5 years, our team analyzed <strong>300+ tax returns</strong> from high earners, business owners, and real estate investors. We were looking for patterns.
                         </p>
                         <p>
-                            We found the same opportunities missed again and again. S-Corp elections never filed. Retirement accounts underfunded. Real estate strategies completely unknown. Business deductions left on the table.
+                            We found the same opportunities missed again and again: S-Corp elections that were never filed, retirement accounts left underfunded, real estate strategies nobody had heard of, and business deductions left on the table.
                         </p>
                         <p>
                             We distilled everything into a <span class="gold-word" style="font-weight:700;">12-question diagnostic</span>. It shows which of the 37 IRS-approved strategies apply to YOUR situation, and calculates your savings potential.
@@ -999,19 +977,19 @@
             <div class="faq-list" id="faq-container">
                 <div class="card faq-item">
                     <button type="button" class="faq-question" aria-expanded="false">
-                        <h3 class="faq-question-title">Can't I just Google this for free?</h3>
+                        <span class="faq-question-title">Can't I just Google this for free?</span>
                         <span class="faq-icon-wrap">
                             <svg class="faq-icon"><use href="#i-plus"/></svg>
                         </span>
                     </button>
                     <div class="faq-answer">
-                        <p class="faq-answer-text">You can find generic tax tips. What you WON'T find is a personalized analysis of YOUR situation: which strategies apply to YOUR income, state, and business structure, with dollar amounts. This report does in 2 minutes what takes 40+ hours of research.</p>
+                        <p class="faq-answer-text">You can find generic tax tips. What you won't find is a personalized analysis of your situation: which strategies apply to your income, state, and business structure, with dollar amounts. This report does in 2 minutes what takes 40+ hours of research.</p>
                     </div>
                 </div>
 
                 <div class="card faq-item">
                     <button type="button" class="faq-question" aria-expanded="false">
-                        <h3 class="faq-question-title">Are these strategies legal?</h3>
+                        <span class="faq-question-title">Are these strategies legal?</span>
                         <span class="faq-icon-wrap">
                             <svg class="faq-icon"><use href="#i-plus"/></svg>
                         </span>
@@ -1023,7 +1001,7 @@
 
                 <div class="card faq-item">
                     <button type="button" class="faq-question" aria-expanded="false">
-                        <h3 class="faq-question-title">I already have a CPA. Do I need this?</h3>
+                        <span class="faq-question-title">I already have a CPA. Do I need this?</span>
                         <span class="faq-icon-wrap">
                             <svg class="faq-icon"><use href="#i-plus"/></svg>
                         </span>
@@ -1035,7 +1013,7 @@
 
                 <div class="card faq-item">
                     <button type="button" class="faq-question" aria-expanded="false">
-                        <h3 class="faq-question-title">What if the report says I can't save much?</h3>
+                        <span class="faq-question-title">What if the report says I can't save much?</span>
                         <span class="faq-icon-wrap">
                             <svg class="faq-icon"><use href="#i-plus"/></svg>
                         </span>
@@ -1076,7 +1054,7 @@
                 <span class="gold-word">Start Saving.</span>
             </h2>
             <p class="final-sub">
-                Based on 300+ reports generated. Personalized to your exact situation. Delivered instantly.
+                Based on 300+ reports, personalized to your exact situation, and delivered instantly.
             </p>
 
             <div class="final-actions">
@@ -1117,7 +1095,6 @@
             </div>
         </div>
     </aside>
-
 
     <script>
         const stickyCta = document.getElementById('sticky-cta');
@@ -1201,27 +1178,11 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
                 }
             });
         });
     </script>
-
-<script>
-"use strict";!function(i,t){var f=t.spiffy=t.spiffy||[];if(!f.init){
-if(f.invoked)return void(t.console&&console.error&&console.warn("Spiffy Elements included twice."))
-;f.invoked=!0,f.methods=["identify","config","debug","off","on"],f.factory=function(i){
-return function(){var t=Array.prototype.slice.call(arguments);return t.unshift(i),f.push(t),f}},
-f.methods.forEach(function(i){spiffy[i]=f.factory(i)}),f.load=function(t,f){if(!spiffy.ACCOUNT){
-spiffy.ACCOUNT=t,spiffy.DOMAIN=f;var e=i.createElement("script");e.type="text/javascript",
-e.async=!0,e.crossorigin="anonymous",e.src="https://js.static.spiffy.co/spiffy.js?a="+t
-;var n=i.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)}}}}(document,window),
-spiffy.SNIPPET_VERSION="1.1.0";
-spiffy.config({
-    hideSidebar: false,
-})
-spiffy.load("legacyinvestingshow");
-</script>
 
 
 </body>

@@ -36,7 +36,7 @@
   ;var n=i.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)}}}}(document,window),
   spiffy.SNIPPET_VERSION="1.1.0";
   spiffy.config({
-      hideSidebar: true,
+      hideSidebar: false, /* the page previously loaded a second Spiffy snippet that set false; kept that effective value */
   })
   spiffy.load("legacyinvestingshow");
   </script>
@@ -56,7 +56,7 @@
       --line: #E2D9C3;           /* hairline borders */
       --ink: #1D2A22;            /* primary text */
       --ink-soft: #45544A;       /* secondary text */
-      --ink-faint: #74816F;      /* tertiary text */
+      --ink-faint: #5C6957;      /* tertiary text */
       --forest: #16352A;         /* dark green bands */
       --forest-2: #1D4234;
       --forest-edge: #2C5443;
@@ -66,14 +66,15 @@
       --gold: #D9A93D;           /* CTA */
       --gold-deep: #B98A1F;
       --gold-tint: #F5EBD2;
-      --gold-ink: #8A6510;       /* gold-toned text on light */
+      --gold-ink: #7A5A0E;       /* gold-toned text on light */
       --rose: #B0503C;           /* negative */
       --rose-tint: #F5E3DC;
       --sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; scroll-behavior: smooth; }
+    html { font-size: 16px; }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
     html, body { overflow-x: hidden; width: 100%; max-width: 100vw; }
     body {
       font-family: var(--sans);
@@ -125,8 +126,6 @@
     }
     .pill-gold { background: var(--gold-tint); color: var(--gold-ink); border: 1px solid #E5D3A0; padding: .35rem .85rem; }
     .pill-lg { font-size: .85rem; padding: .55rem 1.25rem; letter-spacing: .04em; }
-    .dot { width: .5rem; height: .5rem; border-radius: 999px; background: var(--gold-deep); animation: pulse 2s infinite; flex-shrink: 0; }
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
 
     /* ---------- Sections ---------- */
     section { padding-block: clamp(2.5rem, 6vw, 5rem); }
@@ -217,7 +216,6 @@
       h1.display { font-size: 1.65rem; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .dot { animation: none; }
       * { transition: none !important; }
     }
   </style>
@@ -242,7 +240,7 @@
     .nx-stack-val{margin-left:auto;font-size:14px;font-weight:700;color:var(--gold-ink);white-space:nowrap}
     .nx-stack-total{display:flex;justify-content:space-between;align-items:baseline;padding:18px 4px 4px}
     .nx-stack-total .nx-tlbl{font-size:14px;color:var(--ink-soft)}
-    .nx-stack-total .nx-num{font-size:15px;color:#9A947F;text-decoration:line-through;margin-right:10px}
+    .nx-stack-total .nx-num{font-size:15px;color:var(--ink-faint);text-decoration:line-through;margin-right:10px}
     .nx-stack-total .nx-today{font-size:24px;font-weight:700;color:var(--forest)}
     @media (prefers-reduced-motion:reduce){
       .nx-stack-item,.nx-stack-check svg{transition:none!important}
@@ -326,7 +324,7 @@
   <section style="padding-block:0 clamp(2.5rem,6vw,4rem);">
     <div class="wrap">
       <div class="video-frame">
-        <iframe src="https://player.vimeo.com/video/1223366746?autoplay=1&title=0&byline=0&wmode=transparent&autopause=0" width="1600" height="900" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="eager" fetchpriority="high"></iframe>
+        <iframe title="Challenge Prep Kit overview video" src="https://player.vimeo.com/video/1223366746?autoplay=1&title=0&byline=0&wmode=transparent&autopause=0" width="1600" height="900" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="eager" fetchpriority="high"></iframe>
       </div>
     </div>
   </section>
@@ -344,7 +342,7 @@
         <p>Most people show up to Day 1 with no idea where their money is going. They spend the first 2 days catching up while everyone else is already moving.</p>
       </div>
 
-      <span class="pill pill-gold pill-lg"><span class="dot"></span>That's Why I Built...</span>
+      <span class="pill pill-gold pill-lg">That's why I built&hellip;</span>
 
       <h2 class="display">VIP Exclusive: The Challenge Prep Kit</h2>
 
@@ -367,7 +365,7 @@
         <!-- Product 1 -->
         <div class="card p-card">
           <div class="p-shot">
-            <img src="/assets/images/tax-playbook.png" alt="Tax Playbook preview" width="1600" height="1200" loading="lazy" decoding="async">
+            <img src="/assets/images/tax-playbook.webp" alt="Tax Playbook preview" width="1600" height="1200" loading="lazy" decoding="async">
           </div>
           <h3>27 Tax Strategy Cheatsheet</h3>
           <p>27 Tax Strategies You've Never Heard From Your CPA (Works for W-2 earners and business owners)</p>
@@ -376,7 +374,7 @@
         <!-- Product 2 -->
         <div class="card p-card">
           <div class="p-shot">
-            <img src="/assets/images/anti-inflation-pack.png" alt="Anti-Inflation Pack preview" width="1600" height="1200" loading="lazy" decoding="async">
+            <img src="/assets/images/anti-inflation-pack.webp" alt="Anti-Inflation Pack preview" width="1600" height="1200" loading="lazy" decoding="async">
           </div>
           <h3>Anti-Inflation Pack</h3>
           <p>A guide that shows you how to stop inflation from eating your savings year after year.</p>
@@ -385,7 +383,7 @@
         <!-- Product 3 -->
         <div class="card p-card">
           <div class="p-shot">
-            <img src="/assets/images/calculators.png" alt="Financial calculators preview" width="1600" height="1200" loading="lazy" decoding="async">
+            <img src="/assets/images/calculators.webp" alt="Financial calculators preview" width="1600" height="1200" loading="lazy" decoding="async">
           </div>
           <h3>Financial Diagnostic Calculator</h3>
           <p>Run your numbers in 5 minutes and see what's really happening with your money.</p>
@@ -408,7 +406,7 @@
           </div>
           <div class="nx-stack-item">
             <span class="nx-stack-check"><svg viewBox="0 0 16 16"><path d="M2.5 8.5l3.5 3.5 7-8"/></svg></span>
-            <div><b>Anti-Inflation Investing Pack</b></div>
+            <div><b>Anti-Inflation Pack</b></div>
             <span class="nx-stack-val">$37 value</span>
           </div>
           <div class="nx-stack-item">
@@ -533,21 +531,6 @@
     })();
   </script>
 
-<script>
-"use strict";!function(i,t){var f=t.spiffy=t.spiffy||[];if(!f.init){
-if(f.invoked)return void(t.console&&console.error&&console.warn("Spiffy Elements included twice."))
-;f.invoked=!0,f.methods=["identify","config","debug","off","on"],f.factory=function(i){
-return function(){var t=Array.prototype.slice.call(arguments);return t.unshift(i),f.push(t),f}},
-f.methods.forEach(function(i){spiffy[i]=f.factory(i)}),f.load=function(t,f){if(!spiffy.ACCOUNT){
-spiffy.ACCOUNT=t,spiffy.DOMAIN=f;var e=i.createElement("script");e.type="text/javascript",
-e.async=!0,e.crossorigin="anonymous",e.src="https://js.static.spiffy.co/spiffy.js?a="+t
-;var n=i.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)}}}}(document,window),
-spiffy.SNIPPET_VERSION="1.1.0";
-spiffy.config({
-    hideSidebar: false,
-})
-spiffy.load("legacyinvestingshow");
-</script>
 
 <!-- Value stack scroll-in animation -->
 <script>
