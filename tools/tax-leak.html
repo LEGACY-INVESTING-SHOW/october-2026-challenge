@@ -39,74 +39,74 @@
 <main class="tool wrap">
   <div class="tool-grid">
     <aside class="worksheet" id="ws" aria-label="Your numbers">
-      <div class="worksheet-head"><h2>Your numbers</h2><a href="#" class="reset" data-reset>Reset</a></div>
+      <div class="worksheet-head"><h2>Your numbers</h2><button type="button" class="reset" data-reset>Reset</button></div>
 
       <div class="fieldset">
         <p class="fieldset-title">Income this year</p>
         <div class="field" data-key="w2" data-min="0" data-max="1000000" data-step="1000" data-default="85000" data-fmt="money">
-          <div class="field-row"><label for="in-w2">W-2 salary</label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="W-2 income"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-w2"></div></div>
+          <div class="field-row"><label for="in-w2" id="lbl-w2">W-2 salary</label><output class="field-out" for="rg-w2"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-w2" aria-labelledby="lbl-w2"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-w2"></div></div>
         </div>
         <div class="field" data-key="se" data-min="0" data-max="1000000" data-step="1000" data-default="25000" data-fmt="money">
-          <div class="field-row"><label for="in-se">1099 / self-employed <span class="tip" tabindex="0" data-tip="Consulting, freelance, side business. Gross, before expenses.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="1099 or consulting income"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-se"></div></div>
+          <div class="field-row"><label for="in-se" id="lbl-se">1099 / self-employed</label><span class="tip" tabindex="0" role="note" data-tip="Consulting, freelance, side business. Gross, before expenses.">i</span><output class="field-out" for="rg-se"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-se" aria-labelledby="lbl-se"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-se"></div></div>
         </div>
         <div class="field" data-key="rental" data-min="0" data-max="500000" data-step="1000" data-default="18000" data-fmt="money">
-          <div class="field-row"><label for="in-rental">Rental income</label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Rental income"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-rental"></div></div>
+          <div class="field-row"><label for="in-rental" id="lbl-rental">Rental income</label><output class="field-out" for="rg-rental"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-rental" aria-labelledby="lbl-rental"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-rental"></div></div>
         </div>
         <div class="field" data-key="gains" data-min="0" data-max="500000" data-step="1000" data-default="5000" data-fmt="money">
-          <div class="field-row"><label for="in-gains">Investment gains</label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Investment gains"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-gains"></div></div>
+          <div class="field-row"><label for="in-gains" id="lbl-gains">Investment gains</label><output class="field-out" for="rg-gains"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-gains" aria-labelledby="lbl-gains"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-gains"></div></div>
         </div>
       </div>
 
       <div class="fieldset">
         <p class="fieldset-title">What you already do</p>
         <div class="field" data-key="k401" data-min="0" data-max="24500" data-step="500" data-default="6500" data-fmt="money">
-          <div class="field-row"><label for="in-401k">401(k) contribution <span class="tip" tabindex="0" data-tip="Your own pre-tax contribution this year. 2026 limit is $24,500 under age 50.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="401k contribution"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-401k"></div></div>
+          <div class="field-row"><label for="in-401k" id="lbl-k401">401(k) contribution</label><span class="tip" tabindex="0" role="note" data-tip="Your own pre-tax contribution this year. 2026 limit is $24,500 under age 50.">i</span><output class="field-out" for="rg-k401"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-k401" aria-labelledby="lbl-k401"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-401k"></div></div>
         </div>
         <div class="field" data-key="ira" data-min="0" data-max="7500" data-step="250" data-default="2000" data-fmt="money">
-          <div class="field-row"><label for="in-ira">IRA contribution <span class="tip" tabindex="0" data-tip="2026 limit is $7,500 under age 50.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="IRA contribution"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-ira"></div></div>
+          <div class="field-row"><label for="in-ira" id="lbl-ira">IRA contribution</label><span class="tip" tabindex="0" role="note" data-tip="2026 limit is $7,500 under age 50.">i</span><output class="field-out" for="rg-ira"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-ira" aria-labelledby="lbl-ira"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-ira"></div></div>
         </div>
         <div class="field" data-key="hsa" data-min="0" data-max="8750" data-step="250" data-default="1000" data-fmt="money">
-          <div class="field-row"><label for="in-hsa">HSA contribution <span class="tip" tabindex="0" data-tip="Needs a high-deductible health plan. 2026 limits: $4,400 self, $8,750 family.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="HSA contribution"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-hsa"></div></div>
+          <div class="field-row"><label for="in-hsa" id="lbl-hsa">HSA contribution</label><span class="tip" tabindex="0" role="note" data-tip="Needs a high-deductible health plan. 2026 limits: $4,400 self, $8,750 family.">i</span><output class="field-out" for="rg-hsa"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-hsa" aria-labelledby="lbl-hsa"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-hsa"></div></div>
         </div>
         <div class="field" data-key="bizDed" data-min="0" data-max="500000" data-step="500" data-default="2000" data-fmt="money">
-          <div class="field-row"><label for="in-bizded">Business deductions taken</label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Business deductions taken"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-bizded"></div></div>
+          <div class="field-row"><label for="in-bizded" id="lbl-bizDed">Business deductions taken</label><output class="field-out" for="rg-bizDed"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-bizDed" aria-labelledby="lbl-bizDed"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-bizded"></div></div>
         </div>
         <label class="toggle" data-key="scorp"><span>Already an S-Corp</span><input type="checkbox"><span class="sw"></span></label>
         <label class="toggle" data-key="hsaFamily"><span>HSA family coverage</span><input type="checkbox"><span class="sw"></span></label>
-        <label class="toggle" data-key="hsaPayroll"><span>HSA through payroll <span class="tip" tabindex="0" data-tip="Payroll HSA contributions also skip the 7.65% Social Security and Medicare tax.">i</span></span><input type="checkbox" checked><span class="sw"></span></label>
-        <label class="toggle" data-key="iraDed"><span>IRA is deductible <span class="tip" tabindex="0" data-tip="A traditional IRA is fully deductible if you have no workplace plan, or if your income is under the phase-out.">i</span></span><input type="checkbox" checked><span class="sw"></span></label>
+        <div class="toggle" data-key="hsaPayroll"><span><label for="tg-hsaPayroll">HSA through payroll</label> <span class="tip" tabindex="0" role="note" data-tip="Payroll HSA contributions also skip the 7.65% Social Security and Medicare tax.">i</span></span><input type="checkbox" checked id="tg-hsaPayroll"><label class="sw" for="tg-hsaPayroll"></label></div>
+        <div class="toggle" data-key="iraDed"><span><label for="tg-iraDed">IRA is deductible</label> <span class="tip" tabindex="0" role="note" data-tip="A traditional IRA is fully deductible if you have no workplace plan, or if your income is under the phase-out.">i</span></span><input type="checkbox" checked id="tg-iraDed"><label class="sw" for="tg-iraDed"></label></div>
       </div>
 
       <details class="adv">
         <summary>Assumptions</summary>
         <div class="fieldset">
           <div class="field" data-key="rate" data-min="10" data-max="37" data-step="1" data-default="24" data-fmt="pct">
-            <div class="field-row"><label for="in-rate">Marginal federal rate <span class="tip" tabindex="0" data-tip="The tax rate on your next dollar. 2026 brackets: 10, 12, 22, 24, 32, 35, 37%.">i</span></label><output class="field-out"></output></div>
-            <div class="field-ctl"><input type="range" aria-label="Marginal federal tax rate"><div class="numwrap has-post"><input type="number" id="in-rate"><span class="affix post">%</span></div></div>
+            <div class="field-row"><label for="in-rate" id="lbl-rate">Marginal federal rate</label><span class="tip" tabindex="0" role="note" data-tip="The tax rate on your next dollar. 2026 brackets: 10, 12, 22, 24, 32, 35, 37%.">i</span><output class="field-out" for="rg-rate"></output></div>
+            <div class="field-ctl"><input type="range" id="rg-rate" aria-labelledby="lbl-rate"><div class="numwrap has-post"><input type="number" id="in-rate"><span class="affix post">%</span></div></div>
           </div>
           <div class="field" data-key="ret" data-min="0" data-max="12" data-step="0.5" data-default="7" data-fmt="pct" data-dec="1">
-            <div class="field-row"><label for="in-ret">Annual return if invested</label><output class="field-out"></output></div>
-            <div class="field-ctl"><input type="range" aria-label="Annual investment return"><div class="numwrap has-post"><input type="number" id="in-ret"><span class="affix post">%</span></div></div>
+            <div class="field-row"><label for="in-ret" id="lbl-ret">Annual return if invested</label><output class="field-out" for="rg-ret"></output></div>
+            <div class="field-ctl"><input type="range" id="rg-ret" aria-labelledby="lbl-ret"><div class="numwrap has-post"><input type="number" id="in-ret"><span class="affix post">%</span></div></div>
           </div>
           <div class="field" data-key="salaryPct" data-min="30" data-max="100" data-step="5" data-default="50" data-fmt="pct">
-            <div class="field-row"><label for="in-sal">S-Corp salary share <span class="tip" tabindex="0" data-tip="The share of net business profit paid to you as a reasonable W-2 salary. The rest is distribution, free of self-employment tax.">i</span></label><output class="field-out"></output></div>
-            <div class="field-ctl"><input type="range" aria-label="S-Corp reasonable salary percent"><div class="numwrap has-post"><input type="number" id="in-sal"><span class="affix post">%</span></div></div>
+            <div class="field-row"><label for="in-sal" id="lbl-salaryPct">S-Corp salary share</label><span class="tip" tabindex="0" role="note" data-tip="The share of net business profit paid to you as a reasonable W-2 salary. The rest is distribution, free of self-employment tax.">i</span><output class="field-out" for="rg-salaryPct"></output></div>
+            <div class="field-ctl"><input type="range" id="rg-salaryPct" aria-labelledby="lbl-salaryPct"><div class="numwrap has-post"><input type="number" id="in-sal"><span class="affix post">%</span></div></div>
           </div>
           <div class="field" data-key="scorpCost" data-min="0" data-max="6000" data-step="250" data-default="2000" data-fmt="money">
-            <div class="field-row"><label for="in-scost">S-Corp yearly cost <span class="tip" tabindex="0" data-tip="Payroll service, separate tax return, state fees. Netted out of the S-Corp saving.">i</span></label><output class="field-out"></output></div>
-            <div class="field-ctl"><input type="range" aria-label="S-Corp annual admin cost"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-scost"></div></div>
+            <div class="field-row"><label for="in-scost" id="lbl-scorpCost">S-Corp yearly cost</label><span class="tip" tabindex="0" role="note" data-tip="Payroll service, separate tax return, state fees. Netted out of the S-Corp saving.">i</span><output class="field-out" for="rg-scorpCost"></output></div>
+            <div class="field-ctl"><input type="range" id="rg-scorpCost" aria-labelledby="lbl-scorpCost"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-scost"></div></div>
           </div>
           <div class="field" data-key="extraDed" data-min="0" data-max="200000" data-step="500" data-default="0" data-fmt="money">
-            <div class="field-row"><label for="in-extra">Deductible expenses you skip <span class="tip" tabindex="0" data-tip="Home office, mileage, equipment, phone, education you could deduct but do not.">i</span></label><output class="field-out"></output></div>
-            <div class="field-ctl"><input type="range" aria-label="Additional deductible business expenses"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-extra"></div></div>
+            <div class="field-row"><label for="in-extra" id="lbl-extraDed">Deductible expenses you skip</label><span class="tip" tabindex="0" role="note" data-tip="Home office, mileage, equipment, phone, education you could deduct but do not.">i</span><output class="field-out" for="rg-extraDed"></output></div>
+            <div class="field-ctl"><input type="range" id="rg-extraDed" aria-labelledby="lbl-extraDed"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-extra"></div></div>
           </div>
         </div>
       </details>
@@ -114,6 +114,7 @@
 
     <section class="statement">
       <div class="statement-head"><h2>Your tax leak</h2><span class="stamp" id="stamp"></span></div>
+      <p class="sr-only" role="status" aria-live="polite" id="live-summary"></p>
       <div class="figure">
         <span class="label">Overpaid this year by leaving strategies unused</span>
         <span class="value neg" id="leak">—</span>

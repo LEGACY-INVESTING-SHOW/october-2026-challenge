@@ -5,7 +5,7 @@
   --line: #E2D9C3;
   --ink: #1D2A22;
   --ink-soft: #45544A;
-  --ink-faint: #74816F;
+  --ink-faint: #5C6957;
   --forest: #16352A;
   --forest-2: #1D4234;
   --forest-edge: #2C5443;
@@ -15,7 +15,7 @@
   --gold: #D9A93D;
   --gold-deep: #B98A1F;
   --gold-tint: #F5EBD2;
-  --gold-ink: #8A6510;
+  --gold-ink: #7A5A0E;
   --rose: #B0503C;
   --rose-tint: #F5E3DC;
   --sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -84,50 +84,6 @@ a {
 
 .hero h1 {
   margin-inline: auto;
-}
-
-.kicker {
-  display: flex;
-  align-items: center;
-  gap: .7rem;
-  text-transform: uppercase;
-  letter-spacing: .16em;
-  font-size: .72rem;
-  font-weight: 700;
-  color: var(--green-mid);
-}
-
-.kicker::before {
-  content: "";
-  width: 2.25rem;
-  height: 1px;
-  background: var(--gold-deep);
-  flex-shrink: 0;
-}
-
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  border-radius: 999px;
-  background: var(--emerald-tint);
-  border: 1px solid #CBDEC6;
-  color: var(--green-mid);
-  font-size: .8rem;
-  font-weight: 700;
-  padding: .42rem .85rem;
-  margin-top: 1.15rem;
-}
-
-.hero .status-pill {
-  margin-inline: auto;
-}
-
-.status-dot {
-  width: .5rem;
-  height: .5rem;
-  border-radius: 999px;
-  background: var(--emerald);
 }
 
 h1, h2, h3, p {
@@ -240,19 +196,6 @@ section {
   max-width: 44rem;
   margin: 0 auto clamp(1.75rem, 4vw, 3rem);
   text-align: center;
-}
-
-.section-head .kicker {
-  justify-content: center;
-  margin-bottom: .9rem;
-}
-
-.section-head .kicker::after {
-  content: "";
-  width: 2.25rem;
-  height: 1px;
-  background: var(--gold-deep);
-  flex-shrink: 0;
 }
 
 .grid {
@@ -372,20 +315,6 @@ section {
 .calendar-links .btn {
   color: #F5F1E3;
   box-shadow: inset 0 0 0 1px var(--forest-edge);
-}
-
-.vip-ribbon {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  background: var(--gold);
-  color: #221903;
-  font-size: .72rem;
-  font-weight: 900;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  padding: .45rem .85rem;
-  margin-bottom: 1rem;
 }
 
 .footer {

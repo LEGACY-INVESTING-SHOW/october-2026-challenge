@@ -145,9 +145,9 @@ section { padding-block: 2.5rem; }
   background: rgba(255,253,246,.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid var(--line); box-shadow: 0 -10px 30px -18px rgba(22,53,42,.45);
   padding-bottom: env(safe-area-inset-bottom);
-  transform: translateY(100%); transition: transform .25s ease;
+  transform: translateY(100%); visibility: hidden; transition: transform .25s ease, visibility 0s linear .25s;
 }
-.mobile-cta.show { transform: translateY(0); }
+.mobile-cta.show { transform: translateY(0); visibility: visible; transition-delay: 0s; }
 .mobile-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding-block: .6rem; }
 .mobile-cta-label { font-size: .85rem; color: var(--ink-soft); line-height: 1.3; min-width: 0; }
 .mobile-cta-label strong { display: block; font-size: .95rem; color: var(--ink); }
@@ -186,4 +186,10 @@ footer strong, footer .links a { color: #DCE4D6; }
   .agenda summary { min-height: 2.75rem; align-content: center; }
   .trust-row { gap: .4rem 1rem; font-size: .76rem; }
   .faq-aside .btn { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deadline .dot, .checkout-skeleton i { animation: none; }
+  .mobile-cta { transition: none; }
+  html { scroll-behavior: auto; }
 }

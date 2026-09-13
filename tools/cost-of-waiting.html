@@ -39,20 +39,20 @@
 <main class="tool wrap">
   <div class="tool-grid">
     <aside class="worksheet" id="ws" aria-label="Your numbers">
-      <div class="worksheet-head"><h2>Your numbers</h2><a href="#" class="reset" data-reset>Reset</a></div>
+      <div class="worksheet-head"><h2>Your numbers</h2><button type="button" class="reset" data-reset>Reset</button></div>
 
       <div class="fieldset">
         <div class="field" data-key="age" data-min="18" data-max="70" data-step="1" data-default="30" data-fmt="age">
-          <div class="field-row"><label for="in-age">Current age</label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Current age"><div class="numwrap"><input type="number" id="in-age"></div></div>
+          <div class="field-row"><label for="in-age" id="lbl-age">Current age</label><output class="field-out" for="rg-age"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-age" aria-labelledby="lbl-age"><div class="numwrap"><input type="number" id="in-age"></div></div>
         </div>
         <div class="field" data-key="monthly" data-min="0" data-max="20000" data-step="50" data-default="1000" data-fmt="money">
-          <div class="field-row"><label for="in-monthly">Invest each month</label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Monthly investment"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-monthly"></div></div>
+          <div class="field-row"><label for="in-monthly" id="lbl-monthly">Invest each month</label><output class="field-out" for="rg-monthly"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-monthly" aria-labelledby="lbl-monthly"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-monthly"></div></div>
         </div>
         <div class="field" data-key="delay" data-min="0" data-max="30" data-step="1" data-default="5" data-fmt="years">
-          <div class="field-row"><label for="in-delay">Years you wait</label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Years delayed"><div class="numwrap"><input type="number" id="in-delay"></div></div>
+          <div class="field-row"><label for="in-delay" id="lbl-delay">Years you wait</label><output class="field-out" for="rg-delay"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-delay" aria-labelledby="lbl-delay"><div class="numwrap"><input type="number" id="in-delay"></div></div>
         </div>
         <div class="segment" id="quick" aria-label="Quick delay presets" style="margin-top:-.3rem"><button data-val="1">1 yr</button><button data-val="3">3 yrs</button><button data-val="5">5 yrs</button><button data-val="10">10 yrs</button></div>
       </div>
@@ -61,16 +61,16 @@
         <summary>Assumptions</summary>
         <div class="fieldset">
           <div class="field" data-key="retireAge" data-min="19" data-max="80" data-step="1" data-default="60" data-fmt="age">
-            <div class="field-row"><label for="in-retire">Invest until age</label><output class="field-out"></output></div>
-            <div class="field-ctl"><input type="range" aria-label="Retirement age"><div class="numwrap"><input type="number" id="in-retire"></div></div>
+            <div class="field-row"><label for="in-retire" id="lbl-retireAge">Invest until age</label><output class="field-out" for="rg-retireAge"></output></div>
+            <div class="field-ctl"><input type="range" id="rg-retireAge" aria-labelledby="lbl-retireAge"><div class="numwrap"><input type="number" id="in-retire"></div></div>
           </div>
           <div class="field" data-key="ret" data-min="1" data-max="12" data-step="0.5" data-default="8" data-fmt="pct" data-dec="1">
-            <div class="field-row"><label for="in-ret">Annual return</label><output class="field-out"></output></div>
-            <div class="field-ctl"><input type="range" aria-label="Annual return"><div class="numwrap has-post"><input type="number" id="in-ret"><span class="affix post">%</span></div></div>
+            <div class="field-row"><label for="in-ret" id="lbl-ret">Annual return</label><output class="field-out" for="rg-ret"></output></div>
+            <div class="field-ctl"><input type="range" id="rg-ret" aria-labelledby="lbl-ret"><div class="numwrap has-post"><input type="number" id="in-ret"><span class="affix post">%</span></div></div>
           </div>
           <div class="field" data-key="lump" data-min="0" data-max="1000000" data-step="1000" data-default="0" data-fmt="money">
-            <div class="field-row"><label for="in-lump">Starting lump sum <span class="tip" tabindex="0" data-tip="Money you already have invested. Grows in both scenarios from today.">i</span></label><output class="field-out"></output></div>
-            <div class="field-ctl"><input type="range" aria-label="Starting lump sum"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-lump"></div></div>
+            <div class="field-row"><label for="in-lump" id="lbl-lump">Starting lump sum</label><span class="tip" tabindex="0" role="note" data-tip="Money you already have invested. Grows in both scenarios from today.">i</span><output class="field-out" for="rg-lump"></output></div>
+            <div class="field-ctl"><input type="range" id="rg-lump" aria-labelledby="lbl-lump"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-lump"></div></div>
           </div>
         </div>
       </details>
@@ -78,6 +78,7 @@
 
     <section class="statement">
       <div class="statement-head"><h2>Procrastination penalty</h2><span class="stamp" id="stamp"></span></div>
+      <p class="sr-only" role="status" aria-live="polite" id="live-summary"></p>
       <div class="figure">
         <span class="label" id="lead-label">Waiting 5 years costs you at 60</span>
         <span class="value neg" id="penalty">—</span>
@@ -135,6 +136,7 @@
 (function () {
   const $ = id => document.getElementById(id);
   const F = LIS.fmt, fin = LIS.fin;
+  const quick = [...$('quick').querySelectorAll('button')];
 
   function render(s) {
     const r = s.ret / 100;
@@ -185,8 +187,8 @@
     $('rows').innerHTML = rows;
     LIS.text($('fine'), `Educational estimate. Assumes ${F.pct(s.ret, 1)} a year compounded monthly, contributions at the start of each month, no taxes or fees, until age ${s.retireAge}. Not investment advice.`);
   }
-  const A = LIS.bind($('ws'), s => { A.setMin('retireAge', s.age + 1); A.setMax('delay', Math.max(1, s.retireAge - s.age)); render(s); });
-  $('quick').querySelectorAll('button').forEach(b => b.addEventListener('click', () => A.set('delay', +b.dataset.val)));
+  const A = LIS.bind($('ws'), s => { A.setMin('retireAge', s.age + 1); A.setMax('delay', Math.max(1, s.retireAge - s.age)); render(s); quick.forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.val === s.delay))); });
+  quick.forEach(b => b.addEventListener('click', () => A.set('delay', +b.dataset.val)));
 })();
 </script>
 </body>

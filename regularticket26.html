@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,7 +54,7 @@
       --line: #E2D9C3;           /* hairline borders */
       --ink: #1D2A22;            /* primary text */
       --ink-soft: #45544A;       /* secondary text */
-      --ink-faint: #74816F;      /* tertiary text */
+      --ink-faint: #5C6957;      /* tertiary text */
       --forest: #16352A;         /* dark green bands */
       --forest-edge: #2C5443;
       --green-mid: #2A6B4F;      /* accents on light */
@@ -63,7 +63,7 @@
       --gold: #D9A93D;           /* CTA */
       --gold-deep: #B98A1F;
       --gold-tint: #F5EBD2;
-      --gold-ink: #8A6510;       /* gold-toned text on light */
+      --gold-ink: #7A5A0E;       /* gold-toned text on light */
       --rose: #B0503C;           /* negative */
       --rose-tint: #F5E3DC;
       --sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -95,20 +95,10 @@
     h2.display { font-size: clamp(1.6rem, 3.4vw, 2.4rem); text-wrap: balance; }
     h3 { font-weight: 600; color: var(--ink); }
 
-    .kicker {
-      display: flex; align-items: center; gap: .7rem;
-      text-transform: uppercase; letter-spacing: .16em;
-      font-size: .72rem; font-weight: 700; color: var(--green-mid);
-    }
-    .kicker::before { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
-    .kicker.center { justify-content: center; }
-    .kicker.center::after { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
-
     .section-head {
       max-width: 46rem; margin-inline: auto; text-align: center;
       margin-bottom: clamp(1.75rem, 4vw, 3rem);
     }
-    .section-head .kicker { margin-bottom: .9rem; }
     .section-head .muted { margin-top: .7rem; }
     .muted { color: var(--ink-soft); }
 
@@ -124,8 +114,6 @@
       box-shadow: 0 1px 0 rgba(122,88,10,.35), 0 8px 22px -10px rgba(185,138,31,.55);
     }
     .btn-gold:hover { background: #C99A2E; transform: translateY(-1px); }
-    .btn-lg { padding: 1rem 2rem; font-size: 1.05rem; }
-    .arrow { width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
 
     /* ---------- Cards & panels ---------- */
     .card {
@@ -133,54 +121,12 @@
       border: 1px solid var(--line);
       border-radius: 1.1rem;
     }
-    .pill {
-      display: inline-flex; align-items: center; gap: .5rem;
-      border-radius: 999px; font-weight: 600; font-size: .8rem;
-      padding: .35rem .85rem;
-    }
-    .pill-green { background: var(--emerald-tint); color: var(--green-mid); border: 1px solid #CBDEC6; }
-    .pill svg { width: 1rem; height: 1rem; flex-shrink: 0; }
 
     .check-svg { width: 1.2rem; height: 1.2rem; color: var(--emerald); flex-shrink: 0; margin-top: .2rem; }
 
     /* ---------- Sections / bands ---------- */
     section { padding-block: clamp(2.5rem, 6vw, 4.75rem); }
     .band-paper { background: var(--paper); border-block: 1px solid var(--line); }
-    .band-cream { background: var(--cream); }
-    .band-forest { background: var(--forest); color: #DCE4D6; }
-    .band-forest .display, .band-forest h3, .band-forest strong { color: #F5F1E3; }
-    .band-forest .muted { color: #A9BCA9; }
-
-    /* ---------- Hero ---------- */
-    .hero { text-align: center; padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(2rem, 4vw, 3rem); }
-    .hero > .wrap > * + * { margin-top: 1.15rem; }
-    .hero-accent { color: var(--gold-ink); }
-    .hero-sub { font-size: clamp(1rem, 1.8vw, 1.2rem); color: var(--ink-soft); max-width: 44rem; margin-inline: auto; }
-
-    /* ---------- Event details trio ---------- */
-    .info-grid { display: grid; gap: 1.25rem; }
-    @media (min-width: 768px) { .info-grid { grid-template-columns: repeat(3, 1fr); } }
-    .info-card { padding: 1.5rem; }
-    .info-card .k {
-      font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
-      color: var(--green-mid); margin-bottom: .6rem;
-      display: flex; align-items: center; gap: .6rem;
-    }
-    .info-card .k::before { content: ""; width: 1.5rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
-    .info-card p { color: var(--ink-soft); font-size: .95rem; }
-    .info-card p strong { color: var(--ink); font-weight: 700; }
-
-    /* ---------- Scarcity + countdown ---------- */
-    .scarcity { text-align: center; padding-block: clamp(2rem, 4vw, 3rem); }
-    .scarcity-text {
-      font-weight: 700; letter-spacing: .06em;
-      font-size: clamp(1.1rem, 2.4vw, 1.5rem); color: var(--gold-ink);
-      margin-bottom: 1.35rem;
-    }
-    .count-row { display: flex; justify-content: center; gap: .4rem; flex-wrap: wrap; }
-    .count-cell { min-width: 4.4rem; padding: .7rem .5rem; background: var(--paper); border: 1px solid var(--line); border-radius: .8rem; }
-    .count-num { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.1; }
-    .count-lbl { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); margin-top: .25rem; }
 
     /* ---------- Checkout split ---------- */
     .checkout-grid { display: grid; gap: 2.25rem; align-items: start; }
@@ -210,8 +156,6 @@
       text-align: center; padding: 0 1.5rem; font-size: .9rem;
     }
 
-    .whats-included h2 { font-size: clamp(1.3rem, 2.4vw, 1.65rem); margin-bottom: 1.4rem; }
-
     .session-list { margin-top: 1.5rem; }
     .session-list li {
       display: flex; align-items: flex-start; gap: .8rem;
@@ -232,39 +176,6 @@
     .t-meta { border-top: 1px solid var(--line); padding-top: 1rem; }
     .t-name { font-weight: 700; color: var(--gold-ink); font-size: .95rem; }
     .t-role { font-size: .84rem; color: var(--ink-faint); margin-top: .15rem; }
-
-    /* ---------- Social proof grid ---------- */
-    .shot-grid { display: grid; gap: 1.25rem; }
-    @media (min-width: 640px) { .shot-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 900px) { .shot-grid { grid-template-columns: repeat(3, 1fr); } }
-    .shot { border-radius: 1.1rem; overflow: hidden; border: 1px solid var(--line); background: var(--paper); }
-    .shot img { width: 100%; }
-
-    /* ---------- Guarantee ---------- */
-    .guarantee-card {
-      max-width: 44rem; margin-inline: auto; text-align: center;
-      padding: clamp(2rem, 4vw, 3rem);
-    }
-    .guarantee-card > img { max-width: 7.5rem; margin: 0 auto 1.4rem; }
-    .guarantee-badge { margin-bottom: 1.4rem; }
-    .guarantee-card h2 { margin-bottom: 1rem; }
-    .guarantee-card p { color: var(--ink-soft); max-width: 38rem; margin-inline: auto; }
-    .guarantee-card p + p { margin-top: 1.25rem; }
-    .guarantee-card .email { color: var(--gold-ink); font-weight: 700; overflow-wrap: anywhere; }
-
-    /* ---------- Final CTA ---------- */
-    .final-cta { text-align: center; }
-    .final-cta .display { margin-bottom: 1.75rem; }
-    .final-count {
-      display: inline-flex; align-items: flex-start; justify-content: center;
-      gap: .9rem; padding: 1.1rem 1.75rem; border-radius: 1.1rem;
-      border: 1px solid var(--forest-edge); margin-bottom: 2rem;
-    }
-    .final-count .num { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; color: var(--gold); font-variant-numeric: tabular-nums; line-height: 1.1; }
-    .final-count .u { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: #8FA78F; margin-top: .25rem; }
-    .final-cta .price-note { color: #A9BCA9; font-size: .95rem; margin-top: 1.25rem; }
-    .final-cta .price-note .strike { text-decoration: line-through; }
-    .final-cta .price-note .save { color: var(--gold); font-weight: 700; }
 
     /* ---------- FAQ ---------- */
     .faq-item { overflow: hidden; }
@@ -292,8 +203,6 @@
     /* ---------- Mobile ---------- */
     @media (max-width: 640px) {
       h1.display { font-size: 1.6rem; }
-      .count-cell { min-width: 3.6rem; }
-      .btn-lg { width: 100%; }
     }
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; }
@@ -389,7 +298,6 @@
 <section id="checkout">
   <div class="wrap">
     <div class="checkout-grid">
-
 
       <!-- Left: Checkout Form -->
       <div class="checkout-column">
@@ -571,7 +479,7 @@
 
     <div id="faq-list">
       <div class="card faq-item">
-        <button class="faq-question">
+        <button class="faq-question" aria-expanded="false">
           <span>Where will the event be held?</span>
           <svg class="faq-icon"><use href="#chevron-icon"/></svg>
         </button>
@@ -580,20 +488,18 @@
         </div>
       </div>
 
-
-
       <div class="card faq-item">
-        <button class="faq-question">
+        <button class="faq-question" aria-expanded="false">
           <span>How long is each day of the challenge?</span>
           <svg class="faq-icon"><use href="#chevron-icon"/></svg>
         </button>
         <div class="faq-answer hidden">
-          Each day runs from 10 AM to 4 PM EST. We include breaks throughout the training so you can stay focused and keep implementing.
+          Each day runs from 10 AM to 4 PM Eastern. We include breaks throughout the training so you can stay focused and keep implementing.
         </div>
       </div>
 
       <div class="card faq-item">
-        <button class="faq-question">
+        <button class="faq-question" aria-expanded="false">
           <span>What if I can't make every session?</span>
           <svg class="faq-icon"><use href="#chevron-icon"/></svg>
         </button>
@@ -603,7 +509,7 @@
       </div>
 
       <div class="card faq-item">
-        <button class="faq-question">
+        <button class="faq-question" aria-expanded="false">
           <span>Is there a money back guarantee?</span>
           <svg class="faq-icon"><use href="#chevron-icon"/></svg>
         </button>
@@ -613,7 +519,7 @@
       </div>
 
       <div class="card faq-item">
-        <button class="faq-question">
+        <button class="faq-question" aria-expanded="false">
           <span>Can I bring my spouse/partner?</span>
           <svg class="faq-icon"><use href="#chevron-icon"/></svg>
         </button>
@@ -621,9 +527,6 @@
           Yes. One ticket covers you and your spouse or partner on the same device.
         </div>
       </div>
-
-
-
 
     </div>
   </div>
@@ -719,11 +622,13 @@
           // Close all
           document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
           document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('rotate'));
+          document.querySelectorAll('.faq-question').forEach(b => b.setAttribute('aria-expanded', 'false'));
 
           // Open clicked if it was closed
           if (!isOpen) {
             answer.classList.remove('hidden');
             icon.classList.add('rotate');
+            this.setAttribute('aria-expanded', 'true');
           }
         });
       });

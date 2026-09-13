@@ -40,7 +40,7 @@
     ;var n=i.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)}}}}(document,window),
     spiffy.SNIPPET_VERSION="1.1.0";
     spiffy.config({
-        hideSidebar: true,
+        hideSidebar: false, /* the page previously loaded a second Spiffy snippet that set false; kept that effective value */
     })
     spiffy.load("legacyinvestingshow");
     </script>
@@ -53,7 +53,7 @@
       --line: #E2D9C3;           /* hairline borders */
       --ink: #1D2A22;            /* primary text */
       --ink-soft: #45544A;       /* secondary text */
-      --ink-faint: #74816F;      /* tertiary text */
+      --ink-faint: #5C6957;      /* tertiary text */
       --forest: #16352A;         /* dark green bands */
       --forest-edge: #2C5443;
       --green-mid: #2A6B4F;      /* accents on light */
@@ -62,14 +62,15 @@
       --gold: #D9A93D;           /* CTA */
       --gold-deep: #B98A1F;
       --gold-tint: #F5EBD2;
-      --gold-ink: #8A6510;       /* gold-toned text on light */
+      --gold-ink: #7A5A0E;       /* gold-toned text on light */
       --rose: #B0503C;           /* negative */
       --rose-tint: #F5E3DC;
       --sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; scroll-behavior: smooth; }
+    html { font-size: 16px; }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
     html, body { overflow-x: hidden; width: 100%; }
     body {
       font-family: var(--sans);
@@ -103,8 +104,6 @@
       margin-bottom: .9rem;
     }
     .kicker::before { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
-    .kicker.center { justify-content: center; }
-    .kicker.center::after { content: ""; width: 2.25rem; height: 1px; background: var(--gold-deep); flex-shrink: 0; }
 
     .section-head { max-width: 46rem; margin-inline: auto; text-align: center; margin-bottom: clamp(2rem, 4vw, 3rem); }
     .faint { color: var(--ink-faint); }
@@ -253,7 +252,6 @@
     .mistake-box { background: var(--rose-tint); border: 1px solid #E8C9BE; border-radius: .8rem; padding: 1.15rem 1.25rem; margin-block: 1.4rem; }
     .mistake-box .k { color: var(--rose); font-weight: 700; font-size: .88rem; margin-bottom: .3rem; }
     .mistake-box p { font-size: .9rem; color: var(--ink-soft); }
-    .meta-row { display: flex; flex-wrap: wrap; gap: .75rem; font-size: .8rem; letter-spacing: .04em; color: var(--ink-faint); }
 
     /* ---------- Screenshot gallery ---------- */
     .gallery { display: flex; gap: 1.25rem; overflow-x: auto; padding-bottom: 1.25rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none; }
@@ -360,10 +358,10 @@
       position: fixed; left: 0; right: 0; top: 0; z-index: 40;
       background: rgba(255,253,246,.96); border-bottom: 1px solid var(--line);
       box-shadow: 0 16px 40px -28px rgba(29,42,34,.55);
-      transform: translateY(-110%); opacity: 0;
-      transition: transform .25s ease, opacity .25s ease;
+      transform: translateY(-110%); opacity: 0; visibility: hidden;
+      transition: transform .25s ease, opacity .25s ease, visibility 0s linear .25s;
     }
-    #sticky-cta.show { transform: translateY(0); opacity: 1; }
+    #sticky-cta.show { transform: translateY(0); opacity: 1; visibility: visible; transition-delay: 0s; }
     .sticky-cta-inner {
       max-width: 72rem; margin-inline: auto; padding: .7rem clamp(1rem,4vw,1.5rem);
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem; text-align: center;
@@ -468,7 +466,7 @@
     <section class="alert-section">
         <div class="wrap">
             <div class="alert-card">
-                <h2>⚠️ STOP! Watch This Video Before You Exit</h2>
+                <h2>STOP! Watch This Video Before You Exit</h2>
             </div>
         </div>
     </section>
@@ -489,7 +487,6 @@
                 </p>
             </div>
 
-
             <div style="max-width:64rem;margin-inline:auto;">
                 <div id="vsl" class="video-frame">
                     <!-- Above the fold: stays eager. Wrapper carries aspect-ratio 16/9 so there is no shift. -->
@@ -507,7 +504,6 @@
             </div>
         </div>
     </section>
-
 
     <!-- ═══════════════════════════════════════════════════
          PROBLEM SECTION
@@ -581,7 +577,7 @@
                             Over the past 5 years, our team analyzed <strong>300+ tax returns</strong> from high earners, business owners, and real estate investors. We were looking for patterns.
                         </p>
                         <p>
-                            We found the same opportunities missed again and again. S-Corp elections never filed. Retirement accounts underfunded. Real estate strategies completely unknown. Business deductions left on the table.
+                            We found the same opportunities missed again and again: S-Corp elections that were never filed, retirement accounts left underfunded, real estate strategies nobody had heard of, and business deductions left on the table.
                         </p>
                         <p>
                             We distilled everything into a <strong>12-question diagnostic</strong>. It shows which of the 37 IRS-approved strategies apply to YOUR situation, and calculates your savings potential.
@@ -742,7 +738,7 @@
                     <p><strong>Your situation:</strong> You mentioned interest in real estate and have $150K+ W-2 income. With bonus depreciation now permanent (2025), a $400K property could generate $100K+ in first-year losses.</p>
 
                     <div class="mistake-box">
-                        <p class="k">⚠️ Common Mistake</p>
+                        <p class="k">Common Mistake</p>
                         <p>Most people try to average 7+ days to avoid "hotel" classification. You want the OPPOSITE: keep it under 7 days to qualify as non-passive.</p>
                     </div>
 
@@ -960,7 +956,7 @@
                         <svg class="faq-icon"><use href="#i-chevron-down"/></svg>
                     </button>
                     <div class="faq-answer hidden">
-                        You can find generic tax tips. What you WON'T find is a personalized analysis of YOUR situation: which strategies apply to YOUR income, state, and business structure, with dollar amounts. This report does in 2 minutes what takes 40+ hours of research.
+                        You can find generic tax tips. What you won't find is a personalized analysis of your situation: which strategies apply to your income, state, and business structure, with dollar amounts. This report does in 2 minutes what takes 40+ hours of research.
                     </div>
                 </div>
 
@@ -1025,7 +1021,7 @@
                 <span class="h-accent">Start Saving.</span>
             </h2>
             <p class="final-sub">
-                Based on 300+ reports generated. Personalized to your exact situation. Delivered instantly.
+                Based on 300+ reports, personalized to your exact situation, and delivered instantly.
             </p>
 
             <div class="cta-stack">
@@ -1057,7 +1053,6 @@
             </div>
         </div>
     </aside>
-
 
     <script>
     const stickyCta = document.getElementById('sticky-cta');
@@ -1149,27 +1144,11 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
                 }
             });
         });
     </script>
-
-<script>
-"use strict";!function(i,t){var f=t.spiffy=t.spiffy||[];if(!f.init){
-if(f.invoked)return void(t.console&&console.error&&console.warn("Spiffy Elements included twice."))
-;f.invoked=!0,f.methods=["identify","config","debug","off","on"],f.factory=function(i){
-return function(){var t=Array.prototype.slice.call(arguments);return t.unshift(i),f.push(t),f}},
-f.methods.forEach(function(i){spiffy[i]=f.factory(i)}),f.load=function(t,f){if(!spiffy.ACCOUNT){
-spiffy.ACCOUNT=t,spiffy.DOMAIN=f;var e=i.createElement("script");e.type="text/javascript",
-e.async=!0,e.crossorigin="anonymous",e.src="https://js.static.spiffy.co/spiffy.js?a="+t
-;var n=i.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)}}}}(document,window),
-spiffy.SNIPPET_VERSION="1.1.0";
-spiffy.config({
-    hideSidebar: false,
-})
-spiffy.load("legacyinvestingshow");
-</script>
 
 
 </body>

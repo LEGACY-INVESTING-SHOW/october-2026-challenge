@@ -39,28 +39,28 @@
 <main class="tool wrap">
   <div class="tool-grid">
     <aside class="worksheet" id="ws" aria-label="Your numbers">
-      <div class="worksheet-head"><h2>Your debt</h2><a href="#" class="reset" data-reset>Reset</a></div>
+      <div class="worksheet-head"><h2>Your debt</h2><button type="button" class="reset" data-reset>Reset</button></div>
 
       <div class="fieldset">
         <div class="field" data-key="balance" data-min="0" data-max="100000" data-step="100" data-default="10000" data-fmt="money">
-          <div class="field-row"><label for="in-bal">Card balance <span class="tip" tabindex="0" data-tip="Add up every card and high-interest loan.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Total credit card balance"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-bal"></div></div>
+          <div class="field-row"><label for="in-bal" id="lbl-balance">Card balance</label><span class="tip" tabindex="0" role="note" data-tip="Add up every card and high-interest loan.">i</span><output class="field-out" for="rg-balance"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-balance" aria-labelledby="lbl-balance"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-bal"></div></div>
         </div>
         <div class="field" data-key="apr" data-min="0" data-max="40" data-step="0.1" data-default="24" data-fmt="pct" data-dec="1">
-          <div class="field-row"><label for="in-apr">Interest rate (APR) <span class="tip" tabindex="0" data-tip="On your statement. US cards average about 22% to 25%.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Annual percentage rate"><div class="numwrap has-post"><input type="number" id="in-apr"><span class="affix post">%</span></div></div>
+          <div class="field-row"><label for="in-apr" id="lbl-apr">Interest rate (APR)</label><span class="tip" tabindex="0" role="note" data-tip="On your statement. US cards average about 22% to 25%.">i</span><output class="field-out" for="rg-apr"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-apr" aria-labelledby="lbl-apr"><div class="numwrap has-post"><input type="number" id="in-apr"><span class="affix post">%</span></div></div>
         </div>
         <div class="field" data-key="pay" data-min="0" data-max="5000" data-step="10" data-default="250" data-fmt="money">
-          <div class="field-row"><label for="in-pay">You pay each month</label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Monthly payment"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-pay"></div></div>
+          <div class="field-row"><label for="in-pay" id="lbl-pay">You pay each month</label><output class="field-out" for="rg-pay"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-pay" aria-labelledby="lbl-pay"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-pay"></div></div>
         </div>
       </div>
 
       <div class="fieldset">
         <p class="fieldset-title">What if</p>
         <div class="field" data-key="extra" data-min="0" data-max="2000" data-step="10" data-default="100" data-fmt="money">
-          <div class="field-row"><label for="in-extra">Extra per month</label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Extra monthly payment"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-extra"></div></div>
+          <div class="field-row"><label for="in-extra" id="lbl-extra">Extra per month</label><output class="field-out" for="rg-extra"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-extra" aria-labelledby="lbl-extra"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-extra"></div></div>
         </div>
       </div>
 
@@ -68,8 +68,8 @@
         <summary>Assumptions</summary>
         <div class="fieldset">
           <div class="field" data-key="ret" data-min="0" data-max="12" data-step="0.5" data-default="7" data-fmt="pct" data-dec="1">
-            <div class="field-row"><label for="in-ret">Return if invested instead</label><output class="field-out"></output></div>
-            <div class="field-ctl"><input type="range" aria-label="Investment return"><div class="numwrap has-post"><input type="number" id="in-ret"><span class="affix post">%</span></div></div>
+            <div class="field-row"><label for="in-ret" id="lbl-ret">Return if invested instead</label><output class="field-out" for="rg-ret"></output></div>
+            <div class="field-ctl"><input type="range" id="rg-ret" aria-labelledby="lbl-ret"><div class="numwrap has-post"><input type="number" id="in-ret"><span class="affix post">%</span></div></div>
           </div>
         </div>
       </details>
@@ -77,6 +77,7 @@
 
     <section class="statement">
       <div class="statement-head"><h2>Blood loss meter</h2><span class="stamp" id="stamp"></span></div>
+      <p class="sr-only" role="status" aria-live="polite" id="live-summary"></p>
       <div class="figure">
         <span class="label">Interest you will pay on this debt</span>
         <span class="value neg" id="interest">—</span>
@@ -106,7 +107,7 @@
             <div class="ledger-row"><span class="k">Debt-free</span><span class="v pos" id="x-time"></span></div>
             <div class="ledger-row"><span class="k">Sooner by</span><span class="v pos" id="x-sooner"></span></div>
             <div class="ledger-row"><span class="k">Interest saved</span><span class="v pos" id="x-saved"></span></div>
-            <div class="ledger-row total"><span class="k">Interest saved, invested for 10 years <span class="tip" tabindex="0" data-tip="The interest you no longer pay, invested at the return in Assumptions.">i</span></span><span class="v" id="x-invest"></span></div>
+            <div class="ledger-row total"><span class="k">Interest saved, invested for 10 years <span class="tip" tabindex="0" role="note" data-tip="The interest you no longer pay, invested at the return in Assumptions.">i</span></span><span class="v" id="x-invest"></span></div>
           </div>
         </div>
         <div>

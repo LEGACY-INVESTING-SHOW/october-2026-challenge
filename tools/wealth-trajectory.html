@@ -45,56 +45,56 @@
 
   <div class="tool-grid">
     <aside class="worksheet" id="ws" aria-label="Your numbers">
-      <div class="worksheet-head"><h2>Your numbers</h2><a href="#" class="reset" data-reset>Reset</a></div>
+      <div class="worksheet-head"><h2>Your numbers</h2><button type="button" class="reset" data-reset>Reset</button></div>
 
       <div class="fieldset" data-tabs="burn freedom gap">
         <div class="field" data-key="age" data-min="18" data-max="80" data-step="1" data-default="35" data-fmt="age">
-          <div class="field-row"><label for="in-age">Current age</label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Current age"><div class="numwrap"><input type="number" id="in-age"></div></div>
+          <div class="field-row"><label for="in-age" id="lbl-age">Current age</label><output class="field-out" for="rg-age"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-age" aria-labelledby="lbl-age"><div class="numwrap"><input type="number" id="in-age"></div></div>
         </div>
         <div class="field" data-key="retireAge" data-min="19" data-max="90" data-step="1" data-default="55" data-fmt="age" data-tabs="burn freedom">
-          <div class="field-row"><label for="in-retire">Retire at <span class="tip" tabindex="0" data-tip="The age you want work to be optional.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Retirement age"><div class="numwrap"><input type="number" id="in-retire"></div></div>
+          <div class="field-row"><label for="in-retire" id="lbl-retireAge">Retire at</label><span class="tip" tabindex="0" role="note" data-tip="The age you want work to be optional.">i</span><output class="field-out" for="rg-retireAge"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-retireAge" aria-labelledby="lbl-retireAge"><div class="numwrap"><input type="number" id="in-retire"></div></div>
         </div>
       </div>
 
       <div class="fieldset" data-tabs="burn freedom">
         <p class="fieldset-title">Each month</p>
         <div class="field" data-key="income" data-min="0" data-max="50000" data-step="100" data-default="6000" data-fmt="money" data-tabs="burn">
-          <div class="field-row"><label for="in-income">After-tax income <span class="tip" tabindex="0" data-tip="Take-home pay after taxes, from all sources.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Monthly after-tax income"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-income"></div></div>
+          <div class="field-row"><label for="in-income" id="lbl-income">After-tax income</label><span class="tip" tabindex="0" role="note" data-tip="Take-home pay after taxes, from all sources.">i</span><output class="field-out" for="rg-income"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-income" aria-labelledby="lbl-income"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-income"></div></div>
         </div>
         <div class="field" data-key="living" data-min="0" data-max="30000" data-step="50" data-default="3500" data-fmt="money">
-          <div class="field-row"><label for="in-living">Living expenses <span class="tip" tabindex="0" data-tip="Essentials: housing, food, utilities, insurance, transport.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Monthly living expenses"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-living"></div></div>
+          <div class="field-row"><label for="in-living" id="lbl-living">Living expenses</label><span class="tip" tabindex="0" role="note" data-tip="Essentials: housing, food, utilities, insurance, transport.">i</span><output class="field-out" for="rg-living"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-living" aria-labelledby="lbl-living"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-living"></div></div>
         </div>
         <div class="field" data-key="lifestyle" data-min="0" data-max="30000" data-step="50" data-default="1800" data-fmt="money" data-tabs="burn">
-          <div class="field-row"><label for="in-lifestyle">Lifestyle spending <span class="tip" tabindex="0" data-tip="Dining out, travel, entertainment, subscriptions, shopping.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Monthly lifestyle spending"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-lifestyle"></div></div>
+          <div class="field-row"><label for="in-lifestyle" id="lbl-lifestyle">Lifestyle spending</label><span class="tip" tabindex="0" role="note" data-tip="Dining out, travel, entertainment, subscriptions, shopping.">i</span><output class="field-out" for="rg-lifestyle"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-lifestyle" aria-labelledby="lbl-lifestyle"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-lifestyle"></div></div>
         </div>
         <div class="field" data-key="passive" data-min="0" data-max="30000" data-step="50" data-default="500" data-fmt="money" data-tabs="freedom">
-          <div class="field-row"><label for="in-passive">Passive income now <span class="tip" tabindex="0" data-tip="Rent, dividends, interest, royalties. Money that comes in without your time.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Current monthly passive income"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-passive"></div></div>
+          <div class="field-row"><label for="in-passive" id="lbl-passive">Passive income now</label><span class="tip" tabindex="0" role="note" data-tip="Rent, dividends, interest, royalties. Money that comes in without your time.">i</span><output class="field-out" for="rg-passive"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-passive" aria-labelledby="lbl-passive"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-passive"></div></div>
         </div>
         <div class="field" data-key="invest" data-min="0" data-max="20000" data-step="50" data-default="1200" data-fmt="money" data-tabs="freedom">
-          <div class="field-row"><label for="in-invest">You invest each month <span class="tip" tabindex="0" data-tip="What you add to investments today. Default is 20% of the income on the first view.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Monthly amount invested"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-invest"></div></div>
+          <div class="field-row"><label for="in-invest" id="lbl-invest">You invest each month</label><span class="tip" tabindex="0" role="note" data-tip="What you add to investments today. Default is 20% of the income on the first view.">i</span><output class="field-out" for="rg-invest"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-invest" aria-labelledby="lbl-invest"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-invest"></div></div>
         </div>
       </div>
 
       <div class="fieldset" data-tabs="burn freedom gap">
         <p class="fieldset-title">Investments</p>
         <div class="field" data-key="portfolio" data-min="0" data-max="5000000" data-step="1000" data-default="150000" data-fmt="money">
-          <div class="field-row"><label for="in-portfolio">Saved and invested today <span class="tip" tabindex="0" data-tip="Retirement accounts, brokerage, cash savings. Not your home.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Total savings and investments"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-portfolio"></div></div>
+          <div class="field-row"><label for="in-portfolio" id="lbl-portfolio">Saved and invested today</label><span class="tip" tabindex="0" role="note" data-tip="Retirement accounts, brokerage, cash savings. Not your home.">i</span><output class="field-out" for="rg-portfolio"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-portfolio" aria-labelledby="lbl-portfolio"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-portfolio"></div></div>
         </div>
         <div class="field" data-key="wr" data-min="2" data-max="8" data-step="0.1" data-default="4" data-fmt="pct" data-dec="1" data-tabs="burn freedom">
-          <div class="field-row"><label for="in-wr">Withdrawal rate <span class="tip" tabindex="0" data-tip="The share of your portfolio you take out each year in retirement. 4% is the common rule of thumb.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Withdrawal rate"><div class="numwrap has-post"><input type="number" id="in-wr"><span class="affix post">%</span></div></div>
+          <div class="field-row"><label for="in-wr" id="lbl-wr">Withdrawal rate</label><span class="tip" tabindex="0" role="note" data-tip="The share of your portfolio you take out each year in retirement. 4% is the common rule of thumb.">i</span><output class="field-out" for="rg-wr"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-wr" aria-labelledby="lbl-wr"><div class="numwrap has-post"><input type="number" id="in-wr"><span class="affix post">%</span></div></div>
         </div>
         <div class="field" data-key="annualIncome" data-min="0" data-max="1000000" data-step="1000" data-default="72000" data-fmt="money" data-tabs="gap">
-          <div class="field-row"><label for="in-annual">Annual income (gross) <span class="tip" tabindex="0" data-tip="Before tax. Used to compare your savings to your income.">i</span></label><output class="field-out"></output></div>
-          <div class="field-ctl"><input type="range" aria-label="Annual gross income"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-annual"></div></div>
+          <div class="field-row"><label for="in-annual" id="lbl-annualIncome">Annual income (gross)</label><span class="tip" tabindex="0" role="note" data-tip="Before tax. Used to compare your savings to your income.">i</span><output class="field-out" for="rg-annualIncome"></output></div>
+          <div class="field-ctl"><input type="range" id="rg-annualIncome" aria-labelledby="lbl-annualIncome"><div class="numwrap has-pre"><span class="affix pre">$</span><input type="number" id="in-annual"></div></div>
         </div>
       </div>
 
@@ -102,26 +102,27 @@
         <summary>Assumptions</summary>
         <div class="fieldset">
           <div class="field" data-key="retPre" data-min="1" data-max="12" data-step="0.5" data-default="7" data-fmt="pct" data-dec="1">
-            <div class="field-row"><label for="in-retpre">Return while working</label><output class="field-out"></output></div>
-            <div class="field-ctl"><input type="range" aria-label="Annual return before retirement"><div class="numwrap has-post"><input type="number" id="in-retpre"><span class="affix post">%</span></div></div>
+            <div class="field-row"><label for="in-retpre" id="lbl-retPre">Return while working</label><output class="field-out" for="rg-retPre"></output></div>
+            <div class="field-ctl"><input type="range" id="rg-retPre" aria-labelledby="lbl-retPre"><div class="numwrap has-post"><input type="number" id="in-retpre"><span class="affix post">%</span></div></div>
           </div>
           <div class="field" data-key="retPost" data-min="0" data-max="10" data-step="0.5" data-default="5" data-fmt="pct" data-dec="1" data-tabs="burn">
-            <div class="field-row"><label for="in-retpost">Return in retirement</label><output class="field-out"></output></div>
-            <div class="field-ctl"><input type="range" aria-label="Annual return in retirement"><div class="numwrap has-post"><input type="number" id="in-retpost"><span class="affix post">%</span></div></div>
+            <div class="field-row"><label for="in-retpost" id="lbl-retPost">Return in retirement</label><output class="field-out" for="rg-retPost"></output></div>
+            <div class="field-ctl"><input type="range" id="rg-retPost" aria-labelledby="lbl-retPost"><div class="numwrap has-post"><input type="number" id="in-retpost"><span class="affix post">%</span></div></div>
           </div>
           <div class="field" data-key="infl" data-min="0" data-max="6" data-step="0.1" data-default="2.5" data-fmt="pct" data-dec="1" data-tabs="burn">
-            <div class="field-row"><label for="in-infl">Inflation</label><output class="field-out"></output></div>
-            <div class="field-ctl"><input type="range" aria-label="Inflation rate"><div class="numwrap has-post"><input type="number" id="in-infl"><span class="affix post">%</span></div></div>
+            <div class="field-row"><label for="in-infl" id="lbl-infl">Inflation</label><output class="field-out" for="rg-infl"></output></div>
+            <div class="field-ctl"><input type="range" id="rg-infl" aria-labelledby="lbl-infl"><div class="numwrap has-post"><input type="number" id="in-infl"><span class="affix post">%</span></div></div>
           </div>
           <div class="field" data-key="planAge" data-min="70" data-max="105" data-step="1" data-default="90" data-fmt="age" data-tabs="burn">
-            <div class="field-row"><label for="in-plan">Plan to age</label><output class="field-out"></output></div>
-            <div class="field-ctl"><input type="range" aria-label="Planning age"><div class="numwrap"><input type="number" id="in-plan"></div></div>
+            <div class="field-row"><label for="in-plan" id="lbl-planAge">Plan to age</label><output class="field-out" for="rg-planAge"></output></div>
+            <div class="field-ctl"><input type="range" id="rg-planAge" aria-labelledby="lbl-planAge"><div class="numwrap"><input type="number" id="in-plan"></div></div>
           </div>
         </div>
       </details>
     </aside>
 
     <section class="statement">
+      <p class="sr-only" role="status" aria-live="polite" id="live-summary"></p>
       <!-- ============ i. Lifestyle Burn Rate ============ -->
       <div role="tabpanel" id="p-burn" aria-labelledby="t-burn">
         <div class="statement-head"><h2>Burn rate</h2><span class="stamp" id="b-stamp"></span></div>
@@ -138,9 +139,9 @@
 
         <div class="ledger">
           <div class="ledger-row"><span class="k">Spending today</span><span class="v" id="b-spend"></span></div>
-          <div class="ledger-row"><span class="k">Spending at retirement, after inflation <span class="tip" tabindex="0" data-tip="Today's spending grown at the inflation rate until your retirement age.">i</span></span><span class="v" id="b-need"></span></div>
-          <div class="ledger-row"><span class="k">Nest egg that supports it <span class="tip" tabindex="0" data-tip="Yearly spending at retirement divided by your withdrawal rate.">i</span></span><span class="v" id="b-nest"></span></div>
-          <div class="ledger-row"><span class="k">What you are on track to have <span class="tip" tabindex="0" data-tip="Today's investments plus what is left of your income each month, grown at the working-years return.">i</span></span><span class="v" id="b-proj"></span></div>
+          <div class="ledger-row"><span class="k">Spending at retirement, after inflation <span class="tip" tabindex="0" role="note" data-tip="Today's spending grown at the inflation rate until your retirement age.">i</span></span><span class="v" id="b-need"></span></div>
+          <div class="ledger-row"><span class="k">Nest egg that supports it <span class="tip" tabindex="0" role="note" data-tip="Yearly spending at retirement divided by your withdrawal rate.">i</span></span><span class="v" id="b-nest"></span></div>
+          <div class="ledger-row"><span class="k">What you are on track to have <span class="tip" tabindex="0" role="note" data-tip="Today's investments plus what is left of your income each month, grown at the working-years return.">i</span></span><span class="v" id="b-proj"></span></div>
           <div class="ledger-row total"><span class="k" id="b-gapk">Shortfall</span><span class="v" id="b-gap"></span></div>
         </div>
 
@@ -197,7 +198,7 @@
         <div class="ledger">
           <div class="ledger-row"><span class="k">Living expenses per year</span><span class="v" id="f-annual"></span></div>
           <div class="ledger-row"><span class="k">Already covered by passive income</span><span class="v" id="f-passive"></span></div>
-          <div class="ledger-row"><span class="k">Capital still needed for the rest <span class="tip" tabindex="0" data-tip="Only the expenses your passive income does not cover, divided by your withdrawal rate.">i</span></span><span class="v" id="f-remain"></span></div>
+          <div class="ledger-row"><span class="k">Capital still needed for the rest <span class="tip" tabindex="0" role="note" data-tip="Only the expenses your passive income does not cover, divided by your withdrawal rate.">i</span></span><span class="v" id="f-remain"></span></div>
           <div class="ledger-row"><span class="k">Monthly investing to be free by <span id="f-by"></span></span><span class="v" id="f-needmo"></span></div>
           <div class="ledger-row total"><span class="k">Extra per month on top of today</span><span class="v" id="f-extra"></span></div>
         </div>
@@ -227,7 +228,7 @@
             <p class="section-title">Savings vs income</p>
             <div class="ledger">
               <div class="ledger-row"><span class="k">You have saved</span><span class="v" id="g-ratio"></span></div>
-              <div class="ledger-row"><span class="k">Common target at <span id="g-ratio-age"></span> <span class="tip" tabindex="0" data-tip="A widely used planner guideline: about 1× income by 30, 3× by 40, 6× by 50, 8× by 60, 10× by 67.">i</span></span><span class="v" id="g-target"></span></div>
+              <div class="ledger-row"><span class="k">Common target at <span id="g-ratio-age"></span> <span class="tip" tabindex="0" role="note" data-tip="A widely used planner guideline: about 1× income by 30, 3× by 40, 6× by 50, 8× by 60, 10× by 67.">i</span></span><span class="v" id="g-target"></span></div>
               <div class="ledger-row total"><span class="k" id="g-ratio-k">Gap</span><span class="v" id="g-ratio-gap"></span></div>
             </div>
           </div>
@@ -350,7 +351,7 @@
     // chart
     LIS.chart.line($('b-chart'), {
       x: r.ages, series: [{ name: 'Your balance', values: r.path, color: r.sustainable ? '#2F7D5B' : '#B0503C', area: true }],
-      markers: [{ x: s.retireAge, label: 'Retire ' + s.retireAge, color: '#8A6510' }, { x: s.planAge, label: 'Plan to ' + s.planAge, color: '#8D9BA6' }],
+      markers: [{ x: s.retireAge, label: 'Retire ' + s.retireAge, color: '#7A5A0E' }, { x: s.planAge, label: 'Plan to ' + s.planAge, color: '#45544A' }],
       xFmt: v => v, tipLabel: v => 'Age ' + v, label: 'Projected balance by age',
     });
     // donut
@@ -433,7 +434,7 @@
     else if (pct >= 50) { note.className = 'note gold'; LIS.text($('g-note-t'), `Above the median for your age. The top 10% line is ${F.money(b.p90 - nw)} away. Most people at your level stall here because income grows and spending grows with it.`); }
     else { note.className = 'note warn'; LIS.text($('g-note-t'), `Below the median of ${F.money(b.p50)} for your age. The gap is ${F.money(b.p50 - nw)}. It closes fastest through savings rate, not returns.`); }
     LIS.text($('g-bracket'), '· ' + b.label);
-    LIS.chart.bars($('g-chart'), { items: [{ label: 'You', value: nw, color: '#D9A93D' }, { label: 'Median', value: b.p50, color: '#8D9BA6' }, { label: 'Top 10%', value: b.p90, color: '#2A6B4F' }, { label: 'Top 1%', value: b.p99, color: '#16352A' }], label: 'Your net worth vs peers' });
+    LIS.chart.bars($('g-chart'), { items: [{ label: 'You', value: nw, color: '#D9A93D' }, { label: 'Median', value: b.p50, color: '#45544A' }, { label: 'Top 10%', value: b.p90, color: '#2A6B4F' }, { label: 'Top 1%', value: b.p99, color: '#16352A' }], label: 'Your net worth vs peers' });
     // savings-to-income
     const ratio = s.annualIncome > 0 ? nw / s.annualIncome : Infinity;
     const tgt = ratioTarget(s.age);
