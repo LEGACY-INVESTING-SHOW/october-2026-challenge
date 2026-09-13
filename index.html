@@ -226,11 +226,12 @@
     .featured-logos img { object-fit: contain; mix-blend-mode: multiply; }
 
     /* ---------- Testimonials ---------- */
-    .tri-grid { display: grid; gap: 1.25rem; }
-    @media (min-width: 768px) { .tri-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; } }
+    .t-layout { display: grid; gap: 1.5rem; }
+    @media (min-width: 768px) { .t-layout { grid-template-columns: 1fr 1fr; } .t-lead { grid-column: 1 / -1; } }
+    .t-lead { padding: .5rem 0 1.75rem; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; }
+    .t-lead .t-quote { font-size: clamp(1.25rem, 2.4vw, 1.6rem); line-height: 1.4; max-width: 46rem; }
+    .t-lead .t-person { border-top: 0; padding-top: 0; }
     .t-card { padding: 1.75rem; display: flex; flex-direction: column; }
-    .stars { display: flex; gap: .2rem; color: var(--gold-deep); margin-bottom: 1.1rem; }
-    .stars svg { width: 1.05rem; height: 1.05rem; }
     .t-quote { font-family: var(--serif); font-size: 1.05rem; line-height: 1.55; color: var(--ink); flex: 1; margin-bottom: 1.5rem; }
     .t-person { display: flex; align-items: center; gap: .9rem; border-top: 1px solid var(--line); padding-top: 1.1rem; }
     .t-person img { width: 3rem; height: 3rem; border-radius: 999px; object-fit: cover; }
@@ -307,19 +308,21 @@
     .day-head { background: var(--forest); color: #F5F1E3; padding: 1.25rem; }
     .day-head .tag { font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
     .day-head h3 { color: #F5F1E3; font-family: var(--serif); font-size: 1.3rem; margin-top: .25rem; }
-    .day-body { padding: 1.25rem; display: flex; flex-direction: column; gap: .7rem; }
-    .sess { background: var(--ivory); border: 1px solid var(--line); border-radius: .8rem; padding: .8rem .95rem; }
+    .day-body { padding: .35rem 1.25rem 1rem; display: flex; flex-direction: column; }
+    .sess { padding: .8rem 0; border-top: 1px solid var(--line); }
+    .sess:first-child { border-top: 0; }
     .sess .n { font-size: .72rem; font-weight: 700; color: var(--gold-ink); }
     .sess p { font-size: .88rem; color: var(--ink-soft); margin-top: .2rem; }
-    .sess.vip { background: var(--gold-tint); border-color: #E5D3A0; }
+    .sess.vip { background: var(--gold-tint); border: 1px solid #E5D3A0; border-radius: .7rem; padding: .7rem .9rem; margin-top: .6rem; }
     .sess.vip p { color: var(--ink-soft); }
     .sess.vip .vip-tag { margin-bottom: .3rem; padding: .2rem .65rem; font-size: .66rem; }
 
     /* ---------- Info trio ---------- */
-    .info-grid { display: grid; gap: 1.25rem; }
-    @media (min-width: 768px) { .info-grid { grid-template-columns: repeat(3, 1fr); } }
-    .info-card { padding: 1.75rem 1.5rem; text-align: center; }
-    .info-card .k { font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--green-mid); margin-bottom: .45rem; }
+    .info-grid { display: grid; gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    @media (min-width: 768px) { .info-grid { grid-template-columns: repeat(3, 1fr); } .info-card + .info-card { border-left: 1px solid var(--line); } }
+    .info-card { padding: 1.25rem 1.5rem; text-align: left; }
+    @media (max-width: 767px) { .info-card + .info-card { border-top: 1px solid var(--line); } }
+    .info-card .k { font-size: .82rem; font-weight: 600; color: var(--green-mid); margin-bottom: .3rem; }
     .info-card .v { font-family: var(--serif); font-weight: 600; font-size: 1.15rem; color: var(--ink); margin-bottom: .35rem; }
     .info-card p { font-size: .88rem; color: var(--ink-faint); }
 
@@ -395,18 +398,15 @@
     .case h3, .case-solo h3 { font-family: var(--serif); font-size: 1.6rem; margin-bottom: .4rem; }
     .case .hook, .case-solo .hook { color: var(--gold-ink); font-family: var(--serif); font-style: italic; margin-bottom: .9rem; }
     .case > div > p.body { color: var(--ink-soft); margin-bottom: 1.4rem; }
-    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
-    .stat-chip { padding: .95rem 1rem; }
-        .stat-chip p { font-size: .85rem; color: var(--ink-soft); }
-    .stat-row { display: flex; align-items: center; gap: .8rem; padding: .95rem 1.1rem; }
-        .stat-row p { font-size: .88rem; color: var(--ink-soft); }
-    .stat-row + .stat-row { margin-top: .8rem; }
+    .stat-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+    .stat-row { display: flex; align-items: flex-start; gap: .7rem; padding: .65rem 0; border-top: 1px solid var(--line); }
+    .stat-row svg { width: 1.05rem; height: 1.05rem; color: var(--green-mid); flex-shrink: 0; margin-top: .15rem; }
+    .stat-row p { font-size: .95rem; color: var(--ink); }
     .roi-box { margin-top: 1.4rem; background: var(--emerald-tint); border: 1px solid #CBDEC6; border-radius: .9rem; padding: 1rem 1.25rem; text-align: center; }
     .roi-box .k { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--emerald); margin-bottom: .2rem; }
     .roi-box .v { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; color: var(--emerald); }
 
     .case-solo { max-width: 48rem; margin: clamp(3rem, 6vw, 5rem) auto 0; padding: 2rem; }
-    .case-solo .stat-grid .stat-row + .stat-row { margin-top: 0; }
 
     /* ---------- Wealth plans ---------- */
     .plan-card { padding: clamp(1.25rem, 3vw, 2rem); }
@@ -421,21 +421,25 @@
     .plan-value .v { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; color: var(--gold-ink); }
     .plan-body > * + * { margin-top: .95rem; }
     .plan-body p { color: var(--ink-soft); }
-    .strat-grid { display: grid; gap: .55rem; font-size: .86rem; }
+    .strat-grid { display: grid; gap: 0 2rem; font-size: .9rem; }
     @media (min-width: 640px) { .strat-grid { grid-template-columns: 1fr 1fr; } }
-    .strat { display: flex; justify-content: space-between; gap: .75rem; background: var(--ivory); border: 1px solid var(--line); border-radius: .6rem; padding: .5rem .8rem; }
+    .strat { display: flex; justify-content: space-between; gap: .75rem; padding: .5rem 0; border-bottom: 1px solid var(--line); }
     .strat span:first-child { color: var(--ink-soft); }
     .strat span:last-child { color: var(--gold-ink); font-weight: 600; white-space: nowrap; }
     .plan-note { font-size: .85rem; color: var(--ink-faint); }
     .plan-note strong { color: var(--ink-soft); }
 
     /* ---------- Verify ---------- */
-    .verify-card { padding: clamp(1.5rem, 3vw, 2.25rem); }
-    .verify-block { background: var(--ivory); border: 1px solid var(--line); border-radius: .9rem; padding: 1.2rem 1.4rem; }
-    .verify-block + .verify-block { margin-top: 1.25rem; }
+    .verify-split { display: grid; gap: 2.5rem; align-items: start; }
+    @media (min-width: 1024px) { .verify-split { grid-template-columns: .85fr 1.15fr; gap: 4rem; } .verify-intro { position: sticky; top: 5.5rem; } }
+    .verify-intro h2 { text-align: left; margin-bottom: 1.25rem; }
+    .verify-intro .lead { font-size: 1.1rem; font-weight: 600; color: var(--ink); margin-bottom: 1rem; }
+    .verify-intro .muted { font-size: 1.02rem; }
+    .verify-block { padding: 1.2rem 0; border-top: 1px solid var(--line); }
+    .verify-block:first-child { border-top: 0; padding-top: 0; }
     .verify-block .who { color: var(--gold-ink); font-weight: 700; margin-bottom: .45rem; }
     .verify-block p:last-child { color: var(--ink-soft); }
-    .free-lesson { background: var(--gold-tint); border: 1px solid #E5D3A0; border-radius: .9rem; padding: 1.2rem 1.4rem; margin-block: 1.5rem; }
+    .free-lesson { background: var(--gold-tint); border: 1px solid #E5D3A0; border-radius: .9rem; padding: 1.2rem 1.4rem; margin-top: 1.5rem; }
     .free-lesson p { color: var(--ink); font-weight: 500; }
     .free-lesson strong { color: var(--gold-ink); }
 
@@ -733,12 +737,9 @@
       <h2 class="display">4,400+ People Have Been Through This Challenge</h2>
     </div>
 
-    <div class="tri-grid">
+    <div class="t-layout">
       <!-- Card 1 -->
-      <div class="card t-card">
-        <div class="stars">
-          <svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg>
-        </div>
+      <div class="t-lead">
         <p class="t-quote">
           "We're both full-time &amp; have a daughter. We didn't wanna just stumble around in the dark. If you wanna get out of the 9-to-5, here's how to do it. It's such a blessing."
         </p>
@@ -753,9 +754,6 @@
 
       <!-- Card 2 -->
       <div class="card t-card">
-        <div class="stars">
-          <svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg>
-        </div>
         <p class="t-quote">
           "When we talk about Preston doing an absolute masterclass on how to do this... I couldn't give it a bigger endorsement. It's about as legit as it gets."
         </p>
@@ -770,9 +768,6 @@
 
       <!-- Card 3 -->
       <div class="card t-card">
-        <div class="stars">
-          <svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg>
-        </div>
         <p class="t-quote">
           "I've never been someone who just 'gets it' the first time. It has been leaps and bounds, and worth it. Every step is well thought out."
         </p>
@@ -1025,17 +1020,17 @@
 <section style="padding-block:clamp(1.5rem,3vw,3rem);">
   <div class="wrap wrap-md">
     <div class="info-grid">
-      <div class="card info-card">
+      <div class="info-card">
         <div class="k">When</div>
         <div class="v">October 16 - October 18, 2026</div>
         <p>10 AM - 4 PM EST Daily</p>
       </div>
-      <div class="card info-card">
+      <div class="info-card">
         <div class="k">Where</div>
         <div class="v">Streaming Online on Zoom</div>
         <p>Join from anywhere. We'll send you a private link.</p>
       </div>
-      <div class="card info-card">
+      <div class="info-card">
         <div class="k">Why</div>
         <div class="v">Your $85,871 Wealth Plan</div>
         <p>Find the leaks. Cut taxes. Build $5K-$15K monthly income.</p>
@@ -1405,7 +1400,7 @@
     <!-- Case Study 1 -->
     <div class="case">
       <div class="case-img">
-        <img src="/assets/images/20-dustin-cotten.webp" alt="Dustin Cotten" width="608" height="760" loading="lazy" decoding="async" style="width:500px;max-width:100%">
+        <img src="/assets/images/20-dustin-cotten.webp" alt="Dustin's short-term rental payout dashboard: $68,608 gross across seven properties" width="608" height="760" loading="lazy" decoding="async" style="width:500px;max-width:100%">
       </div>
       <div>
         <h3 class="m-center">Dustin Cotten</h3>
@@ -1414,10 +1409,10 @@
           Dustin was in corporate sales, looking for a way out. Then his girlfriend's mom passed away at 62 with savings locked up. He decided to take his finances into his own hands.
         </p>
         <div class="stat-grid">
-          <div class="card stat-chip"><p>First property in 30 days, $3K/month</p></div>
-          <div class="card stat-chip"><p>7 properties in under 2 years</p></div>
-          <div class="card stat-chip"><p>$56K net profit in one month</p></div>
-          <div class="card stat-chip"><p>Walked away from his 9 to 5</p></div>
+          <div class="stat-row"><svg aria-hidden="true"><use href="#check-icon"/></svg><p>First property in 30 days, $3K/month</p></div>
+          <div class="stat-row"><svg aria-hidden="true"><use href="#check-icon"/></svg><p>7 properties in under 2 years</p></div>
+          <div class="stat-row"><svg aria-hidden="true"><use href="#check-icon"/></svg><p>$56K net profit in one month</p></div>
+          <div class="stat-row"><svg aria-hidden="true"><use href="#check-icon"/></svg><p>Walked away from his 9 to 5</p></div>
         </div>
       </div>
     </div>
@@ -1425,7 +1420,7 @@
     <!-- Case Study 2 -->
     <div class="case">
       <div class="case-img" style="order:2;">
-        <img src="/assets/images/21-galin-icon.webp" alt="Galin" width="952" height="954" loading="lazy" decoding="async" style="width:500px;max-width:100%">
+        <img src="/assets/images/21-galin-icon.webp" alt="Galin's projected savings by strategy, low and high estimates per year" width="952" height="954" loading="lazy" decoding="async" style="width:500px;max-width:100%">
       </div>
       <div style="order:1;">
         <h3 class="m-center">Galin</h3>
@@ -1434,8 +1429,8 @@
           Before, Galin was working hard but watching too much disappear to taxes and overhead. Now he has a plan to save big on taxes and add consistent rental income.
         </p>
         <div>
-          <div class="card stat-row"><p>$100K+ in tax savings and paper losses</p></div>
-          <div class="card stat-row"><p>Six figures moved into long-term investments</p></div>
+          <div class="stat-row"><svg aria-hidden="true"><use href="#check-icon"/></svg><p>$100K+ in tax savings and paper losses</p></div>
+          <div class="stat-row"><svg aria-hidden="true"><use href="#check-icon"/></svg><p>Six figures moved into long-term investments</p></div>
         </div>
         <div class="roi-box">
           <p class="k">Estimated 12-Month ROI</p>
@@ -1452,10 +1447,10 @@
         Before, too much of their W-2 paycheck went straight to the IRS. Retirement felt locked until 59½. Every move came with a penalty. Now they have a plan to legally cut taxes to zero, access penalty-free income years earlier, and move money into assets that grow.
       </p>
       <div class="stat-grid">
-        <div class="card stat-row"><p>~$52,500 cash refund from tax savings</p></div>
-        <div class="card stat-row"><p>$30K shifted into 0% tax brackets</p></div>
-        <div class="card stat-row"><p>Six-figure savings sheltered through new structures</p></div>
-        <div class="card stat-row"><p>New cash flow and long-term growth layered on top</p></div>
+        <div class="stat-row"><svg aria-hidden="true"><use href="#check-icon"/></svg><p>~$52,500 cash refund from tax savings</p></div>
+        <div class="stat-row"><svg aria-hidden="true"><use href="#check-icon"/></svg><p>$30K shifted into 0% tax brackets</p></div>
+        <div class="stat-row"><svg aria-hidden="true"><use href="#check-icon"/></svg><p>Six-figure savings sheltered through new structures</p></div>
+        <div class="stat-row"><svg aria-hidden="true"><use href="#check-icon"/></svg><p>New cash flow and long-term growth layered on top</p></div>
       </div>
       <div class="roi-box">
         <p class="k">Estimated 12-Month ROI</p>
@@ -1662,36 +1657,32 @@
      VERIFY IT YOURSELF SECTION
      ═══════════════════════════════════════════════════ -->
 <section>
-  <div class="wrap wrap-sm">
-    <div class="section-head">
-      <h2 class="display">You Don't Have To Trust Us. You Can Check.</h2>
-    </div>
-
-    <div class="card verify-card">
-      <p style="font-size:1.1rem;font-weight:600;margin-bottom:1.5rem;">Here are 3 things you can verify right now, depending on your situation:</p>
-
-      <div class="verify-block">
+  <div class="wrap">
+    <div class="verify-split">
+      <div class="verify-intro">
+        <h2 class="display">You Don't Have To Trust Us. You Can Check.</h2>
+        <p class="lead">Here are 3 things you can verify right now, depending on your situation:</p>
+        <p class="muted">
+        These are <strong>3 of the 40+ strategies</strong> we cover. The challenge shows you which ones apply to your income and in what order.
+      </p>
+      </div>
+      <div class="verify-list">
+        <div class="verify-block">
         <p class="who">If you're W-2:</p>
         <p>Pull up your most recent paystub. Find your federal withholding. Multiply by your pay periods. Compare to your actual tax liability from last year's return. If there's a gap, that's cash flow you're giving away interest-free.</p>
       </div>
-
-      <div class="verify-block">
+        <div class="verify-block">
         <p class="who">If you own a business or have 1099 income:</p>
         <p>Are you operating as a sole proprietor or single-member LLC paying 15.3% self-employment tax on all your profit? An S-Corp election splits income into salary and distributions. Distributions aren't subject to SE tax. The math is specific to your income, but the gap is usually <strong>$4,000–$10,000+</strong> annually.</p>
       </div>
-
-      <div class="verify-block">
+        <div class="verify-block">
         <p class="who">If you have business expenses:</p>
         <p>Home office. Vehicle mileage. Phone and internet. Equipment. Each has a specific deduction value based on your usage. Most people leave <strong>$2,000–$6,000</strong> on the table annually because they don't track it correctly or don't know the documentation requirements.</p>
       </div>
-
-      <div class="free-lesson">
+        <div class="free-lesson">
         <p>Consider that a free lesson. If any one of these applies to you, you just found <strong>$2,000–$10,000</strong>. That alone pays for this event 50x over.</p>
       </div>
-
-      <p class="muted" style="font-size:1.05rem;">
-        These are <strong>3 of the 40+ strategies</strong> we cover. The challenge shows you which ones apply to your income and in what order.
-      </p>
+      </div>
     </div>
   </div>
 </section>
