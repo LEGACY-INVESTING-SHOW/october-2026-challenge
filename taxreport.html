@@ -47,8 +47,8 @@
     <!-- Fonts (preconnects are declared at the top of <head>).
          The preload raises the font CSS to highest priority; the stylesheet link
          below still applies it normally, so rendering is unchanged. -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
     <style>
       :root {
@@ -72,7 +72,7 @@
         --rose: #B0503C;           /* negative */
         --rose-tint: #F5E3DC;
         --sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-        --serif: var(--sans);
+        --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
       }
 
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -183,17 +183,6 @@
       .body-copy p + p { margin-top: 1.1rem; }
       .body-copy strong { color: var(--ink); font-weight: 600; }
 
-      /* ---------- Data cards ---------- */
-      .data-stack > * + * { margin-top: 1rem; }
-      .data-card { padding: 1.25rem 1.4rem; }
-      .data-card .top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: .35rem; }
-      .data-card .k { font-size: .68rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); }
-      .data-card .v { font-family: var(--serif); font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.1rem); line-height: 1.15; margin-bottom: .2rem; }
-      .data-card .v.rose { color: var(--rose); }
-      .data-card .v.gold { color: var(--gold-ink); }
-      .data-card .v.neutral { color: var(--ink-soft); }
-      .data-card p { font-size: .85rem; color: var(--ink-faint); }
-
       /* ---------- Stat rows ---------- */
       .stat-list > * + * { margin-top: .6rem; }
       .stat-line {
@@ -204,31 +193,9 @@
       .stat-line .val { font-family: var(--serif); font-weight: 700; font-size: 1.25rem; color: var(--gold-ink); white-space: nowrap; }
       .stat-line .val.rose { color: var(--rose); }
 
-      /* ---------- Step cards ---------- */
-      .trio { display: grid; gap: 1.25rem; }
-      @media (min-width: 900px) { .trio { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; } }
-      .step-card { padding: 1.75rem; }
-      .step-num {
-        width: 3rem; height: 3rem; border-radius: 999px;
-        background: var(--gold-tint); border: 1px solid #E5D3A0;
-        display: flex; align-items: center; justify-content: center;
-        font-family: var(--serif); font-weight: 700; font-size: 1.15rem; color: var(--gold-ink);
-        margin-bottom: 1.1rem;
-      }
-      .step-card h3 { font-family: var(--serif); font-size: 1.15rem; margin-bottom: .5rem; }
-      .step-card p { color: var(--ink-soft); font-size: .95rem; }
-
       /* ---------- Feature grid ---------- */
       .duo { display: grid; gap: 1.25rem; }
       @media (min-width: 768px) { .duo { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
-      .feature-card { padding: 1.5rem; display: flex; align-items: flex-start; gap: 1rem; }
-      .feature-icon {
-        width: 2.6rem; height: 2.6rem; border-radius: .8rem; flex-shrink: 0;
-        background: var(--emerald-tint); border: 1px solid #CBDEC6;
-        display: flex; align-items: center; justify-content: center; color: var(--green-mid);
-      }
-      .feature-card h3 { font-family: var(--serif); font-size: 1.05rem; margin-bottom: .35rem; }
-      .feature-card p { font-size: .9rem; color: var(--ink-soft); }
 
       /* ---------- Sample strategy ---------- */
       .sample-card { padding: clamp(1.5rem, 3vw, 2.25rem); }
@@ -393,7 +360,33 @@
       }
       .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
         ::selection { background: var(--gold-tint); color: var(--ink); }
-      .data-card .v, .stat-line .val, .sample-price .v, .compare td.c, .t-saved { font-variant-numeric: tabular-nums; }
+      .stat-line .val, .sample-price .v, .compare td.c, .t-saved { font-variant-numeric: tabular-nums; }
+        .stat-line .val, .sample-price .v, .t-saved { font-variant-numeric: lining-nums tabular-nums; }
+
+    /* Metric ledger (replaces the three stat tiles) */
+    .data-ledger { padding: .35rem 1.5rem; }
+    .data-ledger .row { display: grid; grid-template-columns: 1fr auto; column-gap: 1rem; align-items: baseline; padding: 1.05rem 0; border-bottom: 1px solid var(--line); }
+    .data-ledger .row:last-child { border-bottom: 0; }
+    .data-ledger .k { font-size: .95rem; font-weight: 600; color: var(--ink); }
+    .data-ledger .v { font-family: var(--serif); font-weight: 700; font-size: clamp(1.5rem, 3.2vw, 1.9rem); line-height: 1.1; font-variant-numeric: lining-nums tabular-nums; }
+    .data-ledger .v.rose { color: var(--rose); }
+    .data-ledger .v.gold { color: var(--gold-ink); }
+    .data-ledger .v.neutral { color: var(--ink-soft); }
+    .data-ledger .row p { grid-column: 1 / -1; font-size: .88rem; color: var(--ink-faint); margin-top: .2rem; }
+    /* Steps (replaces the numbered cards) */
+    .steps { list-style: none; max-width: 46rem; margin: 0 auto; padding: 0; }
+    .steps li { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; padding: 1.35rem 0; border-top: 1px solid var(--line); }
+    .steps li:first-child { border-top: 0; padding-top: 0; }
+    .steps .num { font-family: var(--serif); font-weight: 600; font-size: 1.6rem; line-height: 1; color: var(--gold-ink); font-variant-numeric: lining-nums; }
+    .steps h3 { font-family: var(--serif); font-size: 1.2rem; margin-bottom: .35rem; }
+    .steps p { color: var(--ink-soft); font-size: .98rem; }
+    /* What's inside (replaces the icon-tile cards) */
+    .inside { display: grid; gap: 0 3rem; margin: 0; }
+    @media (min-width: 768px) { .inside { grid-template-columns: 1fr 1fr; } }
+    .inside > div { padding: 1.1rem 0; border-top: 1px solid var(--line); }
+    .inside dt { display: flex; align-items: center; gap: .6rem; font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--ink); margin-bottom: .3rem; }
+    .inside dt svg { width: 1.15rem; height: 1.15rem; color: var(--green-mid); flex-shrink: 0; }
+    .inside dd { margin: 0; font-size: .92rem; color: var(--ink-soft); }
   </style>
 
     <style id="nx-styles">
@@ -535,34 +528,11 @@
                     </div>
                 </div>
 
-                <div class="data-stack">
-                    <div class="card data-card">
-                        <div class="top">
-                            <span class="k">Lost Wealth</span>
-                            <svg class="icon" style="color:var(--rose);"><use href="#i-trending-down"/></svg>
-                        </div>
-                        <p class="v rose">$1,240,000</p>
-                        <p>20-year compound loss on $40K annual overpayment</p>
+                <div class="card data-ledger">
+                        <div class="row"><span class="k">Lost Wealth</span><span class="v rose">$1,240,000</span><p>20-year compound loss on $40K annual overpayment</p></div>
+                        <div class="row"><span class="k">Recovery Rate</span><span class="v gold">94%</span><p>Of clients found $20K+ in recoverable savings</p></div>
+                        <div class="row"><span class="k">Monthly Loss</span><span class="v neutral">$3,300</span><p>Average monthly overpayment you can never recover</p></div>
                     </div>
-
-                    <div class="card data-card">
-                        <div class="top">
-                            <span class="k">Recovery Rate</span>
-                            <svg class="icon" style="color:var(--emerald);"><use href="#i-trending-up"/></svg>
-                        </div>
-                        <p class="v gold">94%</p>
-                        <p>Of clients found $20K+ in recoverable savings</p>
-                    </div>
-
-                    <div class="card data-card">
-                        <div class="top">
-                            <span class="k">Monthly Loss</span>
-                            <svg class="icon" style="color:var(--ink-faint);"><use href="#i-clock"/></svg>
-                        </div>
-                        <p class="v neutral">$3,300</p>
-                        <p>Average monthly overpayment you can never recover</p>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -632,25 +602,11 @@
                 </h2>
             </div>
 
-            <div class="trio">
-                <div class="card step-card">
-                    <div class="step-num">1</div>
-                    <h3>We Ask About Your Situation</h3>
-                    <p>Income and state, W-2 or side income, filing status, homeowner status, current strategies, and risk tolerance.</p>
-                </div>
-
-                <div class="card step-card">
-                    <div class="step-num">2</div>
-                    <h3>AI Analysis</h3>
-                    <p>Our system cross-references your answers against 37 IRS-approved strategies.</p>
-                </div>
-
-                <div class="card step-card">
-                    <div class="step-num">3</div>
-                    <h3>Get A Custom 24-Page Report</h3>
-                    <p>See your marginal tax rate breakdown, missed strategies with projected savings, and your action plan.</p>
-                </div>
-            </div>
+            <ol class="steps">
+                <li><span class="num" aria-hidden="true">1</span><div><h3>We Ask About Your Situation</h3><p>Income and state, W-2 or side income, filing status, homeowner status, current strategies, and risk tolerance.</p></div></li>
+                <li><span class="num" aria-hidden="true">2</span><div><h3>AI Analysis</h3><p>Our system cross-references your answers against 37 IRS-approved strategies.</p></div></li>
+                <li><span class="num" aria-hidden="true">3</span><div><h3>Get A Custom 24-Page Report</h3><p>See your marginal tax rate breakdown, missed strategies with projected savings, and your action plan.</p></div></li>
+            </ol>
         </div>
     </section>
 
@@ -665,55 +621,14 @@
                 </h2>
             </div>
 
-            <div class="duo">
-                <div class="card feature-card">
-                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-pie-chart"/></svg></div>
-                    <div>
-                        <h3>Tax Snapshot</h3>
-                        <p>Current marginal rate vs. optimized rate. See exactly how much you're overpaying as a percentage of income.</p>
-                    </div>
-                </div>
-
-                <div class="card feature-card">
-                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-droplets"/></svg></div>
-                    <div>
-                        <h3>Money Leakage Analysis</h3>
-                        <p>Category-by-category breakdown: business deductions, retirement, real estate, and more.</p>
-                    </div>
-                </div>
-
-                <div class="card feature-card">
-                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-trending-up"/></svg></div>
-                    <div>
-                        <h3>Maximum Upside Potential</h3>
-                        <p>Two scenarios: Conservative (immediate wins) vs. Aggressive (all strategies implemented).</p>
-                    </div>
-                </div>
-
-                <div class="card feature-card">
-                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg></div>
-                    <div>
-                        <h3>6-8 Strategy Cards</h3>
-                        <p>Each includes: savings calculation, implementation steps, IRS code reference, common mistakes.</p>
-                    </div>
-                </div>
-
-                <div class="card feature-card">
-                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></div>
-                    <div>
-                        <h3>20+ Hidden Opportunities</h3>
-                        <p>Strategies you may qualify for as your situation evolves. Your 2-3 year roadmap.</p>
-                    </div>
-                </div>
-
-                <div class="card feature-card">
-                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg></div>
-                    <div>
-                        <h3>30-Day Implementation Plan</h3>
-                        <p>Step-by-step action items prioritized by ease and impact. Start with quick wins this week.</p>
-                    </div>
-                </div>
-            </div>
+            <dl class="inside">
+                <div><dt><svg aria-hidden="true"><use href="#i-pie-chart"/></svg>Tax Snapshot</dt><dd>Current marginal rate vs. optimized rate. See exactly how much you're overpaying as a percentage of income.</dd></div>
+                <div><dt><svg aria-hidden="true"><use href="#i-droplets"/></svg>Money Leakage Analysis</dt><dd>Category-by-category breakdown: business deductions, retirement, real estate, and more.</dd></div>
+                <div><dt><svg aria-hidden="true"><use href="#i-trending-up"/></svg>Maximum Upside Potential</dt><dd>Two scenarios: Conservative (immediate wins) vs. Aggressive (all strategies implemented).</dd></div>
+                <div><dt><svg aria-hidden="true"><use href="#i-layers"/></svg>6-8 Strategy Cards</dt><dd>Each includes: savings calculation, implementation steps, IRS code reference, common mistakes.</dd></div>
+                <div><dt><svg aria-hidden="true"><use href="#i-search"/></svg>20+ Hidden Opportunities</dt><dd>Strategies you may qualify for as your situation evolves. Your 2-3 year roadmap.</dd></div>
+                <div><dt><svg aria-hidden="true"><use href="#i-calendar"/></svg>30-Day Implementation Plan</dt><dd>Step-by-step action items prioritized by ease and impact. Start with quick wins this week.</dd></div>
+            </dl>
         </div>
     </section>
 
@@ -1186,7 +1101,6 @@
             });
         });
     </script>
-
 
 </body>
 </html>
