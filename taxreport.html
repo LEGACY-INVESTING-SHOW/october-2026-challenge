@@ -19,6 +19,12 @@
     <link rel="dns-prefetch" href="https://f.vimeocdn.com">
     <link rel="dns-prefetch" href="https://i.vimeocdn.com">
 
+    <!-- Fonts (preconnects are declared at the top of <head>).
+         The preload raises the font CSS to highest priority; the stylesheet link
+         below still applies it normally, so rendering is unchanged. -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
     <script>
     var head = document.head;
     var script = document.createElement('script');
@@ -43,12 +49,6 @@
     })
     spiffy.load("legacyinvestingshow");
     </script>
-
-    <!-- Fonts (preconnects are declared at the top of <head>).
-         The preload raises the font CSS to highest priority; the stylesheet link
-         below still applies it normally, so rendering is unchanged. -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
     <style>
       :root {
