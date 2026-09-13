@@ -218,6 +218,8 @@
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; }
     }
+      ::selection { background: var(--gold-tint); color: var(--ink); }
+    .nx-stack-val, .nx-stack-total { font-variant-numeric: tabular-nums; }
   </style>
 
   <!-- Order stepper + value stack styles -->
@@ -313,7 +315,7 @@
   <section class="hero">
     <div class="wrap">
       <h1 class="display">
-        <svg class="alert-svg"><use href="#alert-icon"/></svg>One Last Thing Before You Head Out…
+        <svg class="alert-svg" aria-hidden="true"><use href="#alert-icon"/></svg>One Last Thing Before You Head Out…
       </h1>
     </div>
   </section>
@@ -389,9 +391,9 @@
           <p>Run your numbers in 5 minutes and see what's really happening with your money.</p>
 
           <ul class="p-list">
-            <li><svg><use href="#arrow-icon"/></svg><span>Where you're losing money through taxes, debt, and fees</span></li>
-            <li><svg><use href="#arrow-icon"/></svg><span>How much you could be saving with the right strategies</span></li>
-            <li><svg><use href="#arrow-icon"/></svg><span>Your true gap to financial freedom (and what it takes to close it faster)</span></li>
+            <li><svg aria-hidden="true"><use href="#arrow-icon"/></svg><span>Where you're losing money through taxes, debt, and fees</span></li>
+            <li><svg aria-hidden="true"><use href="#arrow-icon"/></svg><span>How much you could be saving with the right strategies</span></li>
+            <li><svg aria-hidden="true"><use href="#arrow-icon"/></svg><span>Your true gap to financial freedom (and what it takes to close it faster)</span></li>
           </ul>
         </div>
       </div>
@@ -435,9 +437,9 @@
       </p>
 
       <ul class="u-list">
-        <li><svg><use href="#check-icon"/></svg><span>You want to know your numbers.</span></li>
-        <li><svg><use href="#check-icon"/></svg><span>You want to see where you're strong.</span></li>
-        <li><svg><use href="#check-icon"/></svg><span>You want to spot the leaks holding you back.</span></li>
+        <li><svg aria-hidden="true"><use href="#check-icon"/></svg><span>You want to know your numbers.</span></li>
+        <li><svg aria-hidden="true"><use href="#check-icon"/></svg><span>You want to see where you're strong.</span></li>
+        <li><svg aria-hidden="true"><use href="#check-icon"/></svg><span>You want to spot the leaks holding you back.</span></li>
       </ul>
 
       <div class="u-note">
@@ -452,7 +454,7 @@
   <section class="cta">
     <div class="wrap">
       <a href="https://legacyinvestingshow.spiffy.co/offer/5rGRwUbuQ" id="prep-accept-btn" class="btn btn-gold btn-xl">
-        <svg class="btn-icon"><use href="#lock-icon"/></svg>
+        <svg class="btn-icon" aria-hidden="true"><use href="#lock-icon"/></svg>
         Add VIP Exclusive: The Challenge Prep Kit For $67
       </a>
 

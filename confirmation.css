@@ -348,3 +348,5 @@ section {
     letter-spacing: .1em;
   }
 }
+
+::selection { background: var(--gold-tint); color: var(--ink); }

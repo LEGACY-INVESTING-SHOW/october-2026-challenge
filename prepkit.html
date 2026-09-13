@@ -236,6 +236,8 @@
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; }
     }
+      ::selection { background: var(--gold-tint); color: var(--ink); }
+    .nx-stack-val, .nx-stack-total { font-variant-numeric: tabular-nums; }
   </style>
 
   <!-- Order stepper + value stack styles -->
@@ -328,7 +330,7 @@
   <section class="hero">
     <div class="wrap wrap-md">
       <h1 class="display">
-        <svg class="head-icon"><use href="#alert-icon"/></svg>One Last Thing Before You Head Out…
+        <svg class="head-icon" aria-hidden="true"><use href="#alert-icon"/></svg>One Last Thing Before You Head Out…
       </h1>
     </div>
   </section>
@@ -401,9 +403,9 @@
           <p class="product-desc">Run your numbers in 5 minutes and see what's really happening with your money.</p>
 
           <ul class="product-list">
-            <li><svg><use href="#arrow-icon"/></svg><span>Where you're losing money through taxes, debt, and fees</span></li>
-            <li><svg><use href="#arrow-icon"/></svg><span>How much you could be saving with the right strategies</span></li>
-            <li><svg><use href="#arrow-icon"/></svg><span>Your true gap to financial freedom (and what it takes to close it faster)</span></li>
+            <li><svg aria-hidden="true"><use href="#arrow-icon"/></svg><span>Where you're losing money through taxes, debt, and fees</span></li>
+            <li><svg aria-hidden="true"><use href="#arrow-icon"/></svg><span>How much you could be saving with the right strategies</span></li>
+            <li><svg aria-hidden="true"><use href="#arrow-icon"/></svg><span>Your true gap to financial freedom (and what it takes to close it faster)</span></li>
           </ul>
         </div>
       </div>
@@ -460,7 +462,7 @@
   <section class="cta-section band-forest">
     <div class="wrap wrap-sm">
       <a href="https://legacyinvestingshow.spiffy.co/offer/z7QY7t7ul" id="prep-accept-btn" class="btn btn-gold btn-lg">
-        <svg class="ico"><use href="#lock-icon"/></svg>
+        <svg class="ico" aria-hidden="true"><use href="#lock-icon"/></svg>
         Add The Challenge Prep Kit For $67
       </a>
 

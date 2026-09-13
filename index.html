@@ -533,6 +533,8 @@
       .dot { animation: none; }
       * { transition: none !important; }
     }
+      ::selection { background: var(--gold-tint); color: var(--ink); }
+    .price-now, .price-old, .plan-value .v, .roi-box .v, .cost-card .v, .cost-total .v, .strat span:last-child, .nx-anchor .v { font-variant-numeric: tabular-nums; }
   </style>
   <style id="nx-styles">
     /* ═══ Approved components: F2 rolling countdown, F5 before/after toggle, F8 scroll progress, F10 price anchor ═══ */
@@ -678,7 +680,7 @@
         <div class="hero-cta only-desktop">
           <a href="#pricing" class="btn btn-gold btn-lg">
             Grab Your Ticket Now
-            <svg class="arrow"><use href="#arrow-icon"/></svg>
+            <svg class="arrow" aria-hidden="true"><use href="#arrow-icon"/></svg>
           </a>
           <p class="date">Oct 16th - Oct 18th | 10 AM - 4 PM EST</p>
         </div>
@@ -693,7 +695,7 @@
         <div class="only-mobile" style="text-align:center;">
           <a href="#pricing" class="btn btn-gold btn-lg">
             Grab Your Ticket Now
-            <svg class="arrow"><use href="#arrow-icon"/></svg>
+            <svg class="arrow" aria-hidden="true"><use href="#arrow-icon"/></svg>
           </a>
           <p class="date">Oct 16th - Oct 18th | 10 AM - 4 PM EST</p>
         </div>
@@ -734,7 +736,7 @@
       <!-- Card 1 -->
       <div class="card t-card">
         <div class="stars">
-          <svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg>
+          <svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg>
         </div>
         <p class="t-quote">
           "We're both full-time &amp; have a daughter. We didn't wanna just stumble around in the dark. If you wanna get out of the 9-to-5, here's how to do it. It's such a blessing."
@@ -751,7 +753,7 @@
       <!-- Card 2 -->
       <div class="card t-card">
         <div class="stars">
-          <svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg>
+          <svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg>
         </div>
         <p class="t-quote">
           "When we talk about Preston doing an absolute masterclass on how to do this... I couldn't give it a bigger endorsement. It's about as legit as it gets."
@@ -768,7 +770,7 @@
       <!-- Card 3 -->
       <div class="card t-card">
         <div class="stars">
-          <svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg><svg><use href="#star-icon"/></svg>
+          <svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg>
         </div>
         <p class="t-quote">
           "I've never been someone who just 'gets it' the first time. It has been leaps and bounds, and worth it. Every step is well thought out."
@@ -1335,11 +1337,11 @@
         <p class="price-intro">You'll walk away with a complete action plan:</p>
 
         <ul class="price-list">
-          <li><svg class="check-svg"><use href="#check-icon"/></svg>The middle-class money trap breakdown + your escape plan</li>
-          <li><svg class="check-svg"><use href="#check-icon"/></svg>401k alternatives that build wealth faster</li>
-          <li><svg class="check-svg"><use href="#check-icon"/></svg>Tax strategies that save high earners $20K-$50K annually</li>
-          <li><svg class="check-svg"><use href="#check-icon"/></svg>Debt elimination + access to $50K-$100K in funding</li>
-          <li><svg class="check-svg"><use href="#check-icon"/></svg>Your first $5K-$15K/month income stream blueprint</li>
+          <li><svg class="check-svg" aria-hidden="true"><use href="#check-icon"/></svg>The middle-class money trap breakdown + your escape plan</li>
+          <li><svg class="check-svg" aria-hidden="true"><use href="#check-icon"/></svg>401k alternatives that build wealth faster</li>
+          <li><svg class="check-svg" aria-hidden="true"><use href="#check-icon"/></svg>Tax strategies that save high earners $20K-$50K annually</li>
+          <li><svg class="check-svg" aria-hidden="true"><use href="#check-icon"/></svg>Debt elimination + access to $50K-$100K in funding</li>
+          <li><svg class="check-svg" aria-hidden="true"><use href="#check-icon"/></svg>Your first $5K-$15K/month income stream blueprint</li>
         </ul>
 
         <a href="/regularticketoct" onclick="return trackTicketLeadAndGo('ticket', event)" class="btn btn-outline btn-md btn-block">Join the Challenge →</a>
@@ -1358,9 +1360,9 @@
         <p class="price-intro">Everything in General Admission plus...</p>
 
         <ul class="price-list">
-          <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Preston's $15M Asset Protection Masterclass, sent BEFORE the challenge starts. The same LLC, S-Corp, trust, and holding company structure he uses on his own $20M+ portfolio, plus the S-Corp mistakes that cost people thousands.</li>
-          <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Live roundtable calls with Preston on all 3 days where you can unmute and get your specific questions answered</li>
-          <li><svg class="check-svg gold"><use href="#check-icon"/></svg>Lifetime access to 15+ hours of session replays, slides, notes, and materials</li>
+          <li><svg class="check-svg gold" aria-hidden="true"><use href="#check-icon"/></svg>Preston's $15M Asset Protection Masterclass, sent BEFORE the challenge starts. The same LLC, S-Corp, trust, and holding company structure he uses on his own $20M+ portfolio, plus the S-Corp mistakes that cost people thousands.</li>
+          <li><svg class="check-svg gold" aria-hidden="true"><use href="#check-icon"/></svg>Live roundtable calls with Preston on all 3 days where you can unmute and get your specific questions answered</li>
+          <li><svg class="check-svg gold" aria-hidden="true"><use href="#check-icon"/></svg>Lifetime access to 15+ hours of session replays, slides, notes, and materials</li>
         </ul>
 
         <a href="/vipticketoct" onclick="return trackTicketLeadAndGo('vip', event)" class="btn btn-gold btn-md btn-block">Get VIP Access →</a>
@@ -1649,7 +1651,7 @@
       <p class="muted" style="margin-bottom:2rem;">Average the conservative end of every plan we build, and it comes out to <strong>$85,871 in year-one value</strong>. Inside the challenge, you build yours.</p>
       <a href="#pricing" class="btn btn-gold btn-lg">
         See The Process Inside The Challenge
-        <svg class="arrow"><use href="#arrow-icon"/></svg>
+        <svg class="arrow" aria-hidden="true"><use href="#arrow-icon"/></svg>
       </a>
     </div>
   </div>
@@ -1870,7 +1872,7 @@
 
     <a href="#pricing" class="btn btn-gold btn-lg">
       Grab Your Ticket Now
-      <svg class="arrow"><use href="#arrow-icon"/></svg>
+      <svg class="arrow" aria-hidden="true"><use href="#arrow-icon"/></svg>
     </a>
     <p class="muted" style="margin-top:1rem;">Oct 16th - Oct 18th | 10 AM - 4 PM EST</p>
 
@@ -1893,7 +1895,7 @@
       INCOME DISCLAIMER: Although we make every effort to accurately represent the services and/or products presented on this website, Preston Seo makes no assurance, representation or promise regarding future earnings or income, or that you will make any specific amount of money, or any money at all.
     </p>
     <div class="links">
-      <a href="https://www.firstairbnb.com/contactus">Contact</a>
+      <a href="https://legacyinvestingshow.com/contact-us/">Contact</a>
       <a href="https://www.firstairbnb.com/privacypolicy">Privacy</a>
       <a href="https://managemoney101.com/challengeterms">Terms</a>
     </div>

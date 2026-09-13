@@ -391,7 +391,10 @@
       @media (prefers-reduced-motion: reduce) {
         * { transition: none !important; animation: none !important; }
       }
-    </style>
+      .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+        ::selection { background: var(--gold-tint); color: var(--ink); }
+      .data-card .v, .stat-line .val, .sample-price .v, .compare td.c, .t-saved { font-variant-numeric: tabular-nums; }
+  </style>
 
     <style id="nx-styles">
       /* Order status */
@@ -499,7 +502,7 @@
             <div class="vsl-actions" aria-label="Tax report offer actions below video">
                 <a href="https://legacyinvestingshow.spiffy.co/offer/6XDRJspuj" class="btn btn-gold btn-xl btn-block">
                     Yes, Add My Tax Report
-                    <svg class="arrow"><use href="#i-arrow-right"/></svg>
+                    <svg class="arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg>
                 </a>
                 <a href="https://legacyinvestingshow.spiffy.co/offer/z7QYDT7uD" class="decline-link">
                     No thanks, continue to the next step
@@ -664,7 +667,7 @@
 
             <div class="duo">
                 <div class="card feature-card">
-                    <div class="feature-icon"><svg class="icon"><use href="#i-pie-chart"/></svg></div>
+                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-pie-chart"/></svg></div>
                     <div>
                         <h3>Tax Snapshot</h3>
                         <p>Current marginal rate vs. optimized rate. See exactly how much you're overpaying as a percentage of income.</p>
@@ -672,7 +675,7 @@
                 </div>
 
                 <div class="card feature-card">
-                    <div class="feature-icon"><svg class="icon"><use href="#i-droplets"/></svg></div>
+                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-droplets"/></svg></div>
                     <div>
                         <h3>Money Leakage Analysis</h3>
                         <p>Category-by-category breakdown: business deductions, retirement, real estate, and more.</p>
@@ -680,7 +683,7 @@
                 </div>
 
                 <div class="card feature-card">
-                    <div class="feature-icon"><svg class="icon"><use href="#i-trending-up"/></svg></div>
+                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-trending-up"/></svg></div>
                     <div>
                         <h3>Maximum Upside Potential</h3>
                         <p>Two scenarios: Conservative (immediate wins) vs. Aggressive (all strategies implemented).</p>
@@ -688,7 +691,7 @@
                 </div>
 
                 <div class="card feature-card">
-                    <div class="feature-icon"><svg class="icon"><use href="#i-layers"/></svg></div>
+                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg></div>
                     <div>
                         <h3>6-8 Strategy Cards</h3>
                         <p>Each includes: savings calculation, implementation steps, IRS code reference, common mistakes.</p>
@@ -696,7 +699,7 @@
                 </div>
 
                 <div class="card feature-card">
-                    <div class="feature-icon"><svg class="icon"><use href="#i-search"/></svg></div>
+                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></div>
                     <div>
                         <h3>20+ Hidden Opportunities</h3>
                         <p>Strategies you may qualify for as your situation evolves. Your 2-3 year roadmap.</p>
@@ -704,7 +707,7 @@
                 </div>
 
                 <div class="card feature-card">
-                    <div class="feature-icon"><svg class="icon"><use href="#i-calendar"/></svg></div>
+                    <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg></div>
                     <div>
                         <h3>30-Day Implementation Plan</h3>
                         <p>Step-by-step action items prioritized by ease and impact. Start with quick wins this week.</p>
@@ -824,24 +827,24 @@
             <!-- Scroll Hint -->
             <div class="scroll-hint">
                 <span>
-                    <svg class="icon-sm"><use href="#i-arrow-left"/></svg>
+                    <svg class="icon-sm" aria-hidden="true"><use href="#i-arrow-left"/></svg>
                     Swipe to explore
-                    <svg class="icon-sm"><use href="#i-arrow-right"/></svg>
+                    <svg class="icon-sm" aria-hidden="true"><use href="#i-arrow-right"/></svg>
                 </span>
             </div>
 
             <!-- Trust Indicators -->
             <div class="trust-row">
                 <div>
-                    <svg class="icon-sm"><use href="#i-file-text"/></svg>
+                    <svg class="icon-sm" aria-hidden="true"><use href="#i-file-text"/></svg>
                     <span>24 Pages</span>
                 </div>
                 <div>
-                    <svg class="icon-sm"><use href="#i-download"/></svg>
+                    <svg class="icon-sm" aria-hidden="true"><use href="#i-download"/></svg>
                     <span>PDF Download</span>
                 </div>
                 <div>
-                    <svg class="icon-sm"><use href="#i-smartphone"/></svg>
+                    <svg class="icon-sm" aria-hidden="true"><use href="#i-smartphone"/></svg>
                     <span>Mobile-Friendly</span>
                 </div>
             </div>
@@ -872,31 +875,31 @@
                             <td>DIY Research</td>
                             <td class="c faint">Free</td>
                             <td class="c faint">40+ hours</td>
-                            <td class="c"><svg class="icon icon-no"><use href="#i-x"/></svg></td>
+                            <td class="c"><svg class="icon icon-no" aria-hidden="true"><use href="#i-x"/></svg><span class="sr-only">No</span></td>
                         </tr>
                         <tr>
                             <td>Tax Book</td>
                             <td class="c faint">$30</td>
                             <td class="c faint">8+ hours</td>
-                            <td class="c"><svg class="icon icon-no"><use href="#i-x"/></svg></td>
+                            <td class="c"><svg class="icon icon-no" aria-hidden="true"><use href="#i-x"/></svg><span class="sr-only">No</span></td>
                         </tr>
                         <tr class="highlight-row">
                             <td>This Report</td>
                             <td class="c price-yes">$47</td>
                             <td class="c good">2 minutes</td>
-                            <td class="c"><svg class="icon icon-yes"><use href="#i-check"/></svg></td>
+                            <td class="c"><svg class="icon icon-yes" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Yes</span></td>
                         </tr>
                         <tr>
                             <td>CPA Consultation</td>
                             <td class="c faint">$500-2,000</td>
                             <td class="c faint">1-2 weeks</td>
-                            <td class="c"><svg class="icon icon-yes"><use href="#i-check"/></svg></td>
+                            <td class="c"><svg class="icon icon-yes" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Yes</span></td>
                         </tr>
                         <tr>
                             <td>Tax Attorney</td>
                             <td class="c faint">$2,000-10,000</td>
                             <td class="c faint">2-4 weeks</td>
-                            <td class="c"><svg class="icon icon-yes"><use href="#i-check"/></svg></td>
+                            <td class="c"><svg class="icon icon-yes" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Yes</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -979,7 +982,7 @@
                     <button type="button" class="faq-question" aria-expanded="false">
                         <span class="faq-question-title">Can't I just Google this for free?</span>
                         <span class="faq-icon-wrap">
-                            <svg class="faq-icon"><use href="#i-plus"/></svg>
+                            <svg class="faq-icon" aria-hidden="true"><use href="#i-plus"/></svg>
                         </span>
                     </button>
                     <div class="faq-answer">
@@ -991,7 +994,7 @@
                     <button type="button" class="faq-question" aria-expanded="false">
                         <span class="faq-question-title">Are these strategies legal?</span>
                         <span class="faq-icon-wrap">
-                            <svg class="faq-icon"><use href="#i-plus"/></svg>
+                            <svg class="faq-icon" aria-hidden="true"><use href="#i-plus"/></svg>
                         </span>
                     </button>
                     <div class="faq-answer">
@@ -1003,7 +1006,7 @@
                     <button type="button" class="faq-question" aria-expanded="false">
                         <span class="faq-question-title">I already have a CPA. Do I need this?</span>
                         <span class="faq-icon-wrap">
-                            <svg class="faq-icon"><use href="#i-plus"/></svg>
+                            <svg class="faq-icon" aria-hidden="true"><use href="#i-plus"/></svg>
                         </span>
                     </button>
                     <div class="faq-answer">
@@ -1015,7 +1018,7 @@
                     <button type="button" class="faq-question" aria-expanded="false">
                         <span class="faq-question-title">What if the report says I can't save much?</span>
                         <span class="faq-icon-wrap">
-                            <svg class="faq-icon"><use href="#i-plus"/></svg>
+                            <svg class="faq-icon" aria-hidden="true"><use href="#i-plus"/></svg>
                         </span>
                     </button>
                     <div class="faq-answer">
@@ -1033,7 +1036,7 @@
         <div class="wrap">
             <div class="card guarantee-card">
                 <div class="shield">
-                    <svg><use href="#i-shield-check"/></svg>
+                    <svg aria-hidden="true"><use href="#i-shield-check"/></svg>
                 </div>
                 <h2>30-Day "Show Me the Savings" Guarantee</h2>
                 <p class="lead">
@@ -1060,7 +1063,7 @@
             <div class="final-actions">
                 <a href="https://legacyinvestingshow.spiffy.co/offer/6XDRJspuj" id="tax-accept-btn" class="btn btn-gold btn-xl btn-block">
                     Yes, Add The Personalized Tax Analysis Report For $47
-                    <svg class="arrow"><use href="#i-arrow-right"/></svg>
+                    <svg class="arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg>
                 </a>
                 <a href="https://legacyinvestingshow.spiffy.co/offer/z7QYDT7uD" id="tax-decline-btn" class="decline-link">
                     Continue without the Tax Analysis Report
@@ -1069,15 +1072,15 @@
 
             <div class="final-trust">
                 <div>
-                    <svg class="icon-sm"><use href="#i-check-circle"/></svg>
+                    <svg class="icon-sm" aria-hidden="true"><use href="#i-check-circle"/></svg>
                     <span>30-Day Guarantee</span>
                 </div>
                 <div>
-                    <svg class="icon-sm"><use href="#i-check-circle"/></svg>
+                    <svg class="icon-sm" aria-hidden="true"><use href="#i-check-circle"/></svg>
                     <span>2-Minute Quiz</span>
                 </div>
                 <div>
-                    <svg class="icon-sm"><use href="#i-check-circle"/></svg>
+                    <svg class="icon-sm" aria-hidden="true"><use href="#i-check-circle"/></svg>
                     <span>Instant PDF Delivery</span>
                 </div>
             </div>
