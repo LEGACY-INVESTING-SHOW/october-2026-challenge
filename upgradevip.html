@@ -208,6 +208,8 @@
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; }
     }
+      ::selection { background: var(--gold-tint); color: var(--ink); }
+    .nx-offer-price, .nx-math, .nx-total, .nx-voucher strong { font-variant-numeric: tabular-nums; }
   </style>
 
   <!-- nx component styles (order stepper, envelope reveal, copy reframe, offer card) -->
@@ -371,7 +373,7 @@
       <div class="nx-env-glow"></div>
       <div class="nx-envelope">
         <div class="nx-env-back"></div>
-        <div class="nx-voucher"><small>Private offer</small><strong>$101 OFF</strong></div>
+        <div class="nx-voucher"><small>Private offer</small><strong>$98 OFF</strong></div>
         <div class="nx-env-pocket"></div>
         <div class="nx-env-flap"></div>
         <div class="nx-env-seal">L</div>
@@ -396,7 +398,7 @@
         </div>
         <div class="nx-reveal-line" data-line="3">
           <p class="nx-kicker">Private offer</p>
-          <p class="nx-h">You unlocked <em>$101 off</em><br>the VIP experience</p>
+          <p class="nx-h">You unlocked <em>$98 off</em><br>the VIP experience</p>
           <p class="nx-sub">Available only while you stay on this page.</p>
         </div>
       </div>
@@ -486,7 +488,7 @@
       <!-- Benefit 1 -->
       <div class="card benefit-card">
         <div class="benefit-icon">
-          <svg><use href="#target-icon"/></svg>
+          <svg aria-hidden="true"><use href="#target-icon"/></svg>
         </div>
         <h3>VIP Pre-Challenge Training + Daily Roundtable Q&amp;A (Days 1-3)</h3>
         <p>Before Day 1, Preston breaks down his $15M asset protection playbook in the VIP Pre-Challenge Training. Then every challenge day ends with a live roundtable Q&amp;A where you can unmute, ask Preston directly, and get your plan checked live.</p>
@@ -495,7 +497,7 @@
       <!-- Benefit 2 -->
       <div class="card benefit-card">
         <div class="benefit-icon">
-          <svg><use href="#repeat-icon"/></svg>
+          <svg aria-hidden="true"><use href="#repeat-icon"/></svg>
         </div>
         <h3>Recordings + Replays of Every Session</h3>
         <p>Get access to recordings and replays of each challenge session so you can review, pause, and work at your own pace.</p>
@@ -512,18 +514,18 @@
       <div class="nx-offer-card">
         <span class="nx-offer-badge">&#9733; One-time offer</span>
         <h3>VIP Upgrade &mdash; recordings, replays &amp; live Q&amp;A</h3>
-        <div class="nx-offer-price"><s>$200</s><span class="nx-now">$99</span><span class="nx-save">Save $101</span></div>
+        <div class="nx-offer-price"><s>$197</s><span class="nx-now">$99</span><span class="nx-save">Save $98</span></div>
         <p class="nx-offer-expire">One-time payment. This price expires when you leave this page.</p>
         <ul class="nx-offer-list">
-          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Recordings and replays of each challenge session</span></li>
-          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>VIP Pre-Challenge Training + Live Roundtable Q&amp;A on all 3 days</span></li>
-          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Implementation worksheets and templates</span></li>
-          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>All slides, notes, and supporting materials</span></li>
-          <li><svg class="check-svg"><use href="#check-icon"/></svg><span>Organized VIP resource hub so you can find everything fast</span></li>
+          <li><svg class="check-svg" aria-hidden="true"><use href="#check-icon"/></svg><span>Recordings and replays of each challenge session</span></li>
+          <li><svg class="check-svg" aria-hidden="true"><use href="#check-icon"/></svg><span>VIP Pre-Challenge Training + Live Roundtable Q&amp;A on all 3 days</span></li>
+          <li><svg class="check-svg" aria-hidden="true"><use href="#check-icon"/></svg><span>Implementation worksheets and templates</span></li>
+          <li><svg class="check-svg" aria-hidden="true"><use href="#check-icon"/></svg><span>All slides, notes, and supporting materials</span></li>
+          <li><svg class="check-svg" aria-hidden="true"><use href="#check-icon"/></svg><span>Organized VIP resource hub so you can find everything fast</span></li>
         </ul>
         <div class="nx-offer-rows">
-          <div><span>Subtotal</span><span>$200.00</span></div>
-          <div><span>Page-only discount</span><span class="nx-neg">&minus; $101.00</span></div>
+          <div><span>Subtotal</span><span>$197.00</span></div>
+          <div><span>Page-only discount</span><span class="nx-neg">&minus; $98.00</span></div>
           <div class="nx-total"><span>Total today</span><span>$99.00 USD</span></div>
         </div>
         <a href="https://legacyinvestingshow.spiffy.co/offer/wjNrOcMuR" class="nx-btn-pay">Yes, Upgrade Me To VIP &middot; $99</a>
@@ -539,7 +541,7 @@
   <div class="wrap">
     <div class="card guarantee-card">
       <div class="shield">
-        <svg><use href="#shield-icon"/></svg>
+        <svg aria-hidden="true"><use href="#shield-icon"/></svg>
       </div>
 
       <span class="pill pill-green">100% Risk-Free Guarantee</span>

@@ -387,7 +387,9 @@
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; animation: none !important; }
     }
-    </style>
+        ::selection { background: var(--gold-tint); color: var(--ink); }
+    .metric-card .v, .stat-line span:last-child, .sample-price .v, .compare td.c, .t-saved { font-variant-numeric: tabular-nums; }
+  </style>
 
     <style id="nx-styles">
       /* Order status */
@@ -495,7 +497,7 @@
                 <div class="vsl-actions" aria-label="VIP tax report offer actions below video">
                     <a href="https://legacyinvestingshow.spiffy.co/offer/agEpRTKuD" class="btn btn-gold btn-lg btn-block">
                         Yes, Add My VIP Tax Report
-                        <svg class="arrow"><use href="#i-arrow-right"/></svg>
+                        <svg class="arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg>
                     </a>
                     <a href="https://legacyinvestingshow.spiffy.co/offer/5rGR7IbuN" class="decline-link">
                         No thanks, continue to the next step
@@ -661,7 +663,7 @@
 
             <div class="duo-grid">
                 <div class="card feature-card">
-                    <span class="icon-tile"><svg><use href="#i-pie-chart"/></svg></span>
+                    <span class="icon-tile"><svg aria-hidden="true"><use href="#i-pie-chart"/></svg></span>
                     <div>
                         <h3>Tax Snapshot</h3>
                         <p>Current marginal rate vs. optimized rate. See exactly how much you're overpaying as a percentage of income.</p>
@@ -669,7 +671,7 @@
                 </div>
 
                 <div class="card feature-card">
-                    <span class="icon-tile"><svg><use href="#i-droplets"/></svg></span>
+                    <span class="icon-tile"><svg aria-hidden="true"><use href="#i-droplets"/></svg></span>
                     <div>
                         <h3>Money Leakage Analysis</h3>
                         <p>Category-by-category breakdown: business deductions, retirement, real estate, and more.</p>
@@ -677,7 +679,7 @@
                 </div>
 
                 <div class="card feature-card">
-                    <span class="icon-tile"><svg><use href="#i-trending-up"/></svg></span>
+                    <span class="icon-tile"><svg aria-hidden="true"><use href="#i-trending-up"/></svg></span>
                     <div>
                         <h3>Maximum Upside Potential</h3>
                         <p>Two scenarios: Conservative (immediate wins) vs. Aggressive (all strategies implemented).</p>
@@ -685,7 +687,7 @@
                 </div>
 
                 <div class="card feature-card">
-                    <span class="icon-tile"><svg><use href="#i-layers"/></svg></span>
+                    <span class="icon-tile"><svg aria-hidden="true"><use href="#i-layers"/></svg></span>
                     <div>
                         <h3>6-8 Strategy Cards</h3>
                         <p>Each includes: savings calculation, implementation steps, IRS code reference, common mistakes.</p>
@@ -693,7 +695,7 @@
                 </div>
 
                 <div class="card feature-card">
-                    <span class="icon-tile"><svg><use href="#i-search"/></svg></span>
+                    <span class="icon-tile"><svg aria-hidden="true"><use href="#i-search"/></svg></span>
                     <div>
                         <h3>20+ Hidden Opportunities</h3>
                         <p>Strategies you may qualify for as your situation evolves. Your 2-3 year roadmap.</p>
@@ -701,7 +703,7 @@
                 </div>
 
                 <div class="card feature-card">
-                    <span class="icon-tile"><svg><use href="#i-calendar"/></svg></span>
+                    <span class="icon-tile"><svg aria-hidden="true"><use href="#i-calendar"/></svg></span>
                     <div>
                         <h3>30-Day Implementation Plan</h3>
                         <p>Step-by-step action items prioritized by ease and impact. Start with quick wins this week.</p>
@@ -810,15 +812,15 @@
             </div>
 
             <div class="scroll-hint">
-                <svg><use href="#i-arrow-left"/></svg>
+                <svg aria-hidden="true"><use href="#i-arrow-left"/></svg>
                 Swipe to explore
-                <svg><use href="#i-arrow-right"/></svg>
+                <svg aria-hidden="true"><use href="#i-arrow-right"/></svg>
             </div>
 
             <div class="trust-row">
-                <div><svg class="ico"><use href="#i-file-text"/></svg><span>24 Pages</span></div>
-                <div><svg class="ico"><use href="#i-download"/></svg><span>PDF Download</span></div>
-                <div><svg class="ico"><use href="#i-smartphone"/></svg><span>Mobile-Friendly</span></div>
+                <div><svg class="ico" aria-hidden="true"><use href="#i-file-text"/></svg><span>24 Pages</span></div>
+                <div><svg class="ico" aria-hidden="true"><use href="#i-download"/></svg><span>PDF Download</span></div>
+                <div><svg class="ico" aria-hidden="true"><use href="#i-smartphone"/></svg><span>Mobile-Friendly</span></div>
             </div>
         </div>
     </section>
@@ -847,31 +849,31 @@
                             <td>DIY Research</td>
                             <td class="c">Free</td>
                             <td class="c">40+ hours</td>
-                            <td class="c"><svg class="no"><use href="#i-x"/></svg></td>
+                            <td class="c"><svg class="no" aria-hidden="true"><use href="#i-x"/></svg></td>
                         </tr>
                         <tr>
                             <td>Tax Book</td>
                             <td class="c">$30</td>
                             <td class="c">8+ hours</td>
-                            <td class="c"><svg class="no"><use href="#i-x"/></svg></td>
+                            <td class="c"><svg class="no" aria-hidden="true"><use href="#i-x"/></svg></td>
                         </tr>
                         <tr class="highlight">
                             <td>This Report</td>
                             <td class="c price-gold">$47</td>
                             <td class="c good">2 minutes</td>
-                            <td class="c"><svg class="yes"><use href="#i-check"/></svg></td>
+                            <td class="c"><svg class="yes" aria-hidden="true"><use href="#i-check"/></svg></td>
                         </tr>
                         <tr>
                             <td>CPA Consultation</td>
                             <td class="c">$500-2,000</td>
                             <td class="c">1-2 weeks</td>
-                            <td class="c"><svg class="yes"><use href="#i-check"/></svg></td>
+                            <td class="c"><svg class="yes" aria-hidden="true"><use href="#i-check"/></svg></td>
                         </tr>
                         <tr>
                             <td>Tax Attorney</td>
                             <td class="c">$2,000-10,000</td>
                             <td class="c">2-4 weeks</td>
-                            <td class="c"><svg class="yes"><use href="#i-check"/></svg></td>
+                            <td class="c"><svg class="yes" aria-hidden="true"><use href="#i-check"/></svg></td>
                         </tr>
                     </tbody>
                 </table>
@@ -953,7 +955,7 @@
                 <div class="card faq-item">
                     <button type="button" class="faq-question" aria-expanded="false">
                         <span>Can't I just Google this for free?</span>
-                        <svg class="faq-icon"><use href="#i-chevron-down"/></svg>
+                        <svg class="faq-icon" aria-hidden="true"><use href="#i-chevron-down"/></svg>
                     </button>
                     <div class="faq-answer hidden">
                         You can find generic tax tips. What you won't find is a personalized analysis of your situation: which strategies apply to your income, state, and business structure, with dollar amounts. This report does in 2 minutes what takes 40+ hours of research.
@@ -963,7 +965,7 @@
                 <div class="card faq-item">
                     <button type="button" class="faq-question" aria-expanded="false">
                         <span>Are these strategies legal?</span>
-                        <svg class="faq-icon"><use href="#i-chevron-down"/></svg>
+                        <svg class="faq-icon" aria-hidden="true"><use href="#i-chevron-down"/></svg>
                     </button>
                     <div class="faq-answer hidden">
                         100% legal. These are IRS-approved tax code provisions, created by Congress to reward business ownership, real estate investing, and retirement savings. We're not helping you evade taxes; we're helping you use the tax code as designed.
@@ -973,7 +975,7 @@
                 <div class="card faq-item">
                     <button type="button" class="faq-question" aria-expanded="false">
                         <span>I already have a CPA. Do I need this?</span>
-                        <svg class="faq-icon"><use href="#i-chevron-down"/></svg>
+                        <svg class="faq-icon" aria-hidden="true"><use href="#i-chevron-down"/></svg>
                     </button>
                     <div class="faq-answer hidden">
                         Most CPAs are reactive. They file based on what happened. This report is PROACTIVE: it shows strategies to implement NOW to reduce next year's tax bill. Many customers share their report with their CPA to execute.
@@ -983,7 +985,7 @@
                 <div class="card faq-item">
                     <button type="button" class="faq-question" aria-expanded="false">
                         <span>What if the report says I can't save much?</span>
-                        <svg class="faq-icon"><use href="#i-chevron-down"/></svg>
+                        <svg class="faq-icon" aria-hidden="true"><use href="#i-chevron-down"/></svg>
                     </button>
                     <div class="faq-answer hidden">
                         We show both your CURRENT situation and MAXIMUM POTENTIAL. Even W-2 employees typically find $5K-$15K.
@@ -1000,7 +1002,7 @@
         <div class="wrap">
             <div class="card guarantee-card">
                 <div class="shield">
-                    <svg><use href="#i-shield-check"/></svg>
+                    <svg aria-hidden="true"><use href="#i-shield-check"/></svg>
                 </div>
                 <h2 class="display">30-Day "Show Me the Savings" Guarantee</h2>
                 <p class="lead">
@@ -1027,7 +1029,7 @@
             <div class="cta-stack">
                 <a href="https://legacyinvestingshow.spiffy.co/offer/agEpRTKuD" id="tax-accept-btn" class="btn btn-gold btn-lg btn-block">
                     Yes, Add The Personalized Tax Analysis Report For $47
-                    <svg class="arrow"><use href="#i-arrow-right"/></svg>
+                    <svg class="arrow" aria-hidden="true"><use href="#i-arrow-right"/></svg>
                 </a>
                 <a href="https://legacyinvestingshow.spiffy.co/offer/5rGR7IbuN" id="tax-decline-btn" class="decline-link">
                     Continue without the Tax Analysis Report
@@ -1035,9 +1037,9 @@
             </div>
 
             <div class="final-trust">
-                <div><svg class="ico"><use href="#i-check-circle"/></svg><span>30-Day Guarantee</span></div>
-                <div><svg class="ico"><use href="#i-check-circle"/></svg><span>2-Minute Quiz</span></div>
-                <div><svg class="ico"><use href="#i-check-circle"/></svg><span>Instant PDF Delivery</span></div>
+                <div><svg class="ico" aria-hidden="true"><use href="#i-check-circle"/></svg><span>30-Day Guarantee</span></div>
+                <div><svg class="ico" aria-hidden="true"><use href="#i-check-circle"/></svg><span>2-Minute Quiz</span></div>
+                <div><svg class="ico" aria-hidden="true"><use href="#i-check-circle"/></svg><span>Instant PDF Delivery</span></div>
             </div>
         </div>
     </section>
