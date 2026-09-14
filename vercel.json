@@ -3,6 +3,18 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/tfc/static/:path(.*)",
+      "destination": "https://us-assets.i.posthog.com/static/:path"
+    },
+    {
+      "source": "/tfc/array/:path(.*)",
+      "destination": "https://us-assets.i.posthog.com/array/:path"
+    },
+    {
+      "source": "/tfc/:path(.*)",
+      "destination": "https://us.i.posthog.com/:path"
+    },
+    {
       "source": "/october",
       "destination": "/index"
     },
