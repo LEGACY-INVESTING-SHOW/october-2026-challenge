@@ -362,6 +362,7 @@
 
     /* ---------- Pricing ---------- */
     .price-grid { display: grid; gap: 1.75rem; max-width: 56rem; margin-inline: auto; }
+    @media (max-width: 899px) { .price-grid .price-card.vip { order: -1; } }
     @media (min-width: 900px) { .price-grid { grid-template-columns: 1fr 1fr; align-items: stretch; } }
     .price-card { padding: 2rem; display: flex; flex-direction: column; }
     .price-card h3 { font-family: var(--serif); font-size: 1.35rem; margin-bottom: 1rem; }
@@ -1289,7 +1290,7 @@
 <section id="pricing" class="band-cream">
   <div class="wrap">
     <div class="section-head">
-      <h2 class="display">General Admission vs VIP</h2>
+      <h2 class="display">Choose Your Ticket</h2>
     </div>
 
     <!-- Price anchor bars -->
