@@ -3,3 +3,17 @@ LEAD-CAPTURE-SETUP.md
 emails
 
 SPIFFY-CHECKOUT-UPDATES.md
+
+# Local performance evidence
+performance-reports
+PERFORMANCE-REPORT.md
+
+# Local ad and design work, not part of the site
+ad-development
+ai ads concepts
+codexads
+fableads
+assets/mockups
+guides
+--full-page
+.playwright-mcp
