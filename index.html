@@ -267,6 +267,7 @@
 
     /* ---------- Split layouts ---------- */
     .split { display: grid; gap: 2.5rem; align-items: center; }
+    .split > * { min-width: 0; }
     @media (min-width: 1024px) { .split { grid-template-columns: 1fr 1fr; gap: 4rem; } .split.start { align-items: start; } }
 
     .x-list > li { display: flex; gap: .85rem; align-items: flex-start; color: var(--ink-soft); }
@@ -472,8 +473,39 @@
     .free-lesson strong { color: var(--gold-ink); }
 
     /* ---------- About ---------- */
-    .about-imgs > div { border-radius: 1rem; overflow: hidden; border: 1px solid var(--line); }
+    .about-imgs { min-width: 0; }
+    .about-imgs > div { border-radius: 1rem; overflow: hidden; border: 1px solid var(--line); min-width: 0; }
     .about-imgs > div + div { margin-top: 1rem; }
+    .about-imgs img { width: 100%; height: auto; }
+    .guest-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: .5rem;
+      padding: .7rem .6rem .8rem;
+      background: var(--paper);
+    }
+    .guest-card { min-width: 0; text-align: center; position: relative; }
+    .guest-card img {
+      width: 100%; aspect-ratio: 1; object-fit: cover; object-position: center 30%;
+      border-radius: .5rem; background: var(--cream);
+    }
+    .guest-name { margin-top: .4rem; font-size: .72rem; font-weight: 700; line-height: 1.2; color: var(--ink); }
+    .guest-role { margin-top: .12rem; font-size: .62rem; line-height: 1.25; color: var(--ink-faint); }
+    .guest-card.is-featured img { outline: 2px solid var(--gold); outline-offset: -2px; }
+    .guest-featured {
+      position: absolute; top: .4rem; left: 50%; transform: translateX(-50%);
+      font-size: .55rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--gold-ink); background: var(--gold-tint); border-radius: .3rem; padding: .12rem .35rem;
+      white-space: nowrap;
+    }
+    @media (max-width: 639px) {
+      .guest-strip { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .65rem; padding: .85rem; }
+      .guest-card { grid-column: span 2; }
+      .guest-card:nth-child(4),
+      .guest-card:nth-child(5) { grid-column: span 3; max-width: 12rem; justify-self: center; width: 100%; }
+      .guest-name { font-size: .82rem; }
+      .guest-role { font-size: .7rem; }
+    }
     .about h3 { font-family: var(--serif); font-size: clamp(1.5rem, 2.6vw, 2rem); margin: .6rem 0 1.4rem; }
     .about-text p { color: var(--ink-soft); }
     .about-text p + p { margin-top: 1rem; }
@@ -1708,8 +1740,35 @@
     <div class="split">
       <!-- Images -->
       <div class="about-imgs">
-        <div><img src="/assets/images/24-preston-about-1.webp" alt="Preston featured alongside Ray Dalio, Robert Kiyosaki, Daymond John" width="1000" height="378" loading="lazy" decoding="async" style="width:500px;max-width:100%"></div>
-        <div><img src="/assets/images/23-abigail-case-study.webp" alt="Preston with Pace Morby and Dean Graziosi" width="1000" height="318" loading="lazy" decoding="async" style="width:500px;max-width:100%"></div>
+        <div class="guest-strip">
+          <article class="guest-card">
+            <img src="/assets/images/guest-dalio.webp" alt="" width="360" height="360" loading="lazy" decoding="async">
+            <p class="guest-name">Ray Dalio</p>
+            <p class="guest-role">Author of Principles</p>
+          </article>
+          <article class="guest-card">
+            <img src="/assets/images/guest-kiyosaki.webp" alt="" width="360" height="360" loading="lazy" decoding="async">
+            <p class="guest-name">Robert Kiyosaki</p>
+            <p class="guest-role">Rich Dad Poor Dad</p>
+          </article>
+          <article class="guest-card is-featured">
+            <img src="/assets/images/guest-preston.webp" alt="" width="360" height="360" loading="lazy" decoding="async">
+            <span class="guest-featured">Featured</span>
+            <p class="guest-name">Preston Seo</p>
+            <p class="guest-role">Legacy Investing Show</p>
+          </article>
+          <article class="guest-card">
+            <img src="/assets/images/guest-daymond.webp" alt="" width="360" height="360" loading="lazy" decoding="async">
+            <p class="guest-name">Daymond John</p>
+            <p class="guest-role">Shark Tank</p>
+          </article>
+          <article class="guest-card">
+            <img src="/assets/images/guest-cuban.webp" alt="" width="360" height="360" loading="lazy" decoding="async">
+            <p class="guest-name">Mark Cuban</p>
+            <p class="guest-role">Shark Tank</p>
+          </article>
+        </div>
+        <div><img src="/assets/images/23-abigail-case-study.webp" alt="Preston with Pace Morby and Dean Graziosi" width="1000" height="318" loading="lazy" decoding="async"></div>
       </div>
 
       <!-- Text -->
