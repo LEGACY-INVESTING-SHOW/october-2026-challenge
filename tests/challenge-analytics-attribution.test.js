@@ -102,12 +102,50 @@ function executeTracker(options) {
   };
 }
 
+const newColdCampaigns = [
+  'tg-h4-ch-91626',
+  'tg-h3-ch-91626',
+  'topten-h1-ch-91626',
+  'tg-h1-ch-91626',
+  'tg-h2-ch-91626',
+  'topten-h4-ch-91626',
+  'topten-h3-ch-91626',
+  'raise-h1-ch-91626',
+  'tg-h5-ch-91626',
+  'topten-h2-ch-91626',
+  'raise-h4-ch-91626',
+  'raise-h3-ch-91626',
+  'topten-h5-ch-91626',
+  'raise-h2-ch-91626',
+  '401k-h3-ch-91626',
+  'trashcan-h4-ch-91626',
+  'sameret-h3-ch-91626',
+  'trashcan-h5-ch-91626',
+  'aprilmirror-h2-ch-91626',
+  'aprilmirror-h4-ch-91626',
+  '401k-h1-ch-91626',
+  'sameret-h5-ch-91626',
+  '401k-h4-ch-91626',
+  'trashcan-h3-ch-91626',
+  '401k-h5-ch-91626',
+  'trashcan-h1-ch-91626',
+  'sameret-h1-ch-91626',
+  '401k-h2-ch-91626',
+  'sameret-h4-ch-91626',
+  'aprilmirror-h3-ch-91626',
+  'aprilmirror-h5-ch-91626',
+  'sameret-h2-ch-91626',
+  'aprilmirror-h1-ch-91626',
+  'trashcan-h2-ch-91626'
+];
+
 const audienceCampaigns = [
   ['bp4-suppgrouppxr-091326', 'cold'],
   ['bp4-static2connectyourincome-091326', 'cold'],
   ['bp4-static1paycheck401kwhiteboard-091326', 'cold'],
   ['bp4-static3keepmoreofwhatyouspenddecadesearning-091326', 'cold'],
   ['bp4-giftshoppxr-091326', 'cold'],
+  ...newColdCampaigns.map((campaign) => [campaign, 'cold']),
   ['warm-bp4-giftshoppxr-09132', 'warm'],
   ['warm-bp4-giftshoppxr-091326', 'warm'],
   ['warm-bp4-static3keepmoreofwhatyouspenddecadesearning-091326', 'warm'],
@@ -115,6 +153,10 @@ const audienceCampaigns = [
   ['warm-bp4-static2connectyourincome-091326', 'warm'],
   ['warm-bp4-suppgrouppxr-091326', 'warm']
 ];
+
+test('covers all 34 newly supplied cold campaigns', () => {
+  assert.equal(newColdCampaigns.length, 34);
+});
 
 for (const [campaign, audience] of audienceCampaigns) {
   test(`maps ${campaign} to ${audience}`, () => {
@@ -135,6 +177,60 @@ test('does not infer warm from an unmapped warm-prefixed campaign', () => {
     url: 'https://go.managemoney101.com/october?utm_campaign=warm-new-unmapped-campaign'
   });
   assert.equal(result.attribution.getAudience(), 'unknown');
+});
+
+test('requires an exact match for the expanded cold campaign allowlist', () => {
+  const result = executeTracker({
+    url: 'https://go.managemoney101.com/october?utm_campaign=tg-h4-ch-91626-extra'
+  });
+  assert.equal(result.attribution.getAudience(), 'unknown');
+});
+
+test('reclassifies persisted current, first, and last touches after an allowlist expansion', () => {
+  const now = 2_000_000_000_000;
+  const campaign = 'tg-h4-ch-91626';
+  const savedTouch = {
+    utm_source: 'meta',
+    utm_campaign: campaign,
+    traffic_campaign: campaign,
+    traffic_audience: 'unknown'
+  };
+  const localStorage = new MemoryStorage({
+    october_challenge_attribution_v1: JSON.stringify({
+      first: savedTouch,
+      last: savedTouch,
+      expires_at: now + 60_000
+    })
+  });
+  const sessionStorage = new MemoryStorage({
+    october_challenge_current_attribution_v1: JSON.stringify({
+      touch: savedTouch,
+      expires_at: now + 60_000
+    })
+  });
+
+  const result = executeTracker({
+    url: 'https://go.managemoney101.com/regularticketoct',
+    localStorage,
+    sessionStorage,
+    now
+  });
+
+  assert.equal(result.attribution.getCampaign(), campaign);
+  assert.equal(result.attribution.getAudience(), 'cold');
+  assert.equal(result.attribution.getFirstTouch().traffic_audience, 'cold');
+  assert.equal(result.attribution.getLastTouch().traffic_audience, 'cold');
+});
+
+test('reports the expanded analytics version on tracker state and events', () => {
+  const result = executeTracker({
+    url: 'https://go.managemoney101.com/october?utm_campaign=tg-h4-ch-91626'
+  });
+  assert.equal(result.analytics.version, '2026-09-17.1');
+  assert.equal(
+    result.config.before_send({event: '$pageview', properties: {}}).properties.analytics_version,
+    '2026-09-17.1'
+  );
 });
 
 test('a new unknown tagged campaign replaces the current warm audience', () => {
