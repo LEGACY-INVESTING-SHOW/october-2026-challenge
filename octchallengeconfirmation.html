@@ -13,16 +13,17 @@
   <title>Challenge Confirmation | Tax-Free Income Challenge</title>
   <meta name="description" content="Your regular ticket for the October 2026 Tax-Free Income Challenge is confirmed.">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-sans-latin.6219bc4bfdfc.woff2" crossorigin>
+  <style>@font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/instrument-sans-latin.6219bc4bfdfc.woff2') format('woff2')}</style>
+  <link rel="stylesheet" href="/assets/css/fonts-sans.css" media="print" onload="this.onload=null;this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/fonts-sans.css"></noscript>
+
 
   <script>
-  var head = document.head;
   var script = document.createElement('script');
-  script.type = 'text/javascript';
+  script.async = true;
   script.src = "https://t.managemoney101.com/v1/lst/universal-script?ph=99701b257ae8a5117ba5d7b516261da603bc86a49c0c42f398c619e251026c05&tag=!clicked&ref_url=" + encodeURI(document.URL);
-  head.appendChild(script);
+  document.head.appendChild(script);
   </script>
 
   <script>
@@ -41,6 +42,7 @@
   spiffy.load("legacyinvestingshow");
   </script>
 
+  <link rel="preload" as="style" href="/confirmation.css">
   <link rel="stylesheet" href="/confirmation.css">
   <script defer src="/assets/js/challenge-analytics.js"></script>
 </head>

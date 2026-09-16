@@ -14,8 +14,10 @@
   <meta name="description" content="As a VIP member, get ready before Day 1 with the Challenge Prep Kit. Includes 27 Tax Strategy Cheatsheet, Anti-Inflation Pack, and Financial Diagnostic Calculator.">
 
   <!-- Early connection setup for third-party origins this page actually uses -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-sans-latin.6219bc4bfdfc.woff2" crossorigin>
+  <style>@font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/instrument-sans-latin.6219bc4bfdfc.woff2') format('woff2')}</style>
+  <link rel="stylesheet" href="/assets/css/fonts-sans.css" media="print" onload="this.onload=null;this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/fonts-sans.css"></noscript>
   <link rel="preconnect" href="https://player.vimeo.com" crossorigin>
   <link rel="preconnect" href="https://tracking.joinlwb.com">
   <link rel="dns-prefetch" href="https://212809.t.hyros.com">
@@ -24,11 +26,10 @@
   <link rel="dns-prefetch" href="https://f.vimeocdn.com">
 
   <script>
-  var head = document.head;
   var script = document.createElement('script');
-  script.type = 'text/javascript';
+  script.async = true;
   script.src = "https://212809.t.hyros.com/v1/lst/universal-script?ph=99701b257ae8a5117ba5d7b516261da603bc86a49c0c42f398c619e251026c05&tag=!clicked&ref_url=" + encodeURI(document.URL) ;
-  head.appendChild(script);
+  document.head.appendChild(script);
   </script>
 
   <!-- Spiffy Checkout -->
@@ -48,8 +49,6 @@
   spiffy.load("legacyinvestingshow");
   </script>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -313,6 +312,7 @@
     </symbol>
   </svg>
 
+  <main>
   <!-- Hero Section with Progress Bar -->
   <section class="hero">
     <div class="wrap wrap-md">
@@ -464,6 +464,7 @@
   </section>
 
   <!-- Footer -->
+  </main>
   <footer>
     <div class="wrap inner">
       <p>

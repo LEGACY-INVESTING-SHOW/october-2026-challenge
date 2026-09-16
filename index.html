@@ -3,6 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tax-Free Income Challenge | Preston Seo</title>
+  <meta name="description" content="Join the 3-Day Tax-Free Income Challenge with Preston Seo. Learn how to legally reduce your taxes, build tax-free wealth, and create monthly cash flow using proven strategies.">
+
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-sans-latin.6219bc4bfdfc.woff2" crossorigin>
+  <style>@font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/instrument-sans-latin.6219bc4bfdfc.woff2') format('woff2')}</style>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/newsreader-latin.2a69ec1c0fb7.woff2" crossorigin>
+  <link rel="preload" as="image" href="/assets/images/hero-thumbnail.webp" fetchpriority="high">
+  <link rel="stylesheet" href="/assets/css/fonts-sans.css" media="print" onload="this.onload=null;this.media='all'">
+  <link rel="stylesheet" href="/assets/css/fonts-serif.css" media="print" onload="this.onload=null;this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="/assets/css/fonts-sans.css">
+    <link rel="stylesheet" href="/assets/css/fonts-serif.css">
+  </noscript>
+
+  <link rel="preconnect" href="https://js.static.spiffy.co" crossorigin>
+  <link rel="dns-prefetch" href="https://t.managemoney101.com">
+  <link rel="dns-prefetch" href="https://connect.facebook.net">
+
   <!-- Meta Pixel -->
   <script>
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
@@ -10,26 +28,12 @@
   fbq('track', 'PageView');
   </script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1060951756340896&ev=PageView&noscript=1" /></noscript>
-  <title>Tax-Free Income Challenge | Preston Seo</title>
-  <meta name="description" content="Join the 3-Day Tax-Free Income Challenge with Preston Seo. Learn how to legally reduce your taxes, build tax-free wealth, and create monthly cash flow using proven strategies.">
-
-  <!-- Fonts: declared first so the render-blocking stylesheet is discovered
-       before the async tracking injectors below run. -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
-
-  <!-- Vimeo: player frame, thumbnail CDN, media CDN -->
-  <link rel="preconnect" href="https://player.vimeo.com" crossorigin>
-  <link rel="preconnect" href="https://i.vimeocdn.com" crossorigin>
-  <link rel="dns-prefetch" href="https://f.vimeocdn.com">
 
   <script>
-  var head = document.head;
   var script = document.createElement('script');
-  script.type = 'text/javascript';
+  script.async = true;
   script.src = "https://t.managemoney101.com/v1/lst/universal-script?ph=99701b257ae8a5117ba5d7b516261da603bc86a49c0c42f398c619e251026c05&tag=!clicked&ref_url=" + encodeURI(document.URL) ;
-  head.appendChild(script);
+  document.head.appendChild(script);
   </script>
 
   <script>
@@ -214,6 +218,25 @@
       box-shadow: 0 24px 50px -24px rgba(29,42,34,.35);
     }
     .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .video-frame .vimeo-facade {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      padding: 0; border: 0; cursor: pointer; background: var(--forest);
+      appearance: none; -webkit-appearance: none; z-index: 1;
+    }
+    .video-frame .vimeo-facade img { width: 100%; height: 100%; object-fit: cover; }
+    .video-frame .vimeo-play {
+      position: absolute; left: 50%; top: 50%; width: 4.75rem; height: 4.75rem;
+      margin: -2.375rem 0 0 -2.375rem; border-radius: 50%;
+      background: rgba(217,169,61,.95);
+      box-shadow: 0 10px 28px -10px rgba(0,0,0,.55);
+      pointer-events: none; z-index: 2;
+    }
+    .video-frame .vimeo-play::after {
+      content: ""; position: absolute; left: 54%; top: 50%;
+      transform: translate(-30%, -50%);
+      border: 12px solid transparent; border-left: 18px solid #221903;
+    }
+    .video-frame .vimeo-facade:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 
     .count-sep { color: var(--gold-deep); font-size: 1.5rem; font-weight: 400; line-height: 1.4; }
 
@@ -244,6 +267,7 @@
 
     /* ---------- Split layouts ---------- */
     .split { display: grid; gap: 2.5rem; align-items: center; }
+    .split > * { min-width: 0; }
     @media (min-width: 1024px) { .split { grid-template-columns: 1fr 1fr; gap: 4rem; } .split.start { align-items: start; } }
 
     .x-list > li { display: flex; gap: .85rem; align-items: flex-start; color: var(--ink-soft); }
@@ -449,8 +473,10 @@
     .free-lesson strong { color: var(--gold-ink); }
 
     /* ---------- About ---------- */
-    .about-imgs > div { border-radius: 1rem; overflow: hidden; border: 1px solid var(--line); }
+    .about-imgs { min-width: 0; }
+    .about-imgs > div { border-radius: 1rem; overflow: hidden; border: 1px solid var(--line); min-width: 0; }
     .about-imgs > div + div { margin-top: 1rem; }
+    .about-imgs img { width: 100%; height: auto; }
     .about h3 { font-family: var(--serif); font-size: clamp(1.5rem, 2.6vw, 2rem); margin: .6rem 0 1.4rem; }
     .about-text p { color: var(--ink-soft); }
     .about-text p + p { margin-top: 1rem; }
@@ -613,6 +639,7 @@
     .nx-apunch b{color:var(--green-mid)}
   </style>
   <script defer src="/assets/js/challenge-analytics.js"></script>
+  <script defer src="/assets/js/vimeo-facade.js"></script>
 </head>
 
 <body>
@@ -649,6 +676,7 @@
   </div>
 </header>
 
+<main>
 <!-- Top strip -->
 <div class="topstrip"><span class="l1">A Live 3-Day Tax-Free Income Challenge With Preston Seo</span><br>October 16&ndash;18, 2026</div>
 
@@ -680,7 +708,14 @@
       <!-- Right: Video + CTA -->
       <div style="display:flex;flex-direction:column;gap:1.4rem;">
         <div class="video-frame">
-          <iframe title="Tax-Free Income Challenge preview video" src="https://player.vimeo.com/video/1223003089?autoplay=0&title=0&byline=0&wmode=transparent&autopause=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="eager"></iframe>
+          <a href="https://player.vimeo.com/video/1223003089?autoplay=0&title=0&byline=0&wmode=transparent&autopause=0" target="_blank" rel="noopener" class="vimeo-facade" data-vimeo-src="https://player.vimeo.com/video/1223003089?autoplay=1&title=0&byline=0&wmode=transparent&autopause=0" aria-label="Play Tax-Free Income Challenge preview video">
+            <img src="/assets/images/hero-thumbnail.webp" alt="" width="1280" height="720" fetchpriority="high" decoding="async">
+            <span class="vimeo-play" aria-hidden="true"></span>
+          </a>
+          <noscript>
+            <style>.vimeo-facade { display: none !important; }</style>
+            <iframe title="Tax-Free Income Challenge preview video" src="https://player.vimeo.com/video/1223003089?autoplay=0&title=0&byline=0&wmode=transparent&autopause=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </noscript>
         </div>
 
         <div class="only-mobile" style="text-align:center;">
@@ -1857,6 +1892,7 @@
   </div>
 </section>
 
+</main>
 <!-- ═══════════════════════════════════════════════════
      FOOTER
      ═══════════════════════════════════════════════════ -->
