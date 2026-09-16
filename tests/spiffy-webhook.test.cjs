@@ -104,6 +104,7 @@ function validOrder(overrides = {}) {
       created_at: '2026-09-16T12:34:56.000Z',
     }],
     attribution: {
+      status: 'computed',
       first: {utm_campaign: 'bp4-giftshoppxr-091326'},
       last: {
         utm_source: 'facebook',
@@ -320,7 +321,7 @@ test('resolves a signed order and sends one linked purchase using the earliest s
   assert.equal(res.statusCode, 200);
   assert.equal(calls.length, 2);
   assert.equal(calls[0].options.headers.Authorization, `Bearer ${SPIFFY_API_KEY}`);
-  assert.match(calls[0].url, /\/v2\/orders\/12345\?include=fields,payments,checkout,attribution$/);
+  assert.match(calls[0].url, /\/v2\/orders\/12345\?include=fields,payments,checkout,attribution,checkoutview$/);
 
   const event = JSON.parse(calls[1].options.body);
   assert.equal(event.api_key, POSTHOG_TOKEN);
@@ -333,6 +334,7 @@ test('resolves a signed order and sends one linked purchase using the earliest s
   assert.equal(event.properties.currency, 'USD');
   assert.equal(event.properties.offer, 'regular_ticket');
   assert.equal(event.properties.identity_linked, true);
+  assert.equal(event.properties.attribution_source, 'computed');
   assert.equal(event.properties.traffic_audience, 'cold');
   assert.equal(event.properties.first_utm_campaign, 'bp4-giftshoppxr-091326');
   assert.equal(event.properties.first_traffic_audience, 'cold');
@@ -345,6 +347,7 @@ test('uses a stable unlinked order identity while preserving verified warm attri
     fields: [],
     checkout: {id: 40203, account_id: 3074},
     attribution: {
+      status: 'computed',
       first: {utm_campaign: 'warm-bp4-giftshoppxr-09132'},
       last: {utm_campaign: 'warm-bp4-static1paycheck401kwhiteboard-091326'},
     },
@@ -361,7 +364,7 @@ test('uses a stable unlinked order identity while preserving verified warm attri
   assert.equal(event.properties.utm_campaign, 'warm-bp4-static1paycheck401kwhiteboard-091326');
 });
 
-test('normalizes null and non-object attribution touches without dropping a paid order', async () => {
+test('accepts computed direct attribution with null touches as a legitimate unknown audience', async () => {
   process.env.SPIFFY_WEBHOOK_DIAGNOSTIC = 'false';
   assert.deepEqual(handler._test.attributionProperties({first: null, last: null}), {
     traffic_campaign: '',
@@ -376,13 +379,80 @@ test('normalizes null and non-object attribution touches without dropping a paid
     traffic_audience: 'cold',
   });
 
-  const order = validOrder({attribution: {first: null, last: null}});
+  const order = validOrder({
+    attribution: {status: 'computed', first: null, last: null},
+    checkoutview: {utm_campaign: 'warm-bp4-suppgrouppxr-091326'},
+  });
   const calls = installFetchMock({order});
   const res = await invoke({body: JSON.stringify(webhookPayload(order.id))});
   assert.equal(res.statusCode, 200);
   assert.equal(calls.length, 2);
   const event = JSON.parse(calls[1].options.body);
+  assert.equal(event.properties.attribution_source, 'computed');
   assert.equal(event.properties.traffic_audience, 'unknown');
+});
+
+test('uses tagged checkout-view attribution while canonical attribution is still pending', async () => {
+  process.env.SPIFFY_WEBHOOK_DIAGNOSTIC = 'false';
+  const cases = [
+    {
+      campaign: 'warm-bp4-suppgrouppxr-091326',
+      expectedAudience: 'warm',
+      status: 'pending',
+    },
+    {
+      campaign: 'bp4-giftshoppxr-091326',
+      expectedAudience: 'cold',
+      status: 'processing',
+    },
+  ];
+
+  for (const {campaign, expectedAudience, status} of cases) {
+    const order = validOrder({
+      attribution: {status, first: null, last: null},
+      checkoutview: {
+        utm_source: 'facebook',
+        utm_medium: 'paid-social',
+        utm_campaign: campaign,
+        utm_content: '120123456789012',
+        utm_term: 'retirement',
+      },
+    });
+    const calls = installFetchMock({order});
+    const res = await invoke({body: JSON.stringify(webhookPayload(order.id))});
+
+    assert.equal(res.statusCode, 200);
+    assert.equal(calls.length, 2);
+    const event = JSON.parse(calls[1].options.body);
+    assert.equal(event.properties.attribution_source, 'checkoutview');
+    assert.equal(event.properties.utm_campaign, campaign);
+    assert.equal(event.properties.traffic_audience, expectedAudience);
+    assert.equal(event.properties.utm_source, 'facebook');
+    assert.equal(event.properties.utm_content, '120123456789012');
+    assert.equal(Object.hasOwn(event.properties, 'first_utm_campaign'), false);
+  }
+});
+
+test('keeps delivery retryable when neither computed attribution nor a tagged checkout view is available', async () => {
+  process.env.SPIFFY_WEBHOOK_DIAGNOSTIC = 'false';
+
+  for (const {attribution, checkoutview} of [
+    {attribution: {status: 'pending', first: null, last: null}, checkoutview: {}},
+    {
+      attribution: {status: 'processing', first: null, last: null},
+      checkoutview: {utm_source: 'facebook'},
+    },
+    {attribution: {first: null, last: null}, checkoutview: null},
+    {attribution: null, checkoutview: null},
+  ]) {
+    const order = validOrder({attribution, checkoutview});
+    const calls = installFetchMock({order});
+    const res = await invoke({body: JSON.stringify(webhookPayload(order.id))});
+
+    assert.equal(res.statusCode, 503);
+    assert.deepEqual(JSON.parse(res.body), {error: 'Order is not ready'});
+    assert.equal(calls.length, 1);
+  }
 });
 
 test('retries use the same event uuid and insert id for PostHog deduplication', async () => {
@@ -469,6 +539,7 @@ test('does not send customer, contact, field, or raw URL data to PostHog', async
       {field_name: 'contact_notes', value: privateValues[4]},
     ],
     attribution: {
+      status: 'computed',
       first: {utm_campaign: 'bp4-giftshoppxr-091326'},
       last: {utm_campaign: 'bp4-giftshoppxr-091326', utm_term: privateValues[0]},
     },
