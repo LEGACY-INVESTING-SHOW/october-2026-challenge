@@ -321,7 +321,7 @@ test('resolves a signed order and sends one linked purchase using the earliest s
   assert.equal(res.statusCode, 200);
   assert.equal(calls.length, 2);
   assert.equal(calls[0].options.headers.Authorization, `Bearer ${SPIFFY_API_KEY}`);
-  assert.match(calls[0].url, /\/v2\/orders\/12345\?include=fields,payments,checkout,attribution$/);
+  assert.match(calls[0].url, /\/v2\/orders\/12345\?include=fields,payments,checkout,attribution,checkoutview$/);
 
   const event = JSON.parse(calls[1].options.body);
   assert.equal(event.api_key, POSTHOG_TOKEN);
@@ -334,6 +334,7 @@ test('resolves a signed order and sends one linked purchase using the earliest s
   assert.equal(event.properties.currency, 'USD');
   assert.equal(event.properties.offer, 'regular_ticket');
   assert.equal(event.properties.identity_linked, true);
+  assert.equal(event.properties.attribution_source, 'computed');
   assert.equal(event.properties.traffic_audience, 'cold');
   assert.equal(event.properties.first_utm_campaign, 'bp4-giftshoppxr-091326');
   assert.equal(event.properties.first_traffic_audience, 'cold');
@@ -378,25 +379,73 @@ test('accepts computed direct attribution with null touches as a legitimate unkn
     traffic_audience: 'cold',
   });
 
-  const order = validOrder({attribution: {status: 'computed', first: null, last: null}});
+  const order = validOrder({
+    attribution: {status: 'computed', first: null, last: null},
+    checkoutview: {utm_campaign: 'warm-bp4-suppgrouppxr-091326'},
+  });
   const calls = installFetchMock({order});
   const res = await invoke({body: JSON.stringify(webhookPayload(order.id))});
   assert.equal(res.statusCode, 200);
   assert.equal(calls.length, 2);
   const event = JSON.parse(calls[1].options.body);
+  assert.equal(event.properties.attribution_source, 'computed');
   assert.equal(event.properties.traffic_audience, 'unknown');
 });
 
-test('keeps delivery retryable until canonical attribution is computed', async () => {
+test('uses tagged checkout-view attribution while canonical attribution is still pending', async () => {
+  process.env.SPIFFY_WEBHOOK_DIAGNOSTIC = 'false';
+  const cases = [
+    {
+      campaign: 'warm-bp4-suppgrouppxr-091326',
+      expectedAudience: 'warm',
+      status: 'pending',
+    },
+    {
+      campaign: 'bp4-giftshoppxr-091326',
+      expectedAudience: 'cold',
+      status: 'processing',
+    },
+  ];
+
+  for (const {campaign, expectedAudience, status} of cases) {
+    const order = validOrder({
+      attribution: {status, first: null, last: null},
+      checkoutview: {
+        utm_source: 'facebook',
+        utm_medium: 'paid-social',
+        utm_campaign: campaign,
+        utm_content: '120123456789012',
+        utm_term: 'retirement',
+      },
+    });
+    const calls = installFetchMock({order});
+    const res = await invoke({body: JSON.stringify(webhookPayload(order.id))});
+
+    assert.equal(res.statusCode, 200);
+    assert.equal(calls.length, 2);
+    const event = JSON.parse(calls[1].options.body);
+    assert.equal(event.properties.attribution_source, 'checkoutview');
+    assert.equal(event.properties.utm_campaign, campaign);
+    assert.equal(event.properties.traffic_audience, expectedAudience);
+    assert.equal(event.properties.utm_source, 'facebook');
+    assert.equal(event.properties.utm_content, '120123456789012');
+    assert.equal(Object.hasOwn(event.properties, 'first_utm_campaign'), false);
+  }
+});
+
+test('keeps delivery retryable when neither computed attribution nor a tagged checkout view is available', async () => {
   process.env.SPIFFY_WEBHOOK_DIAGNOSTIC = 'false';
 
-  for (const attribution of [
-    {status: 'pending', first: null, last: null},
-    {status: 'processing', first: null, last: null},
-    {first: null, last: null},
-    null,
+  for (const {attribution, checkoutview} of [
+    {attribution: {status: 'pending', first: null, last: null}, checkoutview: {}},
+    {
+      attribution: {status: 'processing', first: null, last: null},
+      checkoutview: {utm_source: 'facebook'},
+    },
+    {attribution: {first: null, last: null}, checkoutview: null},
+    {attribution: null, checkoutview: null},
   ]) {
-    const order = validOrder({attribution});
+    const order = validOrder({attribution, checkoutview});
     const calls = installFetchMock({order});
     const res = await invoke({body: JSON.stringify(webhookPayload(order.id))});
 

@@ -294,6 +294,25 @@ function attributionProperties(attribution) {
   return output;
 }
 
+function resolvePurchaseAttribution(order) {
+  if (isAttributionComputed(order.attribution)) {
+    return {attribution: order.attribution, source: 'computed'};
+  }
+
+  const checkoutview = order.checkoutview;
+  if (!checkoutview || typeof checkoutview !== 'object' || Array.isArray(checkoutview) ||
+      redactTag(checkoutview.utm_campaign) === null) {
+    return null;
+  }
+
+  const last = {};
+  for (const name of ['source', 'medium', 'campaign', 'content', 'term']) {
+    const key = `utm_${name}`;
+    last[key] = checkoutview[key];
+  }
+  return {attribution: {first: null, last}, source: 'checkoutview'};
+}
+
 function linkedDistinctId(fields) {
   if (!Array.isArray(fields)) return null;
   const uuidPattern = /^(?:\$device:)?[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -353,7 +372,7 @@ function timeoutFetch(url, options, fetchImpl = global.fetch) {
 
 async function fetchSpiffyOrder(orderId, apiKey, fetchImpl = global.fetch) {
   const response = await timeoutFetch(
-    `https://api.spiffy.co/v2/orders/${orderId}?include=fields,payments,checkout,attribution`,
+    `https://api.spiffy.co/v2/orders/${orderId}?include=fields,payments,checkout,attribution,checkoutview`,
     {
       method: 'GET',
       headers: {
@@ -391,7 +410,8 @@ function buildPurchaseEvent(order, expectedOrderId, posthogToken) {
 
   const payment = firstSuccessfulPayment(order.payments);
   if (!payment) return {kind: 'retry'};
-  if (!isAttributionComputed(order.attribution)) return {kind: 'retry'};
+  const resolvedAttribution = resolvePurchaseAttribution(order);
+  if (!resolvedAttribution) return {kind: 'retry'};
 
   const linkedId = linkedDistinctId(order.fields);
   const distinctId = linkedId || `spiffy-order-${orderId}`;
@@ -409,8 +429,9 @@ function buildPurchaseEvent(order, expectedOrderId, posthogToken) {
     order_id: orderId,
     payment_id: payment.id,
     payment_status: 'succeeded',
+    attribution_source: resolvedAttribution.source,
     tracking_source: 'spiffy_webhook',
-    ...attributionProperties(order.attribution),
+    ...attributionProperties(resolvedAttribution.attribution),
   };
   return {
     kind: 'event',
