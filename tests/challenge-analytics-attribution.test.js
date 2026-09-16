@@ -139,6 +139,14 @@ const newColdCampaigns = [
   'trashcan-h2-ch-91626'
 ];
 
+const newWarmCampaigns = [
+  'warm-sameret-h5-ch-91626',
+  'warm-aprilmirror-h1-ch-91626',
+  'warm-tg-h1-ch-91626',
+  'warm-401k-h1-ch-91626',
+  'warm-trashcan-h1-ch-91626'
+];
+
 const audienceCampaigns = [
   ['bp4-suppgrouppxr-091326', 'cold'],
   ['bp4-static2connectyourincome-091326', 'cold'],
@@ -151,11 +159,16 @@ const audienceCampaigns = [
   ['warm-bp4-static3keepmoreofwhatyouspenddecadesearning-091326', 'warm'],
   ['warm-bp4-static1paycheck401kwhiteboard-091326', 'warm'],
   ['warm-bp4-static2connectyourincome-091326', 'warm'],
-  ['warm-bp4-suppgrouppxr-091326', 'warm']
+  ['warm-bp4-suppgrouppxr-091326', 'warm'],
+  ...newWarmCampaigns.map((campaign) => [campaign, 'warm'])
 ];
 
 test('covers all 34 newly supplied cold campaigns', () => {
   assert.equal(newColdCampaigns.length, 34);
+});
+
+test('covers all five newly supplied warm campaigns', () => {
+  assert.equal(newWarmCampaigns.length, 5);
 });
 
 for (const [campaign, audience] of audienceCampaigns) {
@@ -182,6 +195,13 @@ test('does not infer warm from an unmapped warm-prefixed campaign', () => {
 test('requires an exact match for the expanded cold campaign allowlist', () => {
   const result = executeTracker({
     url: 'https://go.managemoney101.com/october?utm_campaign=tg-h4-ch-91626-extra'
+  });
+  assert.equal(result.attribution.getAudience(), 'unknown');
+});
+
+test('requires an exact match for the expanded warm campaign allowlist', () => {
+  const result = executeTracker({
+    url: 'https://go.managemoney101.com/october?utm_campaign=warm-sameret-h5-ch-91626-extra'
   });
   assert.equal(result.attribution.getAudience(), 'unknown');
 });
@@ -222,14 +242,14 @@ test('reclassifies persisted current, first, and last touches after an allowlist
   assert.equal(result.attribution.getLastTouch().traffic_audience, 'cold');
 });
 
-test('reports the expanded analytics version on tracker state and events', () => {
+test('reports the current analytics version on tracker state and events', () => {
   const result = executeTracker({
     url: 'https://go.managemoney101.com/october?utm_campaign=tg-h4-ch-91626'
   });
-  assert.equal(result.analytics.version, '2026-09-17.1');
+  assert.equal(result.analytics.version, '2026-09-17.2');
   assert.equal(
     result.config.before_send({event: '$pageview', properties: {}}).properties.analytics_version,
-    '2026-09-17.1'
+    '2026-09-17.2'
   );
 });
 
