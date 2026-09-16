@@ -14,23 +14,22 @@
   <meta name="description" content="Join the 3-Day Tax-Free Income Challenge. Learn how to cut taxes, eliminate debt, and build $5K-$15K monthly income.">
 
   <!-- Resource hints: open connections to third-party origins this page actually uses -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-sans-latin.woff2" crossorigin>
+  <style>@font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/instrument-sans-latin.woff2') format('woff2')}</style>
+  <link rel="stylesheet" href="/assets/css/fonts-sans.css" media="print" onload="this.onload=null;this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/fonts-sans.css"></noscript>
   <link rel="preconnect" href="https://images.clickfunnels.com">
   <link rel="preconnect" href="https://legacyinvestingshow.spiffy.co">
   <link rel="dns-prefetch" href="https://tracking.joinlwb.com">
   <link rel="dns-prefetch" href="https://212809.t.hyros.com">
   <link rel="dns-prefetch" href="https://js.static.spiffy.co">
 
-  <!-- Start the font CSS fetch before the tracking scripts parse (non-blocking) -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
 
   <script>
-  var head = document.head;
   var script = document.createElement('script');
-  script.type = 'text/javascript';
+  script.async = true;
   script.src = "https://212809.t.hyros.com/v1/lst/universal-script?ph=99701b257ae8a5117ba5d7b516261da603bc86a49c0c42f398c619e251026c05&tag=!clicked&ref_url=" + encodeURI(document.URL) ;
-  head.appendChild(script);
+  document.head.appendChild(script);
   </script>
 
   <!-- Spiffy Checkout -->
@@ -50,8 +49,6 @@
   if (location.protocol === "https:") spiffy.load("legacyinvestingshow");
   </script>
 
-<!-- Fonts (already in flight from the preload above; served from the preload cache) -->
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -234,6 +231,7 @@
   })();
   </script>
 
+  <link rel="preload" as="style" href="/checkout.css">
   <link rel="stylesheet" href="checkout.css">
 
   <script defer src="/assets/js/challenge-analytics.js"></script>
@@ -271,6 +269,7 @@
 <!-- ═══════════════════════════════════════════════════
      HERO
      ═══════════════════════════════════════════════════ -->
+<main>
 <header class="checkout-header wrap">
   <h1>General Admission</h1>
   <div class="deadline" role="timer">
@@ -382,7 +381,7 @@
      ═══════════════════════════════════════════════════ -->
 <section class="band-paper host-section">
   <div class="wrap host">
-    <img class="host-photo" src="/assets/images/host-preston.webp" alt="Preston Seo and his wife" width="800" height="1000" loading="lazy" decoding="async">
+    <img class="host-photo" src="/assets/images/host-preston.webp" alt="Preston Seo and his wife" width="720" height="900" loading="lazy" decoding="async">
     <div class="host-body">
       <h2 class="display">Your host, Preston Seo</h2>
       <p>By 28, Preston was financially free. He and his wife built a $20M+ real estate portfolio and saved over $500,000 in taxes using the same strategies he teaches in this challenge.</p>
@@ -404,7 +403,7 @@
 
     <div class="tri-grid">
       <div class="card t-card">
-        <div class="t-frame"><img class="t-photo" src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/17837960/file/d9184caaf06cf40dc04b0794749c427e.png" alt="Dustin" loading="lazy" decoding="async" width="608" height="760"></div>
+        <div class="t-frame"><img class="t-photo" src="https://images.clickfunnels.com/cdn-cgi/image/width=640px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/17837960/file/d9184caaf06cf40dc04b0794749c427e.png" alt="Dustin" loading="lazy" decoding="async" width="608" height="760"></div>
         <div class="t-body">
           <div class="stars">
             <svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg>
@@ -418,7 +417,7 @@
       </div>
 
       <div class="card t-card">
-        <div class="t-frame"><img class="t-photo" src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/18197690/file/5ac324c992b717212c1a7555111d1a18.png" alt="Abigail" loading="lazy" decoding="async" width="660" height="658"></div>
+        <div class="t-frame"><img class="t-photo" src="https://images.clickfunnels.com/cdn-cgi/image/width=640px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/18197690/file/5ac324c992b717212c1a7555111d1a18.png" alt="Abigail" loading="lazy" decoding="async" width="660" height="658"></div>
         <div class="t-body">
           <div class="stars">
             <svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg>
@@ -432,7 +431,7 @@
       </div>
 
       <div class="card t-card">
-        <div class="t-frame"><img class="t-photo" src="https://images.clickfunnels.com/cdn-cgi/image/width=1000px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/18197688/file/1965672907e45a222161bb3832ff8b3a.png" alt="Galin" loading="lazy" decoding="async" width="650" height="868"></div>
+        <div class="t-frame"><img class="t-photo" src="https://images.clickfunnels.com/cdn-cgi/image/width=640px,fit=scale-down,f=auto,q=80/https://statics.myclickfunnels.com/workspace/JDNxNX/image/18197688/file/1965672907e45a222161bb3832ff8b3a.png" alt="Galin" loading="lazy" decoding="async" width="650" height="868"></div>
         <div class="t-body">
           <div class="stars">
             <svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg><svg aria-hidden="true"><use href="#star-icon"/></svg>
@@ -516,6 +515,7 @@
   </div>
 </section>
 
+</main>
 <!-- ═══════════════════════════════════════════════════
      FOOTER
      ═══════════════════════════════════════════════════ -->

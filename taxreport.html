@@ -15,29 +15,27 @@
 
     <!-- Resource hints: warm up third-party origins this page actually uses.
          Kept first in <head> so DNS/TLS starts before the tracking snippets run. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-sans-latin.woff2" crossorigin>
+    <link rel="preload" as="image" href="/assets/images/vimeo-taxreport.webp" fetchpriority="high">
+    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/newsreader-latin.woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/fonts-sans.css" media="print" onload="this.onload=null;this.media='all'">
+    <link rel="stylesheet" href="/assets/css/fonts-serif.css" media="print" onload="this.onload=null;this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="/assets/css/fonts-sans.css">
+      <link rel="stylesheet" href="/assets/css/fonts-serif.css">
+    </noscript>
     <!-- No crossorigin below: these are iframe/classic-script fetches (credentialed),
          so an anonymous preconnect would open a second, unused connection. -->
-    <link rel="preconnect" href="https://player.vimeo.com">
     <link rel="preconnect" href="https://tracking.joinlwb.com">
     <link rel="preconnect" href="https://js.static.spiffy.co">
     <link rel="dns-prefetch" href="https://212809.t.hyros.com">
-    <link rel="dns-prefetch" href="https://f.vimeocdn.com">
-    <link rel="dns-prefetch" href="https://i.vimeocdn.com">
 
-    <!-- Fonts (preconnects are declared at the top of <head>).
-         The preload raises the font CSS to highest priority; the stylesheet link
-         below still applies it normally, so rendering is unchanged. -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
     <script>
-    var head = document.head;
     var script = document.createElement('script');
-    script.type = 'text/javascript';
+    script.async = true;
     script.src = "https://212809.t.hyros.com/v1/lst/universal-script?ph=99701b257ae8a5117ba5d7b516261da603bc86a49c0c42f398c619e251026c05&tag=!clicked&ref_url=" + encodeURI(document.URL) ;
-    head.appendChild(script);
+    document.head.appendChild(script);
     </script>
 
     <!-- Spiffy Checkout -->
@@ -168,6 +166,24 @@
         max-width: 60rem; margin: clamp(2rem, 4vw, 3rem) auto 0;
       }
       .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+      .video-frame .vimeo-facade {
+        position: absolute; inset: 0; width: 100%; height: 100%;
+        padding: 0; border: 0; cursor: pointer; background: var(--forest);
+      }
+      .video-frame .vimeo-facade img { width: 100%; height: 100%; object-fit: cover; }
+      .video-frame .vimeo-play {
+        position: absolute; left: 50%; top: 50%; width: 4.25rem; height: 4.25rem;
+        margin: -2.125rem 0 0 -2.125rem; border-radius: 50%;
+        background: rgba(217,169,61,.95);
+        box-shadow: 0 10px 28px -10px rgba(0,0,0,.55);
+        pointer-events: none;
+      }
+      .video-frame .vimeo-play::after {
+        content: ""; position: absolute; left: 54%; top: 50%;
+        transform: translate(-30%, -50%);
+        border: 12px solid transparent; border-left: 18px solid #221903;
+      }
+      .video-frame .vimeo-facade:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
       .vsl-actions {
         max-width: 42rem; margin: 1.25rem auto 0;
         display: grid; gap: .8rem; justify-items: stretch;
@@ -407,6 +423,7 @@
     </style>
 
     <script defer src="/assets/js/challenge-analytics.js"></script>
+    <script defer src="/assets/js/vimeo-facade.js"></script>
 </head>
 <body>
     <script>
@@ -449,6 +466,7 @@
       <symbol id="i-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
     </svg>
 
+    <main>
     <!-- ═══════════════════════════════════════════════════
          UPSELL ALERT BAR
          ═══════════════════════════════════════════════════ -->
@@ -477,9 +495,14 @@
             </div>
 
             <div id="vsl" class="video-frame">
-                <!-- Above the fold: must stay loading="eager". width/height give the
-                     intrinsic 16:9 ratio; the CSS above still sizes it to the frame. -->
-                <iframe src="https://player.vimeo.com/video/1151644607?autoplay=0&title=0&byline=0" title="Upsell Video" width="1600" height="900" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="eager"></iframe>
+                <!-- Poster first; Vimeo player.js loads on play (autoplay was already off). -->
+                <button type="button" class="vimeo-facade" data-vimeo-src="https://player.vimeo.com/video/1151644607?autoplay=1&title=0&byline=0" data-vimeo-width="1600" data-vimeo-height="900" aria-label="Play upsell video">
+                    <img src="/assets/images/vimeo-taxreport.webp" alt="" width="1600" height="900" fetchpriority="high" decoding="async">
+                    <span class="vimeo-play" aria-hidden="true"></span>
+                </button>
+                <noscript>
+                    <iframe src="https://player.vimeo.com/video/1151644607?autoplay=0&title=0&byline=0" title="Upsell Video" width="1600" height="900" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                </noscript>
             </div>
             <div class="vsl-actions" aria-label="Tax report offer actions below video">
                 <a href="https://legacyinvestingshow.spiffy.co/offer/6XDRJspuj" class="btn btn-gold btn-xl btn-block">
@@ -1002,6 +1025,7 @@
             </div>
         </div>
     </aside>
+    </main>
 
     <script>
         const stickyCta = document.getElementById('sticky-cta');
