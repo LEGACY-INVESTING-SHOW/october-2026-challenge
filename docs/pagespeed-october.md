@@ -22,6 +22,9 @@ Video provider impressions will begin when the deferred player loads, rather tha
 - The preview tracker matches the current production-source tracker byte-for-byte.
 - Preview tracker response: HTTP 200 with `max-age=0, must-revalidate`; internal `POSTHOG.md` returns 404.
 - Preview font response: HTTP 200 with `max-age=31536000, immutable` for a content-hashed URL.
+- Authenticated HTTPS preview: both payment forms load at $47/$147, preserve exact campaign tags, and retain the hidden optional `fbclid` value. No purchase was submitted.
+- Preview Vimeo players on landing, VIP upgrade, and both tax-report pages advanced with `paused=false`; prep-kit eager autoplay also played. Aside's locator click bypassed DOM events, so its playback check used event activation. An independent in-app browser at 390px confirmed a normal link click replaces the hero poster with the correct inline iframe without navigating away; that browser did not expose a playable Vimeo frame on localhost. Full playback on an actual mobile device remains unverified.
+- Layout checks found no horizontal overflow at 1440px on the preview or 390px locally. Browser sessions and local benchmark servers were closed.
 - Preview: https://october-2026-challenge-pa0pl2tbz-legacy-investing-show.vercel.app (Vercel authentication required).
 - Preview deployment: `dpl_4P2sVtUQ3tZTpemSJCyEd2y31nMe`, Ready. No production deployment or merge performed for this review.
 
