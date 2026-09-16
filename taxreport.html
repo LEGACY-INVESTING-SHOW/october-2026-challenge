@@ -15,9 +15,9 @@
 
     <!-- Resource hints: warm up third-party origins this page actually uses.
          Kept first in <head> so DNS/TLS starts before the tracking snippets run. -->
-    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-sans-latin.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-sans-latin.6219bc4bfdfc.woff2" crossorigin>
     <link rel="preload" as="image" href="/assets/images/vimeo-taxreport.webp" fetchpriority="high">
-    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/newsreader-latin.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/newsreader-latin.2a69ec1c0fb7.woff2" crossorigin>
     <link rel="stylesheet" href="/assets/css/fonts-sans.css" media="print" onload="this.onload=null;this.media='all'">
     <link rel="stylesheet" href="/assets/css/fonts-serif.css" media="print" onload="this.onload=null;this.media='all'">
     <noscript>
@@ -501,12 +501,13 @@
 
             <div id="vsl" class="video-frame">
                 <!-- Poster first; Vimeo player.js loads on play (autoplay was already off). -->
-                <button type="button" class="vimeo-facade" data-vimeo-src="https://player.vimeo.com/video/1151644607?autoplay=1&title=0&byline=0" data-vimeo-width="1600" data-vimeo-height="900" aria-label="Play upsell video">
+                <a href="https://player.vimeo.com/video/1151644607?autoplay=0&title=0&byline=0" target="_blank" rel="noopener" class="vimeo-facade" data-vimeo-src="https://player.vimeo.com/video/1151644607?autoplay=1&title=0&byline=0" data-vimeo-width="1600" data-vimeo-height="900" aria-label="Play upsell video">
                     <img src="/assets/images/vimeo-taxreport.webp" alt="" width="1600" height="900" fetchpriority="high" decoding="async">
                     <span class="vimeo-play" aria-hidden="true"></span>
-                </button>
+                </a>
                 <noscript>
-                    <iframe src="https://player.vimeo.com/video/1151644607?autoplay=0&title=0&byline=0" title="Upsell Video" width="1600" height="900" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                    <style>.vimeo-facade { display: none !important; }</style>
+            <iframe src="https://player.vimeo.com/video/1151644607?autoplay=0&title=0&byline=0" title="Upsell Video" width="1600" height="900" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                 </noscript>
             </div>
             <div class="vsl-actions" aria-label="Tax report offer actions below video">

@@ -6,9 +6,9 @@
   <title>Tax-Free Income Challenge | Preston Seo</title>
   <meta name="description" content="Join the 3-Day Tax-Free Income Challenge with Preston Seo. Learn how to legally reduce your taxes, build tax-free wealth, and create monthly cash flow using proven strategies.">
 
-  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-sans-latin.woff2" crossorigin>
-  <style>@font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/instrument-sans-latin.woff2') format('woff2')}</style>
-  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/newsreader-latin.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-sans-latin.6219bc4bfdfc.woff2" crossorigin>
+  <style>@font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/instrument-sans-latin.6219bc4bfdfc.woff2') format('woff2')}</style>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/newsreader-latin.2a69ec1c0fb7.woff2" crossorigin>
   <link rel="preload" as="image" href="/assets/images/hero-thumbnail.webp" fetchpriority="high">
   <link rel="stylesheet" href="/assets/css/fonts-sans.css" media="print" onload="this.onload=null;this.media='all'">
   <link rel="stylesheet" href="/assets/css/fonts-serif.css" media="print" onload="this.onload=null;this.media='all'">
@@ -477,35 +477,6 @@
     .about-imgs > div { border-radius: 1rem; overflow: hidden; border: 1px solid var(--line); min-width: 0; }
     .about-imgs > div + div { margin-top: 1rem; }
     .about-imgs img { width: 100%; height: auto; }
-    .guest-strip {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: .5rem;
-      padding: .7rem .6rem .8rem;
-      background: var(--paper);
-    }
-    .guest-card { min-width: 0; text-align: center; position: relative; }
-    .guest-card img {
-      width: 100%; aspect-ratio: 1; object-fit: cover; object-position: center 30%;
-      border-radius: .5rem; background: var(--cream);
-    }
-    .guest-name { margin-top: .4rem; font-size: .72rem; font-weight: 700; line-height: 1.2; color: var(--ink); }
-    .guest-role { margin-top: .12rem; font-size: .62rem; line-height: 1.25; color: var(--ink-faint); }
-    .guest-card.is-featured img { outline: 2px solid var(--gold); outline-offset: -2px; }
-    .guest-featured {
-      position: absolute; top: .4rem; left: 50%; transform: translateX(-50%);
-      font-size: .55rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-      color: var(--gold-ink); background: var(--gold-tint); border-radius: .3rem; padding: .12rem .35rem;
-      white-space: nowrap;
-    }
-    @media (max-width: 639px) {
-      .guest-strip { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .65rem; padding: .85rem; }
-      .guest-card { grid-column: span 2; }
-      .guest-card:nth-child(4),
-      .guest-card:nth-child(5) { grid-column: span 3; max-width: 12rem; justify-self: center; width: 100%; }
-      .guest-name { font-size: .82rem; }
-      .guest-role { font-size: .7rem; }
-    }
     .about h3 { font-family: var(--serif); font-size: clamp(1.5rem, 2.6vw, 2rem); margin: .6rem 0 1.4rem; }
     .about-text p { color: var(--ink-soft); }
     .about-text p + p { margin-top: 1rem; }
@@ -737,11 +708,12 @@
       <!-- Right: Video + CTA -->
       <div style="display:flex;flex-direction:column;gap:1.4rem;">
         <div class="video-frame">
-          <button type="button" class="vimeo-facade" data-vimeo-src="https://player.vimeo.com/video/1223003089?autoplay=1&title=0&byline=0&wmode=transparent&autopause=0" aria-label="Play Tax-Free Income Challenge preview video">
+          <a href="https://player.vimeo.com/video/1223003089?autoplay=0&title=0&byline=0&wmode=transparent&autopause=0" target="_blank" rel="noopener" class="vimeo-facade" data-vimeo-src="https://player.vimeo.com/video/1223003089?autoplay=1&title=0&byline=0&wmode=transparent&autopause=0" aria-label="Play Tax-Free Income Challenge preview video">
             <img src="/assets/images/hero-thumbnail.webp" alt="" width="1280" height="720" fetchpriority="high" decoding="async">
             <span class="vimeo-play" aria-hidden="true"></span>
-          </button>
+          </a>
           <noscript>
+            <style>.vimeo-facade { display: none !important; }</style>
             <iframe title="Tax-Free Income Challenge preview video" src="https://player.vimeo.com/video/1223003089?autoplay=0&title=0&byline=0&wmode=transparent&autopause=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
           </noscript>
         </div>
@@ -1740,35 +1712,8 @@
     <div class="split">
       <!-- Images -->
       <div class="about-imgs">
-        <div class="guest-strip">
-          <article class="guest-card">
-            <img src="/assets/images/guest-dalio.webp" alt="" width="360" height="360" loading="lazy" decoding="async">
-            <p class="guest-name">Ray Dalio</p>
-            <p class="guest-role">Author of Principles</p>
-          </article>
-          <article class="guest-card">
-            <img src="/assets/images/guest-kiyosaki.webp" alt="" width="360" height="360" loading="lazy" decoding="async">
-            <p class="guest-name">Robert Kiyosaki</p>
-            <p class="guest-role">Rich Dad Poor Dad</p>
-          </article>
-          <article class="guest-card is-featured">
-            <img src="/assets/images/guest-preston.webp" alt="" width="360" height="360" loading="lazy" decoding="async">
-            <span class="guest-featured">Featured</span>
-            <p class="guest-name">Preston Seo</p>
-            <p class="guest-role">Legacy Investing Show</p>
-          </article>
-          <article class="guest-card">
-            <img src="/assets/images/guest-daymond.webp" alt="" width="360" height="360" loading="lazy" decoding="async">
-            <p class="guest-name">Daymond John</p>
-            <p class="guest-role">Shark Tank</p>
-          </article>
-          <article class="guest-card">
-            <img src="/assets/images/guest-cuban.webp" alt="" width="360" height="360" loading="lazy" decoding="async">
-            <p class="guest-name">Mark Cuban</p>
-            <p class="guest-role">Shark Tank</p>
-          </article>
-        </div>
-        <div><img src="/assets/images/23-abigail-case-study.webp" alt="Preston with Pace Morby and Dean Graziosi" width="1000" height="318" loading="lazy" decoding="async"></div>
+        <div><img src="/assets/images/24-preston-about-1.webp" alt="Preston featured alongside Ray Dalio, Robert Kiyosaki, Daymond John" width="1000" height="378" loading="lazy" decoding="async" style="width:500px;max-width:100%"></div>
+        <div><img src="/assets/images/23-abigail-case-study.webp" alt="Preston with Pace Morby and Dean Graziosi" width="1000" height="318" loading="lazy" decoding="async" style="width:500px;max-width:100%"></div>
       </div>
 
       <!-- Text -->

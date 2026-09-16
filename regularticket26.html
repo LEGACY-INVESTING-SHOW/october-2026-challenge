@@ -14,8 +14,8 @@
   <meta name="description" content="Join the 3-Day Tax-Free Income Challenge. Learn how to cut taxes, eliminate debt, and build $5K-$15K monthly income.">
 
   <!-- Resource hints: open connections to third-party origins this page actually uses -->
-  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-sans-latin.woff2" crossorigin>
-  <style>@font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/instrument-sans-latin.woff2') format('woff2')}</style>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-sans-latin.6219bc4bfdfc.woff2" crossorigin>
+  <style>@font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/instrument-sans-latin.6219bc4bfdfc.woff2') format('woff2')}</style>
   <link rel="stylesheet" href="/assets/css/fonts-sans.css" media="print" onload="this.onload=null;this.media='all'">
   <noscript><link rel="stylesheet" href="/assets/css/fonts-sans.css"></noscript>
   <link rel="preconnect" href="https://images.clickfunnels.com">
@@ -46,7 +46,12 @@
   spiffy.config({
       hideSidebar: true,
   })
-  if (location.protocol === "https:") spiffy.load("legacyinvestingshow");
+  // Spiffy's SDK reads document.body during initialization.
+  if (location.protocol === "https:") {
+    document.addEventListener('DOMContentLoaded', function () {
+      spiffy.load("legacyinvestingshow");
+    }, { once: true });
+  }
   </script>
 
 
@@ -292,6 +297,7 @@
         (function () {
           // Preserve existing prefill and attribution when loading checkout.
           var mount = document.currentScript.previousElementSibling;
+          function mountCheckout() {
           var q = new URLSearchParams(location.search);
           var saved = {};
           try { saved = JSON.parse(localStorage.getItem('lis_lead') || '{}'); } catch (e) {}
@@ -303,6 +309,23 @@
             phone_number: q.get('phone_number') || q.get('phone') || saved.phone,
             fbclid:     q.get('fbclid')     || saved.fbclid
           };
+          // Keep campaign attribution even after an untagged internal navigation.
+          // Analytics must never be required for the payment form to load.
+          var campaignFields = {};
+          try {
+            if (window.__challengeAttribution) campaignFields = window.__challengeAttribution.getUtmFields();
+          } catch (_) {}
+          ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (key) {
+            var value = q.has(key) ? q.get(key) : campaignFields[key];
+            if (value) fields[key] = value;
+          });
+          // Anonymous analytics ID only; the hidden Spiffy order field links the payment.
+          try {
+            if (window.__challengeAttribution && window.__challengeAttribution.getAnonymousId) {
+              var distinctId = window.__challengeAttribution.getAnonymousId();
+              if (distinctId) fields.ph_distinct_id = distinctId;
+            }
+          } catch (_) {}
           var out = new URLSearchParams();
           Object.keys(fields).forEach(function (k) { if (fields[k]) out.set(k, fields[k]); });
           var el = document.createElement('spiffy-element');
@@ -327,7 +350,32 @@
             observer.disconnect();
           }, 12000);
           mount.replaceWith(el);
-
+          }
+          var mounted = false;
+          var readinessTimer;
+          function mountOnce() {
+            if (mounted) return;
+            mounted = true;
+            clearTimeout(readinessTimer);
+            window.removeEventListener('challenge-analytics-ready', mountOnce);
+            mountCheckout();
+          }
+          function startCheckout() {
+            // A blocked analytics SDK must never prevent checkout.
+            if (window.__challengeAttribution && window.__challengeAttribution.getAnonymousId && window.__challengeAttribution.getAnonymousId()) {
+              mountOnce();
+            } else if (window.__challengeAnalytics && window.__challengeAnalytics.disabledReason) {
+              mountOnce();
+            } else {
+              window.addEventListener('challenge-analytics-ready', mountOnce, { once: true });
+              readinessTimer = setTimeout(mountOnce, 800);
+            }
+          }
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startCheckout, { once: true });
+          } else {
+            startCheckout();
+          }
         })();
         </script>
         </div>

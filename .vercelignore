@@ -17,3 +17,9 @@ assets/mockups
 guides
 --full-page
 .playwright-mcp
+
+# Internal checks and operating guides
+tests
+docs
+POSTHOG.md
+AGENTS.md

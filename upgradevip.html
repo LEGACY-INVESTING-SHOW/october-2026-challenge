@@ -15,8 +15,8 @@
 
   <!-- Resource hints: third-party origins this page actually requests.
        Placed first so DNS/TLS setup overlaps the tracking + font fetches below. -->
-  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-sans-latin.woff2" crossorigin>
-  <style>@font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/instrument-sans-latin.woff2') format('woff2')}</style>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-sans-latin.6219bc4bfdfc.woff2" crossorigin>
+  <style>@font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/instrument-sans-latin.6219bc4bfdfc.woff2') format('woff2')}</style>
   <link rel="preload" as="image" href="/assets/images/vimeo-upgradevip.webp" fetchpriority="high">
   <link rel="stylesheet" href="/assets/css/fonts-sans.css" media="print" onload="this.onload=null;this.media='all'">
   <noscript><link rel="stylesheet" href="/assets/css/fonts-sans.css"></noscript>
@@ -426,12 +426,13 @@
 <section class="band-paper" style="padding-block:clamp(2rem,5vw,3.5rem);">
   <div class="wrap wrap-md">
     <div class="video-frame">
-      <button type="button" class="vimeo-facade" data-vimeo-src="https://player.vimeo.com/video/1124965962?autoplay=1&title=0&byline=0&wmode=transparent&autopause=0" data-vimeo-width="1280" data-vimeo-height="720" aria-label="Play VIP ticket walkthrough video">
+      <a href="https://player.vimeo.com/video/1124965962?autoplay=0&title=0&byline=0&wmode=transparent&autopause=0" target="_blank" rel="noopener" class="vimeo-facade" data-vimeo-src="https://player.vimeo.com/video/1124965962?autoplay=1&title=0&byline=0&wmode=transparent&autopause=0" data-vimeo-width="1280" data-vimeo-height="720" aria-label="Play VIP ticket walkthrough video">
         <img src="/assets/images/vimeo-upgradevip.webp" alt="" width="1280" height="720" fetchpriority="high" decoding="async">
         <span class="vimeo-play" aria-hidden="true"></span>
-      </button>
+      </a>
       <noscript>
-        <iframe title="VIP ticket walkthrough video" src="https://player.vimeo.com/video/1124965962?autoplay=0&title=0&byline=0&wmode=transparent&autopause=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen width="1280" height="720"></iframe>
+        <style>.vimeo-facade { display: none !important; }</style>
+            <iframe title="VIP ticket walkthrough video" src="https://player.vimeo.com/video/1124965962?autoplay=0&title=0&byline=0&wmode=transparent&autopause=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen width="1280" height="720"></iframe>
       </noscript>
     </div>
   </div>

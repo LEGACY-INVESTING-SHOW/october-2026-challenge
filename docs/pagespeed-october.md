@@ -1,44 +1,43 @@
-# October funnel PageSpeed — what changed
+# October funnel performance review
 
-Goal was conversion, not a 100 Lighthouse score. Tracking and layout stayed.
+Reviewed PR #7 on September 16, 2026 against the current production source, including the newer cold/warm analytics and checkout attribution integration.
 
-## What I changed (safe)
+## Final changes
 
-- **Cache headers** in `vercel.json`. Images/fonts/CSS/JS were `max-age=0`. Now fonts 1y, images 30d, CSS/JS 7d + SWR. HTML still no-cache.
-- **Self-hosted fonts.** Dropped render-blocking Google Fonts. Instrument Sans + Newsreader variable woff2 from `/assets/fonts/`. Preload + tiny critical `@font-face`. Italic/serif CSS is non-blocking.
-- **Vimeo click-to-play facade** on pages that already had `autoplay=0`:
-  - `/october` → existing `hero-thumbnail.webp`
-  - `/vipupgradeoct` → `vimeo-upgradevip.webp`
-  - `/taxreportoct` + `/taxreportvipoct` → `vimeo-taxreport.webp`
-  Same UX (user already had to click play). Player.js no longer loads on first paint. Play button is gold, branded.
-  Tax-report poster has a baked-in YouTube play icon, so that gold button is sized to cover it (`22%` of the frame). Landing + VIP upgrade stay at a smaller 4.75rem button.
-- **Compressed** `host-preston.webp` 166KB → 83KB (720×900).
-- **ClickFunnels testimonial thumbs** `width=1000` → `640` on ticket pages.
-- **`<main>` landmark** on landing/checkout/upsell pages (a11y).
-- Hyros inject now sets `async` explicitly. Pixel / Hyros / Spiffy / PostHog snippets are still there, still in `<head>`.
+- Self-host Instrument Sans and Newsreader. Font filenames contain SHA-256 content hashes and receive a one-year immutable cache. Mutable scripts, styles, images, and screenshots revalidate; the tracker cannot remain fresh in a visitor's browser for seven days after a fix. Vercel still caches static assets at the CDN: https://vercel.com/docs/caching/cdn-cache and https://vercel.com/docs/caching/cache-control-headers.
+- Defer Vimeo on the four previously click-to-play pages: October landing, VIP upgrade, and both tax-report pages. Posters use the same video IDs; a click mounts the player with autoplay requested. A normal video link works if the enhancement script fails, and the no-JavaScript iframe is not covered by the poster. Prep-kit autoplay players remain eager.
+- Keep the date-free challenge hero poster. The older unused local thumbnail contained January/February dates.
+- Keep the compressed host photograph and smaller checkout testimonial images.
+- Preserve the original about-section montage, captions, image caps, sales copy, and CTA destinations. Keep min-width fixes that prevent grid overflow. Remove the PR's unrelated five-card redesign.
+- Preserve production tracker version `2026-09-16.2`, the current payment receiver, DOM-ready Spiffy loading, explicit UTM forwarding, anonymous visitor ID, and the 800 ms fail-open. Spiffy-hosted hidden fields remain unchanged.
+- Keep Meta, Hyros, Spiffy, PostHog replay/autocapture/heatmaps, and the first-party PostHog proxy. No tracking delays or removals were introduced by this review.
 
-Prep kit videos stay **eager + autoplay=1**. Last pass un-lazied those on purpose.
+Video provider impressions will begin when the deferred player loads, rather than automatically on every landing visit. This is an intentional consequence of the poster optimization; do not compare Vimeo player-load counts before and after as if their definition were unchanged. PostHog pageviews remain the landing-traffic denominator.
 
-## Left alone (risk / little conversion value)
+## Verification
 
-| Thing | Why I didn't touch it | Question |
-| --- | --- | --- |
-| Prep kit autoplay Vimeo | Conversion VSL, previously un-lazied | Facade there too? Drops TBT, kills autoplay. |
-| PostHog (session replay, autocapture, heatmaps) | That's a lot of the unused JS / TBT | Delay until `load`/`idle`? Or turn off replay on `/october` only? |
-| Spiffy SDK on landing + confirmation (`hideSidebar: false`) | No checkout embed on those pages, still loads `spiffy.js` | Is the sidebar/chat actually used? If not, don't load Spiffy until checkout. |
-| Unused CSS ~22KB / huge DOM | Stripping rules/content = visual risk | Don't. |
-| Contrast leftovers (footer muted on forest, gold on cream) | Visual change | Want a pass? |
-| Third-party cookies / deprecated APIs | Facebook + Vimeo | Can't fix without dropping pixels. |
-| Legacy/duplicated JS ~59KB + 8KB | Third-party, not ours | — |
+- 23 attribution cases, 19 payment-receiver cases, 10 checkout integration scenarios, and 2 font/reference checks pass.
+- All 56 inline JavaScript blocks parse.
+- Extracted visible text and every existing non-video link match the main-branch pages across all ten changed funnel pages.
+- The preview tracker matches the current production-source tracker byte-for-byte.
+- Preview tracker response: HTTP 200 with `max-age=0, must-revalidate`; internal `POSTHOG.md` returns 404.
+- Preview font response: HTTP 200 with `max-age=31536000, immutable` for a content-hashed URL.
+- Preview: https://october-2026-challenge-pa0pl2tbz-legacy-investing-show.vercel.app (Vercel authentication required).
+- Preview deployment: `dpl_4P2sVtUQ3tZTpemSJCyEd2y31nMe`, Ready. No production deployment or merge performed for this review.
 
-## Expected impact on `/october` mobile
+## Performance evidence
 
-Biggest wins: no Google Fonts RTT, no Vimeo player.js before click, cache headers, poster as LCP instead of Vimeo iframe.
+One matched Lighthouse mobile simulation per version, served locally on the same machine. Current production-source files were the baseline; revised PR files were the candidate. This isolates code changes but is not a production benchmark: PostHog is intentionally disabled on non-production hosts, the HTTP Spiffy guard applies to both, and third-party/network timings vary.
 
-Will **not** hit 90. Meta + Hyros + Spiffy + PostHog still eat TBT. That's the conversion stack.
+| Metric | Baseline | Revised |
+| --- | ---: | ---: |
+| First contentful paint | 5.81 s | 1.66 s |
+| Largest contentful paint | 7.89 s | 2.94 s |
+| Total blocking time | 182 ms | 68.5 ms |
+| Layout shift | 0 | 0.004 |
+| Initial transfer | 1,022,569 bytes | 689,507 bytes |
+| Requests | 34 | 26 |
 
-Re-run PageSpeed on prod after this ships.
+Treat these as directional lab results, not a promised score, field Core Web Vitals, or conversion uplift. Recheck real production performance after an approved release. Raw reports were saved under `/tmp/october-pr7-evidence/` on the review machine.
 
-## Visual QA notes
-
-Local `http://` checkout shows "The payment form requires a secure HTTPS connection." That's the existing Spiffy guard (`if (location.protocol === "https:")`). Not a regression.
+Verified purchase ingestion remains pending the separate Spiffy API-key approval. This PR preserves the dormant receiver and does not activate it. No fake lead or payment was submitted.

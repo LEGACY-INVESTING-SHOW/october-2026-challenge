@@ -1,4 +1,4 @@
-/* Click-to-play for autoplay=0 Vimeo embeds. Same UX, no player.js on first paint. */
+/* Load click-to-play Vimeo embeds on demand; links work if this script fails. */
 (function () {
   function mount(btn) {
     var src = btn.getAttribute('data-vimeo-src');
