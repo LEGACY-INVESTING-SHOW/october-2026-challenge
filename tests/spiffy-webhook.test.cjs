@@ -104,6 +104,7 @@ function validOrder(overrides = {}) {
       created_at: '2026-09-16T12:34:56.000Z',
     }],
     attribution: {
+      status: 'computed',
       first: {utm_campaign: 'bp4-giftshoppxr-091326'},
       last: {
         utm_source: 'facebook',
@@ -345,6 +346,7 @@ test('uses a stable unlinked order identity while preserving verified warm attri
     fields: [],
     checkout: {id: 40203, account_id: 3074},
     attribution: {
+      status: 'computed',
       first: {utm_campaign: 'warm-bp4-giftshoppxr-09132'},
       last: {utm_campaign: 'warm-bp4-static1paycheck401kwhiteboard-091326'},
     },
@@ -361,7 +363,7 @@ test('uses a stable unlinked order identity while preserving verified warm attri
   assert.equal(event.properties.utm_campaign, 'warm-bp4-static1paycheck401kwhiteboard-091326');
 });
 
-test('normalizes null and non-object attribution touches without dropping a paid order', async () => {
+test('accepts computed direct attribution with null touches as a legitimate unknown audience', async () => {
   process.env.SPIFFY_WEBHOOK_DIAGNOSTIC = 'false';
   assert.deepEqual(handler._test.attributionProperties({first: null, last: null}), {
     traffic_campaign: '',
@@ -376,13 +378,32 @@ test('normalizes null and non-object attribution touches without dropping a paid
     traffic_audience: 'cold',
   });
 
-  const order = validOrder({attribution: {first: null, last: null}});
+  const order = validOrder({attribution: {status: 'computed', first: null, last: null}});
   const calls = installFetchMock({order});
   const res = await invoke({body: JSON.stringify(webhookPayload(order.id))});
   assert.equal(res.statusCode, 200);
   assert.equal(calls.length, 2);
   const event = JSON.parse(calls[1].options.body);
   assert.equal(event.properties.traffic_audience, 'unknown');
+});
+
+test('keeps delivery retryable until canonical attribution is computed', async () => {
+  process.env.SPIFFY_WEBHOOK_DIAGNOSTIC = 'false';
+
+  for (const attribution of [
+    {status: 'pending', first: null, last: null},
+    {status: 'processing', first: null, last: null},
+    {first: null, last: null},
+    null,
+  ]) {
+    const order = validOrder({attribution});
+    const calls = installFetchMock({order});
+    const res = await invoke({body: JSON.stringify(webhookPayload(order.id))});
+
+    assert.equal(res.statusCode, 503);
+    assert.deepEqual(JSON.parse(res.body), {error: 'Order is not ready'});
+    assert.equal(calls.length, 1);
+  }
 });
 
 test('retries use the same event uuid and insert id for PostHog deduplication', async () => {
@@ -469,6 +490,7 @@ test('does not send customer, contact, field, or raw URL data to PostHog', async
       {field_name: 'contact_notes', value: privateValues[4]},
     ],
     attribution: {
+      status: 'computed',
       first: {utm_campaign: 'bp4-giftshoppxr-091326'},
       last: {utm_campaign: 'bp4-giftshoppxr-091326', utm_term: privateValues[0]},
     },

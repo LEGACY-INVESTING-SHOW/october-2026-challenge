@@ -261,6 +261,16 @@ function campaignAudience(campaign) {
   return AUDIENCE_CAMPAIGNS[String(campaign || '').toLowerCase()] || 'unknown';
 }
 
+function isAttributionComputed(attribution) {
+  return Boolean(
+    attribution &&
+    typeof attribution === 'object' &&
+    !Array.isArray(attribution) &&
+    typeof attribution.status === 'string' &&
+    attribution.status.trim().toLowerCase() === 'computed'
+  );
+}
+
 function attributionProperties(attribution) {
   const output = {};
   const last = attribution && attribution.last && typeof attribution.last === 'object' &&
@@ -381,6 +391,7 @@ function buildPurchaseEvent(order, expectedOrderId, posthogToken) {
 
   const payment = firstSuccessfulPayment(order.payments);
   if (!payment) return {kind: 'retry'};
+  if (!isAttributionComputed(order.attribution)) return {kind: 'retry'};
 
   const linkedId = linkedDistinctId(order.fields);
   const distinctId = linkedId || `spiffy-order-${orderId}`;
