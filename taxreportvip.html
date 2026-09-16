@@ -169,19 +169,24 @@
       .video-frame .vimeo-facade {
         position: absolute; inset: 0; width: 100%; height: 100%;
         padding: 0; border: 0; cursor: pointer; background: var(--forest);
+        appearance: none; -webkit-appearance: none; z-index: 1;
       }
       .video-frame .vimeo-facade img { width: 100%; height: 100%; object-fit: cover; }
       .video-frame .vimeo-play {
-        position: absolute; left: 50%; top: 50%; width: 4.25rem; height: 4.25rem;
-        margin: -2.125rem 0 0 -2.125rem; border-radius: 50%;
-        background: rgba(217,169,61,.95);
+        position: absolute; left: 50%; top: 50%;
+        width: 22%; aspect-ratio: 1; height: auto; min-width: 5.5rem;
+        margin: 0; transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: rgba(217,169,61,.97);
         box-shadow: 0 10px 28px -10px rgba(0,0,0,.55);
-        pointer-events: none;
+        pointer-events: none; z-index: 2;
       }
       .video-frame .vimeo-play::after {
         content: ""; position: absolute; left: 54%; top: 50%;
-        transform: translate(-30%, -50%);
-        border: 12px solid transparent; border-left: 18px solid #221903;
+        width: 34%; height: 38%;
+        transform: translate(-20%, -50%);
+        background: #221903;
+        clip-path: polygon(0 0, 100% 50%, 0 100%);
       }
       .video-frame .vimeo-facade:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
       .vsl-actions {

@@ -160,14 +160,15 @@
     .video-frame .vimeo-facade {
       position: absolute; inset: 0; width: 100%; height: 100%;
       padding: 0; border: 0; cursor: pointer; background: var(--forest);
+      appearance: none; -webkit-appearance: none; z-index: 1;
     }
     .video-frame .vimeo-facade img { width: 100%; height: 100%; object-fit: cover; }
     .video-frame .vimeo-play {
-      position: absolute; left: 50%; top: 50%; width: 4.25rem; height: 4.25rem;
-      margin: -2.125rem 0 0 -2.125rem; border-radius: 50%;
+      position: absolute; left: 50%; top: 50%; width: 4.75rem; height: 4.75rem;
+      margin: -2.375rem 0 0 -2.375rem; border-radius: 50%;
       background: rgba(217,169,61,.95);
       box-shadow: 0 10px 28px -10px rgba(0,0,0,.55);
-      pointer-events: none;
+      pointer-events: none; z-index: 2;
     }
     .video-frame .vimeo-play::after {
       content: ""; position: absolute; left: 54%; top: 50%;
