@@ -62,6 +62,11 @@ const AUDIENCE_CAMPAIGNS = {
   'warm-bp4-static1paycheck401kwhiteboard-091326': 'warm',
   'warm-bp4-static2connectyourincome-091326': 'warm',
   'warm-bp4-suppgrouppxr-091326': 'warm',
+  'warm-sameret-h5-ch-91626': 'warm',
+  'warm-aprilmirror-h1-ch-91626': 'warm',
+  'warm-tg-h1-ch-91626': 'warm',
+  'warm-401k-h1-ch-91626': 'warm',
+  'warm-trashcan-h1-ch-91626': 'warm',
 };
 
 class RequestError extends Error {

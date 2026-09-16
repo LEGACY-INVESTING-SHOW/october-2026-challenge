@@ -46,6 +46,13 @@ const NEW_COLD_CAMPAIGNS = [
   'aprilmirror-h1-ch-91626',
   'trashcan-h2-ch-91626',
 ];
+const NEW_WARM_CAMPAIGNS = [
+  'warm-sameret-h5-ch-91626',
+  'warm-aprilmirror-h1-ch-91626',
+  'warm-tg-h1-ch-91626',
+  'warm-401k-h1-ch-91626',
+  'warm-trashcan-h1-ch-91626',
+];
 
 function request({
   method = 'POST',
@@ -413,6 +420,31 @@ test('classifies every expanded cold campaign exactly while preserving warm and 
 
   assert.equal(
     handler._test.attributionProperties({last: {utm_campaign: 'tg-h4-ch-91626-extra'}}).traffic_audience,
+    'unknown'
+  );
+  assert.equal(
+    handler._test.attributionProperties({
+      last: {utm_campaign: 'warm-bp4-static1paycheck401kwhiteboard-091326'},
+    }).traffic_audience,
+    'warm'
+  );
+});
+
+test('classifies every expanded warm campaign exactly without inferring near matches', () => {
+  assert.equal(NEW_WARM_CAMPAIGNS.length, 5);
+  for (const campaign of NEW_WARM_CAMPAIGNS) {
+    const properties = handler._test.attributionProperties({
+      first: {utm_campaign: campaign},
+      last: {utm_campaign: campaign},
+    });
+    assert.equal(properties.traffic_audience, 'warm', campaign);
+    assert.equal(properties.first_traffic_audience, 'warm', campaign);
+  }
+
+  assert.equal(
+    handler._test.attributionProperties({
+      last: {utm_campaign: 'warm-sameret-h5-ch-91626-extra'},
+    }).traffic_audience,
     'unknown'
   );
   assert.equal(
