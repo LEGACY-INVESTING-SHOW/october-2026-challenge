@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  var ANALYTICS_VERSION = '2026-09-16.2';
+  var ANALYTICS_VERSION = '2026-09-17.1';
   var POSTHOG_TOKEN = 'phc_rQffz3NncDqfmLpKUcrDvThjyT3brt4QRSxcPUT2pFsw';
   var POSTHOG_PROXY = '/tfc';
   var PRODUCTION_HOST = 'go.managemoney101.com';
@@ -19,6 +19,40 @@
     'bp4-static1paycheck401kwhiteboard-091326': 'cold',
     'bp4-static3keepmoreofwhatyouspenddecadesearning-091326': 'cold',
     'bp4-giftshoppxr-091326': 'cold',
+    'tg-h4-ch-91626': 'cold',
+    'tg-h3-ch-91626': 'cold',
+    'topten-h1-ch-91626': 'cold',
+    'tg-h1-ch-91626': 'cold',
+    'tg-h2-ch-91626': 'cold',
+    'topten-h4-ch-91626': 'cold',
+    'topten-h3-ch-91626': 'cold',
+    'raise-h1-ch-91626': 'cold',
+    'tg-h5-ch-91626': 'cold',
+    'topten-h2-ch-91626': 'cold',
+    'raise-h4-ch-91626': 'cold',
+    'raise-h3-ch-91626': 'cold',
+    'topten-h5-ch-91626': 'cold',
+    'raise-h2-ch-91626': 'cold',
+    '401k-h3-ch-91626': 'cold',
+    'trashcan-h4-ch-91626': 'cold',
+    'sameret-h3-ch-91626': 'cold',
+    'trashcan-h5-ch-91626': 'cold',
+    'aprilmirror-h2-ch-91626': 'cold',
+    'aprilmirror-h4-ch-91626': 'cold',
+    '401k-h1-ch-91626': 'cold',
+    'sameret-h5-ch-91626': 'cold',
+    '401k-h4-ch-91626': 'cold',
+    'trashcan-h3-ch-91626': 'cold',
+    '401k-h5-ch-91626': 'cold',
+    'trashcan-h1-ch-91626': 'cold',
+    'sameret-h1-ch-91626': 'cold',
+    '401k-h2-ch-91626': 'cold',
+    'sameret-h4-ch-91626': 'cold',
+    'aprilmirror-h3-ch-91626': 'cold',
+    'aprilmirror-h5-ch-91626': 'cold',
+    'sameret-h2-ch-91626': 'cold',
+    'aprilmirror-h1-ch-91626': 'cold',
+    'trashcan-h2-ch-91626': 'cold',
     'warm-bp4-giftshoppxr-09132': 'warm',
     // This full-date alias is already present in live traffic.
     'warm-bp4-giftshoppxr-091326': 'warm',

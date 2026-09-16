@@ -10,6 +10,42 @@ const SIGNING_SECRET = 'spiffy-test-signing-secret-never-log-this';
 const SPIFFY_API_KEY = 'spiffy-server-key-never-log-this';
 const POSTHOG_TOKEN = 'phc_test_project_token';
 const ORIGINAL_FETCH = global.fetch;
+const NEW_COLD_CAMPAIGNS = [
+  'tg-h4-ch-91626',
+  'tg-h3-ch-91626',
+  'topten-h1-ch-91626',
+  'tg-h1-ch-91626',
+  'tg-h2-ch-91626',
+  'topten-h4-ch-91626',
+  'topten-h3-ch-91626',
+  'raise-h1-ch-91626',
+  'tg-h5-ch-91626',
+  'topten-h2-ch-91626',
+  'raise-h4-ch-91626',
+  'raise-h3-ch-91626',
+  'topten-h5-ch-91626',
+  'raise-h2-ch-91626',
+  '401k-h3-ch-91626',
+  'trashcan-h4-ch-91626',
+  'sameret-h3-ch-91626',
+  'trashcan-h5-ch-91626',
+  'aprilmirror-h2-ch-91626',
+  'aprilmirror-h4-ch-91626',
+  '401k-h1-ch-91626',
+  'sameret-h5-ch-91626',
+  '401k-h4-ch-91626',
+  'trashcan-h3-ch-91626',
+  '401k-h5-ch-91626',
+  'trashcan-h1-ch-91626',
+  'sameret-h1-ch-91626',
+  '401k-h2-ch-91626',
+  'sameret-h4-ch-91626',
+  'aprilmirror-h3-ch-91626',
+  'aprilmirror-h5-ch-91626',
+  'sameret-h2-ch-91626',
+  'aprilmirror-h1-ch-91626',
+  'trashcan-h2-ch-91626',
+];
 
 function request({
   method = 'POST',
@@ -362,6 +398,29 @@ test('uses a stable unlinked order identity while preserving verified warm attri
   assert.equal(event.properties.offer, 'vip_ticket');
   assert.equal(event.properties.traffic_audience, 'warm');
   assert.equal(event.properties.utm_campaign, 'warm-bp4-static1paycheck401kwhiteboard-091326');
+});
+
+test('classifies every expanded cold campaign exactly while preserving warm and unknown outcomes', () => {
+  assert.equal(NEW_COLD_CAMPAIGNS.length, 34);
+  for (const campaign of NEW_COLD_CAMPAIGNS) {
+    const properties = handler._test.attributionProperties({
+      first: {utm_campaign: campaign},
+      last: {utm_campaign: campaign},
+    });
+    assert.equal(properties.traffic_audience, 'cold', campaign);
+    assert.equal(properties.first_traffic_audience, 'cold', campaign);
+  }
+
+  assert.equal(
+    handler._test.attributionProperties({last: {utm_campaign: 'tg-h4-ch-91626-extra'}}).traffic_audience,
+    'unknown'
+  );
+  assert.equal(
+    handler._test.attributionProperties({
+      last: {utm_campaign: 'warm-bp4-static1paycheck401kwhiteboard-091326'},
+    }).traffic_audience,
+    'warm'
+  );
 });
 
 test('accepts computed direct attribution with null touches as a legitimate unknown audience', async () => {
