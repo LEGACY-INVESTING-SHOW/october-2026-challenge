@@ -296,6 +296,12 @@ September 16 production verification received webinar pageviews, form/CTA/engage
 
 At the original guide audit, October's live tracker matched the local tracker byte-for-byte; its landing page, tracker, and proxied SDK returned HTTP 200, and the landing page included the tracker once. The local October checkout was at `50205d9` with unrelated working-tree changes, so future agents must inspect those before deploying. The subsequent September 16 audience rollout and its deployment are documented in the October section above.
 
+## Meta ad-review crawler traffic (September 18, 2026)
+
+About 19% of October landing visitors between September 14 and 18 (299 people) geolocated to seven Meta data-center cities: Prineville OR, Forest City NC, Fort Worth TX, Altoona IA, Gallatin TN, Luleå (Sweden), and Clonee (Ireland). Each had exactly one session of about 31 seconds, zero bounces, arrived from facebook.com with `utm_campaign` but no `utm_source` (Meta's crawler does not fill URL placeholders), clicked ticket buttons, loaded checkouts, scrolled, and never bought. 58 of 59 rage-click people were this crawler. `$virt_is_bot` did not flag it. Each ad receives roughly eight such visits at launch, so a batch of 34 ads produced 262 crawler visitors.
+
+Treat it as noise. The two hero-test insights exclude it with `coalesce(toString(properties.$geoip_city_name), '') NOT IN ('Prineville', 'Luleå', 'Forest City', 'Clonee', 'Fort Worth', 'Altoona', 'Gallatin')`. Apply the same exclusion to any landing, checkout, rage-click, or scroll report; the older dashboard tiles and the historical audience reports do not exclude it yet. Fort Worth can include real residents, so the filter slightly overcounts; the effect was under 1% of visitors. A missing `utm_source` on a facebook.com visit from one of these cities is the crawler, not a tagging error in Ads Manager. Do not add a client-side block for these visits without a user request; blocking by IP city is not available in the browser tracker.
+
 ## Analysis rules and references
 
 For traffic reports, use an explicit date range/timezone and distinguish pageviews, sessions, people, form submissions, accepted registrations, and succeeded payments. Inspect event/property availability through PostHog's current tools before writing queries. Keep the funnel filter even when restricting by URL. Report missing attribution and tracking limits honestly; git update frequency cannot establish traffic or causality.
