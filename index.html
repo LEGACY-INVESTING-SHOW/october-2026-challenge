@@ -206,6 +206,33 @@
       .only-mobile { display: none; }
     }
     .hero .date { font-size: .85rem; color: var(--ink-faint); margin-top: .8rem; }
+    /* ---------- Hero ticket picker (A/B test variant "picker", flag hero-cta-variant) ---------- */
+    .hero-picker { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .42s cubic-bezier(.16,1,.3,1); text-align: left; }
+    .hero-picker[hidden] { display: none; }
+    .hero-picker.is-open { grid-template-rows: 1fr; margin-top: 1rem; }
+    .hero-picker-inner { overflow: hidden; min-height: 0; padding-top: .65rem; }
+    .hero-picker .pick {
+      display: grid; gap: .45rem; padding: 1rem 1.05rem; margin-bottom: .65rem;
+      background: var(--paper); border: 1.5px solid var(--line); border-radius: 1rem; text-decoration: none; color: var(--ink);
+      position: relative; transition: border-color .18s, box-shadow .18s, transform .18s cubic-bezier(.22,1,.36,1);
+    }
+    .hero-picker .pick:hover { border-color: var(--green-mid); transform: translateY(-1px); }
+    .hero-picker .pick-vip { border-color: var(--gold); background: #FFF9EA; box-shadow: 0 10px 28px -18px rgba(185,138,31,.55); }
+    .hero-picker .pick-vip:hover { border-color: #C99A2E; }
+    .hero-picker .pick-badge { position: absolute; top: -.6rem; left: 1rem; background: var(--gold); color: #221903; font-size: .66rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: .2rem .55rem; border-radius: 999px; }
+    .hero-picker .pick-head { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; margin-top: .15rem; }
+    .hero-picker .pick-name { font-family: var(--display-font, 'Newsreader', Georgia, serif); font-weight: 600; font-size: 1.15rem; line-height: 1.15; }
+    .hero-picker .pick-price { white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .hero-picker .pick-price s { color: var(--ink-faint); font-size: .85rem; margin-right: .35rem; }
+    .hero-picker .pick-price b { font-family: var(--display-font, 'Newsreader', Georgia, serif); font-size: 1.45rem; font-weight: 600; }
+    .hero-picker .pick-desc { font-size: .88rem; line-height: 1.45; color: var(--ink-soft); }
+    .hero-picker .pick .btn { margin-top: .3rem; }
+    .hero-picker .pick-close { display: block; margin: .25rem auto 0; background: none; border: 0; padding: .4rem .6rem; font: inherit; font-size: .84rem; color: var(--ink-faint); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .hero-picker .pick-close:hover { color: var(--ink); }
+    .js-hero-cta.is-picker-open { background: var(--forest); color: var(--ivory); box-shadow: none; }
+    .js-hero-cta.is-picker-open .arrow { transform: rotate(90deg); }
+    @media (prefers-reduced-motion: reduce) { .hero-picker { transition: none; } }
+
     .hero-copy > * + * { margin-top: 1.25rem; }
     .hero-copy h1.display { margin-top: 1.05rem; }
     .hero-accent { color: var(--gold-ink); font-style: italic; font-family: var(--serif); font-weight: 600; font-size: 1.04em; }
@@ -671,7 +698,7 @@
         <span class="hide-mobile">50% off ends in:</span>
         <span id="sticky-countdown" style="font-weight:700;color:var(--rose);font-variant-numeric:tabular-nums;">--</span>
       </div>
-      <a href="#pricing" class="btn btn-gold btn-sm">Get Your Seat</a>
+      <a href="#pricing" class="btn btn-gold btn-sm js-sticky-cta">Get Your Seat</a>
     </div>
   </div>
 </header>
@@ -683,7 +710,7 @@
 <!-- ═══════════════════════════════════════════════════
      HERO SECTION
      ═══════════════════════════════════════════════════ -->
-<section class="hero">
+<section class="hero" data-analytics-location="hero">
   <div class="wrap">
     <div class="hero-grid">
       <!-- Left: Content -->
@@ -697,10 +724,26 @@
         </p>
 
         <div class="hero-cta only-desktop">
-          <a href="#pricing" class="btn btn-gold btn-lg">
+          <a href="#pricing" class="btn btn-gold btn-lg js-hero-cta">
             Grab Your Ticket Now
             <svg class="arrow" aria-hidden="true"><use href="#arrow-icon"/></svg>
           </a>
+          <div class="hero-picker" data-analytics-location="hero_picker" hidden>
+            <div class="hero-picker-inner">
+              <a class="pick pick-vip" href="/vipticketoct" onclick="return trackTicketLeadAndGo('vip', event)" aria-label="Get VIP Access for $147">
+                <span class="pick-badge">Most Popular</span>
+                <span class="pick-head"><span class="pick-name">VIP Access</span><span class="pick-price"><s>$197</s><b>$147</b></span></span>
+                <span class="pick-desc">Everything in General Admission, plus live Q&amp;A with Preston on all 3 days. Unmute, ask your question, get your answer. You also keep the replays and notes from every session.</span>
+                <span class="btn btn-gold btn-md btn-block">Get VIP Access &rarr;</span>
+              </a>
+              <a class="pick" href="/regularticketoct" onclick="return trackTicketLeadAndGo('ticket', event)" aria-label="Join the Challenge with General Admission for $47">
+                <span class="pick-head"><span class="pick-name">General Admission</span><span class="pick-price"><s>$97</s><b>$47</b></span></span>
+                <span class="pick-desc">All 3 live days and your complete wealth plan to add $85,871 in the next 12 months.</span>
+                <span class="btn btn-outline btn-md btn-block">Join the Challenge &rarr;</span>
+              </a>
+              <button type="button" class="pick-close">Not yet, keep reading</button>
+            </div>
+          </div>
           <p class="date">Oct 16th - Oct 18th | 10 AM - 4 PM EST</p>
         </div>
       </div>
@@ -719,10 +762,26 @@
         </div>
 
         <div class="only-mobile" style="text-align:center;">
-          <a href="#pricing" class="btn btn-gold btn-lg">
+          <a href="#pricing" class="btn btn-gold btn-lg js-hero-cta">
             Grab Your Ticket Now
             <svg class="arrow" aria-hidden="true"><use href="#arrow-icon"/></svg>
           </a>
+          <div class="hero-picker" data-analytics-location="hero_picker" hidden>
+            <div class="hero-picker-inner">
+              <a class="pick pick-vip" href="/vipticketoct" onclick="return trackTicketLeadAndGo('vip', event)" aria-label="Get VIP Access for $147">
+                <span class="pick-badge">Most Popular</span>
+                <span class="pick-head"><span class="pick-name">VIP Access</span><span class="pick-price"><s>$197</s><b>$147</b></span></span>
+                <span class="pick-desc">Everything in General Admission, plus live Q&amp;A with Preston on all 3 days. Unmute, ask your question, get your answer. You also keep the replays and notes from every session.</span>
+                <span class="btn btn-gold btn-md btn-block">Get VIP Access &rarr;</span>
+              </a>
+              <a class="pick" href="/regularticketoct" onclick="return trackTicketLeadAndGo('ticket', event)" aria-label="Join the Challenge with General Admission for $47">
+                <span class="pick-head"><span class="pick-name">General Admission</span><span class="pick-price"><s>$97</s><b>$47</b></span></span>
+                <span class="pick-desc">All 3 live days and your complete wealth plan to add $85,871 in the next 12 months.</span>
+                <span class="btn btn-outline btn-md btn-block">Join the Challenge &rarr;</span>
+              </a>
+              <button type="button" class="pick-close">Not yet, keep reading</button>
+            </div>
+          </div>
           <p class="date">Oct 16th - Oct 18th | 10 AM - 4 PM EST</p>
         </div>
 
@@ -1875,7 +1934,7 @@
 <!-- ═══════════════════════════════════════════════════
      FINAL CTA
      ═══════════════════════════════════════════════════ -->
-<section class="band-forest final-cta">
+<section class="band-forest final-cta" data-analytics-location="final_cta">
   <div class="wrap wrap-sm">
     <h2 class="display" style="margin-bottom:2rem;">The Plan Is Worth $85,871. The Ticket Is $47.</h2>
 
@@ -2042,6 +2101,98 @@
       link.setAttribute('href', url.pathname + url.search);
     });
   })();
+</script>
+
+
+<script>
+/* Hero button A/B test. Variant comes from PostHog flag "hero-cta-variant" via challenge-analytics.js.
+   control: the hero button keeps jumping to #pricing (today's behavior).
+   picker:  the hero button opens the two-ticket picker under itself; the sticky button opens the same picker. */
+(function () {
+  document.addEventListener('click', function (event) {
+    var target = event.target;
+    if (!target || typeof target.closest !== 'function' || !target.closest('.js-hero-cta, .js-sticky-cta')) return;
+    var variant = window.__challengeAnalytics && window.__challengeAnalytics.heroVariant;
+    if (variant !== 'control' && variant !== 'picker') window.__challengeHeroInteractedBeforeVariant = true;
+  }, true);
+
+  var applied = false;
+  var closeTimers = new WeakMap();
+  function clearCloseTimer(picker) {
+    var timer = closeTimers.get(picker);
+    if (timer === undefined) return;
+    clearTimeout(timer);
+    closeTimers.delete(picker);
+  }
+  function visiblePicker() {
+    var pickers = document.querySelectorAll('.hero-picker');
+    for (var i = 0; i < pickers.length; i++) {
+      var box = pickers[i].parentElement;
+      if (box && box.offsetParent !== null && getComputedStyle(box).display !== 'none') return pickers[i];
+    }
+    return pickers[0] || null;
+  }
+  function openPicker(fromSticky) {
+    var picker = visiblePicker();
+    if (!picker) return;
+    var button = picker.parentElement.querySelector('.js-hero-cta');
+    clearCloseTimer(picker);
+    picker.hidden = false;
+    void picker.offsetHeight; // force a layout pass so the open transition runs
+    picker.classList.add('is-open');
+    if (button && !button.classList.contains('is-picker-open')) {
+      button.classList.add('is-picker-open');
+      button.setAttribute('aria-expanded', 'true');
+      button.innerHTML = 'Choose your ticket below <svg class="arrow" aria-hidden="true"><use href="#arrow-icon"/></svg>';
+    }
+    var target = fromSticky && button ? button : picker;
+    var top = target.getBoundingClientRect().top + window.pageYOffset - (fromSticky ? 96 : 72);
+    if (fromSticky || picker.getBoundingClientRect().bottom > window.innerHeight) {
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
+  }
+  function closePicker(picker) {
+    var button = picker.parentElement.querySelector('.js-hero-cta');
+    clearCloseTimer(picker);
+    picker.classList.remove('is-open');
+    var timer = setTimeout(function () {
+      closeTimers.delete(picker);
+      if (!picker.classList.contains('is-open')) picker.hidden = true;
+    }, 450);
+    closeTimers.set(picker, timer);
+    if (button) {
+      button.classList.remove('is-picker-open');
+      button.setAttribute('aria-expanded', 'false');
+      button.innerHTML = 'Grab Your Ticket Now <svg class="arrow" aria-hidden="true"><use href="#arrow-icon"/></svg>';
+    }
+  }
+  function applyPicker() {
+    if (applied) return;
+    applied = true;
+    document.querySelectorAll('.js-hero-cta').forEach(function (button) {
+      button.setAttribute('aria-expanded', 'false');
+      button.setAttribute('aria-controls', 'hero-picker');
+      button.addEventListener('click', function (event) {
+        event.preventDefault();
+        var picker = button.parentElement.querySelector('.hero-picker');
+        if (picker && picker.classList.contains('is-open')) { closePicker(picker); return; }
+        openPicker(false);
+      });
+    });
+    document.querySelectorAll('.js-sticky-cta').forEach(function (button) {
+      button.addEventListener('click', function (event) {
+        event.preventDefault();
+        openPicker(true);
+      });
+    });
+    document.querySelectorAll('.pick-close').forEach(function (close) {
+      close.addEventListener('click', function () { closePicker(close.closest('.hero-picker')); });
+    });
+  }
+  function onVariant(variant) { if (variant === 'picker') applyPicker(); }
+  window.addEventListener('challenge-hero-variant', function (event) { onVariant(event.detail && event.detail.variant); });
+  if (window.__challengeAnalytics && window.__challengeAnalytics.heroVariant) onVariant(window.__challengeAnalytics.heroVariant);
+})();
 </script>
 
 <script>
