@@ -2,7 +2,9 @@
 (function () {
   'use strict';
 
-  var ANALYTICS_VERSION = '2026-09-17.2';
+  var ANALYTICS_VERSION = '2026-09-18.1';
+  var HERO_CTA_FLAG = 'hero-cta-variant';
+  var HERO_CTA_VARIANTS = { control: true, picker: true };
   var POSTHOG_TOKEN = 'phc_rQffz3NncDqfmLpKUcrDvThjyT3brt4QRSxcPUT2pFsw';
   var POSTHOG_PROXY = '/tfc';
   var PRODUCTION_HOST = 'go.managemoney101.com';
@@ -88,8 +90,9 @@
     '/taxreport': { step: 'upsell', offer: 'tax_report' },
     '/taxreportvipoct': { step: 'upsell', offer: 'tax_report_vip' },
     '/taxreportvip': { step: 'upsell', offer: 'tax_report_vip' },
-    '/octchallengeconfirmation': { step: 'purchase_confirmation', offer: 'regular_ticket' },
-    '/octchallengeconfirmationvip': { step: 'purchase_confirmation', offer: 'vip_ticket' },
+    // Both tickets land on the same confirmation page, so the offer is the challenge, not a ticket type.
+    '/octchallengeconfirmation': { step: 'purchase_confirmation', offer: 'challenge' },
+    '/octchallengeconfirmationvip': { step: 'purchase_confirmation', offer: 'challenge' },
     '/octprechallengetraining': { step: 'fulfillment', offer: 'vip_training' },
     '/prechallengetraining123': { step: 'fulfillment', offer: 'vip_training' }
   };
@@ -113,7 +116,8 @@
     route: route,
     step: routeInfo.step,
     offer: routeInfo.offer,
-    isTest: testMode
+    isTest: testMode,
+    heroVariant: null
   };
 
   if (localTestMode && typeof window.__CHALLENGE_POSTHOG_TOKEN__ === 'string') {
@@ -450,6 +454,23 @@
     measure();
   }
 
+  // Hero button A/B test. The flag is evaluated once per page load on the landing page only.
+  // The page keeps today's behavior (control) until the flag resolves; the picker variant only
+  // changes what the hero button does on click, so there is no visible flicker while waiting.
+  function resolveHeroVariant(ph) {
+    if (routeInfo.step !== 'landing_page') return;
+    if (typeof ph.onFeatureFlags !== 'function' || typeof ph.getFeatureFlag !== 'function') return;
+    ph.onFeatureFlags(function () {
+      if (window.__challengeAnalytics.heroVariant) return;
+      var variant = ph.getFeatureFlag(HERO_CTA_FLAG);
+      if (!HERO_CTA_VARIANTS[variant]) variant = 'control';
+      window.__challengeAnalytics.heroVariant = variant;
+      ph.register({ hero_cta_variant: variant });
+      ph.capture('hero_variant_shown', pageProperties({ experiment: HERO_CTA_FLAG, variant: variant }));
+      window.dispatchEvent(new CustomEvent('challenge-hero-variant', { detail: { variant: variant } }));
+    });
+  }
+
   window.posthog.init(POSTHOG_TOKEN, {
     api_host: POSTHOG_PROXY,
     ui_host: 'https://us.posthog.com',
@@ -488,8 +509,10 @@
       trackScroll(ph);
 
       if (routeInfo.step === 'purchase_confirmation') {
-        ph.capture('purchase_confirmation_viewed', pageProperties({ ticket_type: routeInfo.offer }));
+        ph.capture('purchase_confirmation_viewed', pageProperties());
       }
+
+      resolveHeroVariant(ph);
 
       window.__challengeAnalytics.loaded = true;
       window.__challengeAnalytics.enabled = true;

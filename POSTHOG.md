@@ -56,8 +56,8 @@ Source paths below are relative to the October folder. `vercel.json` uses `clean
 | `/prepkitvipoct` | `prepkitvip.html` | `upsell` / `prep_kit_vip` |
 | `/taxreportoct` | `taxreport.html` | `upsell` / `tax_report` |
 | `/taxreportvipoct` | `taxreportvip.html` | `upsell` / `tax_report_vip` |
-| `/octchallengeconfirmation` | `octchallengeconfirmation.html` | `purchase_confirmation` / `regular_ticket` |
-| `/octchallengeconfirmationvip` | `octchallengeconfirmationvip.html` | `purchase_confirmation` / `vip_ticket` |
+| `/octchallengeconfirmation` | `octchallengeconfirmation.html` | `purchase_confirmation` / `challenge` (both tickets land here; the Spiffy VIP flow also redirects to this page) |
+| `/octchallengeconfirmationvip` | `octchallengeconfirmationvip.html` | `purchase_confirmation` / `challenge` (legacy alias, not used by the live Spiffy flows) |
 | `/octprechallengetraining` | `prechallengetraining123.html` | `fulfillment` / `vip_training` |
 
 Clean source-path aliases are also classified in the tracker. October's `canonical_path` is the normalized served pathname; aliases are not collapsed into one marketing path. When reporting on a page, include its aliases deliberately.
@@ -73,7 +73,8 @@ October custom events:
 | `calendar_link_clicked` | Calendar link click, with `calendar_type` |
 | `checkout_viewed` | Checkout page initialized |
 | `checkout_embed_mounted`, `checkout_embed_loaded` | Spiffy iframe appeared or emitted load during the observation window |
-| `purchase_confirmation_viewed` | Confirmation page viewed; not independently verified payment |
+| `purchase_confirmation_viewed` | Confirmation page viewed; not independently verified payment. Since `2026-09-18.1` it carries `offer=challenge` and no `ticket_type`, because regular and VIP buyers share one confirmation page |
+| `hero_variant_shown` | Landing page only. Fired once per page load when the `hero-cta-variant` flag resolves; `variant` is `control` or `picker`, `experiment` is the flag key. Use it as the first funnel step when comparing variants |
 
 Common properties include `funnel`, `funnel_step`, `offer`, `canonical_path`, and `analytics_version`. Click events include `cta_text`, `cta_location`, and `element_id` where available. The SDK captures campaign attribution; URL cleanup permits `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, and `utm_term`. October now includes current, first, and last campaign/audience attribution and `scroll_milestone_reached` at 25/50/75/90/100 percent. It does not include webinar Vimeo progress, registration lifecycle, or section-view events.
 
@@ -133,6 +134,17 @@ The new Vercel receiver is `/api/spiffy-webhook`; Spiffy endpoint 210 subscribes
 **Purchase ingestion is pending a dedicated Spiffy API credential approval.** The production resolver code is deployed but dormant without `SPIFFY_API_KEY`. Spiffy endpoint 210 is currently **inactive** to prevent indefinite retries while approval is pending. After approval, store the dedicated key as a sensitive production environment variable, redeploy, verify a signed test, and reactivate endpoint 210. The receiver resolves canonical order fields, payments, checkout, and attribution; requires checkout account 3074 and IDs 40200/40203; sends only the earliest succeeded positive payment and allowlisted anonymous attribution; and uses a deterministic UUID for retries. Unlinked orders use a synthetic order identity and cannot complete a visitor funnel. The exact persisted custom-field metadata still needs verification on the next real order. First-time direct checkout visits whose SDK takes longer than 800 ms may remain unlinked because checkout renders without waiting further. It is not yet a complete purchase conversion system. Reconcile successful payments in Spiffy until activation and a real payment event are verified. Do not treat a confirmation-page view as payment.
 
 Production release `dpl_CpeVeiFt5sMmE7EQjWNv4PPb16by` was Ready and aliased to `go.managemoney101.com`. Tracker version `2026-09-16.2` includes the anonymous identity fallback. Live PostHog QA confirmed cold visits followed by a warm return retained first=cold and last=warm; QA events had `is_test=true`. Both regular and VIP checkout hidden identity fields were confirmed populated and invisible on production. Local attribution checks cover campaign changes, expiry, storage failure, numeric UTMs, privacy, and checkout fail-open behavior.
+
+## Hero button A/B test (September 18, 2026)
+
+Feature flag [`hero-cta-variant`](https://us.posthog.com/project/600066/feature_flags/895912), multivariate, 100% rollout, `control` 50 / `picker` 50, client-side evaluation, bucketed by `distinct_id`.
+
+- `control`: the hero "Grab Your Ticket Now" buttons and the sticky "Get Your Seat" button keep jumping to `#pricing`.
+- `picker`: the hero button opens a two-ticket picker directly under itself (VIP $147 first, General Admission $47 second, "Not yet, keep reading" to close). The sticky button scrolls to the hero and opens the same picker. Picker links are real `/vipticketoct` and `/regularticketoct` links that use `trackTicketLeadAndGo`, so campaign parameter forwarding, the Meta Lead event, and `ticket_option_selected` work unchanged. Their `cta_location` is `hero_picker`; the hero section is `hero` and the bottom CTA section is `final_cta`.
+
+Mechanics live in `assets/js/challenge-analytics.js` (`resolveHeroVariant`) and the inline hero script in `index.html`. The tracker evaluates the flag only on `landing_page` routes, after `loaded`, via `onFeatureFlags`. The page renders control until the flag resolves; the picker variant only changes click behavior, so there is no flicker. On resolution the tracker sets `window.__challengeAnalytics.heroVariant`, registers the super property `hero_cta_variant`, captures `hero_variant_shown`, and dispatches `challenge-hero-variant`. Unknown or missing flag values fall back to `control`. `$feature/hero-cta-variant` and `$feature_flag_called` are also recorded by the SDK.
+
+Read the test with a funnel that starts at `hero_variant_shown` broken down by `variant` (first touch): `hero_variant_shown` → `ticket_option_selected` → `checkout_viewed` → `challenge_order_paid`, 14-day window, `funnel=october_2026_challenge`, `is_test != true`. Decide on paid orders per exposed visitor, not on clicks. Visitors whose flag request never completed are excluded from both arms because they have no exposure event. To end the test, set the winning variant to 100% in the flag (or remove the picker code and delete the flag); do not leave a 50/50 split running after a decision.
 
 ## Webinar page inventory and behavior
 
