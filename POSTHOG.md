@@ -362,3 +362,7 @@ Production QA: the regular checkout loaded its $47 payment form for `warm-samere
 ### PR #11 review fixes
 
 Tracker `2026-09-18.2` excludes failed/missing evaluations and pre-assignment CTA use from experiment exposures. Fallback pricing navigation remains immediately usable; there is no added checkout wait. A valid response can still assign the variant after a transient failure when the CTA has not been used. The picker ignores stale close timers after reopening, and its inner spacing keeps the VIP badge clear of the animation clipping edge. Focused regression tests cover these cases. Production verification follows the merge.
+
+### September 19: reliable ticket navigation
+
+Landing ticket links use their attributed `href` for native browser navigation. The Meta Lead call remains best effort, but no JavaScript navigation lock or 200 ms redirect delay gates checkout. This avoids swallowing later clicks when the page is restored from browser history and preserves modified-click/new-tab behavior. Query parameters still pass through to both checkout URLs. Checkout identity bridging, the PostHog tracker version, and experiment assignment are unchanged.
