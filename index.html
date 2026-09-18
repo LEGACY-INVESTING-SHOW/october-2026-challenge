@@ -210,7 +210,7 @@
     .hero-picker { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .42s cubic-bezier(.16,1,.3,1); text-align: left; }
     .hero-picker[hidden] { display: none; }
     .hero-picker.is-open { grid-template-rows: 1fr; margin-top: 1rem; }
-    .hero-picker-inner { overflow: hidden; min-height: 0; }
+    .hero-picker-inner { overflow: hidden; min-height: 0; padding-top: .65rem; }
     .hero-picker .pick {
       display: grid; gap: .45rem; padding: 1rem 1.05rem; margin-bottom: .65rem;
       background: var(--paper); border: 1.5px solid var(--line); border-radius: 1rem; text-decoration: none; color: var(--ink);
@@ -2109,7 +2109,21 @@
    control: the hero button keeps jumping to #pricing (today's behavior).
    picker:  the hero button opens the two-ticket picker under itself; the sticky button opens the same picker. */
 (function () {
+  document.addEventListener('click', function (event) {
+    var target = event.target;
+    if (!target || typeof target.closest !== 'function' || !target.closest('.js-hero-cta, .js-sticky-cta')) return;
+    var variant = window.__challengeAnalytics && window.__challengeAnalytics.heroVariant;
+    if (variant !== 'control' && variant !== 'picker') window.__challengeHeroInteractedBeforeVariant = true;
+  }, true);
+
   var applied = false;
+  var closeTimers = new WeakMap();
+  function clearCloseTimer(picker) {
+    var timer = closeTimers.get(picker);
+    if (timer === undefined) return;
+    clearTimeout(timer);
+    closeTimers.delete(picker);
+  }
   function visiblePicker() {
     var pickers = document.querySelectorAll('.hero-picker');
     for (var i = 0; i < pickers.length; i++) {
@@ -2122,6 +2136,7 @@
     var picker = visiblePicker();
     if (!picker) return;
     var button = picker.parentElement.querySelector('.js-hero-cta');
+    clearCloseTimer(picker);
     picker.hidden = false;
     void picker.offsetHeight; // force a layout pass so the open transition runs
     picker.classList.add('is-open');
@@ -2138,8 +2153,13 @@
   }
   function closePicker(picker) {
     var button = picker.parentElement.querySelector('.js-hero-cta');
+    clearCloseTimer(picker);
     picker.classList.remove('is-open');
-    setTimeout(function () { picker.hidden = true; }, 450);
+    var timer = setTimeout(function () {
+      closeTimers.delete(picker);
+      if (!picker.classList.contains('is-open')) picker.hidden = true;
+    }, 450);
+    closeTimers.set(picker, timer);
     if (button) {
       button.classList.remove('is-picker-open');
       button.setAttribute('aria-expanded', 'false');

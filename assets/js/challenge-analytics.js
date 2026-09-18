@@ -2,9 +2,8 @@
 (function () {
   'use strict';
 
-  var ANALYTICS_VERSION = '2026-09-18.1';
+  var ANALYTICS_VERSION = '2026-09-18.2';
   var HERO_CTA_FLAG = 'hero-cta-variant';
-  var HERO_CTA_VARIANTS = { control: true, picker: true };
   var POSTHOG_TOKEN = 'phc_rQffz3NncDqfmLpKUcrDvThjyT3brt4QRSxcPUT2pFsw';
   var POSTHOG_PROXY = '/tfc';
   var PRODUCTION_HOST = 'go.managemoney101.com';
@@ -119,6 +118,18 @@
     isTest: testMode,
     heroVariant: null
   };
+
+  // A CTA used before assignment has already delivered fallback behavior. Keep that
+  // page load out of the experiment, even if the remote flag resolves afterward.
+  if (routeInfo.step === 'landing_page') {
+    document.addEventListener('click', function (event) {
+      if (window.__challengeAnalytics.heroVariant) return;
+      var target = event.target;
+      if (target && typeof target.closest === 'function' && target.closest('.js-hero-cta, .js-sticky-cta')) {
+        window.__challengeHeroInteractedBeforeVariant = true;
+      }
+    }, { capture: true });
+  }
 
   if (localTestMode && typeof window.__CHALLENGE_POSTHOG_TOKEN__ === 'string') {
     POSTHOG_TOKEN = window.__CHALLENGE_POSTHOG_TOKEN__;
@@ -460,10 +471,12 @@
   function resolveHeroVariant(ph) {
     if (routeInfo.step !== 'landing_page') return;
     if (typeof ph.onFeatureFlags !== 'function' || typeof ph.getFeatureFlag !== 'function') return;
-    ph.onFeatureFlags(function () {
-      if (window.__challengeAnalytics.heroVariant) return;
+    ph.onFeatureFlags(function (flags, variants, context) {
+      if (window.__challengeAnalytics.heroVariant || window.__challengeHeroInteractedBeforeVariant) return;
+      if (context && context.errorsLoading) return;
       var variant = ph.getFeatureFlag(HERO_CTA_FLAG);
-      if (!HERO_CTA_VARIANTS[variant]) variant = 'control';
+      // Default navigation remains usable, but a fallback is not a randomized exposure.
+      if (variant !== 'control' && variant !== 'picker') return;
       window.__challengeAnalytics.heroVariant = variant;
       ph.register({ hero_cta_variant: variant });
       ph.capture('hero_variant_shown', pageProperties({ experiment: HERO_CTA_FLAG, variant: variant }));

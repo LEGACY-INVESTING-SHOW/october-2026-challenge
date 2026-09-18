@@ -36,6 +36,7 @@ function executeTracker(options) {
   const localStorage = options.localStorage || new MemoryStorage();
   const sessionStorage = options.sessionStorage || new MemoryStorage();
   const insertedScripts = [];
+  const documentListeners = {};
   const scriptAnchor = { parentNode: { insertBefore(node) { insertedScripts.push(node); } } };
   const document = {
     title: 'October Challenge',
@@ -43,7 +44,7 @@ function executeTracker(options) {
     documentElement: { scrollHeight: 2000 },
     createElement() { return {}; },
     getElementsByTagName() { return [scriptAnchor]; },
-    addEventListener() {},
+    addEventListener(name, callback) { (documentListeners[name] ||= []).push(callback); },
     querySelector() { return null; }
   };
   const window = {
@@ -91,6 +92,7 @@ function executeTracker(options) {
   vm.runInNewContext(trackerSource, context, { filename: 'challenge-analytics.js' });
   const init = window.posthog && window.posthog._i && window.posthog._i[0];
   return {
+    click(target) { for (const fn of documentListeners.click || []) fn({target}); },
     analytics: window.__challengeAnalytics,
     attribution: window.__challengeAttribution,
     config: init && init[1],
@@ -246,10 +248,10 @@ test('reports the current analytics version on tracker state and events', () => 
   const result = executeTracker({
     url: 'https://go.managemoney101.com/october?utm_campaign=tg-h4-ch-91626'
   });
-  assert.equal(result.analytics.version, '2026-09-18.1');
+  assert.equal(result.analytics.version, '2026-09-18.2');
   assert.equal(
     result.config.before_send({event: '$pageview', properties: {}}).properties.analytics_version,
-    '2026-09-18.1'
+    '2026-09-18.2'
   );
 });
 
@@ -424,7 +426,8 @@ function mockPostHog(flagValue) {
   return {
     captured,
     registered,
-    fire() { if (flagCallback) flagCallback(); },
+    setFlag(value) { flagValue = value; },
+    fire(context) { if (flagCallback) flagCallback([], {}, context); },
     capture(event, properties) { captured.push({event, properties}); },
     register(properties) { registered.push(properties); },
     onFeatureFlags(callback) { flagCallback = callback; },
@@ -454,14 +457,14 @@ test('landing page resolves the hero button variant once and reports it', () => 
   assert.equal(events.filter((event) => event.type === 'challenge-hero-variant').length, 1);
 });
 
-test('unknown or missing flag values fall back to the control hero button', () => {
-  for (const value of [undefined, false, 'something-else']) {
+test('unknown or missing flag values keep fallback behavior without experiment exposure', () => {
+  for (const value of [undefined, false, 'something-else', 'toString', '__proto__']) {
     const result = executeTracker({ url: 'https://go.managemoney101.com/october' });
     const ph = mockPostHog(value);
     result.config.loaded(ph);
     ph.fire();
-    assert.equal(result.analytics.heroVariant, 'control');
-    assert.equal(ph.captured.filter((entry) => entry.event === 'hero_variant_shown')[0].properties.variant, 'control');
+    assert.equal(result.analytics.heroVariant, null);
+    assert.equal(ph.captured.filter((entry) => entry.event === 'hero_variant_shown').length, 0);
   }
 });
 
@@ -486,4 +489,58 @@ test('the shared confirmation page reports the challenge offer for both tickets'
     assert.equal(viewed[0].properties.offer, 'challenge');
     assert.equal('ticket_type' in viewed[0].properties, false);
   }
+});
+
+
+test('failed flag requests produce no exposure and allow successful retry', () => {
+  const result = executeTracker({});
+  const ph = mockPostHog('picker');
+  result.config.loaded(ph);
+  ph.fire({ errorsLoading: true });
+  assert.equal(result.analytics.heroVariant, null);
+  assert.equal(ph.captured.filter(x => x.event === 'hero_variant_shown').length, 0);
+  ph.fire({ errorsLoading: false });
+  assert.equal(result.analytics.heroVariant, 'picker');
+  assert.equal(ph.captured.filter(x => x.event === 'hero_variant_shown').length, 1);
+});
+
+test('a missing assignment can resolve later without an early fallback exposure', () => {
+  const result = executeTracker({});
+  const ph = mockPostHog(undefined);
+  result.config.loaded(ph);
+  ph.fire();
+  ph.setFlag('control');
+  ph.fire();
+  assert.equal(result.analytics.heroVariant, 'control');
+  assert.equal(ph.captured.filter(x => x.event === 'hero_variant_shown').length, 1);
+});
+
+test('CTA use before the SDK loads excludes the page from late assignment', () => {
+  const result = executeTracker({});
+  result.click({ closest() { return {}; } });
+  const ph = mockPostHog('picker');
+  result.config.loaded(ph);
+  ph.fire();
+  assert.equal(result.window.__challengeHeroInteractedBeforeVariant, true);
+  assert.equal(result.analytics.heroVariant, null);
+  assert.equal(ph.captured.filter(x => x.event === 'hero_variant_shown').length, 0);
+});
+
+test('inline early interaction marker excludes a delayed tracker assignment', () => {
+  const result = executeTracker({});
+  result.window.__challengeHeroInteractedBeforeVariant = true;
+  const ph = mockPostHog('control');
+  result.config.loaded(ph);
+  ph.fire();
+  assert.equal(result.analytics.heroVariant, null);
+  assert.equal(ph.captured.filter(x => x.event === 'hero_variant_shown').length, 0);
+});
+
+test('unrelated early clicks do not exclude the visitor from assignment', () => {
+  const result = executeTracker({});
+  result.click({ closest() { return null; } });
+  const ph = mockPostHog('picker');
+  result.config.loaded(ph);
+  ph.fire();
+  assert.equal(result.analytics.heroVariant, 'picker');
 });
