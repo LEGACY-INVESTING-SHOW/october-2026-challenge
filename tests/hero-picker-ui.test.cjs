@@ -40,15 +40,20 @@ function executePicker(options = {}) {
   const documentListeners = {};
   const windowListeners = {};
   const timers = new Map();
+  const scrollCalls = [];
   let nextTimerId = 1;
 
+  const pickerListeners = {};
+  const pickerRect = options.pickerRect || { top: 200, bottom: 500, height: 300 };
   const picker = {
     classList: new FakeClassList(),
     hidden: true,
     offsetHeight: 0,
-    getBoundingClientRect() { return { top: 200, bottom: 500 }; }
+    addEventListener(type, callback) { pickerListeners[type] = callback; },
+    getBoundingClientRect() { return pickerRect; }
   };
   const heroButton = createControl();
+  heroButton.getBoundingClientRect = () => options.heroButtonRect || { top: 200, bottom: 250, height: 50 };
   const stickyButton = createControl();
   const closeButton = createControl();
   const pickerBox = {
@@ -78,10 +83,11 @@ function executePicker(options = {}) {
   };
   const window = {
     __challengeAnalytics: options.analytics,
-    innerHeight: 800,
-    pageYOffset: 0,
+    innerHeight: options.innerHeight || 800,
+    pageYOffset: options.pageYOffset || 0,
     addEventListener(type, callback) { windowListeners[type] = callback; },
-    scrollTo() {}
+    matchMedia() { return { matches: options.reducedMotion === true }; },
+    scrollTo(settings) { scrollCalls.push(settings); }
   };
   const context = {
     WeakMap,
@@ -101,6 +107,9 @@ function executePicker(options = {}) {
 
   return {
     documentListeners,
+    dispatchPickerTransition(type = 'transitionend') {
+      pickerListeners[type]({ currentTarget: picker, target: picker, propertyName: 'grid-template-rows' });
+    },
     heroButton,
     picker,
     runAllTimers() {
@@ -108,6 +117,8 @@ function executePicker(options = {}) {
       timers.clear();
       callbacks.forEach((callback) => callback());
     },
+    scrollCalls,
+    stickyButton,
     window
   };
 }
@@ -118,8 +129,15 @@ function click(control) {
   return prevented;
 }
 
+function normalizeScrollCalls(calls) {
+  return calls.map((call) => ({ top: call.top, behavior: call.behavior }));
+}
+
 test('a stale close timer cannot hide a picker reopened immediately', () => {
-  const result = executePicker({ analytics: { heroVariant: 'picker' } });
+  const result = executePicker({
+    analytics: { heroVariant: 'picker' },
+    pickerRect: { top: 260, bottom: 900, height: 640 }
+  });
 
   assert.equal(click(result.heroButton), true);
   assert.equal(result.picker.hidden, false);
@@ -134,6 +152,75 @@ test('a stale close timer cannot hide a picker reopened immediately', () => {
   assert.equal(result.picker.hidden, false);
   assert.equal(result.picker.classList.contains('is-open'), true);
   assert.equal(result.heroButton.attributes['aria-expanded'], 'true');
+
+  result.dispatchPickerTransition();
+  assert.equal(result.scrollCalls.at(-1).top, 116);
+});
+
+test('hero CTA scrolls only enough to reveal the full picker after it expands', () => {
+  const result = executePicker({
+    analytics: { heroVariant: 'picker' },
+    pickerRect: { top: 260, bottom: 900, height: 640 },
+    pageYOffset: 25
+  });
+
+  assert.equal(click(result.heroButton), true);
+  assert.equal(result.scrollCalls.length, 0, 'waits for the picker transition to finish');
+
+  result.dispatchPickerTransition();
+
+  assert.deepEqual(normalizeScrollCalls(result.scrollCalls), [{ top: 141, behavior: 'smooth' }]);
+});
+
+test('reduced motion top-aligns a picker that is taller than the viewport', () => {
+  const result = executePicker({
+    analytics: { heroVariant: 'picker' },
+    pickerRect: { top: 240, bottom: 1120, height: 880 },
+    reducedMotion: true
+  });
+
+  assert.equal(click(result.heroButton), true);
+
+  assert.deepEqual(normalizeScrollCalls(result.scrollCalls), [{ top: 168, behavior: 'auto' }]);
+});
+
+test('an already visible picker does not move the page', () => {
+  const result = executePicker({
+    analytics: { heroVariant: 'picker' },
+    pickerRect: { top: 120, bottom: 700, height: 580 }
+  });
+
+  assert.equal(click(result.heroButton), true);
+  result.dispatchPickerTransition();
+
+  assert.deepEqual(result.scrollCalls, []);
+});
+
+test('sticky CTA moves to the hero immediately and fits the picker after expansion', () => {
+  const result = executePicker({
+    analytics: { heroVariant: 'picker' },
+    heroButtonRect: { top: 220, bottom: 270, height: 50 },
+    pickerRect: { top: 260, bottom: 900, height: 640 }
+  });
+
+  assert.equal(click(result.stickyButton), true);
+  assert.deepEqual(normalizeScrollCalls(result.scrollCalls), [{ top: 124, behavior: 'smooth' }]);
+
+  result.dispatchPickerTransition();
+  assert.deepEqual(normalizeScrollCalls(result.scrollCalls).at(-1), { top: 116, behavior: 'smooth' });
+});
+
+test('closing before expansion finishes does not trigger a delayed scroll', () => {
+  const result = executePicker({
+    analytics: { heroVariant: 'picker' },
+    pickerRect: { top: 260, bottom: 900, height: 640 }
+  });
+
+  assert.equal(click(result.heroButton), true);
+  assert.equal(click(result.heroButton), true);
+  result.dispatchPickerTransition();
+
+  assert.deepEqual(result.scrollCalls, []);
 });
 
 test('an early CTA click records the handshake without blocking navigation', () => {

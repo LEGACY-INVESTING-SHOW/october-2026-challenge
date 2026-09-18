@@ -224,7 +224,7 @@
     .hero-picker .pick-name { font-family: var(--display-font, 'Newsreader', Georgia, serif); font-weight: 600; font-size: 1.15rem; line-height: 1.15; }
     .hero-picker .pick-price { white-space: nowrap; font-variant-numeric: tabular-nums; }
     .hero-picker .pick-price s { color: var(--ink-faint); font-size: .85rem; margin-right: .35rem; }
-    .hero-picker .pick-price b { font-family: var(--display-font, 'Newsreader', Georgia, serif); font-size: 1.45rem; font-weight: 600; }
+    .hero-picker .pick-price b { font-family: var(--sans); font-size: 1.45rem; font-weight: 600; }
     .hero-picker .pick-desc { font-size: .88rem; line-height: 1.45; color: var(--ink-soft); }
     .hero-picker .pick .btn { margin-top: .3rem; }
     .hero-picker .pick-close { display: block; margin: .25rem auto 0; background: none; border: 0; padding: .4rem .6rem; font: inherit; font-size: .84rem; color: var(--ink-faint); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
@@ -2118,6 +2118,7 @@
 
   var applied = false;
   var closeTimers = new WeakMap();
+  var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function clearCloseTimer(picker) {
     var timer = closeTimers.get(picker);
     if (timer === undefined) return;
@@ -2132,10 +2133,32 @@
     }
     return pickers[0] || null;
   }
+  function scrollPickerIntoView(picker) {
+    var topInset = 72;
+    var bottomInset = 16;
+    var rect = picker.getBoundingClientRect();
+    var availableHeight = window.innerHeight - topInset - bottomInset;
+    var pickerHeight = typeof rect.height === 'number' ? rect.height : rect.bottom - rect.top;
+    var delta = 0;
+    if (pickerHeight > availableHeight) delta = rect.top - topInset;
+    else if (rect.bottom > window.innerHeight - bottomInset) delta = rect.bottom - (window.innerHeight - bottomInset);
+    else if (rect.top < topInset) delta = rect.top - topInset;
+    else return;
+    window.scrollTo({
+      top: Math.max(0, window.pageYOffset + delta),
+      behavior: reducedMotion ? 'auto' : 'smooth'
+    });
+  }
+  function onPickerTransition(event) {
+    var picker = event.currentTarget;
+    if (event.target !== picker || event.propertyName !== 'grid-template-rows') return;
+    if (picker.classList.contains('is-open')) scrollPickerIntoView(picker);
+  }
   function openPicker(fromSticky) {
     var picker = visiblePicker();
     if (!picker) return;
     var button = picker.parentElement.querySelector('.js-hero-cta');
+    var wasOpen = picker.classList.contains('is-open');
     clearCloseTimer(picker);
     picker.hidden = false;
     void picker.offsetHeight; // force a layout pass so the open transition runs
@@ -2145,11 +2168,11 @@
       button.setAttribute('aria-expanded', 'true');
       button.innerHTML = 'Choose your ticket below <svg class="arrow" aria-hidden="true"><use href="#arrow-icon"/></svg>';
     }
-    var target = fromSticky && button ? button : picker;
-    var top = target.getBoundingClientRect().top + window.pageYOffset - (fromSticky ? 96 : 72);
-    if (fromSticky || picker.getBoundingClientRect().bottom > window.innerHeight) {
+    if (fromSticky && button && !reducedMotion && !wasOpen) {
+      var top = button.getBoundingClientRect().top + window.pageYOffset - 96;
       window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
     }
+    if (reducedMotion || wasOpen) scrollPickerIntoView(picker);
   }
   function closePicker(picker) {
     var button = picker.parentElement.querySelector('.js-hero-cta');
@@ -2169,6 +2192,10 @@
   function applyPicker() {
     if (applied) return;
     applied = true;
+    document.querySelectorAll('.hero-picker').forEach(function (picker) {
+      picker.addEventListener('transitionend', onPickerTransition);
+      picker.addEventListener('transitioncancel', onPickerTransition);
+    });
     document.querySelectorAll('.js-hero-cta').forEach(function (button) {
       button.setAttribute('aria-expanded', 'false');
       button.setAttribute('aria-controls', 'hero-picker');
