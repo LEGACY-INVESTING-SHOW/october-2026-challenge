@@ -2064,20 +2064,7 @@
     });
   })();
 
-  var REDIRECT_URLS = { ticket: '/regularticketoct', vip: '/vipticketoct' };
-  var ticketLeadNavigationInProgress = false;
-
-  function checkoutUrlWithCurrentParams(ticketType) {
-    var q = new URLSearchParams(location.search);
-    var qs = q.toString();
-    return (REDIRECT_URLS[ticketType] || REDIRECT_URLS.ticket) + (qs ? '?' + qs : '');
-  }
-
   function trackTicketLeadAndGo(ticketType, ev) {
-    if (ev) ev.preventDefault();
-    if (ticketLeadNavigationInProgress) return false;
-    ticketLeadNavigationInProgress = true;
-
     try {
       if (typeof fbq === 'function') {
         fbq('track', 'Lead', {
@@ -2085,11 +2072,7 @@
         });
       }
     } catch (e) {}
-
-    setTimeout(function () {
-      location.href = checkoutUrlWithCurrentParams(ticketType);
-    }, 200);
-    return false;
+    return true;
   }
 
   // Preserve campaign attribution when visitors go directly to checkout.
