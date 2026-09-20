@@ -83,16 +83,32 @@
       "destination": "/index"
     },
     {
+      "source": "/octoberlt",
+      "destination": "/indexlt"
+    },
+    {
       "source": "/regularticketoct",
       "destination": "/regularticket26"
+    },
+    {
+      "source": "/regularticketlt",
+      "destination": "/regularticketlt"
     },
     {
       "source": "/vipticketoct",
       "destination": "/vipticket26"
     },
     {
+      "source": "/vipticketlt",
+      "destination": "/vipticketlt"
+    },
+    {
       "source": "/vipupgradeoct",
       "destination": "/upgradevip"
+    },
+    {
+      "source": "/vipupgradelt",
+      "destination": "/vipupgradelt"
     },
     {
       "source": "/prepkitoct",
