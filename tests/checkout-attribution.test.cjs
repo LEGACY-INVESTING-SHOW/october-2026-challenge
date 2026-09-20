@@ -2,7 +2,7 @@ const {readFileSync}=require('node:fs');
 const path=require('node:path');
 const vm=require('node:vm');
 const assert=require('node:assert/strict');
-for(const file of ['regularticket26.html','vipticket26.html']) {
+for(const file of ['regularticket26.html','vipticket26.html','regularticketlt.html','vipticketlt.html']) {
  const html=readFileSync(path.resolve(__dirname,'..',file),'utf8');
  const code=[...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)].map(x=>x[1]).find(x=>x.includes('function mountCheckout'));
  assert.ok(code);

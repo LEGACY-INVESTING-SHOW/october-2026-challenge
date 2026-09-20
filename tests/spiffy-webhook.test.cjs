@@ -407,6 +407,23 @@ test('uses a stable unlinked order identity while preserving verified warm attri
   assert.equal(event.properties.utm_campaign, 'warm-bp4-static1paycheck401kwhiteboard-091326');
 });
 
+test('records LT ticket purchases as their own offers', async () => {
+  process.env.SPIFFY_WEBHOOK_DIAGNOSTIC = 'false';
+
+  for (const [checkoutId, offer] of [[40584, 'regular_ticket_lt'], [40585, 'vip_ticket_lt']]) {
+    const order = validOrder({checkout: {id: checkoutId, account_id: 3074}});
+    const calls = installFetchMock({order});
+
+    const res = await invoke({body: JSON.stringify(webhookPayload(order.id))});
+    assert.equal(res.statusCode, 200);
+    assert.equal(calls.length, 2);
+
+    const event = JSON.parse(calls[1].options.body);
+    assert.equal(event.event, 'challenge_order_paid');
+    assert.equal(event.properties.offer, offer);
+  }
+});
+
 test('classifies every expanded cold campaign exactly while preserving warm and unknown outcomes', () => {
   assert.equal(NEW_COLD_CAMPAIGNS.length, 34);
   for (const campaign of NEW_COLD_CAMPAIGNS) {

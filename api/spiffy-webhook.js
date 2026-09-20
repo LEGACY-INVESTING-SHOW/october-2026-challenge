@@ -15,6 +15,8 @@ const UUID_NAMESPACE = Buffer.from('6ba7b8119dad11d180b400c04fd430c8', 'hex');
 const CHECKOUT_OFFERS = {
   40200: 'regular_ticket',
   40203: 'vip_ticket',
+  40584: 'regular_ticket_lt',
+  40585: 'vip_ticket_lt',
 };
 const AUDIENCE_CAMPAIGNS = {
   'bp4-suppgrouppxr-091326': 'cold',

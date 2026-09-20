@@ -1,6 +1,6 @@
 # PostHog setup: October Challenge and Legacy Wealth Blueprint Webinar
 
-Guide version: `2026-09-18.2`. Updated September 18, 2026 for the hero button A/B test (`hero-cta-variant`) and the shared confirmation page, following the warm campaign expansion. Release verification is recorded below.
+Guide version: `2026-09-20.1`. Updated September 20, 2026 for the separate LT funnel routes, checkout identity bridge, and server-verified LT ticket offers. Release verification is recorded below.
 
 This is the shared operating guide for both funnels. Read it before changing tracking, creating reports, or interpreting conversions. It records the installed setup and its limitations; it is not a guarantee that future deployments or account settings remain unchanged.
 
@@ -8,6 +8,7 @@ This is the shared operating guide for both funnels. Read it before changing tra
 
 - **Live:** cold/warm/unknown campaign attribution, first/current/last touch tracking, page and checkout events, scroll milestones, separate audience reports, campaign-filtered heatmaps, and recording lists. The existing pages are shared by both audiences.
 - **Live:** optional hidden `ph_distinct_id` order fields and the existing hidden `fbclid` / Reference ID customer fields on regular and VIP checkouts. Campaign forwarding and the checkout's bounded analytics wait are preserved.
+- **Prepared for release:** the LT cold-traffic routes use separate page and offer labels, the $17 regular/$67 VIP/$50 VIP-upgrade pricing, and the same privacy-preserving checkout identity bridge. Their two Spiffy metadata fields remain visible until the scoped checkout CSS is published in Spiffy.
 - **Released:** PR #7 performance changes are merged and live, with the newer tracker and checkout behavior retained. See the production release evidence at the end of this guide.
 - **Active:** the production purchase receiver has its dedicated Spiffy API key and endpoint 210 is active for `order:success`. Signed delivery and a read-only canonical payment lookup passed. Two real paid orders have now been verified end to end with saved anonymous IDs, saved customer FBCLIDs, matching browser journeys, and warm attribution. See the September 17 audit below. Browser checkout/confirmation events must not be reported as paid conversions.
 - **Scope:** these cold/warm changes apply to the October Challenge only. Webinar reporting remains separate in the same PostHog project.
@@ -34,7 +35,7 @@ PostHog: **US cloud**, project **600066**, currently named **Default project**. 
 | Production host | `go.managemoney101.com` | `join.managemoney101.com` |
 | Required event property `funnel` | `october_2026_challenge` | `legacy_wealth_blueprint_webinar` |
 | Tracker | `assets/js/challenge-analytics.js` | `assets/js/webinar-analytics.js` |
-| Tracker version at verification | `2026-09-18.2` | `2026-09-16.3` |
+| Tracker version at verification | `2026-09-20.1` | `2026-09-16.3` |
 | First-party ingestion proxy | `/tfc` | `/lwb-events` |
 | Browser persistence | SDK default name, localStorage on October origin | `lwb_webinar_analytics`, localStorage on webinar origin; cross-subdomain cookies disabled |
 | Dashboard | [October 2026 Challenge Funnel](https://us.posthog.com/project/600066/dashboard/2094096) | [Legacy Wealth Blueprint Webinar](https://us.posthog.com/project/600066/dashboard/2103328) |
@@ -57,9 +58,13 @@ Source paths below are relative to the October folder. `vercel.json` uses `clean
 | Public path | HTML source | `funnel_step` / `offer` |
 | --- | --- | --- |
 | `/october` (also `/`, `/index`) | `index.html` | `landing_page` / `challenge` |
+| `/octoberlt` (also `/indexlt`) | `indexlt.html` | `landing_page` / `challenge_lt` |
 | `/regularticketoct` | `regularticket26.html` | `checkout` / `regular_ticket` |
+| `/regularticketlt` | `regularticketlt.html` | `checkout` / `regular_ticket_lt` |
 | `/vipticketoct` | `vipticket26.html` | `checkout` / `vip_ticket` |
+| `/vipticketlt` | `vipticketlt.html` | `checkout` / `vip_ticket_lt` |
 | `/vipupgradeoct` | `upgradevip.html` | `upsell` / `vip_upgrade` |
+| `/vipupgradelt` | `vipupgradelt.html` | `upsell` / `vip_upgrade_lt` |
 | `/prepkitoct` | `prepkit.html` | `upsell` / `prep_kit` |
 | `/prepkitvipoct` | `prepkitvip.html` | `upsell` / `prep_kit_vip` |
 | `/taxreportoct` | `taxreport.html` | `upsell` / `tax_report` |
@@ -172,17 +177,19 @@ These heatmaps cover URL-tagged visits. Untagged returns whose audience exists o
 
 On September 16, the existing `fbclid` / Reference ID field was hidden on both Spiffy checkouts at the user's request. Only scoped CSS was added: regular `.checkout #block-364953 { display: none !important; }`, VIP `.checkout #block-364954 { display: none !important; }`. The existing text CUSTOMER field and its `fbclid` mapping remain intact. Inputs `inputText-364953` and `inputText-364954` remain enabled and optional. Live hosted checkout verification confirmed exact synthetic `fbclid` prefill values, invisible wrappers, the PostHog fields still hidden, and unchanged $47/$147 totals. No form was submitted. This was published in Spiffy; no site code or checkout loading change was made for this visibility update.
 
+The LT checkouts retain the same enabled, optional fields and mappings: regular checkout 40584 has Reference ID wrapper `#block-367795` and PostHog Distinct ID wrapper `#block-367796`; VIP checkout 40585 has wrappers `#block-367806` and `#block-367807`. Synthetic URL values were confirmed to prefill both fields. Publish only the scoped rules `.checkout #block-367795, .checkout #block-367796 { display: none !important; }` on regular LT and `.checkout #block-367806, .checkout #block-367807 { display: none !important; }` on VIP LT. As of this guide update, those fields remain visible until that Spiffy design change is published; do not disable or remove the inputs.
+
 ### Checkout identity bridge and payment receiver
 
-Both ticket embeds explicitly forward the five current UTMs and an anonymous `ph_distinct_id`. They wait up to 800 ms for analytics, then render anyway. SDK identity is read from the ready SDK or its existing localStorage entry; no email, phone, or lead object is used as identity. Spiffy script loading starts after DOMContentLoaded to avoid its body-not-ready error.
+All four ticket embeds explicitly forward the five current UTMs and an anonymous `ph_distinct_id`. They wait up to 800 ms for analytics, then render anyway. SDK identity is read from the ready SDK or its existing localStorage entry; no email, phone, or lead object is used as identity. Spiffy script loading starts after DOMContentLoaded to avoid its body-not-ready error.
 
-Spiffy account 3074 now has optional text ORDER field `PostHog Distinct ID`, URL key `ph_distinct_id`. It is published on regular checkout 40200 (`#block-367236`) and VIP checkout 40203 (`#block-367249`), with each field hidden by its unique wrapper. Existing `fbclid`, prefill, prices, and offers are retained. No purchase was submitted for verification.
+Spiffy account 3074 now has optional text ORDER field `PostHog Distinct ID`, URL key `ph_distinct_id`. It is published on original regular checkout 40200 (`#block-367236`) and VIP checkout 40203 (`#block-367249`), with each field hidden by its unique wrapper, and on LT regular checkout 40584 (`#block-367796`) and VIP checkout 40585 (`#block-367807`). Existing `fbclid`, prefill, prices, and offers are retained. The LT wrappers are pending the scoped CSS publish described above. No purchase was submitted for verification.
 
 The new Vercel receiver is `/api/spiffy-webhook`; Spiffy endpoint 210 subscribes to `order:success`. Authentication requires both a secret URL token and `spiffy-signature` HMAC-SHA256 over `${timestamp}.${rawBody}`, with a five-minute timestamp tolerance and account 3074. Environment secret names are `SPIFFY_WEBHOOK_VERIFY_TOKEN` and `SPIFFY_WEBHOOK_SIGNING_SECRET`. Never record their values in documentation. Real signed Spiffy `test` calls returned 200 without creating analytics events. Invalid signatures fail closed. Final production verification returned 200 for a signed non-ingesting test and 401 for an invalid signature. The receiver passed 19 focused tests, including nullable attribution, linked/unlinked orders, retry deduplication, ownership, and privacy.
 
 **The purchase connection was activated September 17, 2026 (Asia/Kolkata).** Following explicit user approval, a dedicated key named `October Challenge PostHog Purchase Tracker` was created and stored as sensitive production environment variable `SPIFFY_API_KEY` in the existing Vercel project. The temporary owner-only secret file was deleted after storage; no credential values belong in this guide. The existing merged production release was redeployed with the new environment, then Spiffy endpoint 210 was activated for `order:success`.
 
-The receiver resolves canonical order fields, payments, checkout, and attribution; requires checkout account 3074 and IDs 40200/40203; sends only the earliest succeeded positive payment and allowlisted anonymous attribution; and uses a deterministic UUID for retries. Unlinked orders use a synthetic order identity and cannot complete a visitor funnel. First-time direct checkout visits whose SDK takes longer than 800 ms may remain unlinked because checkout renders without waiting further.
+The receiver resolves canonical order fields, payments, checkout, and attribution; requires checkout account 3074 and IDs 40200/40203/40584/40585; sends only the earliest succeeded positive payment and allowlisted anonymous attribution; and uses a deterministic UUID for retries. LT ticket payments are labeled `regular_ticket_lt` or `vip_ticket_lt`. Unlinked orders use a synthetic order identity and cannot complete a visitor funnel. First-time direct checkout visits whose SDK takes longer than 800 ms may remain unlinked because checkout renders without waiting further.
 
 Activation checks: all 19 receiver tests passed. A read-only API lookup using the new credential resolved existing paid order 2516863, verified account 3074 / checkout 40200, and produced the expected warm, unlinked purchase payload locally without sending it to PostHog. This older order predates the hidden identity field. Spiffy signed test `evt_test_d638ca82eec1cbcb40e05847` was delivered to the redeployed production receiver with HTTP 200 and no analytics event. Endpoint 210 was confirmed active. Production deployment `dpl_GB6qDPUsBKmjF8XciR13jxe1eEkB` (`october-2026-challenge-6og11fue3-legacy-investing-show.vercel.app`) was Ready and aliased to `go.managemoney101.com`. The landing page, both ticket pages, and browser tracker returned HTTP 200 with identical content hashes before and after deployment.
 

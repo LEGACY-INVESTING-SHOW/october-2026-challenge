@@ -248,10 +248,10 @@ test('reports the current analytics version on tracker state and events', () => 
   const result = executeTracker({
     url: 'https://go.managemoney101.com/october?utm_campaign=tg-h4-ch-91626'
   });
-  assert.equal(result.analytics.version, '2026-09-18.2');
+  assert.equal(result.analytics.version, '2026-09-20.1');
   assert.equal(
     result.config.before_send({event: '$pageview', properties: {}}).properties.analytics_version,
-    '2026-09-18.2'
+    '2026-09-20.1'
   );
 });
 
@@ -475,6 +475,20 @@ test('checkout pages do not evaluate the hero button flag', () => {
   ph.fire();
   assert.equal(result.analytics.heroVariant, null);
   assert.equal(ph.captured.filter((entry) => entry.event === 'hero_variant_shown').length, 0);
+});
+
+test('LT funnel routes use their own analytics offers', () => {
+  const expected = {
+    '/octoberlt': ['landing_page', 'challenge_lt'],
+    '/regularticketlt': ['checkout', 'regular_ticket_lt'],
+    '/vipticketlt': ['checkout', 'vip_ticket_lt'],
+    '/vipupgradelt': ['upsell', 'vip_upgrade_lt']
+  };
+  Object.entries(expected).forEach(([route, [step, offer]]) => {
+    const result = executeTracker({ url: 'https://go.managemoney101.com' + route });
+    assert.equal(result.analytics.step, step);
+    assert.equal(result.analytics.offer, offer);
+  });
 });
 
 test('the shared confirmation page reports the challenge offer for both tickets', () => {

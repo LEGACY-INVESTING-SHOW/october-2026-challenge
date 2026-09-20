@@ -234,7 +234,9 @@
   })();
   </script>
 
+  <link rel="preload" as="style" href="/checkout.css">
   <link rel="stylesheet" href="checkout.css">
+  <script defer src="/assets/js/challenge-analytics.js"></script>
 
 </head>
 
@@ -273,7 +275,7 @@
 <header class="checkout-header wrap">
   <h1>General Admission</h1>
   <div class="deadline" role="timer">
-    <span class="deadline-label"><i class="dot"></i>50% off ends at midnight</span>
+    <span class="deadline-label"><i class="dot"></i>$80 off ends at midnight</span>
     <span class="deadline-time" id="deadlineTime">--h --m --s</span>
   </div>
 </header>
@@ -292,6 +294,7 @@
         (function () {
           // Preserve existing prefill and attribution when loading checkout.
           var mount = document.currentScript.previousElementSibling;
+          function mountCheckout() {
           var q = new URLSearchParams(location.search);
           var saved = {};
           try { saved = JSON.parse(localStorage.getItem('lis_lead') || '{}'); } catch (e) {}
@@ -303,6 +306,20 @@
             phone_number: q.get('phone_number') || q.get('phone') || saved.phone,
             fbclid:     q.get('fbclid')     || saved.fbclid
           };
+          var campaignFields = {};
+          try {
+            if (window.__challengeAttribution) campaignFields = window.__challengeAttribution.getUtmFields();
+          } catch (_) {}
+          ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (key) {
+            var value = q.has(key) ? q.get(key) : campaignFields[key];
+            if (value) fields[key] = value;
+          });
+          try {
+            if (window.__challengeAttribution && window.__challengeAttribution.getAnonymousId) {
+              var distinctId = window.__challengeAttribution.getAnonymousId();
+              if (distinctId) fields.ph_distinct_id = distinctId;
+            }
+          } catch (_) {}
           var out = new URLSearchParams();
           Object.keys(fields).forEach(function (k) { if (fields[k]) out.set(k, fields[k]); });
           var el = document.createElement('spiffy-element');
@@ -327,6 +344,31 @@
             observer.disconnect();
           }, 12000);
           mount.replaceWith(el);
+          }
+          var mounted = false;
+          var readinessTimer;
+          function mountOnce() {
+            if (mounted) return;
+            mounted = true;
+            clearTimeout(readinessTimer);
+            window.removeEventListener('challenge-analytics-ready', mountOnce);
+            mountCheckout();
+          }
+          function startCheckout() {
+            if (window.__challengeAttribution && window.__challengeAttribution.getAnonymousId && window.__challengeAttribution.getAnonymousId()) {
+              mountOnce();
+            } else if (window.__challengeAnalytics && window.__challengeAnalytics.disabledReason) {
+              mountOnce();
+            } else {
+              window.addEventListener('challenge-analytics-ready', mountOnce, { once: true });
+              readinessTimer = setTimeout(mountOnce, 800);
+            }
+          }
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startCheckout, { once: true });
+          } else {
+            startCheckout();
+          }
 
         })();
         </script>
@@ -343,9 +385,9 @@
         <div class="summary-head">
           <div class="summary-row">
             <span class="summary-name">Tax-Free Income Challenge</span>
-            <span class="summary-price"><s class="summary-old">$97</s>$47</span>
+            <span class="summary-price"><s class="summary-old">$97</s>$17</span>
           </div>
-          <p class="summary-meta"><span class="summary-save">Save $50 today</span> · One-time payment · Live on Zoom · Oct 16–18, 10 a.m.–4 p.m. Eastern</p>
+          <p class="summary-meta"><span class="summary-save">Save $80 today</span> · One-time payment · Live on Zoom · Oct 16–18, 10 a.m.–4 p.m. Eastern</p>
         </div>
         <div class="summary-body">
         <h2>What's included</h2>
@@ -369,7 +411,7 @@
 <li><svg class="check-svg" aria-hidden="true"><use href="#check-icon"/></svg><span>Starting an Airbnb business without buying property</span></li>
 <li><svg class="check-svg" aria-hidden="true"><use href="#check-icon"/></svg><span>Your 12-month wealth plan</span></li></ul>
         </details>
-        <p class="ticket-switch">Want replays, notes, and live Q&amp;A with Preston? <a href="/vipticketlt">See VIP · $147 →</a></p>
+        <p class="ticket-switch">Want replays, notes, and live Q&amp;A with Preston? <a href="/vipticketlt">See VIP · $67 →</a></p>
         </div>
       </aside>
     </div>
@@ -521,7 +563,7 @@
 <!-- Mobile sticky bar: shows only after the checkout form scrolls out of view -->
 <div class="mobile-cta" id="mobileCta" aria-hidden="true">
   <div class="wrap mobile-cta-inner">
-    <span class="mobile-cta-label"><strong>General Admission · <s>$97</s> $47</strong>Tax-Free Income Challenge</span>
+    <span class="mobile-cta-label"><strong>General Admission · <s>$97</s> $17</strong>Tax-Free Income Challenge</span>
     <a href="#checkout" class="btn btn-gold">Complete order</a>
   </div>
 </div>

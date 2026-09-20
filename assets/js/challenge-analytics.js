@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  var ANALYTICS_VERSION = '2026-09-18.2';
+  var ANALYTICS_VERSION = '2026-09-20.1';
   var HERO_CTA_FLAG = 'hero-cta-variant';
   var POSTHOG_TOKEN = 'phc_rQffz3NncDqfmLpKUcrDvThjyT3brt4QRSxcPUT2pFsw';
   var POSTHOG_PROXY = '/tfc';
@@ -75,12 +75,17 @@
     '/': { step: 'landing_page', offer: 'challenge' },
     '/october': { step: 'landing_page', offer: 'challenge' },
     '/index': { step: 'landing_page', offer: 'challenge' },
+    '/octoberlt': { step: 'landing_page', offer: 'challenge_lt' },
+    '/indexlt': { step: 'landing_page', offer: 'challenge_lt' },
     '/regularticketoct': { step: 'checkout', offer: 'regular_ticket' },
     '/regularticket26': { step: 'checkout', offer: 'regular_ticket' },
+    '/regularticketlt': { step: 'checkout', offer: 'regular_ticket_lt' },
     '/vipticketoct': { step: 'checkout', offer: 'vip_ticket' },
     '/vipticket26': { step: 'checkout', offer: 'vip_ticket' },
+    '/vipticketlt': { step: 'checkout', offer: 'vip_ticket_lt' },
     '/vipupgradeoct': { step: 'upsell', offer: 'vip_upgrade' },
     '/upgradevip': { step: 'upsell', offer: 'vip_upgrade' },
+    '/vipupgradelt': { step: 'upsell', offer: 'vip_upgrade_lt' },
     '/prepkitoct': { step: 'upsell', offer: 'prep_kit' },
     '/prepkit': { step: 'upsell', offer: 'prep_kit' },
     '/prepkitvipoct': { step: 'upsell', offer: 'prep_kit_vip' },
@@ -366,6 +371,8 @@
   }
 
   function offerFromHref(href) {
+    if (/vipticketlt|challengeoct26viplt/i.test(href)) return 'vip_ticket_lt';
+    if (/regularticketlt|challengeoct26lt/i.test(href)) return 'regular_ticket_lt';
     if (/vipticketoct|tax-fre-income-challenge-vip/i.test(href)) return 'vip_ticket';
     if (/regularticketoct|tax-free-income-challenge-oct/i.test(href)) return 'regular_ticket';
     return routeInfo.offer;
