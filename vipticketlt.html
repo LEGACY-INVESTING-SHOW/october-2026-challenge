@@ -14,23 +14,21 @@
   <meta name="description" content="Join the 3-Day Tax-Free Income Challenge VIP ticket. Get the VIP Pre-Challenge Training, live roundtable Q&A access on all 3 days, replays, slides, notes, and materials.">
 
   <!-- Resource hints: open connections to third-party origins this page actually uses -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/instrument-sans-latin.6219bc4bfdfc.woff2" crossorigin>
+  <style>@font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/instrument-sans-latin.6219bc4bfdfc.woff2') format('woff2')}</style>
+  <link rel="stylesheet" href="/assets/css/fonts-sans.css" media="print" onload="this.onload=null;this.media='all'">
+  <noscript><link rel="stylesheet" href="/assets/css/fonts-sans.css"></noscript>
   <link rel="preconnect" href="https://images.clickfunnels.com">
   <link rel="preconnect" href="https://legacyinvestingshow.spiffy.co">
   <link rel="dns-prefetch" href="https://tracking.joinlwb.com">
   <link rel="dns-prefetch" href="https://212809.t.hyros.com">
   <link rel="dns-prefetch" href="https://js.static.spiffy.co">
 
-  <!-- Start the font CSS fetch before the tracking scripts parse (non-blocking) -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
-
   <script>
-  var head = document.head;
   var script = document.createElement('script');
-  script.type = 'text/javascript';
+  script.async = true;
   script.src = "https://212809.t.hyros.com/v1/lst/universal-script?ph=99701b257ae8a5117ba5d7b516261da603bc86a49c0c42f398c619e251026c05&tag=!clicked&ref_url=" + encodeURI(document.URL) ;
-  head.appendChild(script);
+  document.head.appendChild(script);
   </script>
 
   <!-- Spiffy Checkout -->
@@ -47,11 +45,13 @@
   spiffy.config({
       hideSidebar: true,
   })
-  if (location.protocol === "https:") spiffy.load("legacyinvestingshow");
+  // Spiffy's SDK reads document.body during initialization.
+  if (location.protocol === "https:") {
+    document.addEventListener('DOMContentLoaded', function () {
+      spiffy.load("legacyinvestingshow");
+    }, { once: true });
+  }
   </script>
-
-<!-- Fonts (already in flight from the preload above; served from the preload cache) -->
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
   <style>
     :root {
