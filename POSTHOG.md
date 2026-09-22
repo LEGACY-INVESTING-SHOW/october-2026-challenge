@@ -1,6 +1,6 @@
 # PostHog setup: October Challenge and Legacy Wealth Blueprint Webinar
 
-Guide version: `2026-09-20.1`. Updated September 20, 2026 for the separate LT funnel routes, checkout identity bridge, and server-verified LT ticket offers. Release verification is recorded below.
+Guide version: `2026-09-22.1`. Updated September 22, 2026: the hero button test ended and the ticket picker is now the only landing-page behavior. Previous update (September 20): separate LT funnel routes, checkout identity bridge, and server-verified LT ticket offers. Release verification is recorded below.
 
 This is the shared operating guide for both funnels. Read it before changing tracking, creating reports, or interpreting conversions. It records the installed setup and its limitations; it is not a guarantee that future deployments or account settings remain unchanged.
 
@@ -35,7 +35,7 @@ PostHog: **US cloud**, project **600066**, currently named **Default project**. 
 | Production host | `go.managemoney101.com` | `join.managemoney101.com` |
 | Required event property `funnel` | `october_2026_challenge` | `legacy_wealth_blueprint_webinar` |
 | Tracker | `assets/js/challenge-analytics.js` | `assets/js/webinar-analytics.js` |
-| Tracker version at verification | `2026-09-20.1` | `2026-09-16.3` |
+| Tracker version at verification | `2026-09-22.1` | `2026-09-16.3` |
 | First-party ingestion proxy | `/tfc` | `/lwb-events` |
 | Browser persistence | SDK default name, localStorage on October origin | `lwb_webinar_analytics`, localStorage on webinar origin; cross-subdomain cookies disabled |
 | Dashboard | [October 2026 Challenge Funnel](https://us.posthog.com/project/600066/dashboard/2094096) | [Legacy Wealth Blueprint Webinar](https://us.posthog.com/project/600066/dashboard/2103328) |
@@ -87,7 +87,7 @@ October custom events:
 | `checkout_viewed` | Checkout page initialized |
 | `checkout_embed_mounted`, `checkout_embed_loaded` | Spiffy iframe appeared or emitted load during the observation window |
 | `purchase_confirmation_viewed` | Confirmation page viewed; not independently verified payment. Since `2026-09-18.2` it carries `offer=challenge` and no `ticket_type`, because regular and VIP buyers share one confirmation page |
-| `hero_variant_shown` | Landing page only. Fired once per page load when the `hero-cta-variant` flag resolves; `variant` is `control` or `picker`, `experiment` is the flag key. Use it as the first funnel step when comparing variants |
+| `hero_variant_shown` | Retired September 22, 2026 with tracker `2026-09-22.1`. It was fired once per landing page load during the hero button test (September 18–22) with `variant` = `control` or `picker`. Historical events remain; no new ones are sent |
 | `scroll_milestone_reached` | 25/50/75/90/100 percent; once per threshold per page load |
 | `challenge_order_paid` | Server-verified successful payment; receiver active; two real linked orders verified, with attribution timing corrected |
 
@@ -201,16 +201,22 @@ This receiver measures the initial successful payment, including any amount in t
 
 The initial attribution release `dpl_CpeVeiFt5sMmE7EQjWNv4PPb16by` was Ready and aliased to `go.managemoney101.com`. Tracker version `2026-09-16.2` includes the anonymous identity fallback. Live PostHog QA confirmed cold visits followed by a warm return retained first=cold and last=warm; QA events had `is_test=true`. Both regular and VIP checkout hidden identity fields were confirmed populated and invisible on production. Local attribution checks cover campaign changes, expiry, storage failure, numeric UTMs, privacy, and checkout fail-open behavior.
 
-## Hero button A/B test (September 18, 2026)
+## Hero button A/B test (September 18–22, 2026): ended, picker shipped
 
-Feature flag [`hero-cta-variant`](https://us.posthog.com/project/600066/feature_flags/895912), multivariate, 100% rollout, `control` 50 / `picker` 50, client-side evaluation, bucketed by `distinct_id`.
+**Result.** The test ran from the September 18 deploy to September 22, 17:25 UTC. Real visitors only (Meta crawler cities excluded), exposed by `hero_variant_shown`:
 
-- `control`: the hero "Grab Your Ticket Now" buttons and the sticky "Get Your Seat" button keep jumping to `#pricing`.
-- `picker`: the hero button opens a two-ticket picker directly under itself (VIP $147 first, General Admission $47 second, "Not yet, keep reading" to close). The sticky button scrolls to the hero and opens the same picker. Picker links are real `/vipticketoct` and `/regularticketoct` links that use `trackTicketLeadAndGo`, so campaign parameter forwarding, the Meta Lead event, and `ticket_option_selected` work unchanged. Their `cta_location` is `hero_picker`; the hero section is `hero` and the bottom CTA section is `final_cta`.
+| Arm | Exposed | Picked a ticket | Viewed checkout | Paid buyers | Revenue per exposed visitor |
+| --- | --- | --- | --- | --- | --- |
+| `control` (jump link to `#pricing`) | 677 | 21 | 26 | 4 (0.59%) | $0.92 |
+| `picker` (ticket picker under the hero button) | 631 | 38 | 39 | 11 (1.74%) | $3.62 |
 
-Mechanics live in `assets/js/challenge-analytics.js` (`resolveHeroVariant`) and the inline hero script in `index.html`. The tracker evaluates the flag only on `landing_page` routes, after `loaded`, via `onFeatureFlags`. The page renders control until the flag resolves; the picker variant only changes click behavior, so there is no flicker. On resolution the tracker sets `window.__challengeAnalytics.heroVariant`, registers the super property `hero_cta_variant`, captures `hero_variant_shown`, and dispatches `challenge-hero-variant`. Failed, missing, and unknown flag evaluations keep the normal pricing link working without recording an experiment exposure. A later successful evaluation may assign a variant only if neither hero nor sticky CTA has already been used on that page. If a CTA was used before assignment, the page keeps fallback behavior and stays excluded from the experiment. `$feature/hero-cta-variant` and `$feature_flag_called` are also recorded by the SDK.
+Fisher's exact test on buyers per exposed visitor: two-sided p ≈ 0.07. The planned read was about 1,500 visitors per arm. The user chose to call it early for the picker on September 22. Full write-up: `performance-reports/report-2026-09-22.html`.
 
-Readout: [results table by variant](https://us.posthog.com/project/600066/insights/jt1uKvE0) and [funnel by variant](https://us.posthog.com/project/600066/insights/7WES5HGo), both on the October dashboard. The funnel is `hero_variant_shown` → `ticket_option_selected` → `checkout_viewed` → `challenge_order_paid`, broken down by `variant` (first touch), 14-day window, `funnel=october_2026_challenge`, `is_test != true`. Decide on paid orders per exposed visitor, not on clicks. Visitors whose flag evaluation failed or remained unresolved, or who used a hero/sticky CTA before assignment, are excluded from both arms because they have no exposure event. Monitor this excluded population separately; it is not randomized control traffic. To end the test, set the winning variant to 100% in the flag, then remove the losing code path; do not leave a 50/50 split running after a decision.
+**Rollout.** On September 22 at 17:25 UTC the flag [`hero-cta-variant`](https://us.posthog.com/project/600066/feature_flags/895912) was set to `picker` 100% / `control` 0% so all visitors got the picker before the code change deployed. Tracker `2026-09-22.1` no longer reads the flag. After that release is live, the flag can be disabled and archived.
+
+**Current behavior.** The picker is plain page behavior in the inline "Hero ticket picker" script in `index.html`, set up on page load with no dependency on PostHog. The hero "Grab Your Ticket Now" button opens a two-ticket picker directly under itself (VIP $147 first, General Admission $47 second, "Not yet, keep reading" to close). The sticky "Get Your Seat" button scrolls to the hero and opens the same picker. The buttons keep `href="#pricing"` as the no-JavaScript fallback. Picker links are real `/vipticketoct` and `/regularticketoct` links that use `trackTicketLeadAndGo`, so campaign parameter forwarding, the Meta Lead event, and `ticket_option_selected` work unchanged. Their `cta_location` is `hero_picker`; the hero section is `hero` and the bottom CTA section is `final_cta`. The LT landing page (`indexlt.html`) never had the picker and is unchanged.
+
+**Removed in `2026-09-22.1`.** `resolveHeroVariant`, the flag lookup, `window.__challengeAnalytics.heroVariant`, the `hero_cta_variant` super property, the `hero_variant_shown` event, the `challenge-hero-variant` browser event, and the early-click exclusion marker `__challengeHeroInteractedBeforeVariant`. The two readout insights ([table](https://us.posthog.com/project/600066/insights/jt1uKvE0), [funnel](https://us.posthog.com/project/600066/insights/7WES5HGo)) keep the test-period data but receive no new exposures. For landing-page conversion going forward, start funnels at the landing `$pageview` with `offer=challenge`.
 
 ## Webinar page inventory and behavior
 

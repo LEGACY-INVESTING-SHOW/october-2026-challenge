@@ -8,7 +8,7 @@ const vm = require('node:vm');
 
 const pageSource = fs.readFileSync(path.resolve(__dirname, '../index.html'), 'utf8');
 const pickerScriptMatch = pageSource.match(
-  /<script>\s*(\/\* Hero button A\/B test[\s\S]*?)<\/script>/
+  /<script>\s*(\/\* Hero ticket picker[\s\S]*?)<\/script>/
 );
 
 assert.ok(pickerScriptMatch, 'hero picker script is present in index.html');
@@ -82,7 +82,6 @@ function executePicker(options = {}) {
     }
   };
   const window = {
-    __challengeAnalytics: options.analytics,
     innerHeight: options.innerHeight || 800,
     pageYOffset: options.pageYOffset || 0,
     addEventListener(type, callback) { windowListeners[type] = callback; },
@@ -135,7 +134,6 @@ function normalizeScrollCalls(calls) {
 
 test('a stale close timer cannot hide a picker reopened immediately', () => {
   const result = executePicker({
-    analytics: { heroVariant: 'picker' },
     pickerRect: { top: 260, bottom: 900, height: 640 }
   });
 
@@ -159,7 +157,6 @@ test('a stale close timer cannot hide a picker reopened immediately', () => {
 
 test('hero CTA scrolls only enough to reveal the full picker after it expands', () => {
   const result = executePicker({
-    analytics: { heroVariant: 'picker' },
     pickerRect: { top: 260, bottom: 900, height: 640 },
     pageYOffset: 25
   });
@@ -174,7 +171,6 @@ test('hero CTA scrolls only enough to reveal the full picker after it expands', 
 
 test('reduced motion top-aligns a picker that is taller than the viewport', () => {
   const result = executePicker({
-    analytics: { heroVariant: 'picker' },
     pickerRect: { top: 240, bottom: 1120, height: 880 },
     reducedMotion: true
   });
@@ -186,7 +182,6 @@ test('reduced motion top-aligns a picker that is taller than the viewport', () =
 
 test('an already visible picker does not move the page', () => {
   const result = executePicker({
-    analytics: { heroVariant: 'picker' },
     pickerRect: { top: 120, bottom: 700, height: 580 }
   });
 
@@ -198,7 +193,6 @@ test('an already visible picker does not move the page', () => {
 
 test('sticky CTA moves to the hero immediately and fits the picker after expansion', () => {
   const result = executePicker({
-    analytics: { heroVariant: 'picker' },
     heroButtonRect: { top: 220, bottom: 270, height: 50 },
     pickerRect: { top: 260, bottom: 900, height: 640 }
   });
@@ -212,7 +206,6 @@ test('sticky CTA moves to the hero immediately and fits the picker after expansi
 
 test('closing before expansion finishes does not trigger a delayed scroll', () => {
   const result = executePicker({
-    analytics: { heroVariant: 'picker' },
     pickerRect: { top: 260, bottom: 900, height: 640 }
   });
 
@@ -223,29 +216,11 @@ test('closing before expansion finishes does not trigger a delayed scroll', () =
   assert.deepEqual(result.scrollCalls, []);
 });
 
-test('an early CTA click records the handshake without blocking navigation', () => {
-  const result = executePicker({ analytics: { heroVariant: null } });
-  const listener = result.documentListeners.click;
-  let prevented = false;
-  const target = {
-    closest(selector) {
-      return selector === '.js-hero-cta, .js-sticky-cta' ? result.heroButton : null;
-    }
-  };
-
-  assert.ok(listener, 'capture click listener is registered');
-  assert.equal(listener.capture, true);
-  listener.callback({ target, preventDefault() { prevented = true; } });
-
-  assert.equal(result.window.__challengeHeroInteractedBeforeVariant, true);
-  assert.equal(prevented, false);
-});
-
-test('resolved variants do not set the early-interaction handshake', () => {
-  for (const heroVariant of ['control', 'picker']) {
-    const result = executePicker({ analytics: { heroVariant } });
-    const target = { closest() { return result.heroButton; } };
-    result.documentListeners.click.callback({ target });
-    assert.equal(result.window.__challengeHeroInteractedBeforeVariant, undefined);
-  }
+test('the picker is active for every visitor without waiting for analytics', () => {
+  const result = executePicker();
+  assert.equal(result.documentListeners.click, undefined);
+  assert.equal(result.heroButton.attributes['aria-expanded'], 'false');
+  assert.equal(click(result.heroButton), true, 'hero CTA opens the picker instead of jumping');
+  assert.equal(result.picker.classList.contains('is-open'), true);
+  assert.equal(click(result.stickyButton), true, 'sticky CTA opens the same picker');
 });

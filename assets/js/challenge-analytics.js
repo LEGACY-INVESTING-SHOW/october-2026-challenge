@@ -2,8 +2,7 @@
 (function () {
   'use strict';
 
-  var ANALYTICS_VERSION = '2026-09-20.1';
-  var HERO_CTA_FLAG = 'hero-cta-variant';
+  var ANALYTICS_VERSION = '2026-09-22.1';
   var POSTHOG_TOKEN = 'phc_rQffz3NncDqfmLpKUcrDvThjyT3brt4QRSxcPUT2pFsw';
   var POSTHOG_PROXY = '/tfc';
   var PRODUCTION_HOST = 'go.managemoney101.com';
@@ -120,21 +119,8 @@
     route: route,
     step: routeInfo.step,
     offer: routeInfo.offer,
-    isTest: testMode,
-    heroVariant: null
+    isTest: testMode
   };
-
-  // A CTA used before assignment has already delivered fallback behavior. Keep that
-  // page load out of the experiment, even if the remote flag resolves afterward.
-  if (routeInfo.step === 'landing_page') {
-    document.addEventListener('click', function (event) {
-      if (window.__challengeAnalytics.heroVariant) return;
-      var target = event.target;
-      if (target && typeof target.closest === 'function' && target.closest('.js-hero-cta, .js-sticky-cta')) {
-        window.__challengeHeroInteractedBeforeVariant = true;
-      }
-    }, { capture: true });
-  }
 
   if (localTestMode && typeof window.__CHALLENGE_POSTHOG_TOKEN__ === 'string') {
     POSTHOG_TOKEN = window.__CHALLENGE_POSTHOG_TOKEN__;
@@ -472,25 +458,6 @@
     measure();
   }
 
-  // Hero button A/B test. The flag is evaluated once per page load on the landing page only.
-  // The page keeps today's behavior (control) until the flag resolves; the picker variant only
-  // changes what the hero button does on click, so there is no visible flicker while waiting.
-  function resolveHeroVariant(ph) {
-    if (routeInfo.step !== 'landing_page') return;
-    if (typeof ph.onFeatureFlags !== 'function' || typeof ph.getFeatureFlag !== 'function') return;
-    ph.onFeatureFlags(function (flags, variants, context) {
-      if (window.__challengeAnalytics.heroVariant || window.__challengeHeroInteractedBeforeVariant) return;
-      if (context && context.errorsLoading) return;
-      var variant = ph.getFeatureFlag(HERO_CTA_FLAG);
-      // Default navigation remains usable, but a fallback is not a randomized exposure.
-      if (variant !== 'control' && variant !== 'picker') return;
-      window.__challengeAnalytics.heroVariant = variant;
-      ph.register({ hero_cta_variant: variant });
-      ph.capture('hero_variant_shown', pageProperties({ experiment: HERO_CTA_FLAG, variant: variant }));
-      window.dispatchEvent(new CustomEvent('challenge-hero-variant', { detail: { variant: variant } }));
-    });
-  }
-
   window.posthog.init(POSTHOG_TOKEN, {
     api_host: POSTHOG_PROXY,
     ui_host: 'https://us.posthog.com',
@@ -531,8 +498,6 @@
       if (routeInfo.step === 'purchase_confirmation') {
         ph.capture('purchase_confirmation_viewed', pageProperties());
       }
-
-      resolveHeroVariant(ph);
 
       window.__challengeAnalytics.loaded = true;
       window.__challengeAnalytics.enabled = true;
