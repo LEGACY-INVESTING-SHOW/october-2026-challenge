@@ -207,7 +207,7 @@
       .only-mobile { display: none; }
     }
     .hero .date { font-size: .85rem; color: var(--ink-faint); margin-top: .8rem; }
-    /* ---------- Hero ticket picker (A/B test variant "picker", flag hero-cta-variant) ---------- */
+    /* ---------- Hero ticket picker ---------- */
     .hero-picker { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .42s cubic-bezier(.16,1,.3,1); text-align: left; }
     .hero-picker[hidden] { display: none; }
     .hero-picker.is-open { grid-template-rows: 1fr; margin-top: 1rem; }
@@ -2089,18 +2089,9 @@
 
 
 <script>
-/* Hero button A/B test. Variant comes from PostHog flag "hero-cta-variant" via challenge-analytics.js.
-   control: the hero button keeps jumping to #pricing (today's behavior).
-   picker:  the hero button opens the two-ticket picker under itself; the sticky button opens the same picker. */
+/* Hero ticket picker. The hero button opens the two-ticket picker under itself; the sticky button opens the same picker.
+   Won the Sep 18-22 A/B test against the #pricing jump link, which stays in the href as the no-JS fallback. */
 (function () {
-  document.addEventListener('click', function (event) {
-    var target = event.target;
-    if (!target || typeof target.closest !== 'function' || !target.closest('.js-hero-cta, .js-sticky-cta')) return;
-    var variant = window.__challengeAnalytics && window.__challengeAnalytics.heroVariant;
-    if (variant !== 'control' && variant !== 'picker') window.__challengeHeroInteractedBeforeVariant = true;
-  }, true);
-
-  var applied = false;
   var closeTimers = new WeakMap();
   var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function clearCloseTimer(picker) {
@@ -2174,8 +2165,6 @@
     }
   }
   function applyPicker() {
-    if (applied) return;
-    applied = true;
     document.querySelectorAll('.hero-picker').forEach(function (picker) {
       picker.addEventListener('transitionend', onPickerTransition);
       picker.addEventListener('transitioncancel', onPickerTransition);
@@ -2200,9 +2189,7 @@
       close.addEventListener('click', function () { closePicker(close.closest('.hero-picker')); });
     });
   }
-  function onVariant(variant) { if (variant === 'picker') applyPicker(); }
-  window.addEventListener('challenge-hero-variant', function (event) { onVariant(event.detail && event.detail.variant); });
-  if (window.__challengeAnalytics && window.__challengeAnalytics.heroVariant) onVariant(window.__challengeAnalytics.heroVariant);
+  applyPicker();
 })();
 </script>
 
