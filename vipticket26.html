@@ -299,6 +299,17 @@
         (function () {
           // Preserve existing prefill and attribution when loading checkout.
           var mount = document.currentScript.previousElementSibling;
+          function getCookieValue(name) {
+            var prefix = name + '=';
+            var cookies = (document.cookie || '').split(';');
+            for (var i = 0; i < cookies.length; i += 1) {
+              var cookie = cookies[i].trim();
+              if (cookie.indexOf(prefix) === 0) {
+                try { return decodeURIComponent(cookie.slice(prefix.length)); } catch (e) { return cookie.slice(prefix.length); }
+              }
+            }
+            return '';
+          }
           function mountCheckout() {
           var q = new URLSearchParams(location.search);
           var saved = {};
@@ -309,7 +320,8 @@
             email:      q.get('email')      || saved.email,
             phone:      q.get('phone')      || saved.phone,
             phone_number: q.get('phone_number') || q.get('phone') || saved.phone,
-            fbclid:     q.get('fbclid')     || saved.fbclid
+            fbclid:     q.get('fbclid')     || saved.fbclid,
+            fbc:        getCookieValue('_fbc')
           };
           // Keep campaign attribution even after an untagged internal navigation.
           // Analytics must never be required for the payment form to load.

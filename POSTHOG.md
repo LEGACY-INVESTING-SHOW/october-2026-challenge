@@ -1,6 +1,6 @@
 # PostHog setup: October Challenge and Legacy Wealth Blueprint Webinar
 
-Guide version: `2026-09-22.1`. Updated September 22, 2026: the hero button test ended and the ticket picker is now the only landing-page behavior. Previous update (September 20): separate LT funnel routes, checkout identity bridge, and server-verified LT ticket offers. Release verification is recorded below.
+Guide version: `2026-09-26.1`. Updated September 26, 2026: all four initial ticket checkouts now receive Meta's browser-generated `_fbc` value in an optional hidden Spiffy customer field. Previous update (September 22): the hero button test ended and the ticket picker is now the only landing-page behavior. Release verification is recorded below.
 
 This is the shared operating guide for both funnels. Read it before changing tracking, creating reports, or interpreting conversions. It records the installed setup and its limitations; it is not a guarantee that future deployments or account settings remain unchanged.
 
@@ -8,6 +8,7 @@ This is the shared operating guide for both funnels. Read it before changing tra
 
 - **Live:** cold/warm/unknown campaign attribution, first/current/last touch tracking, page and checkout events, scroll milestones, separate audience reports, campaign-filtered heatmaps, and recording lists. The existing pages are shared by both audiences.
 - **Live:** optional hidden `ph_distinct_id` order fields and the existing hidden `fbclid` / Reference ID customer fields on regular and VIP checkouts. Campaign forwarding and the checkout's bounded analytics wait are preserved.
+- **Live:** the initial regular and VIP checkouts, including their LT variants, forward the browser's existing Meta `_fbc` cookie to a separate hidden, optional Spiffy customer field. The raw `fbclid` customer field remains available for attribution reporting.
 - **Live:** the LT cold-traffic routes use separate page and offer labels, the $17 regular/$67 VIP/$50 VIP-upgrade pricing, the same privacy-preserving checkout identity bridge, and hidden Spiffy metadata fields.
 - **Released:** PR #7 performance changes are merged and live, with the newer tracker and checkout behavior retained. See the production release evidence at the end of this guide.
 - **Active:** the production purchase receiver has its dedicated Spiffy API key and endpoint 210 is active for `order:success`. Signed delivery and a read-only canonical payment lookup passed. Two real paid orders have now been verified end to end with saved anonymous IDs, saved customer FBCLIDs, matching browser journeys, and warm attribution. See the September 17 audit below. Browser checkout/confirmation events must not be reported as paid conversions.
@@ -178,6 +179,14 @@ These heatmaps cover URL-tagged visits. Untagged returns whose audience exists o
 On September 16, the existing `fbclid` / Reference ID field was hidden on both Spiffy checkouts at the user's request. Only scoped CSS was added: regular `.checkout #block-364953 { display: none !important; }`, VIP `.checkout #block-364954 { display: none !important; }`. The existing text CUSTOMER field and its `fbclid` mapping remain intact. Inputs `inputText-364953` and `inputText-364954` remain enabled and optional. Live hosted checkout verification confirmed exact synthetic `fbclid` prefill values, invisible wrappers, the PostHog fields still hidden, and unchanged $47/$147 totals. No form was submitted. This was published in Spiffy; no site code or checkout loading change was made for this visibility update.
 
 The LT checkouts retain the same enabled, optional fields and mappings: regular checkout 40584 has Reference ID wrapper `#block-367795` and PostHog Distinct ID wrapper `#block-367796`; VIP checkout 40585 has wrappers `#block-367806` and `#block-367807`. On September 20, scoped CSS was published: `.checkout #block-367795, .checkout #block-367796 { display: none !important; }` on regular LT and `.checkout #block-367806, .checkout #block-367807 { display: none !important; }` on VIP LT. Synthetic `fbclid` and `ph_distinct_id` URL values were confirmed both populated and hidden on the live checkouts. Do not disable or remove the inputs.
+
+### Hidden Meta FBC field
+
+On September 26, each initial checkout received an optional Spiffy CUSTOMER field with URL key `fbc`. The four ticket-page embeds read the browser's existing `_fbc` cookie and pass its exact value as `fbc` alongside the existing raw `fbclid`, UTMs, and `ph_distinct_id`. They never synthesize an FBC value from `fbclid`; direct, blocked, or non-Meta visits therefore leave `fbc` empty, which is expected.
+
+The `fbc` inputs remain enabled so Spiffy persists them for the purchase webhook, but scoped checkout CSS hides only their own wrappers: original regular checkout 40200 uses `#block-368893`, original VIP checkout 40203 uses `#block-368894`, LT regular checkout 40584 uses `#block-368895`, and LT VIP checkout 40585 uses `#block-368897`. Hosted-checkout verification used a synthetic FBC URL value and confirmed the field populated before its wrapper was hidden. No purchase was submitted. Do not replace the existing `fbclid` field or hide fields with broad selectors.
+
+FBC is customer attribution data, not PostHog data: do not add it to browser events, session replay, server purchase events, or these notes. The external purchase automation may map Spiffy's persisted `Fbc` value directly to Meta Conversions API's `fbc` field; it must convert minor-unit order totals to major currency units independently.
 
 ### Checkout identity bridge and payment receiver
 
